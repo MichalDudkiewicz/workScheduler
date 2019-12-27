@@ -4,7 +4,7 @@
 
 EmployeeSchedule::EmployeeSchedule()
 {
-    for(unsigned int i=0; i<getNumberOfDays(); ++i)
+    for(unsigned int i=0; i<getNumberOfDays()+1; ++i)
     {
         shiftsInSchedule.emplace_back();
     }

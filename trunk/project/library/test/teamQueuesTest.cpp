@@ -5,7 +5,6 @@
 #include "medic.h"
 #include "teamQueues.h"
 #include <memory>
-#include <iostream>
 
 BOOST_AUTO_TEST_SUITE(TestSuiteCorrect)
 
@@ -23,6 +22,10 @@ BOOST_AUTO_TEST_SUITE(TestSuiteCorrect)
         std::unique_ptr<Shift> shift8(new Shift(0,10,20));
         std::unique_ptr<Shift> shift9(new Shift(10,24,12));
         std::unique_ptr<Shift> shift10(new Shift(0,24,12));
+        std::unique_ptr<Shift> shift11(new Shift(0,8,32));
+        std::unique_ptr<Shift> shift12(new Shift(0,7,32));
+        std::unique_ptr<Shift> shift13(new Shift(20,24,31));
+        std::unique_ptr<Shift> shift14(new Shift(21,24,31));
         std::shared_ptr<Position> doctor=std::make_shared<Doctor>();
         std::shared_ptr<Position> medic=std::make_shared<Medic>();
         (*palinka).addDesiredShift(shift1);
@@ -30,11 +33,15 @@ BOOST_AUTO_TEST_SUITE(TestSuiteCorrect)
         (*palinka).addDesiredShift(shift3);
         (*palinka).addDesiredShift(shift4);
         (*palinka).addDesiredShift(shift5);
+        (*palinka).addDesiredShift(shift11);
+        (*palinka).addDesiredShift(shift13);
         (*mateusz).addDesiredShift(shift6);
         (*mateusz).addDesiredShift(shift7);
         (*mateusz).addDesiredShift(shift8);
         (*mateusz).addDesiredShift(shift9);
         (*mateusz).addDesiredShift(shift10);
+        (*mateusz).addDesiredShift(shift12);
+        (*mateusz).addDesiredShift(shift14);
         (*mateusz).addPosition(doctor);
         (*mateusz).addPosition(medic);
         (*palinka).addPosition(medic);
@@ -45,10 +52,9 @@ BOOST_AUTO_TEST_SUITE(TestSuiteCorrect)
         std::unique_ptr<Shift> tuesday(new Shift(22,6,2));
         std::unique_ptr<Shift> wednesday(new Shift(3));
         std::unique_ptr<Shift> thursday(new Shift(0, 7,4));
-        std::unique_ptr<Shift> friday(new Shift(4,9,5));
-        std::unique_ptr<Shift> saturday(new Shift(8, 16,6));
+        std::unique_ptr<Shift> friday(new Shift(21,5,5));
+        std::unique_ptr<Shift> saturday(new Shift(3,10,6));
         std::unique_ptr<Shift> sunday(new Shift(20,23,7));
-
 
         std::shared_ptr<Team> team = std::make_shared<Team>("S1");
         (*team).addShift(monday);
@@ -64,24 +70,40 @@ BOOST_AUTO_TEST_SUITE(TestSuiteCorrect)
         employees.push_back(mateusz);
         employees.push_back(palinka);
         TeamQueues queue(team,employees);
-        unsigned int day=1;
-        unsigned int p;
-        for(const auto &dayQueue : queue.getTeamQueues())
-        {
-            std::cout<<"Day "<<day<<" shifts queue: "<<std::endl;
-            p=0;
-            for(const auto &positionQueue : dayQueue)
-            {
-                std::cout<<queue.getTeam()->getPositions()[p]->positionInfo()<<": ";
-                p+=1;
-                for(const auto &shift : positionQueue)
-                {
-                    std::cout << shift->getId() << ", ";
-                }
-                std::cout<<std::endl;
-            }
-            day+=1;
-        }
+        BOOST_REQUIRE_EQUAL(queue.getTeam()->getName(), "S1");
+        BOOST_REQUIRE_EQUAL(queue.getAuthorisedEmployees()[0]->getId(), 2);
+        BOOST_REQUIRE_EQUAL(queue.getAuthorisedEmployees()[1]->getId(), 1);
+//        unsigned int day=1;
+//        unsigned int p;
+//        for(const auto &dayQueue : queue.getTeamQueues())
+//        {
+//            std::cout<<"Day "<<day<<" shifts queue: "<<std::endl;
+//            p=0;
+//            for(const auto &positionQueue : dayQueue)
+//            {
+//                std::cout<<queue.getTeam()->getPositions()[p]->positionInfo()<<": ";
+//                p+=1;
+//                for(const auto &shift : positionQueue)
+//                {
+//                    std::cout << shift->getId() << ", ";
+//                }
+//                std::cout<<std::endl;
+//            }
+//            day+=1;
+//        }
+        BOOST_REQUIRE_EQUAL(queue.getTeamQueues()[0][0].empty(), true);
+        BOOST_REQUIRE_EQUAL(queue.getTeamQueues()[0][1].empty(), true);
+        BOOST_REQUIRE_EQUAL(queue.getTeamQueues()[1][0].empty(), true);
+        BOOST_REQUIRE_EQUAL(queue.getTeamQueues()[1][1][0]->getId(), 1);
+        BOOST_REQUIRE_EQUAL(queue.getTeamQueues()[6][0][0]->getId(), 2);
+        BOOST_REQUIRE_EQUAL(queue.getTeamQueues()[6][1][0]->getId(), 2);
+        BOOST_REQUIRE_EQUAL(queue.getTeamQueues()[6][1][1]->getId(), 1);
+        BOOST_REQUIRE_EQUAL(queue.getTeamQueues()[11][0][0]->getId(), 2);
+        BOOST_REQUIRE_EQUAL(queue.getTeamQueues()[11][1][0]->getId(), 2);
+        BOOST_REQUIRE_EQUAL(queue.getTeamQueues()[19][0].size(), 1);
+        BOOST_REQUIRE_EQUAL(queue.getTeamQueues()[19][1].size(), 2);
+        BOOST_REQUIRE_EQUAL(queue.getTeamQueues()[30][0].size(), 1);
+        BOOST_REQUIRE_EQUAL(queue.getTeamQueues()[30][1].size(), 2);
     }
 
 BOOST_AUTO_TEST_SUITE_END()

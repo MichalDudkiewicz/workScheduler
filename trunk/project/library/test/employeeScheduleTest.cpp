@@ -7,7 +7,7 @@ BOOST_AUTO_TEST_SUITE(TestSuiteCorrect)
     BOOST_AUTO_TEST_CASE(EmployeeScheduleCase)
     {
         EmployeeSchedule schedule;
-        BOOST_CHECK_EQUAL(schedule.getSchedule().size(),schedule.getNumberOfDays());
+        BOOST_CHECK_EQUAL(schedule.getSchedule().size(),schedule.getNumberOfDays()+1);
         std::unique_ptr<Shift> shift1(new Shift(5,10,3));
         std::unique_ptr<Shift> shift2(new Shift(15,20,3));
         std::unique_ptr<Shift> shift3(new Shift(5,10,15));

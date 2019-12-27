@@ -25,8 +25,8 @@ BOOST_AUTO_TEST_SUITE(TestSuiteCorrect)
         BOOST_CHECK_EQUAL(palinka.getMyFriends().size(),0);
         boost::gregorian::date d(boost::gregorian::day_clock::local_day());
         d += boost::gregorian::months(1);
-        BOOST_CHECK_EQUAL(palinka.getDesiredSchedule().size(),boost::gregorian::gregorian_calendar::end_of_month_day(d.year(),d.month()));
-        BOOST_CHECK_EQUAL(palinka.getCurrentSchedule().size(),boost::gregorian::gregorian_calendar::end_of_month_day(d.year(),d.month()));
+        BOOST_CHECK_EQUAL(palinka.getDesiredSchedule().size(),boost::gregorian::gregorian_calendar::end_of_month_day(d.year(),d.month())+1);
+        BOOST_CHECK_EQUAL(palinka.getCurrentSchedule().size(),boost::gregorian::gregorian_calendar::end_of_month_day(d.year(),d.month())+1);
         BOOST_CHECK_EQUAL(palinka.getPositions().size(),0);
     }
 
