@@ -53,7 +53,7 @@ BOOST_AUTO_TEST_SUITE(TestSuiteCorrect)
         std::unique_ptr<Shift> wednesday(new Shift(3));
         std::unique_ptr<Shift> thursday(new Shift(0, 7,4));
         std::unique_ptr<Shift> friday(new Shift(21,5,5));
-        std::unique_ptr<Shift> saturday(new Shift(3,10,6));
+        std::unique_ptr<Shift> saturday(new Shift(21,4,6));
         std::unique_ptr<Shift> sunday(new Shift(20,23,7));
 
         std::shared_ptr<Team> team = std::make_shared<Team>("S1");

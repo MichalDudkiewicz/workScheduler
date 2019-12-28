@@ -5,7 +5,7 @@
 
 TeamQueues::TeamQueues(const teamPtr &t, employees e) : team(t), authorisedEmployees(std::move(e))
 {
-    for(unsigned int i=0; i<getNumberOfDays(); ++i)
+    for(unsigned int i=0; i<getNumberOfDays()+1; ++i)
     {
         teamQueues.emplace_back();
         for(unsigned long j=0; j<team->getPositions().size(); ++j)
