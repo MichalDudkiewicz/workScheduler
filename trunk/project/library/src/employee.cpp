@@ -102,9 +102,9 @@ unsigned int Employee::getId() const
     return id;
 }
 
-std::string Employee::getType() const
+const employeeTypePtr& Employee::getType() const
 {
-    return employeeType->getType();
+    return employeeType;
 }
 
 const positions& Employee::getPositions() const
@@ -318,4 +318,9 @@ bool Employee::isAuthorised(const positionPtr &position) const
         }
     }
     return false;
+}
+
+bool compareID::operator()(const employeePtr &e1, const employeePtr &e2) const
+{
+    return e1->getId()<e2->getId();
 }

@@ -47,7 +47,7 @@ public:
     void setHourlyWage(unsigned int);
     const std::string& getName() const;
     unsigned int getId() const;
-    std::string getType() const;
+    const employeeTypePtr& getType() const;
     const positions& getPositions() const;
     bool isAvailable(const shiftPtr& shift) const;
     const schedule& getDesiredSchedule() const;
@@ -74,6 +74,9 @@ public:
     bool isAuthorised(const positionPtr&) const;
 };
 
-
+struct compareID
+{
+    bool operator()(const employeePtr&, const employeePtr&) const;
+};
 
 #endif
