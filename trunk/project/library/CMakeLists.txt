@@ -43,6 +43,8 @@ set(SOURCE_FILES
         src/normalEmployee.cpp
         src/employeeRepository.cpp
         include/employeeRepository.h
+        src/teamRepository.cpp
+        include/teamRepository.h
         )
 #utwórz bibliotekę typu STATIC, SHARED albo MODULE ze wskazanych źródeł
 add_library(Library ${SOURCE_FILES})
@@ -67,6 +69,7 @@ set(SOURCE_TEST_FILES
         test/employeeTest.cpp
         test/teamQueuesTest.cpp
         test/employeeRepositoryTest.cpp
+        test/teamRepositoryTest.cpp
         )
 
 add_executable (TestLibr ${SOURCE_TEST_FILES})
