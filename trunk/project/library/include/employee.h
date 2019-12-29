@@ -34,6 +34,7 @@ private:
     EmployeeSchedule currentSchedule;
 public:
     Employee(std::string, unsigned int);
+    std::string employeeInfo() const;
     unsigned int getWorkHours() const;
     unsigned int getShiftsQuantity() const;
     unsigned int getMaxShifts() const;

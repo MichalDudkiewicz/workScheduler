@@ -44,10 +44,13 @@ BOOST_AUTO_TEST_SUITE(TestSuiteCorrect)
         BOOST_CHECK_EQUAL(repository.getByTeam(team)[1].size(),0);
         BOOST_CHECK_EQUAL(repository.getByType(1).size(),4);
         BOOST_CHECK_EQUAL(repository.getByType(2).size(),0);
-        BOOST_CHECK_EQUAL(repository.getStatisticsByID(5),"Janusz: \n"
+        BOOST_CHECK_EQUAL(repository.getStatisticsByID(5),"ID: 5\n"
+                                                          "name: Janusz\n"
+                                                          "type: normal\n"
                                                           "points: 0\n"
                                                           "hours worked: 0\n"
-                                                          "wage/hour: 0\n");
+                                                          "wage/hour: 0\n"
+                                                          "\n");
         (*mateush).setMinShifts(1);
         (*janusz).setMinShifts(20);
         BOOST_CHECK_EQUAL(repository.getAllUnsatisfied()[0]->getName(),"Mateusz");

@@ -94,10 +94,7 @@ employees EmployeeRepository::getByType(unsigned int typeID) const
 std::string EmployeeRepository::getStatisticsByID(unsigned int id) const
 {
     std::ostringstream out;
-    out << getEmployeeByID(id)->getName()<<": "<<std::endl;
-    out<<"points: "<<getEmployeeByID(id)->getPoints()<<std::endl;
-    out<<"hours worked: "<<getEmployeeByID(id)->getWorkHours()<<std::endl;
-    out<<"wage/hour: "<<getEmployeeByID(id)->getHourlyWage()<<std::endl;
+    out << getEmployeeByID(id)->employeeInfo()<<std::endl;
     return out.str();
 }
 

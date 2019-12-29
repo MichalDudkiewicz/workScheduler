@@ -6,6 +6,7 @@
 #include "needyEmployee.h"
 #include <algorithm>
 #include <position.h>
+#include <sstream>
 
 static employeeTypePtr normalEmployee = std::make_shared<NormalEmployee>();
 static employeeTypePtr jumperEmployee = std::make_shared<JumperEmployee>();
@@ -13,6 +14,18 @@ static employeeTypePtr needyEmployee = std::make_shared<NeedyEmployee>();
 
 Employee::Employee(std::string name, unsigned int i) : name(std::move(name)), nonresident(false), points(0), id(i), maxShifts(0), minShifts(0), hourlyWage(0), employeeType(normalEmployee), desiredSchedule(), currentSchedule()
 {}
+
+std::string Employee::employeeInfo() const
+{
+    std::ostringstream out;
+    out<<"ID: "<<id<<std::endl;
+    out<<"name: "<<name<<std::endl;
+    out<<"type: "<<employeeType->getType()<<std::endl;
+    out<<"points: "<<points<<std::endl;
+    out<<"hours worked: "<<getWorkHours()<<std::endl;
+    out<<"wage/hour: "<<hourlyWage<<std::endl;
+    return out.str();
+}
 
 unsigned int Employee::getWorkHours() const
 {
