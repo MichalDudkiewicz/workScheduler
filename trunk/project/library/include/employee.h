@@ -80,4 +80,9 @@ struct compareID
     bool operator()(const employeePtr&, const employeePtr&) const;
 };
 
+struct sortPointsTypeWorkHours
+{
+    bool operator()(const employeePtr&, const employeePtr&) const;
+};
+
 #endif
