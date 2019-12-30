@@ -6,20 +6,14 @@
 #include "boost/date_time/gregorian/gregorian.hpp"
 
 
-class Schedule
+namespace Schedule
 {
-private:
-    boost::gregorian::date currentDate;
-    std::vector<std::string> weekDay{7};
-public:
-    Schedule();
-    virtual ~Schedule() = default;
-    const boost::gregorian::date& getCurrentDate() const;
-    boost::gregorian::date getStartDate() const;
-    const std::string& getWeekDay(unsigned int) const;
-    unsigned int getWeekDayIterator(const boost::gregorian::date&) const;
-    unsigned int getNumberOfDays() const;
-//    virtual std::string scheduleDate() const;
-};
+    boost::gregorian::date getCurrentDate();
+    boost::gregorian::date getStartDate();
+    const std::string& getWeekDay(unsigned int);
+    unsigned int getWeekDayIterator(const boost::gregorian::date&);
+    unsigned int getNumberOfDays();
+//    virtual std::string scheduleDate();
+}
 
 #endif

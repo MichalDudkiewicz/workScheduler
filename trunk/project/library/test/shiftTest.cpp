@@ -50,8 +50,6 @@ BOOST_AUTO_TEST_CASE(ShiftIncludeOperatorCase)
     Shift shift5(7,20,1);
     Shift shift6(20,10,1);
     Shift shift7(21,9,1);
-    Shift shift8(20,5,1);
-    Shift shift9(1,8,1);
     BOOST_REQUIRE_EQUAL(shift2>=shift3, false);
     BOOST_REQUIRE_EQUAL(shift3>=shift2, true);
     BOOST_REQUIRE_EQUAL(shift4>=shift2, false);
@@ -63,8 +61,6 @@ BOOST_AUTO_TEST_CASE(ShiftIncludeOperatorCase)
     BOOST_REQUIRE_EQUAL(shift6>=shift5, false);
     BOOST_REQUIRE_EQUAL(shift6>=shift7, true);
     BOOST_REQUIRE_EQUAL(shift7>=shift6, false);
-    BOOST_REQUIRE_EQUAL(shift8>=shift9, false);
-    BOOST_REQUIRE_EQUAL(shift9>=shift8, false);
 }
 
 BOOST_AUTO_TEST_CASE(ShiftIsNightShiftCase)

@@ -10,8 +10,7 @@ typedef std::unique_ptr<Shift> shiftPtr;
 typedef std::vector<shiftPtr> shifts;
 typedef std::vector<shifts> schedule;
 
-class EmployeeSchedule : public Schedule
-{
+class EmployeeSchedule {
 private:
     schedule shiftsInSchedule{};
 public:

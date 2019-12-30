@@ -4,7 +4,7 @@
 
 EmployeeSchedule::EmployeeSchedule()
 {
-    for(unsigned int i=0; i<getNumberOfDays()+1; ++i)
+    for(unsigned int i=0; i<Schedule::getNumberOfDays()+1; ++i)
     {
         shiftsInSchedule.emplace_back();
     }
@@ -13,31 +13,6 @@ EmployeeSchedule::EmployeeSchedule()
 void EmployeeSchedule::addShift(shiftPtr &shift)
 {
     unsigned int it = shift->getDay()-1;
-    unsigned int i = 0;
-    for(auto &s : shiftsInSchedule[it])
-    {
-        if((*shift)==(*s))
-        {
-            if((*s)>=(*shift))
-            {
-                shift.reset();
-                return;
-            }
-            else if((*shift)>=(*s)){}
-            else if((*s).getStartHour()>(*shift).getStartHour())
-            {
-                (*shift).setEndHour((*s).getEndHour());
-            }
-            else
-            {
-                (*shift).setStartHour((*s).getStartHour());
-            }
-            shiftsInSchedule[it].erase(shiftsInSchedule[it].begin()+i);
-            addShift(shift);
-            return;
-        }
-        i+=1;
-    }
     shiftsInSchedule[it].push_back(std::move(shift));
     std::sort(shiftsInSchedule[it].begin(),shiftsInSchedule[it].end(),compareShiftStartHour());
 }

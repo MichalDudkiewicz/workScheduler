@@ -34,7 +34,6 @@ private:
     EmployeeSchedule currentSchedule;
 public:
     Employee(std::string, unsigned int);
-    std::string employeeInfo() const;
     unsigned int getWorkHours() const;
     unsigned int getShiftsQuantity() const;
     unsigned int getMaxShifts() const;
@@ -48,7 +47,7 @@ public:
     void setHourlyWage(unsigned int);
     const std::string& getName() const;
     unsigned int getId() const;
-    const employeeTypePtr& getType() const;
+    std::string getType() const;
     const positions& getPositions() const;
     bool isAvailable(const shiftPtr& shift) const;
     const schedule& getDesiredSchedule() const;
@@ -75,9 +74,6 @@ public:
     bool isAuthorised(const positionPtr&) const;
 };
 
-struct compareID
-{
-    bool operator()(const employeePtr&, const employeePtr&) const;
-};
+
 
 #endif
