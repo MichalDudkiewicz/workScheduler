@@ -100,7 +100,7 @@ BOOST_AUTO_TEST_SUITE(TestSuiteCorrect)
 //        BOOST_REQUIRE_EQUAL(queue.getTeamQueues()[6][1][1]->getId(), 1);
 //        BOOST_REQUIRE_EQUAL(queue.getTeamQueues()[11][0][0]->getId(), 2);
 //        BOOST_REQUIRE_EQUAL(queue.getTeamQueues()[11][1][0]->getId(), 2);
-        BOOST_REQUIRE_EQUAL(queue.getTeamQueues()[19][0].size(), 1);
+//        BOOST_REQUIRE_EQUAL(queue.getTeamQueues()[19][0].size(), 1);
 //        BOOST_REQUIRE_EQUAL(queue.getTeamQueues()[19][1].size(), 2);
 //        BOOST_REQUIRE_EQUAL(queue.getTeamQueues()[30][0].size(), 1);
 //        BOOST_REQUIRE_EQUAL(queue.getTeamQueues()[30][1].size(), 2);

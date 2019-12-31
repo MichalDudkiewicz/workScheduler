@@ -32,14 +32,16 @@ boost::gregorian::date Schedule::getCurrentDate(){
     }
 
     unsigned int Schedule::getWeekDayIterator(const boost::gregorian::date &d){
-        std::ostringstream startWeekDay;
-        startWeekDay << "No";
-        startWeekDay << d.day_of_week();
-        unsigned int weekDayIterator = 0;
-        while (startWeekDay.str() == Schedule::getWeekDay(weekDayIterator)) {
-            ++weekDayIterator;
-        }
-        return weekDayIterator;
+//        std::ostringstream startWeekDay;
+//        startWeekDay << "No";
+//        startWeekDay << d.day_of_week();
+//        unsigned int weekDayIterator = 0;
+//        while (startWeekDay.str() == Schedule::getWeekDay(weekDayIterator)) {
+//            ++weekDayIterator;
+//        }
+//        return weekDayIterator;
+int day = d.day_of_week();
+return day;
     }
 
 //std::string Schedule::scheduleDate()
