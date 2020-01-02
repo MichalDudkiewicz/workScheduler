@@ -315,4 +315,31 @@ bool Employee::isAuthorised(const positionPtr &position) const
         }
     }
     return false;
+
+}
+
+bool compareID::operator()(const employeePtr &e1, const employeePtr &e2) const
+{
+    return e1->getId()<e2->getId();
+}
+
+bool sortPointsTypeWorkHours::operator()(const employeePtr &e1, const employeePtr &e2) const
+{
+    if(e1->getPoints()>e2->getPoints())
+    {
+        return true;
+    }
+    else if(e1->getPoints()==e2->getPoints())
+    {
+        if(e1->getPriority()>e2->getPriority())
+            return true;
+        else if(e1->getPriority()==e2->getPriority())
+        {
+            return e1->getWorkHours() < e2->getWorkHours();
+        } else
+        {
+            return false;
+        }
+    }
+    return false;
 }

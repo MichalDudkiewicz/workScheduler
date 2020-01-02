@@ -41,6 +41,12 @@ set(SOURCE_FILES
         src/jumperEmployee.cpp
         src/needyEmployee.cpp
         src/normalEmployee.cpp
+        src/employeeRepository.cpp
+        include/employeeRepository.h
+        src/teamRepository.cpp
+        include/teamRepository.h
+        src/finalSchedule.cpp
+        include/finalSchedule.h
         )
 #utwórz bibliotekę typu STATIC, SHARED albo MODULE ze wskazanych źródeł
 add_library(Library ${SOURCE_FILES})

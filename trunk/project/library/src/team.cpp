@@ -3,6 +3,7 @@
 #include "position.h"
 #include "shift.h"
 #include <algorithm>
+#include "schedule.h"
 
 Team::Team(std::string teamName) : name(std::move(teamName))
 {
@@ -100,3 +101,8 @@ void Team::setName(std::string n)
 {
     name = std::move(n);
 }
+
+//const std::vector<shiftPtr>& Team::getShiftOnDay(unsigned int day) const
+//{
+////    unsigned int it = getWeekDayIterator()
+//}

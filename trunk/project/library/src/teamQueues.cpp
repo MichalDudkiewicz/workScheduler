@@ -2,6 +2,7 @@
 #include "employee.h"
 #include "team.h"
 #include "position.h"
+#include <algorithm>
 
 TeamQueues::TeamQueues(const teamPtr &t, employees e) : team(t), authorisedEmployees(std::move(e))
 {
@@ -56,4 +57,9 @@ const employees& TeamQueues::getAuthorisedEmployees() const
 const teamPtr& TeamQueues::getTeam() const
 {
     return team;
+}
+
+void TeamQueues::queueSort(unsigned int d, unsigned int i)
+{
+    std::sort(teamQueues[d][i].begin(),teamQueues[d][i].end(),sortPointsTypeWorkHours());
 }

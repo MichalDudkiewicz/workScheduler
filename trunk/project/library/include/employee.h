@@ -76,4 +76,9 @@ public:
 
 
 
+struct sortPointsTypeWorkHours
+{
+    bool operator()(const employeePtr&, const employeePtr&) const;
+};
+
 #endif

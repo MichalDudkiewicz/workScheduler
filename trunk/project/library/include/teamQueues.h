@@ -25,6 +25,7 @@ public:
     const queues& getTeamQueues() const;
     const employees& getAuthorisedEmployees() const;
     const teamPtr& getTeam() const;
+    void queueSort(unsigned int, unsigned int);
 };
 
 #endif
