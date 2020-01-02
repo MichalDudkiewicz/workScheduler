@@ -1,10 +1,10 @@
 #include <boost/test/unit_test.hpp>
 #include "employee.h"
-#include "employeeType.h"
 #include <memory>
 #include "doctor.h"
 #include "medic.h"
 #include "driverN.h"
+#include "employeeType.h"
 
 BOOST_AUTO_TEST_SUITE(TestSuiteCorrect)
 

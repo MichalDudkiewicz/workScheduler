@@ -6,7 +6,6 @@
 #include "needyEmployee.h"
 #include <algorithm>
 #include <position.h>
-#include <sstream>
 
 static employeeTypePtr normalEmployee = std::make_shared<NormalEmployee>();
 static employeeTypePtr jumperEmployee = std::make_shared<JumperEmployee>();
@@ -143,12 +142,9 @@ bool Employee::isAvailable(const shiftPtr& shift) const
         }
         return false;
     }
-    if(shift->getDay()!=desiredSchedule.getSchedule().size())
+    if(!desiredSchedule.getSchedule()[shift->getDay()-1].empty() and !desiredSchedule.getSchedule()[shift->getDay()].empty())
     {
-        if(!desiredSchedule.getSchedule()[shift->getDay()-1].empty() and !desiredSchedule.getSchedule()[shift->getDay()].empty())
-        {
-            return ((*desiredSchedule.getSchedule()[shift->getDay()-1].back()) + (*desiredSchedule.getSchedule()[shift->getDay()][0])) >= (*shift);
-        }
+        return ((*desiredSchedule.getSchedule()[shift->getDay()-1].back()) + (*desiredSchedule.getSchedule()[shift->getDay()][0])) >= (*shift);
     }
     return false;
 }

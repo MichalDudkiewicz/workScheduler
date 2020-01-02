@@ -34,9 +34,9 @@ BOOST_AUTO_TEST_SUITE(TestSuiteCorrect)
         repository.addEmployee(janusz);
         BOOST_CHECK_EQUAL(repository.getEmployeeByID(9)->getName(),"Palinka");
         BOOST_CHECK_EQUAL(repository.repositoryInfo(),"2. Michal\n"
-                                                                   "3. Mateusz\n"
-                                                                   "5. Janusz\n"
-                                                                   "9. Palinka\n");
+                                                      "3. Mateusz\n"
+                                                      "5. Janusz\n"
+                                                      "9. Palinka\n");
         BOOST_CHECK_EQUAL(repository.getAll()[2]->getName(),"Janusz");
         BOOST_CHECK_EQUAL(repository.getByPosition(doctor).size(),2);
         BOOST_CHECK_EQUAL(repository.getByPosition(driver).size(),0);

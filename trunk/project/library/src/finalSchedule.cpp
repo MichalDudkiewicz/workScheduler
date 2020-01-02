@@ -21,9 +21,8 @@ std::string FinalSchedule::makeSchedule() const
 {
     std::ostringstream out;
 //    bool enemiesInTeam;
-    Schedule schedule;
-    unsigned int weekDayIterator = schedule.getWeekDayIterator(schedule.getStartDate());
-    for(unsigned int day=1;day<=schedule.getNumberOfDays();++day)
+    unsigned int weekDayIterator = Schedule::getWeekDayIterator(Schedule::getStartDate());
+    for(unsigned int day=1;day<=Schedule::getNumberOfDays();++day)
     {
         out << "day "<< day<< std::endl;
         for(TeamQueues d : allQueues)
@@ -34,7 +33,7 @@ std::string FinalSchedule::makeSchedule() const
             {
                 out << d.getTeam()->getPositions()[it]->positionInfo()<<": ";
                 std::vector<employeePtr> employeesInTeam;
-                d.queueSort(day,it);
+                d.queueSort(day-1,it);
                 shiftPtr newShift(new Shift(d.getTeam()->getShifts()[weekDayIterator]->getStartHour(),d.getTeam()->getShifts()[weekDayIterator]->getEndHour(),day));
                 for(const auto &e : d.getTeamQueues()[day-1][it])
                 {

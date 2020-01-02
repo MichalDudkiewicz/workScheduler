@@ -6,7 +6,7 @@
 
 TeamQueues::TeamQueues(const teamPtr &t, employees e) : team(t), authorisedEmployees(std::move(e))
 {
-    for(unsigned int i=0; i<getNumberOfDays()+1; ++i)
+    for(unsigned int i=0; i<Schedule::getNumberOfDays(); ++i)
     {
         teamQueues.emplace_back();
         for(unsigned long j=0; j<team->getPositions().size(); ++j)
@@ -15,7 +15,7 @@ TeamQueues::TeamQueues(const teamPtr &t, employees e) : team(t), authorisedEmplo
         }
     }
     unsigned int p;
-    unsigned int weekDayIterator = getWeekDayIterator(getStartDate());
+    unsigned int weekDayIterator = Schedule::getWeekDayIterator(Schedule::getStartDate());
     unsigned int day = 1;
     for(auto &dayQueue : teamQueues)
     {

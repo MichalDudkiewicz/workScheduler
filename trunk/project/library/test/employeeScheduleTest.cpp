@@ -7,7 +7,7 @@ BOOST_AUTO_TEST_SUITE(TestSuiteCorrect)
     BOOST_AUTO_TEST_CASE(EmployeeScheduleCase)
     {
         EmployeeSchedule schedule;
-        BOOST_CHECK_EQUAL(schedule.getSchedule().size(),schedule.getNumberOfDays()+1);
+        BOOST_CHECK_EQUAL(schedule.getSchedule().size(),Schedule::getNumberOfDays()+1);
         std::unique_ptr<Shift> shift1(new Shift(5,10,3));
         std::unique_ptr<Shift> shift2(new Shift(15,20,3));
         std::unique_ptr<Shift> shift3(new Shift(5,10,15));
@@ -32,32 +32,6 @@ BOOST_AUTO_TEST_SUITE(TestSuiteCorrect)
         BOOST_CHECK_EQUAL(schedule.getSchedule()[10][1]->shiftInfo(),s6.str());
         schedule.removeShift(11,1);
         BOOST_CHECK_EQUAL(schedule.getSchedule()[10][0]->shiftInfo(),s6.str());
-    }
-
-    BOOST_AUTO_TEST_CASE(EmployeeScheduleAddShiftsCase)
-    {
-        EmployeeSchedule schedule;
-        BOOST_CHECK_EQUAL(schedule.getSchedule().size(),schedule.getNumberOfDays()+1);
-        std::unique_ptr<Shift> shift1(new Shift(1,3,11));
-        std::unique_ptr<Shift> shift2(new Shift(5,8,11));
-        std::unique_ptr<Shift> shift3(new Shift(2,6,11));
-        std::unique_ptr<Shift> shift4(new Shift(10,12,11));
-        std::unique_ptr<Shift> shift5(new Shift(11,15,11));
-        std::unique_ptr<Shift> shift6(new Shift(20,5,11));
-        std::unique_ptr<Shift> shift7(new Shift(18,21,11));
-        std::unique_ptr<Shift> shift8(new Shift(17,3,11));
-        schedule.addShift(shift2);
-        schedule.addShift(shift1);
-        schedule.addShift(shift3);
-        schedule.addShift(shift4);
-        schedule.addShift(shift8);
-        schedule.addShift(shift7);
-        schedule.addShift(shift5);
-        schedule.addShift(shift6);
-        BOOST_CHECK_EQUAL(schedule.getSchedule()[10].size(),3);
-        BOOST_CHECK_EQUAL(schedule.getSchedule()[10][0]->shiftInfo(),"day: 11, 1 - 8");
-        BOOST_CHECK_EQUAL(schedule.getSchedule()[10][1]->shiftInfo(),"day: 11, 10 - 15");
-        BOOST_CHECK_EQUAL(schedule.getSchedule()[10][2]->shiftInfo(),"day: 11, 17 - 5 (night)");
     }
 
 BOOST_AUTO_TEST_SUITE_END()
