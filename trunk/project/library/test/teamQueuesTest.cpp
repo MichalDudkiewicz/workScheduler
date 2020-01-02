@@ -22,10 +22,10 @@ BOOST_AUTO_TEST_SUITE(TestSuiteCorrect)
         std::unique_ptr<Shift> shift8(new Shift(0,10,20));
         std::unique_ptr<Shift> shift9(new Shift(10,24,12));
         std::unique_ptr<Shift> shift10(new Shift(0,24,12));
-        std::unique_ptr<Shift> shift11(new Shift(0,8,32));
-        std::unique_ptr<Shift> shift12(new Shift(0,7,32));
-        std::unique_ptr<Shift> shift13(new Shift(20,24,31));
-        std::unique_ptr<Shift> shift14(new Shift(21,24,31));
+        std::unique_ptr<Shift> shift11(new Shift(0,8,30));
+        std::unique_ptr<Shift> shift12(new Shift(0,7,30));
+        std::unique_ptr<Shift> shift13(new Shift(20,24,29));
+        std::unique_ptr<Shift> shift14(new Shift(21,24,29));
         std::shared_ptr<Position> doctor=std::make_shared<Doctor>();
         std::shared_ptr<Position> medic=std::make_shared<Medic>();
         (*palinka).addDesiredShift(shift1);
@@ -100,7 +100,7 @@ BOOST_AUTO_TEST_SUITE(TestSuiteCorrect)
 //        BOOST_REQUIRE_EQUAL(queue.getTeamQueues()[6][1][1]->getId(), 1);
 //        BOOST_REQUIRE_EQUAL(queue.getTeamQueues()[11][0][0]->getId(), 2);
 //        BOOST_REQUIRE_EQUAL(queue.getTeamQueues()[11][1][0]->getId(), 2);
-//        BOOST_REQUIRE_EQUAL(queue.getTeamQueues()[19][0].size(), 1);
+        BOOST_REQUIRE_EQUAL(queue.getTeamQueues()[19][0].size(), 1);
 //        BOOST_REQUIRE_EQUAL(queue.getTeamQueues()[19][1].size(), 2);
 //        BOOST_REQUIRE_EQUAL(queue.getTeamQueues()[30][0].size(), 1);
 //        BOOST_REQUIRE_EQUAL(queue.getTeamQueues()[30][1].size(), 2);
