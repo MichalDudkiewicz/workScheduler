@@ -82,19 +82,20 @@ BOOST_AUTO_TEST_SUITE(TestSuiteCorrect)
             for(const auto &positionQueue : dayQueue)
             {
                 std::cout<<queue.getTeam()->getPositions()[p]->positionInfo()<<": ";
-                p+=1;
                 for(const auto &shift : positionQueue)
                 {
                     std::cout << shift->getId() << ", ";
                 }
+                std::cout << positionQueue.size();
                 std::cout<<std::endl;
+                p+=1;
             }
             day+=1;
         }
         BOOST_REQUIRE_EQUAL(queue.getTeamQueues()[0][0].empty(), true);
         BOOST_REQUIRE_EQUAL(queue.getTeamQueues()[0][1].empty(), true);
         BOOST_REQUIRE_EQUAL(queue.getTeamQueues()[1][0].empty(), true);
-//        BOOST_REQUIRE_EQUAL(queue.getTeamQueues()[1][1][0]->getId(), 1);
+        BOOST_REQUIRE_EQUAL(queue.getTeamQueues()[7][1][0]->getId(), 2);
 //        BOOST_REQUIRE_EQUAL(queue.getTeamQueues()[6][0][0]->getId(), 2);
 //        BOOST_REQUIRE_EQUAL(queue.getTeamQueues()[6][1][0]->getId(), 2);
 //        BOOST_REQUIRE_EQUAL(queue.getTeamQueues()[6][1][1]->getId(), 1);

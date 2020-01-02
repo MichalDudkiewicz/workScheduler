@@ -14,7 +14,6 @@ BOOST_AUTO_TEST_SUITE(TestSuiteCorrect)
         boost::gregorian::date startDate(d.year(),d.month(),1);
         BOOST_CHECK_EQUAL(Schedule::getStartDate(),startDate);
         int day = startDate.day_of_week()-1;
-        //BOOST_CHECK_EQUAL(Schedule::getWeekDay(Schedule::getWeekDayIterator(startDate)),out.str());
         BOOST_CHECK_EQUAL(Schedule::getWeekDayIterator(startDate),day);
     }
 
