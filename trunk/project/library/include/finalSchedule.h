@@ -14,9 +14,10 @@ typedef std::vector<TeamQueues> teamsQueues;
 class FinalSchedule
 {
 private:
-    teamsQueues allQueues;
+    teamsQueues allQueues{};
 public:
     FinalSchedule(const teamRepositoryPtr&, const empRepositoryPtr&);
+    std::string makeSchedule() const;
 };
 
 #endif

@@ -32,6 +32,7 @@ public:
     const std::vector<shiftPtr>& getShifts() const;
     void setName(std::string);
     void addShift(shiftPtr&);
+    const std::vector<shiftPtr>& getShiftOnDay(unsigned int) const;
 };
 
 #endif
