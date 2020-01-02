@@ -4,6 +4,7 @@
 #include "doctor.h"
 #include "medic.h"
 #include "driverN.h"
+#include "employeeType.h"
 
 BOOST_AUTO_TEST_SUITE(TestSuiteCorrect)
 
@@ -13,7 +14,7 @@ BOOST_AUTO_TEST_SUITE(TestSuiteCorrect)
         BOOST_CHECK_EQUAL(palinka.getPriority(),1);
         BOOST_CHECK_EQUAL(palinka.getName(),"Palinka");
         BOOST_CHECK_EQUAL(palinka.getPoints(),0);
-        BOOST_CHECK_EQUAL(palinka.getType(),"normal");
+        BOOST_CHECK_EQUAL(palinka.getType()->getType(),"normal");
         BOOST_CHECK_EQUAL(palinka.getId(),5);
         BOOST_CHECK_EQUAL(palinka.getHourlyWage(),0);
         BOOST_CHECK_EQUAL(palinka.getMaxShifts(),0);

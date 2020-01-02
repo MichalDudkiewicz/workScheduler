@@ -86,7 +86,6 @@ BOOST_AUTO_TEST_SUITE(TestSuiteCorrect)
                 {
                     std::cout << shift->getId() << ", ";
                 }
-                std::cout << positionQueue.size();
                 std::cout<<std::endl;
                 p+=1;
             }

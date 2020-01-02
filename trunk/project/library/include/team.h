@@ -4,9 +4,9 @@
 #include <string>
 #include <memory>
 #include <vector>
+#include "shift.h"
 
 class Position;
-class Shift;
 typedef std::unique_ptr<Shift> shiftPtr;
 typedef std::shared_ptr<Position> positionPtr;
 typedef std::unique_ptr<std::vector<positionPtr>> positionsPtr;

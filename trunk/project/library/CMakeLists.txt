@@ -70,6 +70,8 @@ set(SOURCE_TEST_FILES
         test/scheduleTest.cpp
         test/employeeTest.cpp
         test/teamQueuesTest.cpp
+        test/teamRepositoryTest.cpp
+        test/employeeRepositoryTest.cpp
         )
 
 add_executable (TestLibr ${SOURCE_TEST_FILES})
