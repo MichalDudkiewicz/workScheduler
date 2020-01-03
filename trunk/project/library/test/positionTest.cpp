@@ -14,6 +14,7 @@ typedef std::shared_ptr<Position> positionPtr;
 
 BOOST_AUTO_TEST_SUITE(TestSuiteCorrect)
 
+
 BOOST_AUTO_TEST_CASE(PositionGetPositionCase)
 {
     positionPtr doctor = std::make_shared<Doctor>();
