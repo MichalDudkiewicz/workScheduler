@@ -15,60 +15,59 @@ FinalSchedule::FinalSchedule(const teamRepositoryPtr &teamRepository, const empR
     {
         allQueues.emplace_back(TeamQueues(team,employeeReepository->getAll()));
     }
-//    for(unsigned int i = 0; i<Schedule::getNumberOfDays()+1; ++i)
-//    {
-//        schedule.emplace_back();
-//        for(unsigned long j=0;j<teamRepository->getAll().size();++j)
-//        {
-//            schedule[i].emplace_back();
-//            for(unsigned long k=0;k<teamRepository->getAll()[j]->getPositions().size();++k)
-//            {
-//                schedule[i][j].emplace_back();
-//
-//            }
-//        }
-//    }
+    for(unsigned int i = 0; i<Schedule::getNumberOfDays()+1; ++i)
+    {
+        schedule.emplace_back();
+        for(const auto & team : teamRepository->getAll())
+        {
+            schedule[i].emplace_back(team->getPositions().size());
+        }
+    }
 }
 
 std::string FinalSchedule::makeSchedule() const
 {
     std::ostringstream out;
-    std::vector<employeePtr> employeesInTeam;
     bool enemiesInTeam;
+    unsigned int teamId;
     unsigned int weekDayIterator = Schedule::getWeekDayIterator(Schedule::getStartDate());
     for(unsigned int day=1;day<=Schedule::getNumberOfDays();++day)
     {
         out << "day "<< day<< std::endl;
+        teamId = 0;
         for(TeamQueues d : allQueues)
         {
             out << d.getTeam()->getName()<<std::endl;
-            employeesInTeam.clear();
             for(unsigned long it=0;it<d.getTeam()->getPositions().size();++it)
             {
                 out << d.getTeam()->getPositions()[it]->positionInfo()<<": ";
                 d.queueSort(day-1,it);
                 shiftPtr newShift(new Shift(d.getTeam()->getShifts()[weekDayIterator]->getStartHour(),d.getTeam()->getShifts()[weekDayIterator]->getEndHour(),day));
-                for(const auto &e : d.getTeamQueues()[day-1][it])
+                for(const auto &e : d.getTeamQueues()[day-1][teamId])
                 {
                     enemiesInTeam = false;
-                    for(const auto &emp : employeesInTeam)
+                    for(const auto &emp : schedule[day-1][teamId])
                     {
-                        if(emp->isEnemyWith(e))
+                        if(!emp.empty())
                         {
-                            enemiesInTeam = true;
-                            break;
+                            if(emp.front()->isEnemyWith(e))
+                            {
+                                enemiesInTeam = true;
+                                break;
+                            }
                         }
                     }
                     if(!e->isBusy(newShift) and !enemiesInTeam and e->getShiftsQuantity()<e->getMaxShifts())
                     {
                         out << e->getId();
-                        employeesInTeam.push_back(e);
+                        schedule[day-1][teamId][it].push_back(e);
                         e->addCurrentShift(newShift);
                         break;
                     }
                 }
                 out<<std::endl;
             }
+            ++teamId;
         }
         ++weekDayIterator;
         if(weekDayIterator == 7)
