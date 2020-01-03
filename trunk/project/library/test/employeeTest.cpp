@@ -5,6 +5,7 @@
 #include "medic.h"
 #include "driverN.h"
 #include "employeeType.h"
+#include <iostream>
 
 BOOST_AUTO_TEST_SUITE(TestSuiteCorrect)
 
@@ -18,7 +19,7 @@ BOOST_AUTO_TEST_SUITE(TestSuiteCorrect)
 //            std::unique_ptr<Shift> shift22(new Shift(15,20,3));
 //            std::unique_ptr<Shift> shift33(new Shift(5,10,15));
 //            std::unique_ptr<Shift> shift44(new Shift(15,19,11));
-//            std::unique_ptr<Shift> shift66(new Shift(20,24,11));
+//            shift66 = std::make_unique<Shift>(20,24,11);
         }
         ~MyGlobalFixture() {}
         static std::shared_ptr<Employee> employee0;
