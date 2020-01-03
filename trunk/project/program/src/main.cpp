@@ -22,8 +22,8 @@ int main()
 
 
     std::unique_ptr<Shift> shift1(new Shift(0,10,2));
-    std::unique_ptr<Shift> shift2(new Shift(15,20,3));
-    std::unique_ptr<Shift> shift3(new Shift(0,9,8));
+    std::unique_ptr<Shift> shift2(new Shift(0,20,9));
+    std::unique_ptr<Shift> shift3(new Shift(20,24,8));
     std::unique_ptr<Shift> shift4(new Shift(1,3,20));
     std::unique_ptr<Shift> shift5(new Shift(21,24,7));
     std::unique_ptr<Shift> shift6(new Shift(20,24,7));
@@ -35,6 +35,8 @@ int main()
     std::unique_ptr<Shift> shift12(new Shift(0,7,29));
     std::unique_ptr<Shift> shift13(new Shift(20,24,29));
     std::unique_ptr<Shift> shift14(new Shift(21,24,29));
+    std::unique_ptr<Shift> shift15(new Shift(20,24,1));
+    std::unique_ptr<Shift> shift16(new Shift(0,20,2));
     std::shared_ptr<Position> doctor=std::make_shared<Doctor>();
     std::shared_ptr<Position> rescuer=std::make_shared<RescuerS>();
     std::shared_ptr<Position> driver=std::make_shared<DriverS>();
@@ -45,6 +47,8 @@ int main()
     (*palinka).addDesiredShift(shift5);
     (*palinka).addDesiredShift(shift11);
     (*palinka).addDesiredShift(shift13);
+    (*palinka).addDesiredShift(shift15);
+    (*palinka).addDesiredShift(shift16);
     (*mateusz).addDesiredShift(shift6);
     (*mateusz).addDesiredShift(shift7);
     (*mateusz).addDesiredShift(shift8);
@@ -83,10 +87,12 @@ int main()
     std::unique_ptr<EmployeeRepository> erep(new EmployeeRepository());
     std::unique_ptr<TeamRepository> trep(new TeamRepository());
     (*trep).addTeam(team);
+    (*palinka).setMaxShifts(1);
     (*erep).addEmployee(mateusz);
     (*erep).addEmployee(palinka);
     FinalSchedule finSch(trep,erep);
     (*erep).getEmployeeByID(1)->addEnemy((*erep).getEmployeeByID(2));
+
     std::cout<<finSch.makeSchedule();
     return 0;
 }
