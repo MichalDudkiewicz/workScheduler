@@ -142,9 +142,12 @@ bool Employee::isAvailable(const shiftPtr& shift) const
         }
         return false;
     }
-    if(!desiredSchedule.getSchedule()[shift->getDay()-1].empty() and !desiredSchedule.getSchedule()[shift->getDay()].empty())
+    if(shift->getDay()!=desiredSchedule.getSchedule().size())
     {
-        return ((*desiredSchedule.getSchedule()[shift->getDay()-1].back()) + (*desiredSchedule.getSchedule()[shift->getDay()][0])) >= (*shift);
+        if(!desiredSchedule.getSchedule()[shift->getDay()-1].empty() and !desiredSchedule.getSchedule()[shift->getDay()].empty())
+        {
+            return ((*desiredSchedule.getSchedule()[shift->getDay()-1].back()) + (*desiredSchedule.getSchedule()[shift->getDay()][0])) >= (*shift);
+        }
     }
     return false;
 }

@@ -50,7 +50,7 @@ void Shift::setEndHour(unsigned int hour)
 
 bool Shift::operator>=(const Shift &shift) const
 {
-    return this->startHour <= shift.startHour and this->endHour >= shift.endHour and this->day==shift.day;
+    return this->startHour <= shift.startHour and this->endHour >= shift.endHour and this->day==shift.day and shift.isNightShift()==this->isNightShift();
 }
 
 bool Shift::isNightShift() const
