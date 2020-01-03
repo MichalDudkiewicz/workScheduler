@@ -10,17 +10,19 @@
 BOOST_AUTO_TEST_SUITE(TestSuiteCorrect)
 
     struct MyGlobalFixture {
-        MyGlobalFixture() {employee0 = std::make_shared<Employee>("Mateusz", 0);
+        MyGlobalFixture() {}
+        void setup(){
+            employee0 = std::make_shared<Employee>("Mateusz", 0);
             employee1 = std::make_shared<Employee>("Kamila",1);
             employee2 = std::make_shared<Employee>("Michal",2);
             employee3 = std::make_shared<Employee>("Janusz",3);
-
-//            std::unique_ptr<Shift> shift11(new Shift(5,10,3));
-//            std::unique_ptr<Shift> shift22(new Shift(15,20,3));
-//            std::unique_ptr<Shift> shift33(new Shift(5,10,15));
-//            std::unique_ptr<Shift> shift44(new Shift(15,19,11));
-//            shift66 = std::make_unique<Shift>(20,24,11);
+            shift11.reset(new Shift(5,10,3));
+            shift22.reset(new Shift(15,20,3));
+            shift33.reset(new Shift(5,10,15));
+            shift44.reset(new Shift(15,19,11));
+            shift66.reset(new Shift(20,24,11));
         }
+        void teardown(){}
         ~MyGlobalFixture() {}
         static std::shared_ptr<Employee> employee0;
         static std::shared_ptr<Employee> employee1;
@@ -29,8 +31,8 @@ BOOST_AUTO_TEST_SUITE(TestSuiteCorrect)
         static std::unique_ptr<Shift> shift11;
         static std::unique_ptr<Shift> shift22;
         static std::unique_ptr<Shift> shift33;
-        static std::unique_ptr<Shift> shift44;
         static std::unique_ptr<Shift> shift66;
+        static std::unique_ptr<Shift> shift44;
     };
     std::shared_ptr<Employee> MyGlobalFixture::employee0 = std::make_shared<Employee>("Mateusz", 0);
     std::shared_ptr<Employee> MyGlobalFixture::employee1 = std::make_shared<Employee>("Kamila",1);
@@ -172,25 +174,30 @@ BOOST_AUTO_TEST_SUITE(TestSuiteCorrect)
 
     BOOST_AUTO_TEST_CASE(EmployeeCurrentScheduleCase)
     {
+        std::unique_ptr<Shift> shift11(new Shift(5,10,3));
+        std::unique_ptr<Shift> shift22(new Shift(15,20,3));
+        std::unique_ptr<Shift> shift33(new Shift(5,10,15));
+        std::unique_ptr<Shift> shift44(new Shift(15,19,11));
+        std::unique_ptr<Shift> shift66(new Shift(20,24,11));
+
         std::unique_ptr<Shift> shift1(new Shift(5,10,3));
         std::unique_ptr<Shift> shift2(new Shift(15,20,3));
         std::unique_ptr<Shift> shift3(new Shift(5,10,15));
         std::unique_ptr<Shift> shift4(new Shift(15,19,11));
-        std::unique_ptr<Shift> shift6(new Shift(20,24,11));
-//        (*MyGlobalFixture::employee0).addCurrentShift(MyGlobalFixture::shift11);
-//        (*MyGlobalFixture::employee0).addCurrentShift(MyGlobalFixture::shift22);
-//        (*MyGlobalFixture::employee0).addCurrentShift(MyGlobalFixture::shift33);
-//        (*MyGlobalFixture::employee0).addCurrentShift(MyGlobalFixture::shift66);
-//        (*MyGlobalFixture::employee0).addCurrentShift(MyGlobalFixture::shift44);
-//        BOOST_CHECK_EQUAL((*MyGlobalFixture::employee0).getCurrentSchedule()[10][0]->getStartHour(),15);
-//        (*MyGlobalFixture::employee0).removeCurrentShift(11,1);
-//        BOOST_CHECK_EQUAL((*MyGlobalFixture::employee0).getCurrentSchedule()[10][0]->getStartHour(),20);
-//        BOOST_CHECK_EQUAL((*MyGlobalFixture::employee0).getShiftsQuantity(),4);
-//        BOOST_CHECK_EQUAL((*MyGlobalFixture::employee0).getWorkHours(),19);
-//        std::unique_ptr<Shift> shift7(new Shift(18,19,11));
-//        std::unique_ptr<Shift> shift8(new Shift(9,20,3));
-//        BOOST_CHECK_EQUAL((*MyGlobalFixture::employee0).isBusy(shift7),false);
-//        BOOST_CHECK_EQUAL((*MyGlobalFixture::employee0).isBusy(shift8),true);
+        (*MyGlobalFixture::employee0).addCurrentShift(shift11);
+        (*MyGlobalFixture::employee0).addCurrentShift(shift22);
+        (*MyGlobalFixture::employee0).addCurrentShift(shift33);
+        (*MyGlobalFixture::employee0).addCurrentShift(shift66);
+        (*MyGlobalFixture::employee0).addCurrentShift(shift44);
+        BOOST_CHECK_EQUAL((*MyGlobalFixture::employee0).getCurrentSchedule()[10][0]->getStartHour(),15);
+        (*MyGlobalFixture::employee0).removeCurrentShift(11,1);
+        BOOST_CHECK_EQUAL((*MyGlobalFixture::employee0).getCurrentSchedule()[10][0]->getStartHour(),20);
+        BOOST_CHECK_EQUAL((*MyGlobalFixture::employee0).getShiftsQuantity(),4);
+        BOOST_CHECK_EQUAL((*MyGlobalFixture::employee0).getWorkHours(),19);
+        std::unique_ptr<Shift> shift7(new Shift(18,19,11));
+        std::unique_ptr<Shift> shift8(new Shift(9,20,3));
+        BOOST_CHECK_EQUAL((*MyGlobalFixture::employee0).isBusy(shift7),false);
+        BOOST_CHECK_EQUAL((*MyGlobalFixture::employee0).isBusy(shift8),true);
     }
 
     BOOST_AUTO_TEST_CASE(EmployeeIsAuthorisedCase)

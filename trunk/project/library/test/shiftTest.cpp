@@ -6,40 +6,52 @@ typedef std::unique_ptr<Shift> shiftPtr;
 
 BOOST_AUTO_TEST_SUITE(TestSuiteCorrect)
 
+    struct MyGlobalFixture {
+        MyGlobalFixture() {
+            monday.reset(new Shift(0,5,10));
+            tuesday.reset(new Shift(5,10,1));
+            monday1.reset(new Shift(1,1,1));
+            wednesday.reset(new Shift(20,10,1));
+        }
+        ~MyGlobalFixture() {}
+
+        static shiftPtr monday;
+        static shiftPtr tuesday;
+        static shiftPtr monday1;
+        static shiftPtr wednesday;
+    };
+    shiftPtr MyGlobalFixture::monday(new Shift(0,5,10));
+    shiftPtr MyGlobalFixture::tuesday(new Shift(5,10,1));
+    shiftPtr MyGlobalFixture::monday1(new Shift(1,1,1));
+    shiftPtr MyGlobalFixture::wednesday(new Shift(20,10,1));
+
+    BOOST_TEST_GLOBAL_FIXTURE( MyGlobalFixture );
+
 BOOST_AUTO_TEST_CASE(ShiftBothConstructorsCase)
 {
-    shiftPtr monday(new Shift(0,5,10));
-    BOOST_REQUIRE_EQUAL((*monday).getEndHour(), 5);
-    BOOST_REQUIRE_EQUAL((*monday).getStartHour(), 0);
-    shiftPtr tuesday(new Shift(5,10,1));
-    BOOST_REQUIRE_EQUAL((*tuesday).getEndHour(), 10);
-    BOOST_REQUIRE_EQUAL((*tuesday).getStartHour(), 5);
+    BOOST_REQUIRE_EQUAL((*MyGlobalFixture::monday).getEndHour(), 5);
+    BOOST_REQUIRE_EQUAL((*MyGlobalFixture::monday).getStartHour(), 0);
+    BOOST_REQUIRE_EQUAL((*MyGlobalFixture::tuesday).getEndHour(), 10);
+    BOOST_REQUIRE_EQUAL((*MyGlobalFixture::tuesday).getStartHour(), 5);
 }
 
 BOOST_AUTO_TEST_CASE(ShiftGetLengthCase)
 {
-    shiftPtr monday(new Shift(1,1,1));
-    BOOST_REQUIRE_EQUAL((*monday).getLength(), 0);
-    shiftPtr tuesday(new Shift(5,10,1));
-    BOOST_REQUIRE_EQUAL((*tuesday).getLength(), 5);
-    shiftPtr wednesday(new Shift(20,10,1));
-    BOOST_REQUIRE_EQUAL((*wednesday).getLength(), 14);
+    BOOST_REQUIRE_EQUAL((*MyGlobalFixture::tuesday).getLength(), 5);
+    BOOST_REQUIRE_EQUAL((*MyGlobalFixture::wednesday).getLength(), 14);
 }
 
 BOOST_AUTO_TEST_CASE(ShiftShiftInfoCase)
 {
-    shiftPtr tuesday(new Shift(5,10,1));
-    BOOST_REQUIRE_EQUAL((*tuesday).shiftInfo(), "day: 1, 5 - 10");
-    shiftPtr wednesday(new Shift(20,10,1));
-    BOOST_REQUIRE_EQUAL((*wednesday).shiftInfo(), "day: 1, 20 - 10 (night)");
+    BOOST_REQUIRE_EQUAL((*MyGlobalFixture::tuesday).shiftInfo(), "day: 1, 5 - 10");
+    BOOST_REQUIRE_EQUAL((*MyGlobalFixture::wednesday).shiftInfo(), "day: 1, 20 - 10 (night)");
 }
 
 BOOST_AUTO_TEST_CASE(ShiftSetHoursCase)
 {
-    shiftPtr tuesday(new Shift(5,10,1));
-    (*tuesday).setEndHour(23);
-    (*tuesday).setStartHour(10);
-    BOOST_REQUIRE_EQUAL((*tuesday).shiftInfo(), "day: 1, 10 - 23");
+    (*MyGlobalFixture::tuesday).setEndHour(23);
+    (*MyGlobalFixture::tuesday).setStartHour(10);
+    BOOST_REQUIRE_EQUAL((*MyGlobalFixture::tuesday).shiftInfo(), "day: 1, 10 - 23");
 }
 
 BOOST_AUTO_TEST_CASE(ShiftIncludeOperatorCase)
