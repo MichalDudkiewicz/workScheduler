@@ -15,12 +15,26 @@ FinalSchedule::FinalSchedule(const teamRepositoryPtr &teamRepository, const empR
     {
         allQueues.emplace_back(TeamQueues(team,employeeReepository->getAll()));
     }
+//    for(unsigned int i = 0; i<Schedule::getNumberOfDays()+1; ++i)
+//    {
+//        schedule.emplace_back();
+//        for(unsigned long j=0;j<teamRepository->getAll().size();++j)
+//        {
+//            schedule[i].emplace_back();
+//            for(unsigned long k=0;k<teamRepository->getAll()[j]->getPositions().size();++k)
+//            {
+//                schedule[i][j].emplace_back();
+//
+//            }
+//        }
+//    }
 }
 
 std::string FinalSchedule::makeSchedule() const
 {
     std::ostringstream out;
-//    bool enemiesInTeam;
+    std::vector<employeePtr> employeesInTeam;
+    bool enemiesInTeam;
     unsigned int weekDayIterator = Schedule::getWeekDayIterator(Schedule::getStartDate());
     for(unsigned int day=1;day<=Schedule::getNumberOfDays();++day)
     {
@@ -28,21 +42,24 @@ std::string FinalSchedule::makeSchedule() const
         for(TeamQueues d : allQueues)
         {
             out << d.getTeam()->getName()<<std::endl;
-//            enemiesInTeam = false;
+            employeesInTeam.clear();
             for(unsigned long it=0;it<d.getTeam()->getPositions().size();++it)
             {
                 out << d.getTeam()->getPositions()[it]->positionInfo()<<": ";
-                std::vector<employeePtr> employeesInTeam;
                 d.queueSort(day-1,it);
                 shiftPtr newShift(new Shift(d.getTeam()->getShifts()[weekDayIterator]->getStartHour(),d.getTeam()->getShifts()[weekDayIterator]->getEndHour(),day));
                 for(const auto &e : d.getTeamQueues()[day-1][it])
                 {
-//                    if(!employeesInTeam.empty())
-//                    {
-//                        if((*employeesInTeam.back()).isEnemyWith(e))
-//                            enemiesInTeam=true;
-//                    }
-                    if(!e->isBusy(newShift))
+                    enemiesInTeam = false;
+                    for(const auto &emp : employeesInTeam)
+                    {
+                        if(emp->isEnemyWith(e))
+                        {
+                            enemiesInTeam = true;
+                            break;
+                        }
+                    }
+                    if(!e->isBusy(newShift) and !enemiesInTeam and e->getShiftsQuantity()<e->getMaxShifts())
                     {
                         out << e->getId();
                         employeesInTeam.push_back(e);
