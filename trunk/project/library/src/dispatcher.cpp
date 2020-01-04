@@ -9,3 +9,8 @@ unsigned int Dispatcher::positionID() const
 {
     return 8;
 }
+
+std::string Dispatcher::shortcut() const
+{
+    return "D";
+}

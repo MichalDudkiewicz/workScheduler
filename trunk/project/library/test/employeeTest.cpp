@@ -58,7 +58,7 @@ BOOST_AUTO_TEST_SUITE(TestSuiteCorrect)
         BOOST_CHECK_EQUAL(employee11.getType()->getType(),"normal");
         BOOST_CHECK_EQUAL(employee11.getId(), 5);
         BOOST_CHECK_EQUAL(employee11.getHourlyWage(), 0);
-        BOOST_CHECK_EQUAL(employee11.getMaxShifts(), 0);
+        BOOST_CHECK_EQUAL(employee11.getMaxShifts(), 100);
         BOOST_CHECK_EQUAL(employee11.getMinShifts(), 0);
         BOOST_CHECK_EQUAL(employee11.isNonresident(), false);
         BOOST_CHECK_EQUAL(employee11.getWorkHours(), 0);

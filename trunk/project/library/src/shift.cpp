@@ -1,10 +1,10 @@
 #include "shift.h"
 #include <sstream>
 
-Shift::Shift(unsigned int start, unsigned int end, unsigned int d) : startHour(start), endHour(end), day(d)
+Shift::Shift(unsigned int start, unsigned int end, unsigned int d) : startHour(start), endHour(end), day(d), nightShift(startHour > endHour)
 {}
 
-Shift::Shift(unsigned int d) : startHour(0), endHour(0), day(d)
+Shift::Shift(unsigned int d) : startHour(0), endHour(0), day(d), nightShift(false)
 {}
 
 unsigned int Shift::getLength() const
@@ -55,24 +55,26 @@ bool Shift::operator>=(const Shift &shift) const
 
 bool Shift::isNightShift() const
 {
-    return startHour > endHour;
+    return nightShift;
 }
 
 Shift Shift::operator+(const Shift &shift) const
 {
     if(this->endHour==24 and shift.startHour==0 and this->day+1==shift.day)
     {
-        Shift nightShift(this->startHour,shift.endHour,this->day);
-        return nightShift;
+        Shift night(this->startHour,shift.endHour,this->day);
+        night.nightShift=true;
+        return night;
     }
     else if(this->startHour==0 and shift.endHour==24 and shift.day+1==this->day)
     {
-        Shift nightShift(shift.startHour,this->endHour,shift.day);
-        return nightShift;
+        Shift night(shift.startHour,this->endHour,shift.day);
+        night.nightShift=true;
+        return night;
     }
     //throw dayOff exception and delete below
-    Shift nightShift(1);
-    return nightShift;
+    Shift night(1);
+    return night;
     //throw invalidHours exception and delete below
 }
 

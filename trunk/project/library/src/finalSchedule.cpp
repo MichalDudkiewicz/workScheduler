@@ -5,9 +5,10 @@
 #include "teamQueues.h"
 #include <memory>
 #include "team.h"
-#include <sstream>
 #include "position.h"
 #include "schedule.h"
+#include <sstream>
+#include <iomanip>
 
 FinalSchedule::FinalSchedule(const teamRepositoryPtr &teamRepository, const empRepositoryPtr &employeeReepository)
 {
@@ -25,25 +26,21 @@ FinalSchedule::FinalSchedule(const teamRepositoryPtr &teamRepository, const empR
     }
 }
 
-std::string FinalSchedule::makeSchedule() const
+void FinalSchedule::makeSchedule()
 {
-    std::ostringstream out;
     bool enemiesInTeam;
     unsigned int teamId;
     unsigned int weekDayIterator = Schedule::getWeekDayIterator(Schedule::getStartDate());
-    for(unsigned int day=1;day<=Schedule::getNumberOfDays();++day)
+    for(unsigned int day=1;day<=Schedule::getNumberOfDays()+1;++day)
     {
-        out << "day "<< day<< std::endl;
         teamId = 0;
         for(TeamQueues d : allQueues)
         {
-            out << d.getTeam()->getName()<<std::endl;
             for(unsigned long it=0;it<d.getTeam()->getPositions().size();++it)
             {
-                out << d.getTeam()->getPositions()[it]->positionInfo()<<": ";
                 d.queueSort(day-1,it);
                 shiftPtr newShift(new Shift(d.getTeam()->getShifts()[weekDayIterator]->getStartHour(),d.getTeam()->getShifts()[weekDayIterator]->getEndHour(),day));
-                for(const auto &e : d.getTeamQueues()[day-1][teamId])
+                for(const auto &e : d.getTeamQueues()[day-1][it])
                 {
                     enemiesInTeam = false;
                     for(const auto &emp : schedule[day-1][teamId])
@@ -59,13 +56,11 @@ std::string FinalSchedule::makeSchedule() const
                     }
                     if(!e->isBusy(newShift) and !enemiesInTeam and e->getShiftsQuantity()<e->getMaxShifts())
                     {
-                        out << e->getId();
                         schedule[day-1][teamId][it].push_back(e);
                         e->addCurrentShift(newShift);
                         break;
                     }
                 }
-                out<<std::endl;
             }
             ++teamId;
         }
@@ -73,6 +68,55 @@ std::string FinalSchedule::makeSchedule() const
         if(weekDayIterator == 7)
         {
             weekDayIterator = 0;
+        }
+    }
+}
+
+const calendar& FinalSchedule::getSchedule() const
+{
+    return schedule;
+}
+
+std::string FinalSchedule::scheduleInfo() const
+{
+    std::ostringstream out;
+    out<<std::setw(3)<<" ";
+    for(const auto &team : allQueues)
+    {
+        out<<std::setw(team.getTeam()->getPositions().size()*5)<<team.getTeam()->getName();
+    }
+    out<<std::endl;
+    out<<std::setw(3)<<" ";
+    for(const auto &team : allQueues)
+    {
+        for(const auto &p : team.getTeam()->getPositions())
+        {
+            out<<std::setw(4)<<p->shortcut()<<"|";
+        }
+    }
+    out<<std::endl;
+    unsigned int day = 1;
+    for(const auto &d : schedule)
+    {
+        out<<std::setw(2)<<day<<"|";
+        for(const auto &t : d)
+        {
+            for(const auto &e : t)
+            {
+                if(!e.empty())
+                {
+                    out<<std::setw(4)<<e.front()->getId()<<"|";
+                }
+                else
+                {
+                    out<<std::setw(4)<<" "<<"|";
+                }
+            }
+        }
+        ++day;
+        if(day>Schedule::getNumberOfDays())
+        {
+            day=1;
         }
         out<<std::endl;
     }

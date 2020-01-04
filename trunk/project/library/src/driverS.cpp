@@ -9,3 +9,8 @@ unsigned int DriverS::positionID() const
 {
     return 2;
 }
+
+std::string DriverS::shortcut() const
+{
+    return "K";
+}

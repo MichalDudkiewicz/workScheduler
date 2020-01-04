@@ -11,6 +11,7 @@ public:
     virtual ~Position()= default;
     virtual std::string positionInfo() const=0;
     virtual unsigned int positionID() const=0;
+    virtual std::string shortcut() const=0;
 };
 
 typedef std::shared_ptr<Position> positionPtr;

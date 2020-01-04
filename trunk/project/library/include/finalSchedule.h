@@ -3,6 +3,7 @@
 
 #include <memory>
 #include <vector>
+#include <string>
 #include "teamQueues.h"
 
 class EmployeeRepository;
@@ -22,7 +23,9 @@ private:
     calendar schedule{};
 public:
     FinalSchedule(const teamRepositoryPtr&, const empRepositoryPtr&);
-    std::string makeSchedule() const;
+    void makeSchedule();
+    const calendar& getSchedule() const;
+    std::string scheduleInfo() const;
 };
 
 #endif

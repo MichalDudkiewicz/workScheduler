@@ -9,3 +9,8 @@ unsigned int RescuerS::positionID() const
 {
     return 4;
 }
+
+std::string RescuerS::shortcut() const
+{
+    return "R";
+}

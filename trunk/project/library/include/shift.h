@@ -10,9 +10,10 @@ private:
     unsigned int startHour;
     unsigned int endHour;
     unsigned int day;
+    bool nightShift;
 public:
     Shift(unsigned int, unsigned int, unsigned int);
-    Shift(unsigned int);
+    explicit Shift(unsigned int);
     unsigned int getLength() const;
     std::string shiftInfo() const;
     unsigned int getStartHour() const;
