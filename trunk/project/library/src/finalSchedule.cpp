@@ -10,11 +10,11 @@
 #include <sstream>
 #include <iomanip>
 
-FinalSchedule::FinalSchedule(const teamRepositoryPtr &teamRepository, const empRepositoryPtr &employeeReepository)
+FinalSchedule::FinalSchedule(const TeamRepository* teamRepository, const EmployeeRepository* employeeRepository)
 {
     for(const auto &team : teamRepository->getAll())
     {
-        allQueues.emplace_back(TeamQueues(team,employeeReepository->getAll()));
+        allQueues.emplace_back(TeamQueues(team,employeeRepository->getAll()));
     }
     for(unsigned int i = 0; i<Schedule::getNumberOfDays()+1; ++i)
     {

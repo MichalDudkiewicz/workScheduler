@@ -22,7 +22,7 @@ private:
     teamsQueues allQueues{};
     calendar schedule{};
 public:
-    FinalSchedule(const teamRepositoryPtr&, const empRepositoryPtr&);
+    FinalSchedule(const TeamRepository*, const EmployeeRepository*);
     void makeSchedule();
     const calendar& getSchedule() const;
     std::string scheduleInfo() const;

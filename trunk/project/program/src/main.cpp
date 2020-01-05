@@ -30,8 +30,7 @@ int main()
     std::shared_ptr<Position> dispatcher=std::make_shared<Dispatcher>();
 
     //employee Repository
-
-    std::unique_ptr<EmployeeRepository> empRepo(new EmployeeRepository());
+    EmployeeRepository *empRepo = EmployeeRepository::getInstance();
 
     std::unique_ptr<Shift> shift1;
     std::unique_ptr<Shift> shift2;
@@ -2457,7 +2456,7 @@ int main()
     (*empRepo).addEmployee(e106);
 
 //team repository
-    std::unique_ptr<TeamRepository> teamRepo(new TeamRepository());
+    TeamRepository *teamRepo = TeamRepository::getInstance();
 
     std::unique_ptr<Shift> monday;
     std::unique_ptr<Shift> tuesday;

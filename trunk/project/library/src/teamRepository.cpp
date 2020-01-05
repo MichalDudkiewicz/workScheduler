@@ -2,6 +2,18 @@
 #include "team.h"
 #include <sstream>
 
+
+TeamRepository* TeamRepository::instance=nullptr;
+
+TeamRepository* TeamRepository::getInstance()
+{
+    if(instance==nullptr)
+    {
+        instance = new TeamRepository;
+    }
+    return instance;
+}
+
 void TeamRepository::addTeam(const teamPtr &team)
 {
     teamsRepository.push_back(team);

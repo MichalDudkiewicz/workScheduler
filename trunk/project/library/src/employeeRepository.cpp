@@ -5,6 +5,18 @@
 #include <team.h>
 #include <employeeType.h>
 
+
+EmployeeRepository* EmployeeRepository::instance=nullptr;
+
+EmployeeRepository* EmployeeRepository::getInstance()
+{
+    if(instance==nullptr)
+    {
+        instance = new EmployeeRepository;
+    }
+    return instance;
+}
+
 void EmployeeRepository::addEmployee(const employeePtr &employee)
 {
     employeesRepository.push_back(employee);

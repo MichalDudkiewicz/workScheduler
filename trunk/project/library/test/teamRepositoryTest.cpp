@@ -12,7 +12,8 @@ BOOST_AUTO_TEST_SUITE(TestSuiteCorrect)
 
     BOOST_AUTO_TEST_CASE(TeamRepositoryCase)
     {
-        TeamRepository repository;
+        TeamRepository *repository;
+        repository = TeamRepository::getInstance();
         std::shared_ptr<Employee> mateush = std::make_shared<Employee>("Mateusz",3);
         std::shared_ptr<Employee> palinka = std::make_shared<Employee>("Palinka",9);
         std::shared_ptr<Employee> michal = std::make_shared<Employee>("Michal",2);
@@ -34,11 +35,11 @@ BOOST_AUTO_TEST_SUITE(TestSuiteCorrect)
         (*teamS2).addPosition(medic);
         (*team1).addPosition(driver);
         (*team2).addPosition(medic);
-        repository.addTeam(teamS1);
-        repository.addTeam(teamS2);
-        repository.addTeam(team1);
-        repository.addTeam(team2);
-        BOOST_CHECK_EQUAL(repository.repositoryInfo(),"Team S1\n"
+        (*repository).addTeam(teamS1);
+        (*repository).addTeam(teamS2);
+        (*repository).addTeam(team1);
+        (*repository).addTeam(team2);
+        BOOST_CHECK_EQUAL((*repository).repositoryInfo(),"Team S1\n"
                                                       "Positions required: doctor, driver (normal), medic, \n"
                                                       "Team shifts: \n"
                                                       "Monday: day: 1, 0 - 0\n"
@@ -86,12 +87,12 @@ BOOST_AUTO_TEST_SUITE(TestSuiteCorrect)
                                                       "Sunday: day: 7, 0 - 0\n"
                                                       "\n"
                                                       "\n");
-        BOOST_CHECK_EQUAL(repository.getTeamByName("S2")->getName(),"S2");
-        BOOST_CHECK_EQUAL(repository.getAll()[0]->getName(),"S1");
-        BOOST_CHECK_EQUAL(repository.getAll().size(),4);
-        repository.removeTeam("S1");
-        BOOST_CHECK_EQUAL(repository.getAll()[0]->getName(),"S2");
-        BOOST_CHECK_EQUAL(repository.getAll().size(),3);
+        BOOST_CHECK_EQUAL((*repository).getTeamByName("S2")->getName(),"S2");
+        BOOST_CHECK_EQUAL((*repository).getAll()[0]->getName(),"S1");
+        BOOST_CHECK_EQUAL((*repository).getAll().size(),4);
+        (*repository).removeTeam("S1");
+        BOOST_CHECK_EQUAL((*repository).getAll()[0]->getName(),"S2");
+        BOOST_CHECK_EQUAL((*repository).getAll().size(),3);
     }
 
 BOOST_AUTO_TEST_SUITE_END()
