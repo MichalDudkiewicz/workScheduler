@@ -122,3 +122,17 @@ std::string FinalSchedule::scheduleInfo() const
     }
     return out.str();
 }
+
+void FinalSchedule::clear()
+{
+    for(auto &day : schedule)
+    {
+        for(auto &teamQueues : day)
+        {
+            for(auto &teamQueue : teamQueues)
+            {
+                teamQueue.clear();
+            }
+        }
+    }
+}

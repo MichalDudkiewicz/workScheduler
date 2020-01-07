@@ -24,6 +24,7 @@ private:
 public:
     FinalSchedule(const TeamRepository*, const EmployeeRepository*);
     void makeSchedule();
+    void clear();
     const calendar& getSchedule() const;
     std::string scheduleInfo() const;
 };
