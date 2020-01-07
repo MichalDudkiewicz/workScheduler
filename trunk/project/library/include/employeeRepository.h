@@ -24,6 +24,7 @@ public:
     EmployeeRepository(const EmployeeRepository&)=delete;
     void operator=(const EmployeeRepository&)=delete;
     void addEmployee(const employeePtr&);
+    void addEmployee(unsigned int, const std::string&);
     void removeEmployee(unsigned int);
     std::string repositoryInfo() const;
     const employees& getAll() const;

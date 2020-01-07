@@ -293,6 +293,12 @@ void Employee::addDesiredShift(shiftPtr &shift)
     desiredSchedule.addShift(shift);
 }
 
+void Employee::addDesiredShift(unsigned int startHour, unsigned int endHour, unsigned int day)
+{
+    shiftPtr shift(new Shift(startHour,endHour,day));
+    desiredSchedule.addShift(shift);
+}
+
 void Employee::removeDesiredShift(unsigned int day, unsigned int shiftNumber)
 {
     desiredSchedule.removeShift(day,shiftNumber);
@@ -300,6 +306,12 @@ void Employee::removeDesiredShift(unsigned int day, unsigned int shiftNumber)
 
 void Employee::addCurrentShift(shiftPtr &shift)
 {
+    currentSchedule.addShift(shift);
+}
+
+void Employee::addCurrentShift(unsigned int startHour, unsigned int endHour, unsigned int day)
+{
+    shiftPtr shift(new Shift(startHour,endHour,day));
     currentSchedule.addShift(shift);
 }
 

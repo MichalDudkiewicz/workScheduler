@@ -23,6 +23,13 @@ void EmployeeRepository::addEmployee(const employeePtr &employee)
     std::sort(employeesRepository.begin(),employeesRepository.end(),compareID());
 }
 
+void EmployeeRepository::addEmployee(unsigned int id, const std::string &name)
+{
+    employeePtr employee = std::make_shared<Employee>(name, id);
+    employeesRepository.push_back(employee);
+    std::sort(employeesRepository.begin(),employeesRepository.end(),compareID());
+}
+
 void EmployeeRepository::removeEmployee(unsigned int id)
 {
     unsigned int it = 0;

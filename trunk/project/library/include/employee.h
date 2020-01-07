@@ -68,8 +68,10 @@ public:
     void changeType(unsigned int);
     unsigned int getPriority() const;
     void addDesiredShift(shiftPtr&);
+    void addDesiredShift(unsigned int, unsigned int, unsigned int);
     void removeDesiredShift(unsigned int, unsigned int);
     void addCurrentShift(shiftPtr&);
+    void addCurrentShift(unsigned int, unsigned int, unsigned int);
     void removeCurrentShift(unsigned int, unsigned int);
     bool isBusy(const shiftPtr&) const;
     bool isAuthorised(const positionPtr&) const;
