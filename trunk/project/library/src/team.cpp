@@ -11,17 +11,17 @@ Team::Team(std::string teamName) : name(std::move(teamName))
     {
         shifts.emplace_back(new Shift(i+1));
     }
-    weekDay[0] = "Monday";
-    weekDay[1] = "Tuesday";
-    weekDay[2] = "Wednesday";
-    weekDay[3] = "Thursday";
-    weekDay[4] = "Friday";
-    weekDay[5] = "Saturday";
-    weekDay[6] = "Sunday";
 }
 
 void Team::addShift(shiftPtr &shift)
 {
+    shifts.erase(shifts.begin()+shift->getDay()-1);
+    shifts.insert(shifts.begin()+shift->getDay()-1,std::move(shift));
+}
+
+void Team::addShift(unsigned int startHour, unsigned int endHour, unsigned int day)
+{
+    shiftPtr shift(new Shift(startHour, endHour, day));
     shifts.erase(shifts.begin()+shift->getDay()-1);
     shifts.insert(shifts.begin()+shift->getDay()-1,std::move(shift));
 }
@@ -69,7 +69,7 @@ std::string Team::shiftsInfo() const
     unsigned  int it = 0;
     for(const auto &shift : shifts)
     {
-        out << weekDay[it] << ": " << shift -> shiftInfo() << std::endl;
+        out << Schedule::getWeekDay(it) << ": " << shift -> shiftInfo() << std::endl;
         it++;
     }
     return out.str();
@@ -101,8 +101,3 @@ void Team::setName(std::string n)
 {
     name = std::move(n);
 }
-
-//const std::vector<shiftPtr>& Team::getShiftOnDay(unsigned int day) const
-//{
-////    unsigned int it = getWeekDayIterator()
-//}

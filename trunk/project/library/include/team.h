@@ -18,7 +18,6 @@ private:
     std::string name;
     std::vector<positionPtr> positionsRequired{};
     std::vector<shiftPtr> shifts{};
-    std::vector<std::string> weekDay{7};
 public:
     explicit Team(std::string);
     void removeShift(unsigned int);
@@ -32,7 +31,7 @@ public:
     const std::vector<shiftPtr>& getShifts() const;
     void setName(std::string);
     void addShift(shiftPtr&);
-    const std::vector<shiftPtr>& getShiftOnDay(unsigned int) const;
+    void addShift(unsigned int, unsigned int, unsigned int);
 };
 
 #endif
