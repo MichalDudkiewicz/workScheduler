@@ -1,7 +1,6 @@
 #ifndef employeeManagerClass
 #define employeeManagerClass
 
-#include <vector>
 #include <memory>
 #include <string>
 

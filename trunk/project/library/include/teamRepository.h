@@ -20,8 +20,9 @@ public:
     TeamRepository(const TeamRepository&)=delete;
     void operator=(const TeamRepository&)=delete;
     void addTeam(const teamPtr&);
-    void removeTeam(std::string);
-    const teamPtr& getTeamByName(std::string) const;
+    void addTeam(const std::string&);
+    void removeTeam(const std::string&);
+    const teamPtr& getTeamByName(const std::string&) const;
     const teams& getAll() const;
     std::string repositoryInfo() const;
 };

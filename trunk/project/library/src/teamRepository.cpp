@@ -19,7 +19,13 @@ void TeamRepository::addTeam(const teamPtr &team)
     teamsRepository.push_back(team);
 }
 
-void TeamRepository::removeTeam(std::string name)
+void TeamRepository::addTeam(const std::string &name)
+{
+    teamPtr team = std::make_shared<Team>(name);
+    teamsRepository.push_back(team);
+}
+
+void TeamRepository::removeTeam(const std::string &name)
 {
     unsigned int it = 0;
     for(const auto &t : teamsRepository)
@@ -33,7 +39,7 @@ void TeamRepository::removeTeam(std::string name)
     }
 }
 
-const teamPtr& TeamRepository::getTeamByName(std::string name) const
+const teamPtr& TeamRepository::getTeamByName(const std::string &name) const
 {
     for(const auto &t : teamsRepository)
     {
