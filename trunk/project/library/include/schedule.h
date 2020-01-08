@@ -10,7 +10,7 @@ namespace Schedule
     std::string getWeekDay(unsigned int);
     unsigned int getWeekDayIterator(const boost::gregorian::date&);
     unsigned int getNumberOfDays();
-//    virtual std::string scheduleDate();
+    std::string scheduleDate();
 }
 
 #endif

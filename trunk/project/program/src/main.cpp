@@ -13,6 +13,7 @@
 #include "driverN.h"
 #include "medicalRecorder.h"
 #include "dispatcher.h"
+#include "schedule.h"
 
 using namespace std;
 
@@ -2773,6 +2774,7 @@ int main()
     (*teamRepo).addTeam(tDN);
 
 //schedule
+    cout<<Schedule::scheduleDate()<<endl;
     FinalSchedule finalSchedule(teamRepo,empRepo);
     finalSchedule.makeSchedule();
     std::cout<<finalSchedule.scheduleInfo();

@@ -33,6 +33,10 @@ target_include_directories(Library PUBLIC include)
 enable_testing()
 find_package (Boost 1.60.0 COMPONENTS "unit_test_framework" REQUIRED)
 
+#linkowanie z boost::date_time
+find_package (Boost 1.60.0 COMPONENTS "date_time" REQUIRED)
+target_link_libraries(Library PUBLIC Boost::date_time)
+
 include_directories(
  ${CMAKE_CURRENT_SOURCE_DIR}/include
  ${Boost_INCLUDE_DIRS}

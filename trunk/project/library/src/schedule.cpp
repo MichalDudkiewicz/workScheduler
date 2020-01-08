@@ -42,12 +42,9 @@ unsigned int Schedule::getWeekDayIterator(const boost::gregorian::date &d)
     return day;
 }
 
-//std::string Schedule::scheduleDate()
-//{
-//boost::gregorian::date currentDate;
-//    std::ostringstream out;
-//    boost::gregorian::date nextMonthDate(currentDate);
-//    nextMonthDate+=boost::gregorian::months(1);
-//    out<<nextMonthDate.month().as_long_string()<< " " <<nextMonthDate.year();
-//    return out.str();
-//}
+std::string Schedule::scheduleDate()
+{
+    std::ostringstream out;
+    out<<getStartDate().month().as_long_string()<< " " <<getStartDate().year();
+    return out.str();
+}
