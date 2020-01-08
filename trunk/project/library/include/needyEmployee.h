@@ -1,5 +1,5 @@
-#ifndef NeedyEmployeeClass
-#define NeedyEmployeeClass
+#ifndef needyEmployeeClass
+#define needyEmployeeClass
 
 #include "employeeType.h"
 

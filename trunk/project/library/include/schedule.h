@@ -1,10 +1,7 @@
 #ifndef scheduleClass
 #define scheduleClass
 
-#include <memory>
-#include <vector>
 #include "boost/date_time/gregorian/gregorian.hpp"
-
 
 namespace Schedule
 {

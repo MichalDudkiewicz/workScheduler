@@ -3,7 +3,6 @@
 
 #include <memory>
 #include <vector>
-#include "schedule.h"
 
 class Team;
 class Employee;
@@ -15,7 +14,8 @@ typedef std::vector<employeePtr> employees;
 typedef std::vector<employees> dayQueues;
 typedef std::vector<dayQueues> queues;
 
-class TeamQueues {
+class TeamQueues
+{
 private:
     teamPtr team;
     employees authorisedEmployees;

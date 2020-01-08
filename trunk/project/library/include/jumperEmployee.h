@@ -1,5 +1,5 @@
-#ifndef JumperEmployeeClass
-#define JumperEmployeeClass
+#ifndef jumperEmployeeClass
+#define jumperEmployeeClass
 
 #include "employeeType.h"
 

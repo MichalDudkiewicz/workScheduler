@@ -1,5 +1,5 @@
-#ifndef NormalEmployeeClass
-#define NormalEmployeeClass
+#ifndef normalEmployeeClass
+#define normalEmployeeClass
 
 #include "employeeType.h"
 

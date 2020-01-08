@@ -1,5 +1,5 @@
-#ifndef WORKSCHEDULER_EMPLOYEETYPE_H
-#define WORKSCHEDULER_EMPLOYEETYPE_H
+#ifndef employeeTypeClass
+#define employeeTypeClass
 
 #include <string>
 
@@ -11,4 +11,4 @@ public:
     virtual std::string getType() const=0;
 };
 
-#endif //WORKSCHEDULER_EMPLOYEETYPE_H
+#endif

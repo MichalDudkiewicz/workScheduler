@@ -6,6 +6,7 @@
 #include "needyEmployee.h"
 #include <algorithm>
 #include <position.h>
+#include <sstream>
 
 static employeeTypePtr normalEmployee = std::make_shared<NormalEmployee>();
 static employeeTypePtr jumperEmployee = std::make_shared<JumperEmployee>();

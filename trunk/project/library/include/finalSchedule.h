@@ -8,8 +8,6 @@
 
 class EmployeeRepository;
 class TeamRepository;
-typedef std::unique_ptr<EmployeeRepository> empRepositoryPtr;
-typedef std::unique_ptr<TeamRepository> teamRepositoryPtr;
 typedef std::vector<TeamQueues> teamsQueues;
 typedef std::vector<employeePtr> employees;
 typedef std::vector<employees> employeesOnPosition;

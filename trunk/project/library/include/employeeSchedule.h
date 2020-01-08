@@ -1,16 +1,16 @@
-#ifndef WORKSCHEDULER_EMPLOYEESCHEDULE_H
-#define WORKSCHEDULER_EMPLOYEESCHEDULE_H
+#ifndef employeeScheduleClass
+#define employeeScheduleClass
 
 #include <vector>
 #include <memory>
-#include "schedule.h"
 #include "shift.h" //forward declaration (?)
 
 typedef std::unique_ptr<Shift> shiftPtr;
 typedef std::vector<shiftPtr> shifts;
 typedef std::vector<shifts> schedule;
 
-class EmployeeSchedule {
+class EmployeeSchedule
+{
 private:
     schedule shiftsInSchedule{};
 public:
@@ -20,4 +20,4 @@ public:
     const schedule& getSchedule() const;
 };
 
-#endif //WORKSCHEDULER_EMPLOYEESCHEDULE_H
+#endif

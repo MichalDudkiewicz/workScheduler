@@ -1,6 +1,7 @@
 #include <boost/test/unit_test.hpp>
 #include "employeeSchedule.h"
 #include <memory>
+#include "schedule.h"
 
 BOOST_AUTO_TEST_SUITE(TestSuiteCorrect)
 

@@ -3,6 +3,7 @@
 #include "team.h"
 #include "position.h"
 #include <algorithm>
+#include "schedule.h"
 
 TeamQueues::TeamQueues(const teamPtr &t, employees e) : team(t), authorisedEmployees(std::move(e))
 {

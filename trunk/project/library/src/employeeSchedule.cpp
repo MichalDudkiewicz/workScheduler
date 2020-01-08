@@ -1,5 +1,6 @@
 #include "employeeSchedule.h"
 #include "shift.h"
+#include "schedule.h"
 #include <algorithm>
 
 EmployeeSchedule::EmployeeSchedule()

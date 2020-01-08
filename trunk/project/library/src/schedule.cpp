@@ -1,5 +1,7 @@
 #include "schedule.h"
 #include <sstream>
+#include <vector>
+
     unsigned int Schedule::getNumberOfDays(){
         boost::gregorian::date currentDate(boost::gregorian::day_clock::local_day());;
         boost::gregorian::date nextMonthDate(currentDate);

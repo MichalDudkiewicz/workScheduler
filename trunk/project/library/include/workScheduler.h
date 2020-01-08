@@ -7,8 +7,6 @@
 
 class EmployeeRepository;
 class TeamRepository;
-class Team;
-class Employee;
 
 class WorkScheduler
 {

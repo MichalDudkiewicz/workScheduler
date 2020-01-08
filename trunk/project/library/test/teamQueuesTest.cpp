@@ -5,6 +5,7 @@
 #include "medic.h"
 #include "teamQueues.h"
 #include <memory>
+#include "schedule.h"
 
 BOOST_AUTO_TEST_SUITE(TestSuiteCorrect)
 
