@@ -1,8 +1,5 @@
 #include "team.h"
-#include <sstream>
 #include "position.h"
-#include "shift.h"
-#include <algorithm>
 #include "schedule.h"
 
 Team::Team(std::string teamName) : name(std::move(teamName))

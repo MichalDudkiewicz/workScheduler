@@ -1,11 +1,9 @@
 #include "teamQueues.h"
 #include "employee.h"
 #include "team.h"
-#include "position.h"
-#include <algorithm>
 #include "schedule.h"
 
-TeamQueues::TeamQueues(const teamPtr &t, employees e) : team(t), authorisedEmployees(std::move(e))
+TeamQueues::TeamQueues(teamPtr t, employees e) : team(std::move(t)), authorisedEmployees(std::move(e))
 {
     for(unsigned int i=0; i<Schedule::getNumberOfDays()+1; ++i)
     {

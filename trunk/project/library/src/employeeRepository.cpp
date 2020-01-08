@@ -1,9 +1,9 @@
 #include "employeeRepository.h"
+#include "employee.h"
+#include "team.h"
+#include "employeeType.h"
 #include <sstream>
-#include <employee.h>
 #include <algorithm>
-#include <team.h>
-#include <employeeType.h>
 
 
 EmployeeRepository* EmployeeRepository::instance=nullptr;

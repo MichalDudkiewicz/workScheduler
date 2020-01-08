@@ -3,23 +3,8 @@ project(Library)
 
 set(SOURCE_FILES
         src/employee.cpp
-        include/employee.h
         src/team.cpp
-        include/team.h
         src/shift.cpp
-        include/shift.h
-        include/position.h
-        include/ambulance.h
-        include/doctor.h
-        include/dispatcher.h
-        include/sTeam.h
-        include/driverN.h
-        include/driverS.h
-        include/medic.h
-        include/nTeam.h
-        include/rescuerN.h
-        include/rescuerS.h
-        include/medicalRecorder.h
         src/medic.cpp
         src/medicalRecorder.cpp
         src/doctor.cpp
@@ -29,29 +14,16 @@ set(SOURCE_FILES
         src/driverS.cpp
         src/dispatcher.cpp
         src/teamQueues.cpp
-        include/teamQueues.h
-        include/schedule.h
         src/schedule.cpp
         src/employeeSchedule.cpp
-        include/employeeSchedule.h
-        include/employeeType.h
-        include/jumperEmployee.h
-        include/normalEmployee.h
-        include/needyEmployee.h
         src/jumperEmployee.cpp
         src/needyEmployee.cpp
         src/normalEmployee.cpp
         src/employeeRepository.cpp
-        include/employeeRepository.h
         src/teamRepository.cpp
-        include/teamRepository.h
         src/finalSchedule.cpp
-        include/finalSchedule.h
-        include/workScheduler.h
         src/workScheduler.cpp
-        include/teamManager.h
         src/teamManager.cpp
-        include/employeeManager.h
         src/employeeManager.cpp
         )
 #utwórz bibliotekę typu STATIC, SHARED albo MODULE ze wskazanych źródeł

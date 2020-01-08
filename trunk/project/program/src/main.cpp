@@ -1,10 +1,8 @@
 #include <iostream>
-#include "schedule.h"
 #include "employee.h"
 #include "team.h"
 #include "doctor.h"
 #include "medic.h"
-#include "teamQueues.h"
 #include <memory>
 #include "employeeRepository.h"
 #include "teamRepository.h"

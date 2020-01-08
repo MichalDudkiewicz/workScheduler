@@ -4,8 +4,8 @@
 #include "jumperEmployee.h"
 #include "normalEmployee.h"
 #include "needyEmployee.h"
+#include "position.h"
 #include <algorithm>
-#include <position.h>
 #include <sstream>
 
 static employeeTypePtr normalEmployee = std::make_shared<NormalEmployee>();

@@ -2,13 +2,10 @@
 #include "employeeRepository.h"
 #include "teamRepository.h"
 #include "employee.h"
-#include "teamQueues.h"
-#include <memory>
 #include "team.h"
 #include "position.h"
 #include "schedule.h"
-#include <sstream>
-#include <iomanip>
+
 
 FinalSchedule::FinalSchedule(const TeamRepository* teamRepository, const EmployeeRepository* employeeRepository)
 {
