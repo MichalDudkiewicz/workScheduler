@@ -1,6 +1,7 @@
 #include "teamRepository.h"
 #include "team.h"
 #include <sstream>
+#include "shift.h"
 
 
 TeamRepository* TeamRepository::instance=nullptr;

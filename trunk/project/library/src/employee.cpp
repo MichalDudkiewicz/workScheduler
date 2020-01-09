@@ -8,9 +8,9 @@
 #include <algorithm>
 #include <sstream>
 
-static employeeTypePtr normalEmployee = std::make_shared<NormalEmployee>();
-static employeeTypePtr jumperEmployee = std::make_shared<JumperEmployee>();
-static employeeTypePtr needyEmployee = std::make_shared<NeedyEmployee>();
+static const employeeTypePtr normalEmployee = std::make_shared<NormalEmployee>();
+static const employeeTypePtr jumperEmployee = std::make_shared<JumperEmployee>();
+static const employeeTypePtr needyEmployee = std::make_shared<NeedyEmployee>();
 
 Employee::Employee(std::string name, unsigned int i) : name(std::move(name)), nonresident(false), points(0), id(i), maxShifts(100), minShifts(0), hourlyWage(0), employeeType(normalEmployee), desiredSchedule(), currentSchedule()
 {}

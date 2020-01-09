@@ -6,6 +6,7 @@
 #include "teamQueues.h"
 #include <memory>
 #include "schedule.h"
+#include "shift.h"
 
 BOOST_AUTO_TEST_SUITE(TestSuiteCorrect)
 

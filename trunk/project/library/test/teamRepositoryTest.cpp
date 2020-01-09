@@ -7,6 +7,7 @@
 #include "medic.h"
 #include "doctor.h"
 #include "driverN.h"
+#include "shift.h"
 
 BOOST_AUTO_TEST_SUITE(TestSuiteCorrect)
 

@@ -3,8 +3,8 @@
 
 #include <vector>
 #include <memory>
-#include "shift.h" //forward declaration (?)
 
+class Shift;
 typedef std::unique_ptr<Shift> shiftPtr;
 typedef std::vector<shiftPtr> shifts;
 typedef std::vector<shifts> schedule;

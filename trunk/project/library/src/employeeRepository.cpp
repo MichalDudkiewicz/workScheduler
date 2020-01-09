@@ -4,6 +4,7 @@
 #include "employeeType.h"
 #include <sstream>
 #include <algorithm>
+#include "shift.h"
 
 
 EmployeeRepository* EmployeeRepository::instance=nullptr;

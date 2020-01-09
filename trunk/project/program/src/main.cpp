@@ -14,6 +14,7 @@
 #include "medicalRecorder.h"
 #include "dispatcher.h"
 #include "schedule.h"
+#include "shift.h"
 
 using namespace std;
 

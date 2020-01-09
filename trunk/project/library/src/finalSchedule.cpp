@@ -5,6 +5,7 @@
 #include "team.h"
 #include "position.h"
 #include "schedule.h"
+#include "shift.h"
 
 
 FinalSchedule::FinalSchedule(const TeamRepository* teamRepository, const EmployeeRepository* employeeRepository)

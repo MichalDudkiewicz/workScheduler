@@ -2,6 +2,7 @@
 #include "employee.h"
 #include "team.h"
 #include "schedule.h"
+#include "shift.h"
 
 TeamQueues::TeamQueues(teamPtr t, employees e) : team(std::move(t)), authorisedEmployees(std::move(e))
 {
