@@ -8,12 +8,28 @@
 #include <algorithm>
 #include <sstream>
 
+ValueException::ValueException(const std::string &message)
+        : logic_error(message)
+{}
+
+std::string ValueException::message() const
+{
+    return what();
+}
+
+RecurringValueException::RecurringValueException(const std::string &message)
+        : ValueException(message)
+{}
+
 static const employeeTypePtr normalEmployee = std::make_shared<NormalEmployee>();
 static const employeeTypePtr jumperEmployee = std::make_shared<JumperEmployee>();
 static const employeeTypePtr needyEmployee = std::make_shared<NeedyEmployee>();
 
-Employee::Employee(std::string name, unsigned int i) : name(std::move(name)), nonresident(false), points(0), id(i), maxShifts(100), minShifts(0), hourlyWage(0), employeeType(normalEmployee), desiredSchedule(), currentSchedule()
-{}
+Employee::Employee(std::string name, unsigned int id) : name(std::move(name)), nonresident(false), points(0), id(id), maxShifts(100), minShifts(0), hourlyWage(0), employeeType(normalEmployee), desiredSchedule(), currentSchedule()
+{
+    //tutaj wyjatek - sprawdzenie czy id juz wystepuje
+
+}
 
 std::string Employee::employeeInfo() const
 {
