@@ -129,6 +129,11 @@ BOOST_AUTO_TEST_SUITE(TestSuiteCorrect)
         BOOST_CHECK_EQUAL((*team).getShifts()[1]->isDayOff(), false);
         (*team).removeShift(2);
         BOOST_CHECK_EQUAL((*team).getShifts()[1]->isDayOff(), true);
+        (*team).removeShift(7);
+        BOOST_CHECK_EQUAL((*team).getShifts()[6]->isDayOff(), true);
+        (*team).addShift(8, 10, 7);
+        BOOST_CHECK_EQUAL((*team).getShifts()[6]->isDayOff(), false);
+        BOOST_CHECK_EQUAL((*team).getShifts()[6]->shiftInfo(), "day: 7, 8 - 10");
     }
 
     BOOST_FIXTURE_TEST_CASE(TeamRemovePositionCase, FixtureTeamTest) {

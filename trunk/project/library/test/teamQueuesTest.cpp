@@ -128,15 +128,38 @@ BOOST_AUTO_TEST_SUITE(TestSuiteCorrect)
         BOOST_REQUIRE_EQUAL(queue.getTeamQueues()[0][1].empty(), true);
         BOOST_REQUIRE_EQUAL(queue.getTeamQueues()[1][0].empty(), true);
         BOOST_REQUIRE_EQUAL(queue.getTeamQueues()[7][1][0]->getId(), 2);
-//        BOOST_REQUIRE_EQUAL(queue.getTeamQueues()[6][0][0]->getId(), 2);
-//        BOOST_REQUIRE_EQUAL(queue.getTeamQueues()[6][1][0]->getId(), 2);
-//        BOOST_REQUIRE_EQUAL(queue.getTeamQueues()[6][1][1]->getId(), 1);
-//        BOOST_REQUIRE_EQUAL(queue.getTeamQueues()[11][0][0]->getId(), 2);
-//        BOOST_REQUIRE_EQUAL(queue.getTeamQueues()[11][1][0]->getId(), 2);
         BOOST_REQUIRE_EQUAL(queue.getTeamQueues()[19][0].size(), 1);
-//        BOOST_REQUIRE_EQUAL(queue.getTeamQueues()[19][1].size(), 2);
-//        BOOST_REQUIRE_EQUAL(queue.getTeamQueues()[30][0].size(), 1);
-//        BOOST_REQUIRE_EQUAL(queue.getTeamQueues()[30][1].size(), 2);
     }
+
+//    BOOST_AUTO_TEST_CASE(TemaQueueTestSort){
+//        std::shared_ptr<Employee> employee1 = std::make_shared<Employee>("Paulina", 1);
+//        std::shared_ptr<Employee> employee2 = std::make_shared<Employee>("Michal", 2);
+//        std::shared_ptr<Employee> employee3 = std::make_shared<Employee>("Pawel", 3);
+//        std::shared_ptr<Employee> employee4 = std::make_shared<Employee>("Justyna", 4);
+//        std::vector<employeePtr> employees;
+//        employees.push_back(employee1);
+//        employees.push_back(employee2);
+//        employees.push_back(employee3);
+//        employees.push_back(employee4);
+//        (*employee1).setPoints(10);
+//        (*employee2).setPoints(5);
+//        (*employee3).setPoints(22);
+//        (*employee4).setPoints(0);
+//        (*employee2).changeType(3);
+//        (*employee3).changeType(2);
+//        std::unique_ptr<Shift> shift1(new Shift(0, 15, 1));
+//        std::unique_ptr<Shift> shift2(new Shift(2, 12, 1));
+//        std::unique_ptr<Shift> shift3(new Shift(5, 14, 1));
+//        std::unique_ptr<Shift> shift4(new Shift(7, 14, 1));
+//        (*employee1).addDesiredShift(shift1);
+//        (*employee2).addDesiredShift(shift2);
+//        (*employee3).addDesiredShift(shift3);
+//        (*employee4).addDesiredShift(shift4);
+//        std::unique_ptr<Shift> monday(new Shift(8, 12, 1));
+//        std::shared_ptr<Team> team = std::make_shared<Team>("S1");
+//        TeamQueues queue(team,employees);
+//        queue.queueSort(0,1);
+//        BOOST_CHECK_EQUAL(queue.getTeamQueues()[0][1][0], employee3);
+//    }
 
 BOOST_AUTO_TEST_SUITE_END()
