@@ -11,8 +11,6 @@ class TeamRepository;
 class WorkScheduler
 {
 private:
-    EmployeeRepository* employeeRepository;
-    TeamRepository* teamRepository;
     FinalSchedule schedule;
 public:
     WorkScheduler();

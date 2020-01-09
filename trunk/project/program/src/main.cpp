@@ -30,7 +30,6 @@ int main()
     std::shared_ptr<Position> dispatcher=std::make_shared<Dispatcher>();
 
     //employee Repository
-    EmployeeRepository *empRepo = EmployeeRepository::getInstance();
 
     std::unique_ptr<Shift> shift1;
     std::unique_ptr<Shift> shift2;
@@ -80,7 +79,7 @@ int main()
     (*e1).addDesiredShift(shift13);
     (*e1).addDesiredShift(shift14);
     (*e1).addDesiredShift(shift15);
-    (*empRepo).addEmployee(e1);
+    EmployeeRepository::getInstance().addEmployee(e1);
     std::shared_ptr<Employee> e2=std::make_shared<Employee>("Bi",2);
     (*e2).addPosition(rescuerN);
     shift1.reset(new Shift(0,24,1));
@@ -113,7 +112,7 @@ int main()
     (*e2).addDesiredShift(shift13);
     (*e2).addDesiredShift(shift14);
     (*e2).addDesiredShift(shift15);
-    (*empRepo).addEmployee(e2);
+    EmployeeRepository::getInstance().addEmployee(e2);
     std::shared_ptr<Employee> e3=std::make_shared<Employee>("Bo",3);
     (*e3).addPosition(driverN);
     shift1.reset(new Shift(0,24,1));
@@ -146,7 +145,7 @@ int main()
     (*e3).addDesiredShift(shift13);
     (*e3).addDesiredShift(shift14);
     (*e3).addDesiredShift(shift15);
-    (*empRepo).addEmployee(e3);
+    EmployeeRepository::getInstance().addEmployee(e3);
     std::shared_ptr<Employee> e4=std::make_shared<Employee>("Ci",4);
     (*e4).addPosition(rescuerN);
     (*e4).addPosition(driverN);
@@ -182,7 +181,7 @@ int main()
     (*e4).addDesiredShift(shift13);
     (*e4).addDesiredShift(shift14);
     (*e4).addDesiredShift(shift15);
-    (*empRepo).addEmployee(e4);
+    EmployeeRepository::getInstance().addEmployee(e4);
     std::shared_ptr<Employee> e5=std::make_shared<Employee>("",5);
     std::shared_ptr<Employee> e6=std::make_shared<Employee>("Du",6);
     (*e6).addPosition(rescuerN);
@@ -218,7 +217,7 @@ int main()
     (*e6).addDesiredShift(shift13);
     (*e6).addDesiredShift(shift14);
     (*e6).addDesiredShift(shift15);
-    (*empRepo).addEmployee(e6);
+    EmployeeRepository::getInstance().addEmployee(e6);
     std::shared_ptr<Employee> e7=std::make_shared<Employee>("Dz",7);
     (*e7).addPosition(rescuerS);
     shift1.reset(new Shift(0,24,1));
@@ -251,7 +250,7 @@ int main()
     (*e7).addDesiredShift(shift13);
     (*e7).addDesiredShift(shift14);
     (*e7).addDesiredShift(shift15);
-    (*empRepo).addEmployee(e7);
+    EmployeeRepository::getInstance().addEmployee(e7);
     std::shared_ptr<Employee> e8=std::make_shared<Employee>("Cy",8);
     (*e8).addPosition(driverN);
     (*e8).addPosition(driverS);
@@ -286,7 +285,7 @@ int main()
     (*e8).addDesiredShift(shift13);
     (*e8).addDesiredShift(shift14);
     (*e8).addDesiredShift(shift15);
-    (*empRepo).addEmployee(e8);
+    EmployeeRepository::getInstance().addEmployee(e8);
     std::shared_ptr<Employee> e9=std::make_shared<Employee>("Fi",9);
     (*e9).addPosition(driverN);
     (*e9).addPosition(driverS);
@@ -321,7 +320,7 @@ int main()
     (*e9).addDesiredShift(shift13);
     (*e9).addDesiredShift(shift14);
     (*e9).addDesiredShift(shift15);
-    (*empRepo).addEmployee(e9);
+    EmployeeRepository::getInstance().addEmployee(e9);
     std::shared_ptr<Employee> e10=std::make_shared<Employee>("Ga",10);
     (*e10).addPosition(dispatcher);
     (*e10).addPosition(driverN);
@@ -357,7 +356,7 @@ int main()
     (*e10).addDesiredShift(shift13);
     (*e10).addDesiredShift(shift14);
     (*e10).addDesiredShift(shift15);
-    (*empRepo).addEmployee(e10);
+    EmployeeRepository::getInstance().addEmployee(e10);
     std::shared_ptr<Employee> e11=std::make_shared<Employee>("Ga",11);
     (*e11).addPosition(rescuerN);
     (*e11).addPosition(rescuerS);
@@ -393,7 +392,7 @@ int main()
     (*e11).addDesiredShift(shift13);
     (*e11).addDesiredShift(shift14);
     (*e11).addDesiredShift(shift15);
-    (*empRepo).addEmployee(e11);
+    EmployeeRepository::getInstance().addEmployee(e11);
     std::shared_ptr<Employee> e12=std::make_shared<Employee>("Ga",12);
     (*e12).addPosition(driverN);
     (*e12).addPosition(rescuerN);
@@ -427,7 +426,7 @@ int main()
     (*e12).addDesiredShift(shift13);
     (*e12).addDesiredShift(shift14);
     (*e12).addDesiredShift(shift15);
-    (*empRepo).addEmployee(e12);
+    EmployeeRepository::getInstance().addEmployee(e12);
     std::shared_ptr<Employee> e13=std::make_shared<Employee>("Gl",13);
     (*e13).addPosition(driverN);
     (*e13).addPosition(driverS);
@@ -462,7 +461,7 @@ int main()
     (*e13).addDesiredShift(shift13);
     (*e13).addDesiredShift(shift14);
     (*e13).addDesiredShift(shift15);
-    (*empRepo).addEmployee(e13);
+    EmployeeRepository::getInstance().addEmployee(e13);
     std::shared_ptr<Employee> e14=std::make_shared<Employee>("Go",14);
     (*e14).addPosition(dispatcher);
     (*e14).addPosition(rescuerN);
@@ -497,7 +496,7 @@ int main()
     (*e14).addDesiredShift(shift13);
     (*e14).addDesiredShift(shift14);
     (*e14).addDesiredShift(shift15);
-    (*empRepo).addEmployee(e14);
+    EmployeeRepository::getInstance().addEmployee(e14);
     std::shared_ptr<Employee> e15=std::make_shared<Employee>("Go",15);
     (*e15).addPosition(rescuerS);
     (*e15).addPosition(rescuerN);
@@ -533,7 +532,7 @@ int main()
     (*e15).addDesiredShift(shift13);
     (*e15).addDesiredShift(shift14);
     (*e15).addDesiredShift(shift15);
-    (*empRepo).addEmployee(e15);
+    EmployeeRepository::getInstance().addEmployee(e15);
     std::shared_ptr<Employee> e16=std::make_shared<Employee>("Gu",16);
     (*e16).addPosition(driverN);
     (*e16).addPosition(driverS);
@@ -568,7 +567,7 @@ int main()
     (*e16).addDesiredShift(shift13);
     (*e16).addDesiredShift(shift14);
     (*e16).addDesiredShift(shift15);
-    (*empRepo).addEmployee(e16);
+    EmployeeRepository::getInstance().addEmployee(e16);
     std::shared_ptr<Employee> e17=std::make_shared<Employee>("Gu",17);
     (*e17).addPosition(driverN);
     (*e17).addPosition(driverS);
@@ -602,7 +601,7 @@ int main()
     (*e17).addDesiredShift(shift13);
     (*e17).addDesiredShift(shift14);
     (*e17).addDesiredShift(shift15);
-    (*empRepo).addEmployee(e17);
+    EmployeeRepository::getInstance().addEmployee(e17);
     std::shared_ptr<Employee> e18=std::make_shared<Employee>("Hi",18);
     (*e18).addPosition(rescuerN);
     shift1.reset(new Shift(0,24,1));
@@ -635,7 +634,7 @@ int main()
     (*e18).addDesiredShift(shift13);
     (*e18).addDesiredShift(shift14);
     (*e18).addDesiredShift(shift15);
-    (*empRepo).addEmployee(e18);
+    EmployeeRepository::getInstance().addEmployee(e18);
     std::shared_ptr<Employee> e19=std::make_shared<Employee>("Ja",19);
     (*e19).addPosition(driverN);
     (*e19).addPosition(rescuerN);
@@ -669,7 +668,7 @@ int main()
     (*e19).addDesiredShift(shift13);
     (*e19).addDesiredShift(shift14);
     (*e19).addDesiredShift(shift15);
-    (*empRepo).addEmployee(e19);
+    EmployeeRepository::getInstance().addEmployee(e19);
     std::shared_ptr<Employee> e20=std::make_shared<Employee>("Ja",20);
     (*e20).addPosition(dispatcher);
     (*e20).addPosition(rescuerS);
@@ -703,7 +702,7 @@ int main()
     (*e20).addDesiredShift(shift13);
     (*e20).addDesiredShift(shift14);
     (*e20).addDesiredShift(shift15);
-    (*empRepo).addEmployee(e20);
+    EmployeeRepository::getInstance().addEmployee(e20);
     std::shared_ptr<Employee> e21=std::make_shared<Employee>("Ja",21);
     (*e21).addPosition(driverS);
     shift1.reset(new Shift(0,24,1));
@@ -736,7 +735,7 @@ int main()
     (*e21).addDesiredShift(shift13);
     (*e21).addDesiredShift(shift14);
     (*e21).addDesiredShift(shift15);
-    (*empRepo).addEmployee(e21);
+    EmployeeRepository::getInstance().addEmployee(e21);
     std::shared_ptr<Employee> e22=std::make_shared<Employee>("Ja",22);
     (*e22).addPosition(driverS);
     shift1.reset(new Shift(0,24,1));
@@ -769,7 +768,7 @@ int main()
     (*e22).addDesiredShift(shift13);
     (*e22).addDesiredShift(shift14);
     (*e22).addDesiredShift(shift15);
-    (*empRepo).addEmployee(e22);
+    EmployeeRepository::getInstance().addEmployee(e22);
     std::shared_ptr<Employee> e23=std::make_shared<Employee>("Je",23);
     (*e23).addPosition(driverS);
     shift1.reset(new Shift(0,24,1));
@@ -802,7 +801,7 @@ int main()
     (*e23).addDesiredShift(shift13);
     (*e23).addDesiredShift(shift14);
     (*e23).addDesiredShift(shift15);
-    (*empRepo).addEmployee(e23);
+    EmployeeRepository::getInstance().addEmployee(e23);
     std::shared_ptr<Employee> e24=std::make_shared<Employee>("Je",24);
     (*e24).addPosition(dispatcher);
     shift1.reset(new Shift(0,24,1));
@@ -835,7 +834,7 @@ int main()
     (*e24).addDesiredShift(shift13);
     (*e24).addDesiredShift(shift14);
     (*e24).addDesiredShift(shift15);
-    (*empRepo).addEmployee(e24);
+    EmployeeRepository::getInstance().addEmployee(e24);
     std::shared_ptr<Employee> e25=std::make_shared<Employee>("Je",25);
     (*e25).addPosition(driverN);
     shift1.reset(new Shift(0,24,1));
@@ -868,7 +867,7 @@ int main()
     (*e25).addDesiredShift(shift13);
     (*e25).addDesiredShift(shift14);
     (*e25).addDesiredShift(shift15);
-    (*empRepo).addEmployee(e25);
+    EmployeeRepository::getInstance().addEmployee(e25);
     std::shared_ptr<Employee> e26=std::make_shared<Employee>("Ka",26);
     (*e26).addPosition(driverN);
     (*e26).addPosition(rescuerN);
@@ -902,7 +901,7 @@ int main()
     (*e26).addDesiredShift(shift13);
     (*e26).addDesiredShift(shift14);
     (*e26).addDesiredShift(shift15);
-    (*empRepo).addEmployee(e26);
+    EmployeeRepository::getInstance().addEmployee(e26);
     std::shared_ptr<Employee> e27=std::make_shared<Employee>("Ka",27);
     (*e27).addPosition(medicalRecorder);
     shift1.reset(new Shift(0,24,1));
@@ -935,7 +934,7 @@ int main()
     (*e27).addDesiredShift(shift13);
     (*e27).addDesiredShift(shift14);
     (*e27).addDesiredShift(shift15);
-    (*empRepo).addEmployee(e27);
+    EmployeeRepository::getInstance().addEmployee(e27);
     std::shared_ptr<Employee> e28=std::make_shared<Employee>("Ka",28);
     (*e28).addPosition(rescuerN);
     (*e28).addPosition(rescuerS);
@@ -969,7 +968,7 @@ int main()
     (*e28).addDesiredShift(shift13);
     (*e28).addDesiredShift(shift14);
     (*e28).addDesiredShift(shift15);
-    (*empRepo).addEmployee(e28);
+    EmployeeRepository::getInstance().addEmployee(e28);
     std::shared_ptr<Employee> e29=std::make_shared<Employee>("Ko",29);
     (*e29).addPosition(driverN);
     (*e29).addPosition(driverS);
@@ -1003,7 +1002,7 @@ int main()
     (*e29).addDesiredShift(shift13);
     (*e29).addDesiredShift(shift14);
     (*e29).addDesiredShift(shift15);
-    (*empRepo).addEmployee(e29);
+    EmployeeRepository::getInstance().addEmployee(e29);
     std::shared_ptr<Employee> e30=std::make_shared<Employee>("Ko",30);
     (*e30).addPosition(rescuerS);
     shift1.reset(new Shift(0,24,1));
@@ -1036,7 +1035,7 @@ int main()
     (*e30).addDesiredShift(shift13);
     (*e30).addDesiredShift(shift14);
     (*e30).addDesiredShift(shift15);
-    (*empRepo).addEmployee(e30);
+    EmployeeRepository::getInstance().addEmployee(e30);
     std::shared_ptr<Employee> e31=std::make_shared<Employee>("Kr",31);
     (*e31).addPosition(dispatcher);
     (*e31).addPosition(driverS);
@@ -1073,7 +1072,7 @@ int main()
     (*e31).addDesiredShift(shift13);
     (*e31).addDesiredShift(shift14);
     (*e31).addDesiredShift(shift15);
-    (*empRepo).addEmployee(e31);
+    EmployeeRepository::getInstance().addEmployee(e31);
     std::shared_ptr<Employee> e32=std::make_shared<Employee>("Ku",32);
     (*e32).addPosition(rescuerN);
     shift1.reset(new Shift(0,24,1));
@@ -1106,7 +1105,7 @@ int main()
     (*e32).addDesiredShift(shift13);
     (*e32).addDesiredShift(shift14);
     (*e32).addDesiredShift(shift15);
-    (*empRepo).addEmployee(e32);
+    EmployeeRepository::getInstance().addEmployee(e32);
     std::shared_ptr<Employee> e33=std::make_shared<Employee>("Ku",33);
     (*e33).addPosition(driverS);
     (*e33).addPosition(rescuerS);
@@ -1141,7 +1140,7 @@ int main()
     (*e33).addDesiredShift(shift13);
     (*e33).addDesiredShift(shift14);
     (*e33).addDesiredShift(shift15);
-    (*empRepo).addEmployee(e33);
+    EmployeeRepository::getInstance().addEmployee(e33);
     std::shared_ptr<Employee> e34=std::make_shared<Employee>("Kw",34);
     (*e34).addPosition(driverN);
     (*e34).addPosition(rescuerN);
@@ -1176,7 +1175,7 @@ int main()
     (*e34).addDesiredShift(shift13);
     (*e34).addDesiredShift(shift14);
     (*e34).addDesiredShift(shift15);
-    (*empRepo).addEmployee(e34);
+    EmployeeRepository::getInstance().addEmployee(e34);
     std::shared_ptr<Employee> e35=std::make_shared<Employee>("Kw",35);
     (*e35).addPosition(rescuerN);
     (*e35).addPosition(rescuerS);
@@ -1211,7 +1210,7 @@ int main()
     (*e35).addDesiredShift(shift13);
     (*e35).addDesiredShift(shift14);
     (*e35).addDesiredShift(shift15);
-    (*empRepo).addEmployee(e35);
+    EmployeeRepository::getInstance().addEmployee(e35);
     std::shared_ptr<Employee> e36=std::make_shared<Employee>("La",36);
     (*e36).addPosition(rescuerN);
     (*e36).addPosition(rescuerS);
@@ -1246,7 +1245,7 @@ int main()
     (*e36).addDesiredShift(shift13);
     (*e36).addDesiredShift(shift14);
     (*e36).addDesiredShift(shift15);
-    (*empRepo).addEmployee(e36);
+    EmployeeRepository::getInstance().addEmployee(e36);
     std::shared_ptr<Employee> e37=std::make_shared<Employee>("Le",37);
     (*e37).addPosition(rescuerN);
     (*e37).addPosition(driverN);
@@ -1280,7 +1279,7 @@ int main()
     (*e37).addDesiredShift(shift13);
     (*e37).addDesiredShift(shift14);
     (*e37).addDesiredShift(shift15);
-    (*empRepo).addEmployee(e37);
+    EmployeeRepository::getInstance().addEmployee(e37);
     std::shared_ptr<Employee> e38=std::make_shared<Employee>("Ma",38);
     (*e38).addPosition(rescuerN);
     shift1.reset(new Shift(0,24,1));
@@ -1313,7 +1312,7 @@ int main()
     (*e38).addDesiredShift(shift13);
     (*e38).addDesiredShift(shift14);
     (*e38).addDesiredShift(shift15);
-    (*empRepo).addEmployee(e38);
+    EmployeeRepository::getInstance().addEmployee(e38);
     std::shared_ptr<Employee> e39=std::make_shared<Employee>("No",39);
     (*e39).addPosition(driverS);
     (*e39).addPosition(driverN);
@@ -1347,7 +1346,7 @@ int main()
     (*e39).addDesiredShift(shift13);
     (*e39).addDesiredShift(shift14);
     (*e39).addDesiredShift(shift15);
-    (*empRepo).addEmployee(e39);
+    EmployeeRepository::getInstance().addEmployee(e39);
     std::shared_ptr<Employee> e40=std::make_shared<Employee>("No",40);
     (*e40).addPosition(driverS);
     (*e40).addPosition(driverN);
@@ -1381,7 +1380,7 @@ int main()
     (*e40).addDesiredShift(shift13);
     (*e40).addDesiredShift(shift14);
     (*e40).addDesiredShift(shift15);
-    (*empRepo).addEmployee(e40);
+    EmployeeRepository::getInstance().addEmployee(e40);
     std::shared_ptr<Employee> e41=std::make_shared<Employee>("Ni",41);
     (*e41).addPosition(rescuerN);
     shift1.reset(new Shift(0,24,1));
@@ -1414,7 +1413,7 @@ int main()
     (*e41).addDesiredShift(shift13);
     (*e41).addDesiredShift(shift14);
     (*e41).addDesiredShift(shift15);
-    (*empRepo).addEmployee(e41);
+    EmployeeRepository::getInstance().addEmployee(e41);
     std::shared_ptr<Employee> e42=std::make_shared<Employee>("Ol",42);
     (*e42).addPosition(rescuerS);
     (*e42).addPosition(dispatcher);
@@ -1448,7 +1447,7 @@ int main()
     (*e42).addDesiredShift(shift13);
     (*e42).addDesiredShift(shift14);
     (*e42).addDesiredShift(shift15);
-    (*empRepo).addEmployee(e42);
+    EmployeeRepository::getInstance().addEmployee(e42);
     std::shared_ptr<Employee> e43=std::make_shared<Employee>("Os",43);
     (*e43).addPosition(driverN);
     shift1.reset(new Shift(0,24,1));
@@ -1481,7 +1480,7 @@ int main()
     (*e43).addDesiredShift(shift13);
     (*e43).addDesiredShift(shift14);
     (*e43).addDesiredShift(shift15);
-    (*empRepo).addEmployee(e43);
+    EmployeeRepository::getInstance().addEmployee(e43);
     std::shared_ptr<Employee> e44=std::make_shared<Employee>("Pa",44);
     (*e44).addPosition(driverN);
     (*e44).addPosition(rescuerS);
@@ -1517,7 +1516,7 @@ int main()
     (*e44).addDesiredShift(shift13);
     (*e44).addDesiredShift(shift14);
     (*e44).addDesiredShift(shift15);
-    (*empRepo).addEmployee(e44);
+    EmployeeRepository::getInstance().addEmployee(e44);
     std::shared_ptr<Employee> e45=std::make_shared<Employee>("Pa",45);
     (*e45).addPosition(driverS);
     shift1.reset(new Shift(0,24,1));
@@ -1550,7 +1549,7 @@ int main()
     (*e45).addDesiredShift(shift13);
     (*e45).addDesiredShift(shift14);
     (*e45).addDesiredShift(shift15);
-    (*empRepo).addEmployee(e45);
+    EmployeeRepository::getInstance().addEmployee(e45);
     std::shared_ptr<Employee> e46=std::make_shared<Employee>("Pa",46);
     (*e46).addPosition(driverN);
     (*e46).addPosition(rescuerN);
@@ -1584,7 +1583,7 @@ int main()
     (*e46).addDesiredShift(shift13);
     (*e46).addDesiredShift(shift14);
     (*e46).addDesiredShift(shift15);
-    (*empRepo).addEmployee(e46);
+    EmployeeRepository::getInstance().addEmployee(e46);
     std::shared_ptr<Employee> e47=std::make_shared<Employee>("Pi",47);
     (*e47).addPosition(driverN);
     (*e47).addPosition(driverS);
@@ -1618,7 +1617,7 @@ int main()
     (*e47).addDesiredShift(shift13);
     (*e47).addDesiredShift(shift14);
     (*e47).addDesiredShift(shift15);
-    (*empRepo).addEmployee(e47);
+    EmployeeRepository::getInstance().addEmployee(e47);
     std::shared_ptr<Employee> e48=std::make_shared<Employee>("Pi",48);
     (*e48).addPosition(rescuerS);
     (*e48).addPosition(rescuerN);
@@ -1653,7 +1652,7 @@ int main()
     (*e48).addDesiredShift(shift13);
     (*e48).addDesiredShift(shift14);
     (*e48).addDesiredShift(shift15);
-    (*empRepo).addEmployee(e48);
+    EmployeeRepository::getInstance().addEmployee(e48);
     std::shared_ptr<Employee> e49=std::make_shared<Employee>("Po",49);
     (*e49).addPosition(rescuerN);
     (*e49).addPosition(rescuerS);
@@ -1689,7 +1688,7 @@ int main()
     (*e49).addDesiredShift(shift13);
     (*e49).addDesiredShift(shift14);
     (*e49).addDesiredShift(shift15);
-    (*empRepo).addEmployee(e49);
+    EmployeeRepository::getInstance().addEmployee(e49);
     std::shared_ptr<Employee> e50=std::make_shared<Employee>("Pu",50);
     (*e50).addPosition(rescuerN);
     (*e50).addPosition(driverS);
@@ -1724,7 +1723,7 @@ int main()
     (*e50).addDesiredShift(shift13);
     (*e50).addDesiredShift(shift14);
     (*e50).addDesiredShift(shift15);
-    (*empRepo).addEmployee(e50);
+    EmployeeRepository::getInstance().addEmployee(e50);
     std::shared_ptr<Employee> e51=std::make_shared<Employee>("Re",51);
     (*e51).addPosition(rescuerS);
     (*e51).addPosition(dispatcher);
@@ -1758,7 +1757,7 @@ int main()
     (*e51).addDesiredShift(shift13);
     (*e51).addDesiredShift(shift14);
     (*e51).addDesiredShift(shift15);
-    (*empRepo).addEmployee(e51);
+    EmployeeRepository::getInstance().addEmployee(e51);
     std::shared_ptr<Employee> e52=std::make_shared<Employee>("Ro",52);
     (*e52).addPosition(rescuerN);
     shift1.reset(new Shift(0,24,1));
@@ -1791,7 +1790,7 @@ int main()
     (*e52).addDesiredShift(shift13);
     (*e52).addDesiredShift(shift14);
     (*e52).addDesiredShift(shift15);
-    (*empRepo).addEmployee(e52);
+    EmployeeRepository::getInstance().addEmployee(e52);
 
 
     std::shared_ptr<Employee> e87=std::make_shared<Employee>("Sw",87);
@@ -1826,7 +1825,7 @@ int main()
     (*e87).addDesiredShift(shift13);
     (*e87).addDesiredShift(shift14);
     (*e87).addDesiredShift(shift15);
-    (*empRepo).addEmployee(e87);
+    EmployeeRepository::getInstance().addEmployee(e87);
     std::shared_ptr<Employee> e88=std::make_shared<Employee>("Po",88);
     (*e88).addPosition(doctor);
     shift1.reset(new Shift(0,24,1));
@@ -1859,7 +1858,7 @@ int main()
     (*e88).addDesiredShift(shift13);
     (*e88).addDesiredShift(shift14);
     (*e88).addDesiredShift(shift15);
-    (*empRepo).addEmployee(e88);
+    EmployeeRepository::getInstance().addEmployee(e88);
     std::shared_ptr<Employee> e89=std::make_shared<Employee>("Ka",89);
     (*e89).addPosition(doctor);
     shift1.reset(new Shift(0,24,1));
@@ -1892,7 +1891,7 @@ int main()
     (*e89).addDesiredShift(shift13);
     (*e89).addDesiredShift(shift14);
     (*e89).addDesiredShift(shift15);
-    (*empRepo).addEmployee(e89);
+    EmployeeRepository::getInstance().addEmployee(e89);
     std::shared_ptr<Employee> e90=std::make_shared<Employee>("Zg",90);
     (*e90).addPosition(doctor);
     shift1.reset(new Shift(0,24,1));
@@ -1925,7 +1924,7 @@ int main()
     (*e90).addDesiredShift(shift13);
     (*e90).addDesiredShift(shift14);
     (*e90).addDesiredShift(shift15);
-    (*empRepo).addEmployee(e90);
+    EmployeeRepository::getInstance().addEmployee(e90);
     std::shared_ptr<Employee> e91=std::make_shared<Employee>("Ja",91);
     (*e91).addPosition(doctor);
     shift1.reset(new Shift(0,24,1));
@@ -1958,7 +1957,7 @@ int main()
     (*e91).addDesiredShift(shift13);
     (*e91).addDesiredShift(shift14);
     (*e91).addDesiredShift(shift15);
-    (*empRepo).addEmployee(e91);
+    EmployeeRepository::getInstance().addEmployee(e91);
     std::shared_ptr<Employee> e92=std::make_shared<Employee>("Zi",92);
     (*e92).addPosition(doctor);
     shift1.reset(new Shift(0,24,1));
@@ -1991,7 +1990,7 @@ int main()
     (*e92).addDesiredShift(shift13);
     (*e92).addDesiredShift(shift14);
     (*e92).addDesiredShift(shift15);
-    (*empRepo).addEmployee(e92);
+    EmployeeRepository::getInstance().addEmployee(e92);
     std::shared_ptr<Employee> e93=std::make_shared<Employee>("Ni",93);
     (*e93).addPosition(doctor);
     shift1.reset(new Shift(0,24,1));
@@ -2024,7 +2023,7 @@ int main()
     (*e93).addDesiredShift(shift13);
     (*e93).addDesiredShift(shift14);
     (*e93).addDesiredShift(shift15);
-    (*empRepo).addEmployee(e93);
+    EmployeeRepository::getInstance().addEmployee(e93);
     std::shared_ptr<Employee> e94=std::make_shared<Employee>("Kr",94);
     (*e94).addPosition(doctor);
     shift1.reset(new Shift(0,24,1));
@@ -2057,7 +2056,7 @@ int main()
     (*e94).addDesiredShift(shift13);
     (*e94).addDesiredShift(shift14);
     (*e94).addDesiredShift(shift15);
-    (*empRepo).addEmployee(e94);
+    EmployeeRepository::getInstance().addEmployee(e94);
     std::shared_ptr<Employee> e95=std::make_shared<Employee>("So",95);
     (*e95).addPosition(doctor);
     shift1.reset(new Shift(0,24,1));
@@ -2090,7 +2089,7 @@ int main()
     (*e95).addDesiredShift(shift13);
     (*e95).addDesiredShift(shift14);
     (*e95).addDesiredShift(shift15);
-    (*empRepo).addEmployee(e95);
+    EmployeeRepository::getInstance().addEmployee(e95);
     std::shared_ptr<Employee> e96=std::make_shared<Employee>("No",96);
     (*e96).addPosition(doctor);
     shift1.reset(new Shift(0,24,1));
@@ -2123,7 +2122,7 @@ int main()
     (*e96).addDesiredShift(shift13);
     (*e96).addDesiredShift(shift14);
     (*e96).addDesiredShift(shift15);
-    (*empRepo).addEmployee(e96);
+    EmployeeRepository::getInstance().addEmployee(e96);
     std::shared_ptr<Employee> e97=std::make_shared<Employee>("Ku",97);
     (*e97).addPosition(doctor);
     shift1.reset(new Shift(0,24,1));
@@ -2156,7 +2155,7 @@ int main()
     (*e97).addDesiredShift(shift13);
     (*e97).addDesiredShift(shift14);
     (*e97).addDesiredShift(shift15);
-    (*empRepo).addEmployee(e97);
+    EmployeeRepository::getInstance().addEmployee(e97);
     std::shared_ptr<Employee> e98=std::make_shared<Employee>("Ci",98);
     (*e98).addPosition(doctor);
     shift1.reset(new Shift(0,24,1));
@@ -2189,7 +2188,7 @@ int main()
     (*e98).addDesiredShift(shift13);
     (*e98).addDesiredShift(shift14);
     (*e98).addDesiredShift(shift15);
-    (*empRepo).addEmployee(e98);
+    EmployeeRepository::getInstance().addEmployee(e98);
     std::shared_ptr<Employee> e99=std::make_shared<Employee>("Kr",99);
     (*e99).addPosition(doctor);
     shift1.reset(new Shift(0,24,1));
@@ -2222,7 +2221,7 @@ int main()
     (*e99).addDesiredShift(shift13);
     (*e99).addDesiredShift(shift14);
     (*e99).addDesiredShift(shift15);
-    (*empRepo).addEmployee(e99);
+    EmployeeRepository::getInstance().addEmployee(e99);
     std::shared_ptr<Employee> e100=std::make_shared<Employee>("Dr",100);
     (*e100).addPosition(doctor);
     shift1.reset(new Shift(0,24,1));
@@ -2255,7 +2254,7 @@ int main()
     (*e100).addDesiredShift(shift13);
     (*e100).addDesiredShift(shift14);
     (*e100).addDesiredShift(shift15);
-    (*empRepo).addEmployee(e100);
+    EmployeeRepository::getInstance().addEmployee(e100);
     std::shared_ptr<Employee> e101=std::make_shared<Employee>("Go",101);
     (*e101).addPosition(doctor);
     shift1.reset(new Shift(0,24,1));
@@ -2288,7 +2287,7 @@ int main()
     (*e101).addDesiredShift(shift13);
     (*e101).addDesiredShift(shift14);
     (*e101).addDesiredShift(shift15);
-    (*empRepo).addEmployee(e101);
+    EmployeeRepository::getInstance().addEmployee(e101);
     std::shared_ptr<Employee> e102=std::make_shared<Employee>("Fe",102);
     (*e102).addPosition(doctor);
     shift1.reset(new Shift(0,24,1));
@@ -2321,7 +2320,7 @@ int main()
     (*e102).addDesiredShift(shift13);
     (*e102).addDesiredShift(shift14);
     (*e102).addDesiredShift(shift15);
-    (*empRepo).addEmployee(e102);
+    EmployeeRepository::getInstance().addEmployee(e102);
     std::shared_ptr<Employee> e103=std::make_shared<Employee>("Ko",103);
     (*e103).addPosition(doctor);
     shift1.reset(new Shift(0,24,1));
@@ -2354,7 +2353,7 @@ int main()
     (*e103).addDesiredShift(shift13);
     (*e103).addDesiredShift(shift14);
     (*e103).addDesiredShift(shift15);
-    (*empRepo).addEmployee(e103);
+    EmployeeRepository::getInstance().addEmployee(e103);
     std::shared_ptr<Employee> e104=std::make_shared<Employee>("Mi",104);
     (*e104).addPosition(doctor);
     shift1.reset(new Shift(0,24,1));
@@ -2387,7 +2386,7 @@ int main()
     (*e104).addDesiredShift(shift13);
     (*e104).addDesiredShift(shift14);
     (*e104).addDesiredShift(shift15);
-    (*empRepo).addEmployee(e104);
+    EmployeeRepository::getInstance().addEmployee(e104);
     std::shared_ptr<Employee> e105=std::make_shared<Employee>("Sk",105);
     (*e105).addPosition(doctor);
     shift1.reset(new Shift(0,24,1));
@@ -2420,7 +2419,7 @@ int main()
     (*e105).addDesiredShift(shift13);
     (*e105).addDesiredShift(shift14);
     (*e105).addDesiredShift(shift15);
-    (*empRepo).addEmployee(e105);
+    EmployeeRepository::getInstance().addEmployee(e105);
     std::shared_ptr<Employee> e106=std::make_shared<Employee>("Ju",106);
     (*e106).addPosition(doctor);
     shift1.reset(new Shift(0,24,1));
@@ -2453,10 +2452,9 @@ int main()
     (*e106).addDesiredShift(shift13);
     (*e106).addDesiredShift(shift14);
     (*e106).addDesiredShift(shift15);
-    (*empRepo).addEmployee(e106);
+    EmployeeRepository::getInstance().addEmployee(e106);
 
 //team repository
-    TeamRepository *teamRepo = TeamRepository::getInstance();
 
     std::unique_ptr<Shift> monday;
     std::unique_ptr<Shift> tuesday;
@@ -2484,7 +2482,7 @@ int main()
     (*tS1).addShift(friday);
     (*tS1).addShift(saturday);
     (*tS1).addShift(sunday);
-    (*teamRepo).addTeam(tS1);
+    TeamRepository::getInstance().addTeam(tS1);
 
 
     std::shared_ptr<Team> tS2 = std::make_shared<Team>("S2");
@@ -2505,7 +2503,7 @@ int main()
     (*tS2).addShift(friday);
     (*tS2).addShift(saturday);
     (*tS2).addShift(sunday);
-    (*teamRepo).addTeam(tS2);
+    TeamRepository::getInstance().addTeam(tS2);
 
     std::shared_ptr<Team> tS3 = std::make_shared<Team>("S3");
     (*tS3).addPosition(rescuerS);
@@ -2525,7 +2523,7 @@ int main()
     (*tS3).addShift(friday);
     (*tS3).addShift(saturday);
     (*tS3).addShift(sunday);
-    (*teamRepo).addTeam(tS3);
+    TeamRepository::getInstance().addTeam(tS3);
 
     std::shared_ptr<Team> tS4 = std::make_shared<Team>("S4");
     (*tS4).addPosition(rescuerS);
@@ -2545,7 +2543,7 @@ int main()
     (*tS4).addShift(friday);
     (*tS4).addShift(saturday);
     (*tS4).addShift(sunday);
-    (*teamRepo).addTeam(tS4);
+    TeamRepository::getInstance().addTeam(tS4);
 
     std::shared_ptr<Team> t1 = std::make_shared<Team>("1");
     (*t1).addPosition(rescuerN);
@@ -2564,7 +2562,7 @@ int main()
     (*t1).addShift(friday);
     (*t1).addShift(saturday);
     (*t1).addShift(sunday);
-    (*teamRepo).addTeam(t1);
+    TeamRepository::getInstance().addTeam(t1);
 
     std::shared_ptr<Team> t2 = std::make_shared<Team>("2");
     (*t2).addPosition(rescuerN);
@@ -2583,7 +2581,7 @@ int main()
     (*t2).addShift(friday);
     (*t2).addShift(saturday);
     (*t2).addShift(sunday);
-    (*teamRepo).addTeam(t2);
+    TeamRepository::getInstance().addTeam(t2);
 
     std::shared_ptr<Team> t3 = std::make_shared<Team>("3");
     (*t3).addPosition(rescuerN);
@@ -2602,7 +2600,7 @@ int main()
     (*t3).addShift(friday);
     (*t3).addShift(saturday);
     (*t3).addShift(sunday);
-    (*teamRepo).addTeam(t3);
+    TeamRepository::getInstance().addTeam(t3);
 
     std::shared_ptr<Team> t4 = std::make_shared<Team>("4");
     (*t4).addPosition(rescuerN);
@@ -2621,7 +2619,7 @@ int main()
     (*t4).addShift(friday);
     (*t4).addShift(saturday);
     (*t4).addShift(sunday);
-    (*teamRepo).addTeam(t4);
+    TeamRepository::getInstance().addTeam(t4);
 
     std::shared_ptr<Team> t5 = std::make_shared<Team>("5");
     (*t5).addPosition(rescuerN);
@@ -2640,7 +2638,7 @@ int main()
     (*t5).addShift(friday);
     (*t5).addShift(saturday);
     (*t5).addShift(sunday);
-    (*teamRepo).addTeam(t5);
+    TeamRepository::getInstance().addTeam(t5);
 
     std::shared_ptr<Team> t6 = std::make_shared<Team>("6");
     (*t6).addPosition(rescuerN);
@@ -2659,7 +2657,7 @@ int main()
     (*t6).addShift(friday);
     (*t6).addShift(saturday);
     (*t6).addShift(sunday);
-    (*teamRepo).addTeam(t6);
+    TeamRepository::getInstance().addTeam(t6);
 
     std::shared_ptr<Team> tN1 = std::make_shared<Team>("N1");
     (*tN1).addPosition(rescuerS);
@@ -2679,7 +2677,7 @@ int main()
     (*tN1).addShift(friday);
     (*tN1).addShift(saturday);
     (*tN1).addShift(sunday);
-    (*teamRepo).addTeam(tN1);
+    TeamRepository::getInstance().addTeam(tN1);
 
     std::shared_ptr<Team> tN2 = std::make_shared<Team>("N2");
     (*tN2).addPosition(rescuerS);
@@ -2699,7 +2697,7 @@ int main()
     (*tN2).addShift(friday);
     (*tN2).addShift(saturday);
     (*tN2).addShift(sunday);
-    (*teamRepo).addTeam(tN2);
+    TeamRepository::getInstance().addTeam(tN2);
 
     std::shared_ptr<Team> tN3 = std::make_shared<Team>("N3");
     (*tN3).addPosition(rescuerN);
@@ -2718,7 +2716,7 @@ int main()
     (*tN3).addShift(friday);
     (*tN3).addShift(saturday);
     (*tN3).addShift(sunday);
-    (*teamRepo).addTeam(tN3);
+    TeamRepository::getInstance().addTeam(tN3);
 
     std::shared_ptr<Team> tR = std::make_shared<Team>("R");
     (*tR).addPosition(medicalRecorder);
@@ -2736,7 +2734,7 @@ int main()
     (*tR).addShift(friday);
     (*tR).addShift(saturday);
     (*tR).addShift(sunday);
-    (*teamRepo).addTeam(tR);
+    TeamRepository::getInstance().addTeam(tR);
 
     std::shared_ptr<Team> tDD = std::make_shared<Team>("DD");
     (*tDD).addPosition(dispatcher);
@@ -2754,7 +2752,7 @@ int main()
     (*tDD).addShift(friday);
     (*tDD).addShift(saturday);
     (*tDD).addShift(sunday);
-    (*teamRepo).addTeam(tDD);
+    TeamRepository::getInstance().addTeam(tDD);
 
     std::shared_ptr<Team> tDN = std::make_shared<Team>("DN");
     (*tDN).addPosition(dispatcher);
@@ -2772,11 +2770,11 @@ int main()
     (*tDN).addShift(friday);
     (*tDN).addShift(saturday);
     (*tDN).addShift(sunday);
-    (*teamRepo).addTeam(tDN);
+    TeamRepository::getInstance().addTeam(tDN);
 
 //schedule
     cout<<Schedule::scheduleDate()<<endl;
-    FinalSchedule finalSchedule(teamRepo,empRepo);
+    FinalSchedule finalSchedule(TeamRepository::getInstance(),EmployeeRepository::getInstance());
     finalSchedule.makeSchedule();
     std::cout<<finalSchedule.scheduleInfo();
     return 0;

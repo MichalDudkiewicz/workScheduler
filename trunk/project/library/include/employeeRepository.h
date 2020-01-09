@@ -18,9 +18,8 @@ class EmployeeRepository
 private:
     employees employeesRepository{};
     EmployeeRepository()=default;
-    static EmployeeRepository* instance;
 public:
-    static EmployeeRepository* getInstance();
+    static EmployeeRepository& getInstance();
     EmployeeRepository(const EmployeeRepository&)=delete;
     void operator=(const EmployeeRepository&)=delete;
     void addEmployee(const employeePtr&);

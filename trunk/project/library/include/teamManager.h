@@ -14,8 +14,8 @@ private:
     TeamRepository* teamRepository;
 public:
     TeamManager();
-    void addTeam(const std::string&);
-    void removeTeam(const std::string&);
+    static void addTeam(const std::string&);
+    static void removeTeam(const std::string&);
     const teamPtr& getTeamByName(const std::string&) const;
     std::string repositoryInfo() const;
 };

@@ -4,18 +4,14 @@
 #include <memory>
 #include <string>
 
-class EmployeeRepository;
 class Employee;
 typedef std::shared_ptr<Employee> employeePtr;
 
 class EmployeeManager
 {
-private:
-    EmployeeRepository* employeeRepository;
 public:
-    EmployeeManager();
-    void addEmployee(unsigned int, const std::string&);
-    void removeEmployee(unsigned int);
+    static void addEmployee(unsigned int, const std::string&);
+    static void removeEmployee(unsigned int);
     std::string repositoryInfo() const;
     const employeePtr& getEmployeeByID(unsigned int) const;
     std::string getStatisticsByID(unsigned int) const;

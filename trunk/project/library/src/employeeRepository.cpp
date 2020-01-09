@@ -7,14 +7,9 @@
 #include "shift.h"
 
 
-EmployeeRepository* EmployeeRepository::instance=nullptr;
-
-EmployeeRepository* EmployeeRepository::getInstance()
+EmployeeRepository& EmployeeRepository::getInstance()
 {
-    if(instance==nullptr)
-    {
-        instance = new EmployeeRepository;
-    }
+    static EmployeeRepository instance;
     return instance;
 }
 

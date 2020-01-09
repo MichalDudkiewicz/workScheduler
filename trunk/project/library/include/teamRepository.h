@@ -14,9 +14,8 @@ class TeamRepository
 private:
     teams teamsRepository{};
     TeamRepository()=default;
-    static TeamRepository* instance;
 public:
-    static TeamRepository* getInstance();
+    static TeamRepository& getInstance();
     TeamRepository(const TeamRepository&)=delete;
     void operator=(const TeamRepository&)=delete;
     void addTeam(const teamPtr&);

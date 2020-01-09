@@ -4,14 +4,9 @@
 #include "shift.h"
 
 
-TeamRepository* TeamRepository::instance=nullptr;
-
-TeamRepository* TeamRepository::getInstance()
+TeamRepository& TeamRepository::getInstance()
 {
-    if(instance==nullptr)
-    {
-        instance = new TeamRepository;
-    }
+    static TeamRepository instance;
     return instance;
 }
 

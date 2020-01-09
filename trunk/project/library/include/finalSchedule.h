@@ -20,7 +20,7 @@ private:
     teamsQueues allQueues{};
     calendar schedule{};
 public:
-    FinalSchedule(const TeamRepository*, const EmployeeRepository*);
+    FinalSchedule(const TeamRepository&, const EmployeeRepository&);
     void makeSchedule();
     void clear();
     const calendar& getSchedule() const;

@@ -2,7 +2,7 @@
 #include "employeeRepository.h"
 #include "teamRepository.h"
 
-WorkScheduler::WorkScheduler() : employeeRepository(EmployeeRepository::getInstance()), teamRepository(TeamRepository::getInstance()), schedule(teamRepository, employeeRepository)
+WorkScheduler::WorkScheduler() : schedule(TeamRepository::getInstance(), EmployeeRepository::getInstance())
 {}
 
 void WorkScheduler::createSchedule()
