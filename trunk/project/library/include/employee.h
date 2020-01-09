@@ -19,6 +19,12 @@ public:
     explicit RecurringValueException(const std::string &message);
 };
 
+class NotTypeException: public ValueException
+{
+public:
+    explicit NotTypeException(const std::string &message = "It's not a type of employee. ");
+};
+
 class EmployeeType;
 class Position;
 class Employee;
