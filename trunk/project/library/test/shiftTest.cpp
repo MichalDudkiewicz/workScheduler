@@ -6,55 +6,45 @@ typedef std::unique_ptr<Shift> shiftPtr;
 
 BOOST_AUTO_TEST_SUITE(TestSuiteCorrect)
 
-    struct MyGlobalFixture {
-        MyGlobalFixture() {
-            monday.reset(new Shift(0,5,10));
-            tuesday.reset(new Shift(5,10,1));
-            monday1.reset(new Shift(1,1,1));
-            wednesday.reset(new Shift(20,10,1));
-        }
-        ~MyGlobalFixture() {}
+    struct FixtureShiftTest {
+        FixtureShiftTest() : monday(new Shift(0, 5, 10)), tuesday(new Shift(5, 10, 1)), monday1(new Shift(1, 1, 1)), wednesday(new Shift(20, 10, 1)) {}
+        ~FixtureShiftTest() {}
 
-        static shiftPtr monday;
-        static shiftPtr tuesday;
-        static shiftPtr monday1;
-        static shiftPtr wednesday;
+        shiftPtr monday;
+        shiftPtr tuesday;
+        shiftPtr monday1;
+        shiftPtr wednesday;
     };
-    shiftPtr MyGlobalFixture::monday(new Shift(0,5,10));
-    shiftPtr MyGlobalFixture::tuesday(new Shift(5,10,1));
-    shiftPtr MyGlobalFixture::monday1(new Shift(1,1,1));
-    shiftPtr MyGlobalFixture::wednesday(new Shift(20,10,1));
 
-    BOOST_TEST_GLOBAL_FIXTURE( MyGlobalFixture );
 
-BOOST_AUTO_TEST_CASE(ShiftBothConstructorsCase)
+BOOST_FIXTURE_TEST_CASE(ShiftBothConstructorsCase, FixtureShiftTest)
 {
-    BOOST_REQUIRE_EQUAL((*MyGlobalFixture::monday).getEndHour(), 5);
-    BOOST_REQUIRE_EQUAL((*MyGlobalFixture::monday).getStartHour(), 0);
-    BOOST_REQUIRE_EQUAL((*MyGlobalFixture::tuesday).getEndHour(), 10);
-    BOOST_REQUIRE_EQUAL((*MyGlobalFixture::tuesday).getStartHour(), 5);
+    BOOST_REQUIRE_EQUAL((*monday).getEndHour(), 5);
+    BOOST_REQUIRE_EQUAL((*monday).getStartHour(), 0);
+    BOOST_REQUIRE_EQUAL((*tuesday).getEndHour(), 10);
+    BOOST_REQUIRE_EQUAL((*tuesday).getStartHour(), 5);
 }
 
-BOOST_AUTO_TEST_CASE(ShiftGetLengthCase)
+BOOST_FIXTURE_TEST_CASE(ShiftGetLengthCase, FixtureShiftTest)
 {
-    BOOST_REQUIRE_EQUAL((*MyGlobalFixture::tuesday).getLength(), 5);
-    BOOST_REQUIRE_EQUAL((*MyGlobalFixture::wednesday).getLength(), 14);
+    BOOST_REQUIRE_EQUAL((*tuesday).getLength(), 5);
+    BOOST_REQUIRE_EQUAL((*wednesday).getLength(), 14);
 }
 
-BOOST_AUTO_TEST_CASE(ShiftShiftInfoCase)
+BOOST_FIXTURE_TEST_CASE(ShiftShiftInfoCase, FixtureShiftTest)
 {
-    BOOST_REQUIRE_EQUAL((*MyGlobalFixture::tuesday).shiftInfo(), "day: 1, 5 - 10");
-    BOOST_REQUIRE_EQUAL((*MyGlobalFixture::wednesday).shiftInfo(), "day: 1, 20 - 10 (night)");
+    BOOST_REQUIRE_EQUAL((*tuesday).shiftInfo(), "day: 1, 5 - 10");
+    BOOST_REQUIRE_EQUAL((*wednesday).shiftInfo(), "day: 1, 20 - 10 (night)");
 }
 
-BOOST_AUTO_TEST_CASE(ShiftSetHoursCase)
+BOOST_FIXTURE_TEST_CASE(ShiftSetHoursCase, FixtureShiftTest)
 {
-    (*MyGlobalFixture::tuesday).setEndHour(23);
-    (*MyGlobalFixture::tuesday).setStartHour(10);
-    BOOST_REQUIRE_EQUAL((*MyGlobalFixture::tuesday).shiftInfo(), "day: 1, 10 - 23");
+    (*tuesday).setEndHour(23);
+    (*tuesday).setStartHour(10);
+    BOOST_REQUIRE_EQUAL((*tuesday).shiftInfo(), "day: 1, 10 - 23");
 }
 
-BOOST_AUTO_TEST_CASE(ShiftIncludeOperatorCase)
+BOOST_FIXTURE_TEST_CASE(ShiftIncludeOperatorCase, FixtureShiftTest)
 {
     Shift shift2(5,10,1);
     Shift shift3(3,12,1);
@@ -75,7 +65,7 @@ BOOST_AUTO_TEST_CASE(ShiftIncludeOperatorCase)
     BOOST_REQUIRE_EQUAL(shift7>=shift6, false);
 }
 
-BOOST_AUTO_TEST_CASE(ShiftIsNightShiftCase)
+BOOST_FIXTURE_TEST_CASE(ShiftIsNightShiftCase, FixtureShiftTest)
 {
     Shift shift6(20,24,1);
     Shift shift7(21,9,1);
@@ -85,7 +75,7 @@ BOOST_AUTO_TEST_CASE(ShiftIsNightShiftCase)
     BOOST_REQUIRE_EQUAL(shift8.isNightShift(), false);
 }
 
-BOOST_AUTO_TEST_CASE(ShiftPlusOperatorCase)
+BOOST_FIXTURE_TEST_CASE(ShiftPlusOperatorCase, FixtureShiftTest)
 {
     Shift shift4(0,6,2);
     Shift shift5(20,24,1);
@@ -93,7 +83,7 @@ BOOST_AUTO_TEST_CASE(ShiftPlusOperatorCase)
     BOOST_REQUIRE_EQUAL((shift5+shift4).shiftInfo(), "day: 1, 20 - 6 (night)");
 }
 
-BOOST_AUTO_TEST_CASE(ShiftEqualOperatorCase)
+BOOST_FIXTURE_TEST_CASE(ShiftEqualOperatorCase, FixtureShiftTest)
 {
     Shift shift1(1,6,1);
     Shift shift2(5,10,1);
