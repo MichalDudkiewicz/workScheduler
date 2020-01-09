@@ -4,6 +4,25 @@
 #include <string>
 #include <memory>
 
+class ValueValidException: public std::logic_error
+{
+public:
+    explicit ValueValidException(const std::string &message);
+    virtual std::string message() const;
+};
+
+class DayOffException: public ValueValidException
+{
+public:
+    explicit DayOffException(const std::string &message = "Day off exception.");
+};
+
+class ValidHoursException: public ValueValidException
+{
+public:
+    explicit ValidHoursException(const std::string &message = "Valid hours.");
+};
+
 class Shift
 {
 private:
