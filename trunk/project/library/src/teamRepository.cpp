@@ -3,6 +3,9 @@
 #include <sstream>
 #include "shift.h"
 
+TeamNotExist::TeamNotExist(const std::string &message)
+        : logic_error(message)
+{}
 
 TeamRepository& TeamRepository::getInstance()
 {
@@ -44,8 +47,7 @@ const teamPtr& TeamRepository::getTeamByName(const std::string &name) const
             return t;
         }
     }
-    // exepction team doesnt exist
-    return teamsRepository[0];
+    throw TeamNotExist();
 }
 
 const teams& TeamRepository::getAll() const
