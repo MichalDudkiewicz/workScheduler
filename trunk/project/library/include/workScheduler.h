@@ -12,8 +12,11 @@ class WorkScheduler
 {
 private:
     FinalSchedule schedule;
-public:
     WorkScheduler();
+public:
+    static WorkScheduler& getInstance();
+    WorkScheduler(const WorkScheduler&)=delete;
+    void operator=(const WorkScheduler&)=delete;
     void createSchedule();
     void updateSchedule();
     std::string scheduleInfo() const;

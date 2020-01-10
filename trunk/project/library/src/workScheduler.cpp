@@ -2,6 +2,12 @@
 #include "employeeRepository.h"
 #include "teamRepository.h"
 
+WorkScheduler& WorkScheduler::getInstance()
+{
+    static WorkScheduler instance;
+    return instance;
+}
+
 WorkScheduler::WorkScheduler() : schedule(TeamRepository::getInstance(), EmployeeRepository::getInstance())
 {}
 

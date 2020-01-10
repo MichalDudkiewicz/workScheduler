@@ -1,6 +1,12 @@
 #include "employeeManager.h"
 #include "employeeRepository.h"
 
+EmployeeManager& EmployeeManager::getInstance()
+{
+    static EmployeeManager instance;
+    return instance;
+}
+
 void EmployeeManager::addEmployee(unsigned int id, const std::string &name)
 {
     EmployeeRepository::getInstance().addEmployee(id, name);
