@@ -85,6 +85,8 @@ std::string TeamQueues::teamQueuesInfo() const
             p+=1;
         }
         day+=1;
+        if(day>Schedule::getNumberOfDays())
+            day=1;
     }
     return out.str();
 }
