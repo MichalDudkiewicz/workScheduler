@@ -14,8 +14,6 @@ private:
     FinalSchedule schedule;
 public:
     WorkScheduler();
-    WorkScheduler(const WorkScheduler&)= default;
-    WorkScheduler& operator=(const WorkScheduler&)= default;
     void createSchedule();
     void updateSchedule();
     std::string scheduleInfo() const;

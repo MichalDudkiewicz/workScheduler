@@ -51,3 +51,17 @@ const schedule& EmployeeSchedule::getSchedule() const
 {
     return shiftsInSchedule;
 }
+
+std::string EmployeeSchedule::scheduleInfo() const
+{
+    std::ostringstream out;
+    for(const auto &shiftsInDay : shiftsInSchedule)
+    {
+        for(const auto &shift : shiftsInDay)
+        {
+            out<<shift->shiftInfo();
+            out<<std::endl;
+        }
+    }
+    return out.str();
+}

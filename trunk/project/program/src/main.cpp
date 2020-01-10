@@ -13,7 +13,6 @@
 #include "driverN.h"
 #include "medicalRecorder.h"
 #include "dispatcher.h"
-#include "schedule.h"
 #include "shift.h"
 
 using namespace std;
@@ -2773,7 +2772,6 @@ int main()
     TeamRepository::getInstance().addTeam(tDN);
 
 //schedule
-    cout<<Schedule::scheduleDate()<<endl;
     FinalSchedule finalSchedule(TeamRepository::getInstance(),EmployeeRepository::getInstance());
     finalSchedule.makeSchedule();
     std::cout<<finalSchedule.scheduleInfo();

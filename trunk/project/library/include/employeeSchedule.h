@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <memory>
+#include <string>
 
 class Shift;
 typedef std::unique_ptr<Shift> shiftPtr;
@@ -18,6 +19,7 @@ public:
     void addShift(shiftPtr&);
     void removeShift(unsigned int,unsigned int);
     const schedule& getSchedule() const;
+    std::string scheduleInfo() const;
 };
 
 #endif

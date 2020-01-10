@@ -75,24 +75,6 @@ BOOST_AUTO_TEST_SUITE(TestSuiteCorrect)
         BOOST_REQUIRE_EQUAL(queue.getTeam()->getName(), "S1");
         BOOST_REQUIRE_EQUAL(queue.getAuthorisedEmployees()[0]->getId(), 2);
         BOOST_REQUIRE_EQUAL(queue.getAuthorisedEmployees()[1]->getId(), 1);
-        unsigned int day=1;
-        unsigned int p;
-        for(const auto &dayQueue : queue.getTeamQueues())
-        {
-            std::cout<<"Day "<<day<<" shifts queue: "<<std::endl;
-            p=0;
-            for(const auto &positionQueue : dayQueue)
-            {
-                std::cout<<queue.getTeam()->getPositions()[p]->positionInfo()<<": ";
-                for(const auto &shift : positionQueue)
-                {
-                    std::cout << shift->getId() << ", ";
-                }
-                std::cout<<std::endl;
-                p+=1;
-            }
-            day+=1;
-        }
         BOOST_REQUIRE_EQUAL(queue.getTeamQueues()[0][0].empty(), true);
         BOOST_REQUIRE_EQUAL(queue.getTeamQueues()[0][1].empty(), true);
         BOOST_REQUIRE_EQUAL(queue.getTeamQueues()[1][0].empty(), true);

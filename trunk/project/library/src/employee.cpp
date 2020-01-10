@@ -371,3 +371,13 @@ bool sortPointsTypeWorkHours::operator()(const employeePtr &e1, const employeePt
     }
     return false;
 }
+
+std::string Employee::desiredScheduleInfo() const
+{
+    return desiredSchedule.scheduleInfo();
+}
+
+std::string Employee::currentScheduleInfo() const
+{
+    return currentSchedule.scheduleInfo();
+}
