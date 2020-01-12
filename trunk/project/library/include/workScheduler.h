@@ -20,6 +20,7 @@ public:
     void createSchedule();
     void updateSchedule();
     std::string scheduleInfo() const;
+    const calendar& getSchedule() const;
 };
 
 #endif

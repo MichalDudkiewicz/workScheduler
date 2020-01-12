@@ -26,3 +26,8 @@ void WorkScheduler::updateSchedule()
     schedule.clear();
     createSchedule();
 }
+
+const calendar& WorkScheduler::getSchedule() const
+{
+    return schedule.getSchedule();
+}

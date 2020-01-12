@@ -18,6 +18,7 @@
 #include "employeeType.h"
 #include "schedule.h"
 #include <boost/lexical_cast.hpp>
+#include "workScheduler.h"
 
 using namespace std;
 
@@ -481,9 +482,7 @@ int main()
     TeamRepository::getInstance().addTeam(tDN);
 
 //schedule
-    FinalSchedule finalSchedule(TeamRepository::getInstance(),EmployeeRepository::getInstance());
-    finalSchedule.makeSchedule();
-    std::cout<<finalSchedule.scheduleInfo();
+    WorkScheduler::getInstance().createSchedule();
 
 //    output employeeRepository
 //    ofstream empRepoStream;
@@ -531,6 +530,65 @@ int main()
 //    test2.close();
 
     // schedule output
-    
+    ofstream scheduleStream;
+    scheduleStream.open("../../../dataset/output/schedule.csv");
+    unsigned int numberOfColumns = 1;
+    for(const auto &team : TeamRepository::getInstance().getAll())
+    {
+        numberOfColumns+=team->getPositions().size();
+    }
+    for(unsigned int i=0;i<numberOfColumns/2-3;++i)
+    {
+        scheduleStream<<",";
+    }
+    scheduleStream<<Schedule::scheduleDate()<<" work schedule";
+    for(unsigned int i=numberOfColumns/2-3;i<numberOfColumns;++i)
+    {
+        scheduleStream<<",";
+    }
+    scheduleStream<<endl<<",";
+    for(const auto &team : TeamRepository::getInstance().getAll())
+    {
+        for(unsigned long i=0;i<team->getPositions().size()/2;++i)
+        {
+            scheduleStream<<",";
+        }
+        scheduleStream<<team->getName();
+        for(unsigned long i=team->getPositions().size()/2;i<team->getPositions().size();++i)
+        {
+            scheduleStream<<",";
+        }
+    }
+    scheduleStream<<endl<<",";
+    for(const auto &team : TeamRepository::getInstance().getAll())
+    {
+        for(const auto &position : team->getPositions())
+        {
+            scheduleStream<<position->shortcut()<<",";
+        }
+    }
+    scheduleStream<<endl;
+    unsigned int d = 1;
+    for(const auto &day : WorkScheduler::getInstance().getSchedule())
+    {
+        if(d>Schedule::getNumberOfDays())
+            d=1;
+        scheduleStream<<d<<",";
+        for(const auto &team : day)
+        {
+            for(const auto &position : team)
+            {
+                if(position.empty())
+                    scheduleStream<<",";
+                else
+                {
+                    scheduleStream<<position.front()->getId()<<",";
+                }
+            }
+        }
+        scheduleStream<<endl;
+        ++d;
+    }
+    scheduleStream.close();
     return 0;
 }
