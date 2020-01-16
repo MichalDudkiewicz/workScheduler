@@ -10,6 +10,11 @@ class EmployeeNotFound: public std::logic_error
 public:
     explicit EmployeeNotFound(const std::string &message = "Employee not found.");
 };
+class EmployeeWithThisIdExist: public std::logic_error
+{
+public:
+    explicit EmployeeWithThisIdExist(const std::string &message = "Employee with this id exists. ");
+};
 
 class Employee;
 class Position;
@@ -24,6 +29,7 @@ class EmployeeRepository
 private:
     employees employeesRepository{};
     EmployeeRepository()=default;
+    void checkIfIdExist(const employeePtr &employee);
 public:
     static EmployeeRepository& getInstance();
     EmployeeRepository(const EmployeeRepository&)=delete;
