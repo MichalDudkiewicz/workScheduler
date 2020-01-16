@@ -14,7 +14,7 @@ DayOffException::DayOffException(const std::string &message)
         : ValueValidException(message)
 {}
 
-ValidHoursException::ValidHoursException(const std::string &message)
+InvalidHoursException::InvalidHoursException(const std::string &message)
         :ValueValidException(message)
 {}
 
@@ -90,11 +90,11 @@ Shift Shift::operator+(const Shift &shift) const
         return night;
     }
     //throw dayOff exception and delete below
-    throw DayOffException();
+    if(this->isDayOff()) throw DayOffException();
     Shift night(1);
     return night;
     //throw invalidHours exception and delete below
-    throw ValidHoursException();
+    throw InvalidHoursException();
 }
 
 unsigned int Shift::getDay() const

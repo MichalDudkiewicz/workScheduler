@@ -17,10 +17,10 @@ public:
     explicit DayOffException(const std::string &message = "Day off exception.");
 };
 
-class ValidHoursException: public ValueValidException
+class InvalidHoursException: public ValueValidException
 {
 public:
-    explicit ValidHoursException(const std::string &message = "Valid hours.");
+    explicit InvalidHoursException(const std::string &message = "Valid hours.");
 };
 
 class Shift
