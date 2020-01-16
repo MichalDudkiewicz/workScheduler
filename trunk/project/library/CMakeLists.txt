@@ -54,7 +54,7 @@ set(SOURCE_TEST_FILES
         test/teamQueuesTest.cpp
         test/teamRepositoryTest.cpp
         test/employeeRepositoryTest.cpp
-        )
+        test/employeeManagerTest.cpp)
 
 add_executable (TestLibr ${SOURCE_TEST_FILES})
 

@@ -12,15 +12,6 @@ ValueException::ValueException(const std::string &message)
         : logic_error(message)
 {}
 
-std::string ValueException::message() const
-{
-    return what();
-}
-
-RecurringValueException::RecurringValueException(const std::string &message)
-        : ValueException(message)
-{}
-
 NotTypeException::NotTypeException(const std::string &message)
         : ValueException(message)
 {}

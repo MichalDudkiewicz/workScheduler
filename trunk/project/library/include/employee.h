@@ -10,13 +10,6 @@ class ValueException: public std::logic_error
 {
 public:
     explicit ValueException(const std::string &message);
-    virtual std::string message() const;
-};
-
-class RecurringValueException: public ValueException
-{
-public:
-    explicit RecurringValueException(const std::string &message);
 };
 
 class NotTypeException: public ValueException
