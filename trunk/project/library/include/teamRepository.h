@@ -5,6 +5,12 @@
 #include <memory>
 #include <string>
 
+class TeamNotExist: public std::logic_error
+{
+public:
+    explicit TeamNotExist(const std::string &message = "Team doesn't exist.");
+};
+
 class Team;
 typedef std::shared_ptr<Team> teamPtr;
 typedef std::vector<teamPtr> teams;

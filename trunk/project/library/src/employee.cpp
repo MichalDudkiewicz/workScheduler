@@ -21,6 +21,10 @@ RecurringValueException::RecurringValueException(const std::string &message)
         : ValueException(message)
 {}
 
+NotTypeException::NotTypeException(const std::string &message)
+        : ValueException(message)
+{}
+
 static const employeeTypePtr normalEmployee = std::make_shared<NormalEmployee>();
 static const employeeTypePtr jumperEmployee = std::make_shared<JumperEmployee>();
 static const employeeTypePtr needyEmployee = std::make_shared<NeedyEmployee>();
@@ -296,7 +300,7 @@ void Employee::changeType(unsigned int typeNumber)
     }
     else
     {
-        // no such type exception
+       throw NotTypeException();
     }
 }
 

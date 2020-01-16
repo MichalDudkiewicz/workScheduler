@@ -6,6 +6,9 @@
 #include <algorithm>
 #include "shift.h"
 
+EmployeeNotFound::EmployeeNotFound(const std::string &message)
+        : logic_error(message)
+{}
 
 EmployeeRepository& EmployeeRepository::getInstance()
 {
@@ -64,8 +67,7 @@ const employeePtr& EmployeeRepository::getEmployeeByID(unsigned int id) const
             return e;
         }
     }
-    // throw exception employee not found
-    return employeesRepository[0];
+    throw EmployeeNotFound();
 }
 
 employees EmployeeRepository::getByPosition(const positionPtr &position) const

@@ -1,6 +1,23 @@
 #include "shift.h"
 #include <sstream>
 
+ValueValidException::ValueValidException(const std::string &message)
+        : logic_error(message)
+{}
+
+std::string ValueValidException::message() const
+{
+    return what();
+}
+
+DayOffException::DayOffException(const std::string &message)
+        : ValueValidException(message)
+{}
+
+ValidHoursException::ValidHoursException(const std::string &message)
+        :ValueValidException(message)
+{}
+
 Shift::Shift(unsigned int start, unsigned int end, unsigned int d) : startHour(start), endHour(end), day(d), nightShift(startHour > endHour)
 {}
 
@@ -73,9 +90,11 @@ Shift Shift::operator+(const Shift &shift) const
         return night;
     }
     //throw dayOff exception and delete below
+    throw DayOffException();
     Shift night(1);
     return night;
     //throw invalidHours exception and delete below
+    throw ValidHoursException();
 }
 
 unsigned int Shift::getDay() const

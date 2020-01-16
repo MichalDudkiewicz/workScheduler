@@ -5,6 +5,12 @@
 #include <memory>
 #include <string>
 
+class EmployeeNotFound: public std::logic_error
+{
+public:
+    explicit EmployeeNotFound(const std::string &message = "Employee not found.");
+};
+
 class Employee;
 class Position;
 class Team;
