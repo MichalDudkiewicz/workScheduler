@@ -78,6 +78,7 @@ const calendar& FinalSchedule::getSchedule() const
 std::string FinalSchedule::scheduleInfo() const
 {
     std::ostringstream out;
+    out<<std::endl<<std::setw(90)<<Schedule::scheduleDate()<<" work schedule: "<<std::endl;
     out<<std::setw(3)<<" ";
     for(const auto &team : allQueues)
     {
@@ -118,6 +119,7 @@ std::string FinalSchedule::scheduleInfo() const
         }
         out<<std::endl;
     }
+    out<<std::endl;
     return out.str();
 }
 

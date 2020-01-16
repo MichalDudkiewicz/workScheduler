@@ -12,13 +12,15 @@ class WorkScheduler
 {
 private:
     FinalSchedule schedule;
-public:
     WorkScheduler();
-    WorkScheduler(const WorkScheduler&)= default;
-    WorkScheduler& operator=(const WorkScheduler&)= default;
+public:
+    static WorkScheduler& getInstance();
+    WorkScheduler(const WorkScheduler&)=delete;
+    void operator=(const WorkScheduler&)=delete;
     void createSchedule();
     void updateSchedule();
     std::string scheduleInfo() const;
+    const calendar& getSchedule() const;
 };
 
 #endif

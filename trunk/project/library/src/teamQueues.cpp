@@ -3,6 +3,7 @@
 #include "team.h"
 #include "schedule.h"
 #include "shift.h"
+#include "position.h"
 
 TeamQueues::TeamQueues(teamPtr t, employees e) : team(std::move(t)), authorisedEmployees(std::move(e))
 {
@@ -62,4 +63,30 @@ const teamPtr& TeamQueues::getTeam() const
 void TeamQueues::queueSort(unsigned int d, unsigned int i)
 {
     std::sort(teamQueues[d][i].begin(),teamQueues[d][i].end(),sortPointsTypeWorkHours());
+}
+
+std::string TeamQueues::teamQueuesInfo() const
+{
+    std::ostringstream out;
+    unsigned int day=1;
+    unsigned int p;
+    for(const auto &dayQueue : getTeamQueues())
+    {
+        out<<"day "<<day<<" shifts queue: "<<std::endl;
+        p=0;
+        for(const auto &positionQueue : dayQueue)
+        {
+            out<<getTeam()->getPositions()[p]->positionInfo()<<": ";
+            for(const auto &shift : positionQueue)
+            {
+                out << shift->getId() << ", ";
+            }
+            out<<std::endl;
+            p+=1;
+        }
+        day+=1;
+        if(day>Schedule::getNumberOfDays())
+            day=1;
+    }
+    return out.str();
 }

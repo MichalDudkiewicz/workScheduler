@@ -3,6 +3,7 @@
 
 #include <memory>
 #include <vector>
+#include <string>
 
 class Team;
 class Employee;
@@ -26,6 +27,7 @@ public:
     const employees& getAuthorisedEmployees() const;
     const teamPtr& getTeam() const;
     void queueSort(unsigned int, unsigned int);
+    std::string teamQueuesInfo() const;
 };
 
 #endif

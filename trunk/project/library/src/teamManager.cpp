@@ -1,6 +1,11 @@
 #include "teamManager.h"
 #include "teamRepository.h"
 
+TeamManager& TeamManager::getInstance()
+{
+    static TeamManager instance;
+    return instance;
+}
 
 void TeamManager::addTeam(const std::string &name)
 {

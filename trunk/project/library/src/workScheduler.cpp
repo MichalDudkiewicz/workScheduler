@@ -2,6 +2,12 @@
 #include "employeeRepository.h"
 #include "teamRepository.h"
 
+WorkScheduler& WorkScheduler::getInstance()
+{
+    static WorkScheduler instance;
+    return instance;
+}
+
 WorkScheduler::WorkScheduler() : schedule(TeamRepository::getInstance(), EmployeeRepository::getInstance())
 {}
 
@@ -19,4 +25,9 @@ void WorkScheduler::updateSchedule()
 {
     schedule.clear();
     createSchedule();
+}
+
+const calendar& WorkScheduler::getSchedule() const
+{
+    return schedule.getSchedule();
 }

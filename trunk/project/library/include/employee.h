@@ -89,6 +89,8 @@ public:
     void removeCurrentShift(unsigned int, unsigned int);
     bool isBusy(const shiftPtr&) const;
     bool isAuthorised(const positionPtr&) const;
+    std::string desiredScheduleInfo() const;
+    std::string currentScheduleInfo() const;
 };
 
 struct sortPointsTypeWorkHours
