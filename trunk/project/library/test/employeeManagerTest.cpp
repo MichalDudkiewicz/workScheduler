@@ -8,26 +8,32 @@
 BOOST_AUTO_TEST_SUITE(TestSuiteCorrect)
 
         BOOST_AUTO_TEST_CASE(EmployeeManagerTestCase) {
-            EmployeeManager::getInstance().addEmployee(3, "Mateusz");
-            EmployeeManager::getInstance().addEmployee(9, "Palinka");
-            EmployeeManager::getInstance().addEmployee(2, "Michal");
-            EmployeeManager::getInstance().addEmployee(5, "Janusz");
-            BOOST_CHECK_EQUAL(EmployeeManager::getInstance().getEmployeeByID(9)->getName(), "Palinka");
+            EmployeeManager::getInstance().addEmployee(7, "Monika");
+            EmployeeManager::getInstance().addEmployee(8, "Krzysztof");
+            EmployeeManager::getInstance().addEmployee(6, "Adam");
+            EmployeeManager::getInstance().addEmployee(4, "Katarzyna");
+            BOOST_CHECK_EQUAL(EmployeeManager::getInstance().getEmployeeByID(7)->getName(), "Monika");
             BOOST_CHECK_EQUAL(EmployeeManager::getInstance().repositoryInfo(), "2. Michal\n"
                                                                                   "3. Mateusz\n"
-                                                                                  "5. Janusz\n"
-                                                                                  "9. Palinka\n");
-            BOOST_CHECK_EQUAL(EmployeeManager::getInstance().getStatisticsByID(5), "ID: 5\n"
-                                                                                      "name: Janusz\n"
+                                                                               "4. Katarzyna\n"
+                                                                               "6. Adam\n"
+                                                                               "7. Monika\n"
+                                                                                  "8. Krzysztof\n"
+                                                                                  "9. Paulina\n");
+            BOOST_CHECK_EQUAL(EmployeeManager::getInstance().getStatisticsByID(4), "ID: 4\n"
+                                                                                      "name: Katarzyna\n"
                                                                                       "type: normal\n"
                                                                                       "points: 0\n"
                                                                                       "hours worked: 0\n"
                                                                                       "wage/hour: 0\n"
                                                                                       "\n");
-            EmployeeManager::getInstance().removeEmployee(5);
-            BOOST_CHECK_EQUAL(EmployeeManager::getInstance().repositoryInfo(), "2. Michal\n"
-                                                                                  "3. Mateusz\n"
-                                                                                  "9. Palinka\n");
+            EmployeeManager::getInstance().removeEmployee(6);
+        BOOST_CHECK_EQUAL(EmployeeManager::getInstance().repositoryInfo(), "2. Michal\n"
+                                                                           "3. Mateusz\n"
+                                                                           "4. Katarzyna\n"
+                                                                           "7. Monika\n"
+                                                                           "8. Krzysztof\n"
+                                                                           "9. Paulina\n");
         }
 
 
