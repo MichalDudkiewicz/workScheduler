@@ -6,7 +6,6 @@
 #include <memory>
 #include "employeeRepository.h"
 #include "teamRepository.h"
-#include "finalSchedule.h"
 #include "rescuerS.h"
 #include "driverS.h"
 #include "rescuerN.h"
@@ -21,6 +20,18 @@
 #include "workScheduler.h"
 
 using namespace std;
+
+template<typename T>
+vector<T> cell_to_raw_values(string &chain, char separator)
+{
+    vector<T> output;
+    std::replace(chain.begin(), chain.end(), separator, ' ');
+    stringstream stream(chain);
+    T temp;
+    while (stream >> temp)
+        output.push_back(temp);
+    return output;
+}
 
 int main()
 {
@@ -69,13 +80,7 @@ int main()
                 EmployeeRepository::getInstance().getEmployeeByID(stoi(row[0]))->setPoints(stoi(row[3]));
                 EmployeeRepository::getInstance().getEmployeeByID(stoi(row[0]))->changeType(stoi(row[4]));
                 EmployeeRepository::getInstance().getEmployeeByID(stoi(row[0]))->setNonresident(boost::lexical_cast<bool>(row[5]));
-
-                vector<unsigned int> positions;
-                std::replace(row[6].begin(), row[6].end(), ';', ' ');
-                stringstream p(row[6]);
-                unsigned int tempP;
-                while (p >> tempP)
-                    positions.push_back(tempP);
+                vector<unsigned int> positions=cell_to_raw_values<unsigned int>(row[6],';');
                 for(auto &positionID : positions)
                 {
                     for(const auto &position : allPositions)
@@ -87,16 +92,10 @@ int main()
                         }
                     }
                 }
-
-                vector<int> enemies;
-                std::replace(row[7].begin(), row[7].end(), ';', ' ');
-                stringstream e(row[7]);
-                int tempE;
-                while (e >> tempE)
-                    enemies.push_back(tempE);
+                vector<unsigned int> enemies=cell_to_raw_values<unsigned int>(row[7],';');
                 for(const auto &enemyID : enemies)
                 {
-                    if(enemyID<stoi(row[0]))
+                    if(enemyID<stoul(row[0]))
                     {
                         EmployeeRepository::getInstance().getEmployeeByID(stoi(row[0]))->addEnemy(EmployeeRepository::getInstance().getEmployeeByID(enemyID));
                     }
@@ -131,25 +130,10 @@ int main()
                 {
                     if(day>0)
                     {
-                        vector<string> shifts;
-                        std::replace(c.begin(), c.end(), ';', ' ');
-                        stringstream p(c);
-                        string tempP;
-                        while (p >> tempP)
-                        {
-                            shifts.push_back(tempP);
-                        }
+                        vector<string> shifts=cell_to_raw_values<string>(c,';');
                         for(auto &shift : shifts)
                         {
-
-                            vector<unsigned int> shiftHours;
-                            std::replace(shift.begin(), shift.end(), '-', ' ');
-                            stringstream s(shift);
-                            unsigned int tempS;
-                            while (s >> tempS)
-                            {
-                                shiftHours.push_back(tempS);
-                            }
+                            vector<unsigned int> shiftHours=cell_to_raw_values<unsigned int>(shift,'-');
                             EmployeeRepository::getInstance().getEmployeeByID(stoi(row[0]))->addDesiredShift(shiftHours[0],shiftHours[1],day);
                         }
                     }
@@ -182,12 +166,7 @@ int main()
             if(rowNumber>0)
             {
                 TeamRepository::getInstance().addTeam(row.front());
-                vector<unsigned int> positions;
-                std::replace(row[1].begin(), row[1].end(), ';', ' ');
-                stringstream p(row[1]);
-                unsigned int tempP;
-                while (p >> tempP)
-                    positions.push_back(tempP);
+                vector<unsigned int> positions=cell_to_raw_values<unsigned int>(row[1],';');
                 for(auto &positionID : positions)
                 {
                     for(const auto &position : allPositions)
@@ -228,16 +207,8 @@ int main()
             {
                 for(unsigned int i=0;i<7;++i)
                 {
-
-                    vector<unsigned int> shiftHours;
                     string hoursChain = row[i+1];
-                    std::replace(hoursChain.begin(), hoursChain.end(), '-', ' ');
-                    stringstream p(hoursChain);
-                    unsigned int tempP;
-                    while (p >> tempP)
-                    {
-                        shiftHours.push_back(tempP);
-                    }
+                    vector<unsigned int> shiftHours=cell_to_raw_values<unsigned int>(hoursChain,'-');
                     if(shiftHours.size()>1)
                         TeamRepository::getInstance().getTeamByName(row.front())->addShift(shiftHours.front(),shiftHours.back(),i+1);
                 }
