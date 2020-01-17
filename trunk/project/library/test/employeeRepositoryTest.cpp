@@ -18,7 +18,7 @@ BOOST_AUTO_TEST_SUITE(TestSuiteCorrect)
         std::shared_ptr<Employee> janusz = std::make_shared<Employee>("Janusz", 5);
         std::shared_ptr<Position> doctor = std::make_shared<Doctor>();
         std::shared_ptr<Position> medic = std::make_shared<Medic>();
-        std::shared_ptr<Position> driver = std::make_shared<DriverN>();ŁŁŁ
+        std::shared_ptr<Position> driver = std::make_shared<DriverN>();
         (*mateush).addPosition(medic);
         (*mateush).addPosition(doctor);
         (*paulina).addPosition(medic);
