@@ -99,7 +99,7 @@ BOOST_AUTO_TEST_SUITE(TestSuiteCorrect)
     }
 
     BOOST_FIXTURE_TEST_CASE(EmployeeChangeTypeCase, FixtureEmployeeTest) {
-        (*employee0).changeType(1);
+        (*employee0).changeType(0);
         BOOST_CHECK_EQUAL((*employee0).getPriority(), 0);
         (*employee0).changeType(2);
         BOOST_CHECK_EQUAL((*employee0).getPriority(), 2);
