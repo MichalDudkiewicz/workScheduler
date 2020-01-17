@@ -4,9 +4,14 @@
 #include "employeeType.h"
 #include <sstream>
 #include <algorithm>
+#include <iostream>
 #include "shift.h"
 
 EmployeeNotFound::EmployeeNotFound(const std::string &message)
+        : logic_error(message)
+{}
+
+EmployeeWithThisIdExist::EmployeeWithThisIdExist(const std::string &message)
         : logic_error(message)
 {}
 
@@ -16,8 +21,26 @@ EmployeeRepository& EmployeeRepository::getInstance()
     return instance;
 }
 
+void EmployeeRepository::checkIfIdExist(const employeePtr &employee){
+    int i = 0;
+    bool flag = false;
+    while(i<(int)employeesRepository.size() && !flag){
+        if(employeesRepository[i]->getId()==employee->getId()){
+            flag = true;
+            throw EmployeeWithThisIdExist();
+        }
+        i++;
+    }
+}
+
 void EmployeeRepository::addEmployee(const employeePtr &employee)
 {
+    try{
+        checkIfIdExist(employee);
+    }
+    catch (const EmployeeWithThisIdExist){
+        //
+    }
     employeesRepository.push_back(employee);
     std::sort(employeesRepository.begin(),employeesRepository.end(),compareID());
 }
