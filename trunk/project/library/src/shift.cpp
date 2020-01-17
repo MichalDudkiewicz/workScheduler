@@ -89,12 +89,7 @@ Shift Shift::operator+(const Shift &shift) const
         night.nightShift=true;
         return night;
     }
-    //throw dayOff exception and delete below
-    if(this->isDayOff()) throw DayOffException();
-    Shift night(1);
-    return night;
-    //throw invalidHours exception and delete below
-    throw InvalidHoursException();
+    return *this;
 }
 
 unsigned int Shift::getDay() const
