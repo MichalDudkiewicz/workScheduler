@@ -3,6 +3,7 @@
 
 #include <memory>
 #include <string>
+#include <vector>
 
 class Team;
 typedef std::shared_ptr<Team> teamPtr;
@@ -19,6 +20,7 @@ public:
     static void removeTeam(const std::string&);
     const teamPtr& getTeamByName(const std::string&) const;
     std::string repositoryInfo() const;
+    const std::vector<teamPtr>& getAll() const;
 };
 
 #endif

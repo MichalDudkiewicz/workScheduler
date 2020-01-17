@@ -3,6 +3,7 @@
 
 #include <memory>
 #include <string>
+#include <vector>
 
 class Employee;
 typedef std::shared_ptr<Employee> employeePtr;
@@ -20,6 +21,7 @@ public:
     std::string repositoryInfo() const;
     const employeePtr& getEmployeeByID(unsigned int) const;
     std::string getStatisticsByID(unsigned int) const;
+    const std::vector<employeePtr>& getAll() const;
 };
 
 #endif

@@ -26,3 +26,7 @@ std::string TeamManager::repositoryInfo() const
 {
     return TeamRepository::getInstance().repositoryInfo();
 }
+
+const std::vector<teamPtr> &TeamManager::getAll() const {
+    return TeamRepository::getInstance().getAll();
+}

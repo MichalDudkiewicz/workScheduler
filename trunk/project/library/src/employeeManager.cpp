@@ -32,4 +32,9 @@ std::string EmployeeManager::getStatisticsByID(unsigned int id) const
     return  EmployeeRepository::getInstance().getStatisticsByID(id);
 }
 
+const std::vector<employeePtr> &EmployeeManager::getAll() const
+{
+    return EmployeeRepository::getInstance().getAll();
+}
+
 

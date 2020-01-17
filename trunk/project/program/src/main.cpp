@@ -4,8 +4,8 @@
 #include "doctor.h"
 #include "medic.h"
 #include <memory>
-#include "employeeRepository.h"
-#include "teamRepository.h"
+#include "employeeManager.h"
+#include "teamManager.h"
 #include "rescuerS.h"
 #include "driverS.h"
 #include "rescuerN.h"
@@ -75,11 +75,11 @@ int main()
             columnNumber=0;
             if(rowNumber>0)
             {
-                EmployeeRepository::getInstance().addEmployee(stoi(row[0]),row[1]);
-                EmployeeRepository::getInstance().getEmployeeByID(stoi(row[0]))->setHourlyWage(stoi(row[2]));
-                EmployeeRepository::getInstance().getEmployeeByID(stoi(row[0]))->setPoints(stoi(row[3]));
-                EmployeeRepository::getInstance().getEmployeeByID(stoi(row[0]))->changeType(stoi(row[4]));
-                EmployeeRepository::getInstance().getEmployeeByID(stoi(row[0]))->setNonresident(boost::lexical_cast<bool>(row[5]));
+                EmployeeManager::getInstance().addEmployee(stoi(row[0]),row[1]);
+                EmployeeManager::getInstance().getEmployeeByID(stoi(row[0]))->setHourlyWage(stoi(row[2]));
+                EmployeeManager::getInstance().getEmployeeByID(stoi(row[0]))->setPoints(stoi(row[3]));
+                EmployeeManager::getInstance().getEmployeeByID(stoi(row[0]))->changeType(stoi(row[4]));
+                EmployeeManager::getInstance().getEmployeeByID(stoi(row[0]))->setNonresident(boost::lexical_cast<bool>(row[5]));
                 vector<unsigned int> positions=cell_to_raw_values<unsigned int>(row[6],';');
                 for(auto &positionID : positions)
                 {
@@ -87,7 +87,7 @@ int main()
                     {
                         if(position->positionID()==positionID)
                         {
-                            EmployeeRepository::getInstance().getEmployeeByID(stoi(row[0]))->addPosition(position);
+                            EmployeeManager::getInstance().getEmployeeByID(stoi(row[0]))->addPosition(position);
                             break;
                         }
                     }
@@ -97,7 +97,7 @@ int main()
                 {
                     if(enemyID<stoul(row[0]))
                     {
-                        EmployeeRepository::getInstance().getEmployeeByID(stoi(row[0]))->addEnemy(EmployeeRepository::getInstance().getEmployeeByID(enemyID));
+                        EmployeeManager::getInstance().getEmployeeByID(stoi(row[0]))->addEnemy(EmployeeManager::getInstance().getEmployeeByID(enemyID));
                     }
                 }
             }
@@ -134,7 +134,7 @@ int main()
                         for(auto &shift : shifts)
                         {
                             vector<unsigned int> shiftHours=cell_to_raw_values<unsigned int>(shift,'-');
-                            EmployeeRepository::getInstance().getEmployeeByID(stoi(row[0]))->addDesiredShift(shiftHours[0],shiftHours[1],day);
+                            EmployeeManager::getInstance().getEmployeeByID(stoi(row[0]))->addDesiredShift(shiftHours[0],shiftHours[1],day);
                         }
                     }
                     ++day;
@@ -165,7 +165,7 @@ int main()
             columnNumber=0;
             if(rowNumber>0)
             {
-                TeamRepository::getInstance().addTeam(row.front());
+                TeamManager::getInstance().addTeam(row.front());
                 vector<unsigned int> positions=cell_to_raw_values<unsigned int>(row[1],';');
                 for(auto &positionID : positions)
                 {
@@ -173,7 +173,7 @@ int main()
                     {
                         if(position->positionID()==positionID)
                         {
-                            TeamRepository::getInstance().getAll().back()->addPosition(position);
+                            TeamManager::getInstance().getAll().back()->addPosition(position);
                             break;
                         }
                     }
@@ -210,7 +210,7 @@ int main()
                     string hoursChain = row[i+1];
                     vector<unsigned int> shiftHours=cell_to_raw_values<unsigned int>(hoursChain,'-');
                     if(shiftHours.size()>1)
-                        TeamRepository::getInstance().getTeamByName(row.front())->addShift(shiftHours.front(),shiftHours.back(),i+1);
+                        TeamManager::getInstance().getTeamByName(row.front())->addShift(shiftHours.front(),shiftHours.back(),i+1);
                 }
             }
             ++rowNumber;
@@ -228,7 +228,7 @@ int main()
     ofstream empRepoS;
     empRepoS.open("../../../dataset/input/admin/employeeRepository.csv");
     empRepoS<<"ID,name,wage,points,priority,nonresident,positions,enemies,"<<endl;
-    for(const auto &employee : EmployeeRepository::getInstance().getAll())
+    for(const auto &employee : EmployeeManager::getInstance().getAll())
     {
         empRepoS<<employee->getId()<<","<<employee->getName()<<","<<employee->getHourlyWage()<<","<<employee->getPoints()<<","<<employee->getType()->getPriority()<<","<<employee->isNonresident()<<",";
         for(const auto &position : employee->getPositions())
@@ -254,7 +254,7 @@ int main()
         desiredScheduleStream << day << ",";
     }
     desiredScheduleStream << "1" << "," << endl;
-    for(const auto &employee : EmployeeRepository::getInstance().getAll())
+    for(const auto &employee : EmployeeManager::getInstance().getAll())
     {
         desiredScheduleStream << employee->getId() << ",";
         for(const auto &shifts : employee->getDesiredSchedule())
@@ -274,7 +274,7 @@ int main()
     ofstream scheduleStream;
     scheduleStream.open("../../../dataset/output/schedule.csv");
     unsigned int numberOfColumns = 1;
-    for(const auto &team : TeamRepository::getInstance().getAll())
+    for(const auto &team : TeamManager::getInstance().getAll())
     {
         numberOfColumns+=team->getPositions().size();
     }
@@ -288,7 +288,7 @@ int main()
         scheduleStream<<",";
     }
     scheduleStream<<endl<<",";
-    for(const auto &team : TeamRepository::getInstance().getAll())
+    for(const auto &team : TeamManager::getInstance().getAll())
     {
         for(unsigned long i=0;i<team->getPositions().size()/2;++i)
         {
@@ -301,7 +301,7 @@ int main()
         }
     }
     scheduleStream<<endl<<",";
-    for(const auto &team : TeamRepository::getInstance().getAll())
+    for(const auto &team : TeamManager::getInstance().getAll())
     {
         for(const auto &position : team->getPositions())
         {
@@ -339,7 +339,7 @@ int main()
     ofstream teamRepositoryStream;
     teamRepositoryStream.open("../../../dataset/input/admin/teamRepository.csv");
     teamRepositoryStream<<"team,positions,"<<endl;
-    for(const auto &team : TeamRepository::getInstance().getAll())
+    for(const auto &team : TeamManager::getInstance().getAll())
     {
         teamRepositoryStream<<team->getName()<<",";
         for(const auto &positon : team->getPositions())
@@ -355,7 +355,7 @@ int main()
     ofstream teamScheduleStream;
     teamScheduleStream.open("../../../dataset/input/admin/teamSchedule.csv");
     teamScheduleStream<<"team\\day,Monday,Tuesday,Wednesday,Thursday,Friday,Saturday,Sunday,"<<endl;
-    for(const auto &team : TeamRepository::getInstance().getAll())
+    for(const auto &team : TeamManager::getInstance().getAll())
     {
         teamScheduleStream<<team->getName()<<",";
         for(const auto &shift : team->getShifts())
