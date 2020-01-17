@@ -274,11 +274,11 @@ void Employee::setNonresident(bool r)
 
 void Employee::changeType(unsigned int typeNumber)
 {
-    if(typeNumber==0)
+    if(typeNumber==1)
     {
         employeeType = normalEmployee;
     }
-    else if(typeNumber==1)
+    else if(typeNumber==0)
     {
         employeeType = jumperEmployee;
     }
