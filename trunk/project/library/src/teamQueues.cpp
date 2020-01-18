@@ -5,7 +5,7 @@
 #include "shift.h"
 #include "position.h"
 
-TeamQueues::TeamQueues(teamPtr t, employees e) : team(std::move(t)), authorisedEmployees(std::move(e))
+TeamQueues::TeamQueues(teamPtr t, const employees &authorisedEmployees) : team(std::move(t))
 {
     for(unsigned int i=0; i<Schedule::getNumberOfDays()+1; ++i)
     {
@@ -48,11 +48,6 @@ TeamQueues::TeamQueues(teamPtr t, employees e) : team(std::move(t)), authorisedE
 const queues& TeamQueues::getTeamQueues() const
 {
     return teamQueues;
-}
-
-const employees& TeamQueues::getAuthorisedEmployees() const
-{
-    return authorisedEmployees;
 }
 
 const teamPtr& TeamQueues::getTeam() const

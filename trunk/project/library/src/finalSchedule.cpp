@@ -1,6 +1,4 @@
 #include "finalSchedule.h"
-#include "employeeRepository.h"
-#include "teamRepository.h"
 #include "employee.h"
 #include "team.h"
 #include "position.h"
@@ -8,16 +6,16 @@
 #include "shift.h"
 
 
-FinalSchedule::FinalSchedule(const TeamRepository &teamRepository, const EmployeeRepository &employeeRepository)
+FinalSchedule::FinalSchedule(const teams &allTeams, const employees &allEmployees)
 {
-    for(const auto &team : teamRepository.getAll())
+    for(const auto &team : allTeams)
     {
-        allQueues.emplace_back(TeamQueues(team,employeeRepository.getAll()));
+        allQueues.emplace_back(TeamQueues(team,allEmployees));
     }
     for(unsigned int i = 0; i<Schedule::getNumberOfDays()+1; ++i)
     {
         schedule.emplace_back();
-        for(const auto & team : teamRepository.getAll())
+        for(const auto & team : allTeams)
         {
             schedule[i].emplace_back(team->getPositions().size());
         }

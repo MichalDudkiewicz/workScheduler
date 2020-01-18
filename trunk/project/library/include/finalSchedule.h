@@ -6,13 +6,14 @@
 #include <string>
 #include "teamQueues.h"
 
-class EmployeeRepository;
-class TeamRepository;
+class Team;
 typedef std::vector<TeamQueues> teamsQueues;
 typedef std::vector<employeePtr> employees;
 typedef std::vector<employees> employeesOnPosition;
 typedef std::vector<employeesOnPosition> teamsOnDay;
 typedef std::vector<teamsOnDay> calendar;
+typedef std::shared_ptr<Team> teamPtr;
+typedef std::vector<teamPtr> teams;
 
 class FinalSchedule
 {
@@ -20,7 +21,7 @@ private:
     teamsQueues allQueues{};
     calendar schedule{};
 public:
-    FinalSchedule(const TeamRepository&, const EmployeeRepository&);
+    FinalSchedule(const teams&, const employees&);
     void makeSchedule();
     void clear();
     const calendar& getSchedule() const;

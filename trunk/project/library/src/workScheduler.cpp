@@ -8,7 +8,7 @@ WorkScheduler& WorkScheduler::getInstance()
     return instance;
 }
 
-WorkScheduler::WorkScheduler() : schedule(TeamRepository::getInstance(), EmployeeRepository::getInstance())
+WorkScheduler::WorkScheduler() : schedule(TeamRepository::getInstance().getAll(), EmployeeRepository::getInstance().getAll())
 {}
 
 void WorkScheduler::createSchedule()

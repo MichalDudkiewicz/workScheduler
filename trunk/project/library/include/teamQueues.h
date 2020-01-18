@@ -19,12 +19,10 @@ class TeamQueues
 {
 private:
     teamPtr team;
-    employees authorisedEmployees;
     queues teamQueues{};
 public:
-    TeamQueues(teamPtr,employees);
+    TeamQueues(teamPtr,const employees&);
     const queues& getTeamQueues() const;
-    const employees& getAuthorisedEmployees() const;
     const teamPtr& getTeam() const;
     void queueSort(unsigned int, unsigned int);
     std::string teamQueuesInfo() const;
