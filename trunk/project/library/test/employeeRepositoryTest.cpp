@@ -27,12 +27,12 @@ BOOST_AUTO_TEST_SUITE(TestSuiteCorrect)
         (*team).addPosition(doctor);
         (*team).addPosition(medic);
         (*team).addPosition(driver);
-        EmployeeRepository::getInstance().addEmployee(mateush);
-        EmployeeRepository::getInstance().addEmployee(paulina);
-        EmployeeRepository::getInstance().addEmployee(michal);
-        EmployeeRepository::getInstance().addEmployee(janusz);
-        BOOST_CHECK_EQUAL(EmployeeRepository::getInstance().getEmployeeByID(9)->getName(), "Paulina");
-        BOOST_CHECK_EQUAL(EmployeeRepository::getInstance().repositoryInfo(), "2. Michal\n"
+        EmployeeRepository::getInstance().add(mateush);
+        EmployeeRepository::getInstance().add(paulina);
+        EmployeeRepository::getInstance().add(michal);
+        EmployeeRepository::getInstance().add(janusz);
+        BOOST_CHECK_EQUAL(EmployeeRepository::getInstance().get(9)->getName(), "Paulina");
+        BOOST_CHECK_EQUAL(EmployeeRepository::getInstance().info(), "2. Michal\n"
                                                                               "3. Mateusz\n"
                                                                               "5. Janusz\n"
                                                                               "9. Paulina\n");
@@ -54,8 +54,8 @@ BOOST_AUTO_TEST_SUITE(TestSuiteCorrect)
         (*janusz).setMinShifts(20);
         BOOST_CHECK_EQUAL(EmployeeRepository::getInstance().getAllUnsatisfied()[0]->getName(), "Mateusz");
         BOOST_CHECK_EQUAL(EmployeeRepository::getInstance().getAllUnsatisfied().size(), 2);
-        EmployeeRepository::getInstance().removeEmployee(5);
-        BOOST_CHECK_EQUAL(EmployeeRepository::getInstance().repositoryInfo(), "2. Michal\n"
+        EmployeeRepository::getInstance().remove(5);
+        BOOST_CHECK_EQUAL(EmployeeRepository::getInstance().info(), "2. Michal\n"
                                                                               "3. Mateusz\n"
                                                                               "9. Paulina\n");
     }

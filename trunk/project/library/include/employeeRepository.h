@@ -4,6 +4,7 @@
 #include <vector>
 #include <memory>
 #include <string>
+#include "repository.h"
 
 class EmployeeNotFound: public std::logic_error
 {
@@ -24,7 +25,7 @@ typedef std::vector<employeePtr> employees;
 typedef std::shared_ptr<Position> positionPtr;
 typedef std::shared_ptr<Team> teamPtr;
 
-class EmployeeRepository
+class EmployeeRepository : public Repository<Employee,unsigned int>
 {
 private:
     employees employeesRepository{};
@@ -34,12 +35,12 @@ public:
     static EmployeeRepository& getInstance();
     EmployeeRepository(const EmployeeRepository&)=delete;
     void operator=(const EmployeeRepository&)=delete;
-    void addEmployee(const employeePtr&);
-    void addEmployee(unsigned int, const std::string&);
-    void removeEmployee(unsigned int);
-    std::string repositoryInfo() const;
-    const employees& getAll() const;
-    const employeePtr& getEmployeeByID(unsigned int) const;
+    void add(const employeePtr&) override;
+    void add(unsigned int, const std::string&);
+    void remove(const unsigned int&) override;
+    std::string info() const override;
+    const employees& getAll() const override;
+    const employeePtr& get(const unsigned int&) const override;
     employees getByPosition(const positionPtr&) const;
     std::vector<employees> getByTeam(const teamPtr&) const;
     employees getByType(unsigned int) const;

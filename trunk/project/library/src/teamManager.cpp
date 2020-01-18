@@ -9,22 +9,22 @@ TeamManager& TeamManager::getInstance()
 
 void TeamManager::addTeam(const std::string &name)
 {
-    TeamRepository::getInstance().addTeam(name);
+    TeamRepository::getInstance().add(name);
 }
 
 void TeamManager::removeTeam(const std::string &name)
 {
-    TeamRepository::getInstance().removeTeam(name);
+    TeamRepository::getInstance().remove(name);
 }
 
 const teamPtr& TeamManager::getTeamByName(const std::string &name) const
 {
-    return TeamRepository::getInstance().getTeamByName(name);
+    return TeamRepository::getInstance().get(name);
 }
 
 std::string TeamManager::repositoryInfo() const
 {
-    return TeamRepository::getInstance().repositoryInfo();
+    return TeamRepository::getInstance().info();
 }
 
 const std::vector<teamPtr> &TeamManager::getAll() const {

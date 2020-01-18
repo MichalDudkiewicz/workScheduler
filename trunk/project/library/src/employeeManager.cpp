@@ -9,22 +9,22 @@ EmployeeManager& EmployeeManager::getInstance()
 
 void EmployeeManager::addEmployee(unsigned int id, const std::string &name)
 {
-    EmployeeRepository::getInstance().addEmployee(id, name);
+    EmployeeRepository::getInstance().add(id, name);
 }
 
 void EmployeeManager::removeEmployee(unsigned int id)
 {
-    EmployeeRepository::getInstance().removeEmployee(id);
+    EmployeeRepository::getInstance().remove(id);
 }
 
 const employeePtr& EmployeeManager::getEmployeeByID(unsigned int id) const
 {
-    return EmployeeRepository::getInstance().getEmployeeByID(id);
+    return EmployeeRepository::getInstance().get(id);
 }
 
 std::string EmployeeManager::repositoryInfo() const
 {
-    return  EmployeeRepository::getInstance().repositoryInfo();
+    return EmployeeRepository::getInstance().info();
 }
 
 std::string EmployeeManager::getStatisticsByID(unsigned int id) const
