@@ -143,21 +143,26 @@ BOOST_AUTO_TEST_SUITE(TestSuiteCorrect)
         (*employee2).changeType(2);
         (*employee3).changeType(0);
         (*employee3).changeType(2);
-        (*employee1).addDesiredShift(0,15,3);
-        (*employee2).addDesiredShift(2,12,3);
-        (*employee3).addDesiredShift(5,14,3);
-        (*employee4).addDesiredShift(7,14,3);
-        (*employee5).addDesiredShift(7,14,3);
+        boost::gregorian::date d(Schedule::getStartDate());
+        while(d.day_of_week()!=1)
+        {
+            d += boost::gregorian::days(1);
+        }
+        (*employee1).addDesiredShift(0,15,d.day());
+        (*employee2).addDesiredShift(2,12,d.day());
+        (*employee3).addDesiredShift(5,14,d.day());
+        (*employee4).addDesiredShift(7,14,d.day());
+        (*employee5).addDesiredShift(7,14,d.day());
         std::shared_ptr<Team> team = std::make_shared<Team>("S1");
         team->addShift(8,12,1);
         team->addPosition(doctor);
         TeamQueues queues(team,employees);
         queues.queueSort(2,0);
-        BOOST_CHECK_EQUAL(queues.getTeamQueues()[2][0][0], employee3);
-        BOOST_CHECK_EQUAL(queues.getTeamQueues()[2][0][1], employee1);
-        BOOST_CHECK_EQUAL(queues.getTeamQueues()[2][0][2], employee2);
-        BOOST_CHECK_EQUAL(queues.getTeamQueues()[2][0][3], employee4);
-        BOOST_CHECK_EQUAL(queues.getTeamQueues()[2][0][4], employee5);
+        BOOST_CHECK_EQUAL(queues.getTeamQueues()[d.day()-1][0][0], employee3);
+        BOOST_CHECK_EQUAL(queues.getTeamQueues()[d.day()-1][0][1], employee1);
+        BOOST_CHECK_EQUAL(queues.getTeamQueues()[d.day()-1][0][2], employee2);
+        BOOST_CHECK_EQUAL(queues.getTeamQueues()[d.day()-1][0][3], employee4);
+        BOOST_CHECK_EQUAL(queues.getTeamQueues()[d.day()-1][0][4], employee5);
         BOOST_TEST_MESSAGE(queues.teamQueuesInfo());
     }
 

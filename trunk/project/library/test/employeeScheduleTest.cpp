@@ -58,6 +58,7 @@ BOOST_AUTO_TEST_SUITE(TestSuiteCorrect)
         schedule.addShift(shift6);
         schedule.removeShift(11, 1);
         BOOST_CHECK_EQUAL(schedule.getSchedule()[10][0]->shiftInfo(), s6.str());
+        BOOST_TEST_MESSAGE(schedule.scheduleInfo());
     }
 
 BOOST_AUTO_TEST_SUITE_END()
