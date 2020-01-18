@@ -35,7 +35,6 @@ vector<T> cell_to_raw_values(string &chain, char separator)
 
 int main()
 {
-
     // positions
 
     std::shared_ptr<Position> doctor=std::make_shared<Doctor>();

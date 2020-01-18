@@ -33,11 +33,11 @@ BOOST_AUTO_TEST_SUITE(TestSuiteCorrect)
         (*teamS2).addPosition(medic);
         (*team1).addPosition(driver);
         (*team2).addPosition(medic);
-        TeamRepository::getInstance().addTeam(teamS1);
-        TeamRepository::getInstance().addTeam(teamS2);
-        TeamRepository::getInstance().addTeam(team1);
-        TeamRepository::getInstance().addTeam(team2);
-        BOOST_CHECK_EQUAL(TeamRepository::getInstance().repositoryInfo(), "Team S1\n"
+        TeamRepository::getInstance().add(teamS1);
+        TeamRepository::getInstance().add(teamS2);
+        TeamRepository::getInstance().add(team1);
+        TeamRepository::getInstance().add(team2);
+        BOOST_CHECK_EQUAL(TeamRepository::getInstance().info(), "Team S1\n"
                                                                           "Positions required: doctor, driver (normal), medic, \n"
                                                                           "Team shifts: \n"
                                                                           "Monday: day: 1, 0 - 0\n"
@@ -85,10 +85,10 @@ BOOST_AUTO_TEST_SUITE(TestSuiteCorrect)
                                                                           "Sunday: day: 7, 0 - 0\n"
                                                                           "\n"
                                                                           "\n");
-        BOOST_CHECK_EQUAL(TeamRepository::getInstance().getTeamByName("S2")->getName(), "S2");
+        BOOST_CHECK_EQUAL(TeamRepository::getInstance().get("S2")->getName(), "S2");
         BOOST_CHECK_EQUAL(TeamRepository::getInstance().getAll()[0]->getName(), "S1");
         BOOST_CHECK_EQUAL(TeamRepository::getInstance().getAll().size(), 4);
-        TeamRepository::getInstance().removeTeam("S1");
+        TeamRepository::getInstance().remove("S1");
         BOOST_CHECK_EQUAL(TeamRepository::getInstance().getAll()[0]->getName(), "S2");
         BOOST_CHECK_EQUAL(TeamRepository::getInstance().getAll().size(), 3);
     }

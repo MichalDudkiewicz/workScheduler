@@ -33,7 +33,7 @@ void EmployeeRepository::checkIfIdExist(const employeePtr &employee){
     }
 }
 
-void EmployeeRepository::addEmployee(const employeePtr &employee)
+void EmployeeRepository::add(const employeePtr &employee)
 {
     try{
         checkIfIdExist(employee);
@@ -45,14 +45,14 @@ void EmployeeRepository::addEmployee(const employeePtr &employee)
     std::sort(employeesRepository.begin(),employeesRepository.end(),compareID());
 }
 
-void EmployeeRepository::addEmployee(unsigned int id, const std::string &name)
+void EmployeeRepository::add(unsigned int id, const std::string &name)
 {
     employeePtr employee = std::make_shared<Employee>(name, id);
     employeesRepository.push_back(employee);
     std::sort(employeesRepository.begin(),employeesRepository.end(),compareID());
 }
 
-void EmployeeRepository::removeEmployee(unsigned int id)
+void EmployeeRepository::remove(const unsigned int &id)
 {
     unsigned int it = 0;
     for(const auto &e : employeesRepository)
@@ -66,7 +66,7 @@ void EmployeeRepository::removeEmployee(unsigned int id)
     }
 }
 
-std::string EmployeeRepository::repositoryInfo() const
+std::string EmployeeRepository::info() const
 {
     std::ostringstream out;
     for(const auto &e : employeesRepository)
@@ -81,7 +81,7 @@ const employees& EmployeeRepository::getAll() const
     return employeesRepository;
 }
 
-const employeePtr& EmployeeRepository::getEmployeeByID(unsigned int id) const
+const employeePtr& EmployeeRepository::get(const unsigned int &id) const
 {
     for(const auto &e : employeesRepository)
     {
@@ -134,7 +134,7 @@ employees EmployeeRepository::getByType(unsigned int typeID) const
 std::string EmployeeRepository::getStatisticsByID(unsigned int id) const
 {
     std::ostringstream out;
-    out << getEmployeeByID(id)->employeeInfo()<<std::endl;
+    out << get(id)->employeeInfo() << std::endl;
     return out.str();
 }
 

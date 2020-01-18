@@ -4,6 +4,7 @@
 #include <vector>
 #include <memory>
 #include <string>
+#include "repository.h"
 
 class TeamNotExist: public std::logic_error
 {
@@ -15,7 +16,7 @@ class Team;
 typedef std::shared_ptr<Team> teamPtr;
 typedef std::vector<teamPtr> teams;
 
-class TeamRepository
+class TeamRepository : Repository<Team,std::string>
 {
 private:
     teams teamsRepository{};
@@ -24,12 +25,12 @@ public:
     static TeamRepository& getInstance();
     TeamRepository(const TeamRepository&)=delete;
     void operator=(const TeamRepository&)=delete;
-    void addTeam(const teamPtr&);
-    void addTeam(const std::string&);
-    void removeTeam(const std::string&);
-    const teamPtr& getTeamByName(const std::string&) const;
-    const teams& getAll() const;
-    std::string repositoryInfo() const;
+    void add(const teamPtr&) override;
+    void add(const std::string&);
+    void remove(const std::string&) override;
+    const teamPtr& get(const std::string&) const override;
+    const teams& getAll() const override;
+    std::string info() const override;
 };
 
 #endif
