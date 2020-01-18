@@ -101,12 +101,6 @@ BOOST_AUTO_TEST_SUITE(TestSuiteCorrect)
         BOOST_REQUIRE_EQUAL(queue.getTeam()->getName(), "S1");
     }
 
-    BOOST_FIXTURE_TEST_CASE(TeamQueuesCaseGetId, FixtureTeamQueuesTest) {
-        TeamQueues queue(team, employees);
-        BOOST_REQUIRE_EQUAL(queue.getAuthorisedEmployees()[0]->getId(), 2);
-        BOOST_REQUIRE_EQUAL(queue.getAuthorisedEmployees()[1]->getId(), 1);
-    }
-
     BOOST_FIXTURE_TEST_CASE(TeamQueuesCaseGetTeamQueues, FixtureTeamQueuesTest) {
         TeamQueues queue(team, employees);
         BOOST_REQUIRE_EQUAL(queue.getTeamQueues()[0][0].empty(), true);
@@ -157,7 +151,7 @@ BOOST_AUTO_TEST_SUITE(TestSuiteCorrect)
         team->addShift(8,12,1);
         team->addPosition(doctor);
         TeamQueues queues(team,employees);
-        queues.queueSort(2,0);
+        queues.queueSort(d.day()-1,0);
         BOOST_CHECK_EQUAL(queues.getTeamQueues()[d.day()-1][0][0], employee3);
         BOOST_CHECK_EQUAL(queues.getTeamQueues()[d.day()-1][0][1], employee1);
         BOOST_CHECK_EQUAL(queues.getTeamQueues()[d.day()-1][0][2], employee2);
