@@ -5,6 +5,7 @@ project(Program)
 #ustaw we własnej zmiennej SOURCE_FILES zbiór plików źródłowych projektu
 set(SOURCE_FILES
         src/main.cpp
+        src/fileStream.cpp
         )
 #włącz powyższy zbiór plików do zbudowania programu wykonywalnego Program
 add_executable(Program ${SOURCE_FILES})

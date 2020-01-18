@@ -18,6 +18,7 @@
 #include "schedule.h"
 #include <boost/lexical_cast.hpp>
 #include "workScheduler.h"
+#include "fileStream.h"
 
 using namespace std;
 
@@ -219,154 +220,15 @@ int main()
     teamRepositoryS.close();
 
 
-//schedule
+    //CREATING AND DISPLAYING SCHEDULE
     WorkScheduler::getInstance().createSchedule();
     cout<<WorkScheduler::getInstance().scheduleInfo();
 
-//    output employeeRepository
-    ofstream empRepoS;
-    empRepoS.open("../../../dataset/input/admin/employeeRepository.csv");
-    empRepoS<<"ID,name,wage,points,priority,nonresident,positions,enemies,"<<endl;
-    for(const auto &employee : EmployeeManager::getInstance().getAll())
-    {
-        empRepoS<<employee->getId()<<","<<employee->getName()<<","<<employee->getHourlyWage()<<","<<employee->getPoints()<<","<<employee->getType()->getPriority()<<","<<employee->isNonresident()<<",";
-        for(const auto &position : employee->getPositions())
-        {
-            empRepoS<<position->positionID()<<";";
-        }
-        empRepoS<<",";
-        for(const auto &enemy : employee->getMyEnemies())
-        {
-            empRepoS<<enemy->getId()<<";";
-        }
-        empRepoS<<",";
-        empRepoS<<endl;
-    }
-    empRepoS.close();
-
-//    output desiredSchedules
-    ofstream desiredScheduleStream;
-    desiredScheduleStream.open("../../../dataset/input/employees/desiredSchedules.csv");
-    desiredScheduleStream << "ID\\day" << ",";
-    for(unsigned int day=1;day<=Schedule::getNumberOfDays();++day)
-    {
-        desiredScheduleStream << day << ",";
-    }
-    desiredScheduleStream << "1" << "," << endl;
-    for(const auto &employee : EmployeeManager::getInstance().getAll())
-    {
-        desiredScheduleStream << employee->getId() << ",";
-        for(const auto &shifts : employee->getDesiredSchedule())
-        {
-            for(const auto &shift : shifts)
-            {
-                desiredScheduleStream << shift->getStartHour() << "-" << shift->getEndHour() << ";";
-            }
-            desiredScheduleStream << ",";
-        }
-        desiredScheduleStream << endl;
-    }
-    desiredScheduleStream.close();
-
-
-    // schedule output
-    ofstream scheduleStream;
-    scheduleStream.open("../../../dataset/output/schedule.csv");
-    unsigned int numberOfColumns = 1;
-    for(const auto &team : TeamManager::getInstance().getAll())
-    {
-        numberOfColumns+=team->getPositions().size();
-    }
-    for(unsigned int i=0;i<numberOfColumns/2-3;++i)
-    {
-        scheduleStream<<",";
-    }
-    scheduleStream<<Schedule::scheduleDate()<<" work schedule";
-    for(unsigned int i=numberOfColumns/2-3;i<numberOfColumns;++i)
-    {
-        scheduleStream<<",";
-    }
-    scheduleStream<<endl<<",";
-    for(const auto &team : TeamManager::getInstance().getAll())
-    {
-        for(unsigned long i=0;i<team->getPositions().size()/2;++i)
-        {
-            scheduleStream<<",";
-        }
-        scheduleStream<<team->getName();
-        for(unsigned long i=team->getPositions().size()/2;i<team->getPositions().size();++i)
-        {
-            scheduleStream<<",";
-        }
-    }
-    scheduleStream<<endl<<",";
-    for(const auto &team : TeamManager::getInstance().getAll())
-    {
-        for(const auto &position : team->getPositions())
-        {
-            scheduleStream<<position->shortcut()<<",";
-        }
-    }
-    scheduleStream<<endl;
-    unsigned int d = 1;
-    for(const auto &day : WorkScheduler::getInstance().getSchedule())
-    {
-        if(d>Schedule::getNumberOfDays())
-            d=1;
-        scheduleStream<<d<<",";
-        for(const auto &team : day)
-        {
-            for(const auto &position : team)
-            {
-                if(position.empty())
-                    scheduleStream<<",";
-                else
-                {
-                    scheduleStream<<position.front()->getId()<<",";
-                }
-            }
-        }
-        scheduleStream<<endl;
-        ++d;
-    }
-    scheduleStream.close();
-
-
-
-    // team REpo output
-
-    ofstream teamRepositoryStream;
-    teamRepositoryStream.open("../../../dataset/input/admin/teamRepository.csv");
-    teamRepositoryStream<<"team,positions,"<<endl;
-    for(const auto &team : TeamManager::getInstance().getAll())
-    {
-        teamRepositoryStream<<team->getName()<<",";
-        for(const auto &positon : team->getPositions())
-        {
-            teamRepositoryStream<<positon->positionID()<<";";
-        }
-        teamRepositoryStream<<","<<endl;
-    }
-    teamRepositoryStream.close();
-
-    // team schedule output
-
-    ofstream teamScheduleStream;
-    teamScheduleStream.open("../../../dataset/input/admin/teamSchedule.csv");
-    teamScheduleStream<<"team\\day,Monday,Tuesday,Wednesday,Thursday,Friday,Saturday,Sunday,"<<endl;
-    for(const auto &team : TeamManager::getInstance().getAll())
-    {
-        teamScheduleStream<<team->getName()<<",";
-        for(const auto &shift : team->getShifts())
-        {
-            if(shift->isDayOff())
-                teamScheduleStream<<"X,";
-            else
-                teamScheduleStream<<shift->getStartHour()<<"-"<<shift->getEndHour()<<",";
-        }
-        teamScheduleStream<<endl;
-    }
-    teamScheduleStream.close();
-
+    //SAVING OUTPUT FILES
+    output::employeeRepository("../../../dataset/input/admin/employeeRepository.csv");
+    output::desiredSchedule("../../../dataset/input/employees/desiredSchedules.csv");
+    output::schedule("../../../dataset/output/schedule.csv");
+    output::teamRepository("../../../dataset/input/admin/teamRepository.csv");
+    output::teamSchedule("../../../dataset/input/admin/teamSchedule.csv");
     return 0;
 }
