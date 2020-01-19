@@ -19,6 +19,8 @@ BOOST_AUTO_TEST_SUITE(TestSuiteCorrect)
         BOOST_TEST_MESSAGE(WorkScheduler::getInstance().scheduleInfo());
         BOOST_CHECK_EQUAL(WorkScheduler::getInstance().getSchedule()[0][0][0].empty(),true);
         BOOST_CHECK_EQUAL(WorkScheduler::getInstance().getSchedule()[firstMonday.day()-1][0][0].front()->getId(),3);
+        WorkScheduler::getInstance().updateSchedule();
+        BOOST_CHECK_EQUAL(WorkScheduler::getInstance().getSchedule()[firstMonday.day()-1][0][0].empty(),true);
     }
 
 BOOST_AUTO_TEST_SUITE_END()
