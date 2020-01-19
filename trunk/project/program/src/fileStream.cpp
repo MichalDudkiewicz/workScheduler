@@ -12,6 +12,122 @@
 #include "team.h"
 
 
+void input::teamSchedule(const std::string &path)
+{
+    std::vector<std::string> row;
+    unsigned int columnNumber=0;
+    unsigned int rowNumber=0;
+    std::string cell;
+    std::ifstream teamScheduleS;
+    teamScheduleS.open(path);
+    columnNumber=0;
+    rowNumber=0;
+    while(teamScheduleS.good())
+    {
+        getline(teamScheduleS, cell, ',');
+        row.push_back(cell);
+        ++columnNumber;
+        if(columnNumber==8)
+        {
+            getline(teamScheduleS, cell, '\n');
+            columnNumber=0;
+            if(rowNumber>0)
+            {
+                for(unsigned int i=0;i<7;++i)
+                {
+                    std::string hoursChain = row[i+1];
+                    std::vector<unsigned int> shiftHours=cellToRawValues<unsigned int>(hoursChain,'-');
+                    if(shiftHours.size()>1)
+                        TeamManager::getInstance().getTeamByName(row.front())->addShift(shiftHours.front(),shiftHours.back(),i+1);
+                }
+            }
+            ++rowNumber;
+            row.clear();
+        }
+    }
+    teamScheduleS.close();
+}
+
+void input::teamRepository(const std::string &path)
+{
+    std::ifstream teamRepositoryS;
+    std::vector<std::string> row;
+    teamRepositoryS.open(path);
+    unsigned int columnNumber=0;
+    unsigned int rowNumber=0;
+    std::string cell;
+    while(teamRepositoryS.good())
+    {
+        getline(teamRepositoryS, cell, ',');
+        row.push_back(cell);
+        ++columnNumber;
+        if(columnNumber==2)
+        {
+            getline(teamRepositoryS, cell, '\n');
+            columnNumber=0;
+            if(rowNumber>0)
+            {
+                TeamManager::getInstance().addTeam(row.front());
+                std::vector<unsigned int> positions=cellToRawValues<unsigned int>(row[1],';');
+                for(auto &positionID : positions)
+                {
+                    for(const auto &position : allPositions)
+                    {
+                        if(position->positionID()==positionID)
+                        {
+                            TeamManager::getInstance().getAll().back()->addPosition(position);
+                            break;
+                        }
+                    }
+                }
+            }
+            ++rowNumber;
+            row.clear();
+        }
+    }
+    teamRepositoryS.close();
+}
+
+void input::desiredSchedule(const std::string &path)
+{
+    std::ifstream desSchedStream;
+    desSchedStream.open(path);
+    std::vector<std::string> row;
+    unsigned int columnNumber=0;
+    unsigned int rowNumber=0;
+    std::string cell;
+    while(desSchedStream.good())
+    {
+        getline(desSchedStream, cell, ',');
+        row.push_back(cell);
+        ++columnNumber;
+        if(columnNumber==Schedule::getNumberOfDays()+2)
+        {
+            columnNumber=0;
+            if(rowNumber>0)
+            {
+                unsigned int day=0;
+                for(auto &c : row)
+                {
+                    if(day>0)
+                    {
+                        std::vector<std::string> shifts= cellToRawValues<std::string>(c, ';');
+                        for(auto &shift : shifts)
+                        {
+                            std::vector<unsigned int> shiftHours= cellToRawValues<unsigned int>(shift, '-');
+                            EmployeeManager::getInstance().getEmployeeByID(stoi(row[0]))->addDesiredShift(shiftHours[0],shiftHours[1],day);
+                        }
+                    }
+                    ++day;
+                }
+            }
+            ++rowNumber;
+            row.clear();
+        }
+    }
+    desSchedStream.close();
+}
+
 void output::employeeRepository(const std::string &path)
 {
     std::ofstream empRepoS;

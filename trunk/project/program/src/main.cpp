@@ -22,18 +22,6 @@
 
 using namespace std;
 
-template<typename T>
-vector<T> cell_to_raw_values(string &chain, char separator)
-{
-    vector<T> output;
-    std::replace(chain.begin(), chain.end(), separator, ' ');
-    stringstream stream(chain);
-    T temp;
-    while (stream >> temp)
-        output.push_back(temp);
-    return output;
-}
-
 int main()
 {
     // positions
@@ -47,18 +35,16 @@ int main()
     std::shared_ptr<Position> medicalRecorder=std::make_shared<MedicalRecorder>();
     std::shared_ptr<Position> dispatcher=std::make_shared<Dispatcher>();
 
-    std::vector<positionPtr> allPositions;
-    allPositions.push_back(doctor);
-    allPositions.push_back(rescuerS);
-    allPositions.push_back(driverS);
-    allPositions.push_back(rescuerN);
-    allPositions.push_back(driverN);
-    allPositions.push_back(medic);
-    allPositions.push_back(medicalRecorder);
-    allPositions.push_back(dispatcher);
+    input::allPositions.push_back(doctor);
+    input::allPositions.push_back(rescuerS);
+    input::allPositions.push_back(driverS);
+    input::allPositions.push_back(rescuerN);
+    input::allPositions.push_back(driverN);
+    input::allPositions.push_back(medic);
+    input::allPositions.push_back(medicalRecorder);
+    input::allPositions.push_back(dispatcher);
 
     //employee Repository input
-
     ifstream empRepoStream;
     empRepoStream.open("../../../dataset/input/admin/employeeRepository.csv");
     vector<string> row;
@@ -80,10 +66,10 @@ int main()
                 EmployeeManager::getInstance().getEmployeeByID(stoi(row[0]))->setPoints(stoi(row[3]));
                 EmployeeManager::getInstance().getEmployeeByID(stoi(row[0]))->changeType(stoi(row[4]));
                 EmployeeManager::getInstance().getEmployeeByID(stoi(row[0]))->setNonresident(boost::lexical_cast<bool>(row[5]));
-                vector<unsigned int> positions=cell_to_raw_values<unsigned int>(row[6],';');
+                vector<unsigned int> positions= cellToRawValues<unsigned int>(row[6], ';');
                 for(auto &positionID : positions)
                 {
-                    for(const auto &position : allPositions)
+                    for(const auto &position : input::allPositions)
                     {
                         if(position->positionID()==positionID)
                         {
@@ -92,7 +78,7 @@ int main()
                         }
                     }
                 }
-                vector<unsigned int> enemies=cell_to_raw_values<unsigned int>(row[7],';');
+                vector<unsigned int> enemies= cellToRawValues<unsigned int>(row[7], ';');
                 for(const auto &enemyID : enemies)
                 {
                     if(enemyID<stoul(row[0]))
@@ -107,48 +93,10 @@ int main()
     }
     empRepoStream.close();
 
-
     //desired Schedule input
-
-    ifstream desSchedStream;
-    desSchedStream.open("../../../dataset/input/employees/desiredSchedules.csv");
-    row.clear();
-    columnNumber=0;
-    rowNumber=0;
-    while(desSchedStream.good())
-    {
-        getline(desSchedStream, cell, ',');
-        row.push_back(cell);
-        ++columnNumber;
-        if(columnNumber==Schedule::getNumberOfDays()+2)
-        {
-            columnNumber=0;
-            if(rowNumber>0)
-            {
-                unsigned int day=0;
-                for(auto &c : row)
-                {
-                    if(day>0)
-                    {
-                        vector<string> shifts=cell_to_raw_values<string>(c,';');
-                        for(auto &shift : shifts)
-                        {
-                            vector<unsigned int> shiftHours=cell_to_raw_values<unsigned int>(shift,'-');
-                            EmployeeManager::getInstance().getEmployeeByID(stoi(row[0]))->addDesiredShift(shiftHours[0],shiftHours[1],day);
-                        }
-                    }
-                    ++day;
-                }
-            }
-            ++rowNumber;
-            row.clear();
-        }
-    }
-    desSchedStream.close();
-
+    input::desiredSchedule("../../../dataset/input/employees/desiredSchedules.csv");
 
     //team repository input
-
     ifstream teamRepositoryS;
     teamRepositoryS.open("../../../dataset/input/admin/teamRepository.csv");
     row.clear();
@@ -166,10 +114,10 @@ int main()
             if(rowNumber>0)
             {
                 TeamManager::getInstance().addTeam(row.front());
-                vector<unsigned int> positions=cell_to_raw_values<unsigned int>(row[1],';');
+                vector<unsigned int> positions= cellToRawValues<unsigned int>(row[1], ';');
                 for(auto &positionID : positions)
                 {
-                    for(const auto &position : allPositions)
+                    for(const auto &position : input::allPositions)
                     {
                         if(position->positionID()==positionID)
                         {
@@ -185,40 +133,8 @@ int main()
     }
     teamRepositoryS.close();
 
-
     // team schedule input
-
-    ifstream teamScheduleS;
-    teamScheduleS.open("../../../dataset/input/admin/teamSchedule.csv");
-    row.clear();
-    columnNumber=0;
-    rowNumber=0;
-
-    while(teamScheduleS.good())
-    {
-        getline(teamScheduleS, cell, ',');
-        row.push_back(cell);
-        ++columnNumber;
-        if(columnNumber==8)
-        {
-            getline(teamScheduleS, cell, '\n');
-            columnNumber=0;
-            if(rowNumber>0)
-            {
-                for(unsigned int i=0;i<7;++i)
-                {
-                    string hoursChain = row[i+1];
-                    vector<unsigned int> shiftHours=cell_to_raw_values<unsigned int>(hoursChain,'-');
-                    if(shiftHours.size()>1)
-                        TeamManager::getInstance().getTeamByName(row.front())->addShift(shiftHours.front(),shiftHours.back(),i+1);
-                }
-            }
-            ++rowNumber;
-            row.clear();
-        }
-    }
-    teamRepositoryS.close();
-
+    input::teamSchedule("../../../dataset/input/admin/teamSchedule.csv");
 
     //CREATING AND DISPLAYING SCHEDULE
     WorkScheduler::getInstance().createSchedule();
