@@ -12,7 +12,7 @@ typedef std::shared_ptr<Position> positionPtr;
 
 namespace input
 {
-    static std::vector<positionPtr> allPositions;
+    std::vector<positionPtr> loadPositions();
     void employeeRepository(const std::string&);
     void desiredSchedule(const std::string&);
     void schedule(const std::string&);

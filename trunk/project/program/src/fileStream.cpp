@@ -10,7 +10,82 @@
 #include "teamManager.h"
 #include "workScheduler.h"
 #include "team.h"
+#include "rescuerS.h"
+#include "driverS.h"
+#include "rescuerN.h"
+#include "medicalRecorder.h"
+#include "dispatcher.h"
+#include "driverN.h"
+#include "doctor.h"
+#include "medic.h"
 
+
+std::vector<positionPtr> input::loadPositions()
+{
+    std::vector<positionPtr> allPositions;
+    std::shared_ptr<Position> doctor = std::make_shared<Doctor>();
+    std::shared_ptr<Position> rescuerS = std::make_shared<RescuerS>();
+    std::shared_ptr<Position> driverS = std::make_shared<DriverS>();
+    std::shared_ptr<Position> rescuerN = std::make_shared<RescuerN>();
+    std::shared_ptr<Position> driverN = std::make_shared<DriverN>();
+    std::shared_ptr<Position> medic = std::make_shared<Medic>();
+    std::shared_ptr<Position> medicalRecorder = std::make_shared<MedicalRecorder>();
+    std::shared_ptr<Position> dispatcher = std::make_shared<Dispatcher>();
+
+    allPositions.push_back(doctor);
+    allPositions.push_back(rescuerS);
+    allPositions.push_back(driverS);
+    allPositions.push_back(rescuerN);
+    allPositions.push_back(driverN);
+    allPositions.push_back(medic);
+    allPositions.push_back(medicalRecorder);
+    allPositions.push_back(dispatcher);
+    return allPositions;
+}
+
+void input::employeeRepository(const std::string &path){
+    std::ifstream empRepoStream;
+    empRepoStream.open(path);
+    std::vector<std::string> row;
+    unsigned int columnNumber = 0;
+    unsigned int rowNumber = 0;
+    std::string cell, employeeID;
+    while (empRepoStream.good()) {
+        getline(empRepoStream, cell, ',');
+        row.push_back(cell);
+        ++columnNumber;
+        if (columnNumber == 8) {
+            columnNumber = 0;
+            if (rowNumber > 0) {
+                EmployeeManager::getInstance().addEmployee(stoi(row[0]), row[1]);
+                EmployeeManager::getInstance().getEmployeeByID(stoi(row[0]))->setHourlyWage(stoi(row[2]));
+                EmployeeManager::getInstance().getEmployeeByID(stoi(row[0]))->setPoints(stoi(row[3]));
+                EmployeeManager::getInstance().getEmployeeByID(stoi(row[0]))->changeType(stoi(row[4]));
+                EmployeeManager::getInstance().getEmployeeByID(stoi(row[0]))->setNonresident(
+                        boost::lexical_cast<bool>(row[5]));
+                std::vector<unsigned int> positions = cellToRawValues<unsigned int>(row[6], ';');
+                for (auto &positionID : positions) {
+                    for (const auto &position : loadPositions()) {
+                        if (position->positionID() == positionID) {
+                            EmployeeManager::getInstance().getEmployeeByID(stoi(row[0]))->addPosition(position);
+                            break;
+                        }
+                    }
+                }
+                std::vector<unsigned int> enemies = cellToRawValues<unsigned int>(row[7], ';');
+                for (const auto &enemyID : enemies) {
+                    if (enemyID < stoul(row[0])) {
+                        EmployeeManager::getInstance().getEmployeeByID(stoi(row[0]))->addEnemy(
+                                EmployeeManager::getInstance().getEmployeeByID(enemyID));
+                    }
+                }
+            }
+            ++rowNumber;
+            row.clear();
+        }
+    }
+    empRepoStream.close();
+}
 
 void input::teamSchedule(const std::string &path) {
     std::vector<std::string> row;
@@ -62,7 +137,7 @@ void input::teamRepository(const std::string &path) {
                 TeamManager::getInstance().addTeam(row.front());
                 std::vector<unsigned int> positions = cellToRawValues<unsigned int>(row[1], ';');
                 for (auto &positionID : positions) {
-                    for (const auto &position : allPositions) {
+                    for (const auto &position : loadPositions()) {
                         if (position->positionID() == positionID) {
                             TeamManager::getInstance().getAll().back()->addPosition(position);
                             break;
