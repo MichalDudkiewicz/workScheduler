@@ -8,8 +8,7 @@
 class Employee;
 typedef std::shared_ptr<Employee> employeePtr;
 
-class EmployeeManager
-{
+class EmployeeManager{
 private:
     EmployeeManager()=default;
 public:

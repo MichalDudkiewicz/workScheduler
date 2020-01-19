@@ -15,8 +15,7 @@ typedef std::vector<teamsOnDay> calendar;
 typedef std::shared_ptr<Team> teamPtr;
 typedef std::vector<teamPtr> teams;
 
-class FinalSchedule
-{
+class FinalSchedule{
 private:
     teamsQueues allQueues{};
     calendar schedule{};

@@ -3,8 +3,7 @@
 
 #include "position.h"
 
-class Dispatcher : public Position
-{
+class Dispatcher : public Position{
 public:
     Dispatcher() = default;
     ~Dispatcher() override = default;

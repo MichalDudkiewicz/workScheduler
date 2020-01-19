@@ -23,8 +23,7 @@ typedef std::vector<employeePtr> employees;
 typedef std::shared_ptr<Position> positionPtr;
 typedef std::shared_ptr<Team> teamPtr;
 
-class EmployeeRepository : public Repository<Employee,unsigned int>
-{
+class EmployeeRepository : public Repository<Employee,unsigned int>{
 private:
     employees employeesRepository{};
     EmployeeRepository()=default;

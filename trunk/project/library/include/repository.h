@@ -6,8 +6,7 @@
 #include <vector>
 
 template<class T,typename Id>
-class Repository
-{
+class Repository{
 public:
     virtual void add(const std::shared_ptr<T>&)= 0;
     virtual void remove(const Id&)=0;

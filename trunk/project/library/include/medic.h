@@ -3,8 +3,7 @@
 
 #include "position.h"
 
-class Medic : public Position
-{
+class Medic : public Position{
 public:
     Medic() = default;
     ~Medic() override = default;

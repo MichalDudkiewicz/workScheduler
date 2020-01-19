@@ -3,8 +3,7 @@
 
 #include "sTeam.h"
 
-class DriverS : public STeam
-{
+class DriverS : public STeam{
 public:
     DriverS()= default;
     ~DriverS() override = default;

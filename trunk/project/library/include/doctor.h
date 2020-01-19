@@ -3,8 +3,7 @@
 
 #include "sTeam.h"
 
-class Doctor : public STeam
-{
+class Doctor : public STeam{
 public:
     Doctor()= default;
     ~Doctor() override = default;

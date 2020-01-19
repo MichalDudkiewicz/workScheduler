@@ -8,8 +8,7 @@
 class EmployeeRepository;
 class TeamRepository;
 
-class WorkScheduler
-{
+class WorkScheduler{
 private:
     FinalSchedule schedule;
     WorkScheduler();
