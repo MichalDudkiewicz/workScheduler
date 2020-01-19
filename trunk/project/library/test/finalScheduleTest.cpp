@@ -49,12 +49,12 @@ BOOST_AUTO_TEST_SUITE(TestSuiteCorrect)
         schedule.makeSchedule();
         BOOST_TEST_MESSAGE(schedule.scheduleInfo());
         BOOST_CHECK_EQUAL(schedule.getSchedule()[0][0][0].empty(),true);
-        BOOST_CHECK_EQUAL(schedule.getSchedule()[2][0][0].front()->getId(),2);
-        BOOST_CHECK_EQUAL(schedule.getSchedule()[3][1][0].front()->getId(),3);
+        BOOST_CHECK_EQUAL(schedule.getSchedule()[firstMonday.day()-1][0][0].front()->getId(),2);
+        BOOST_CHECK_EQUAL(schedule.getSchedule()[firstMonday.day()][1][0].front()->getId(),3);
         schedule.clear();
         BOOST_CHECK_EQUAL(schedule.getSchedule()[0][0][0].empty(),true);
-        BOOST_CHECK_EQUAL(schedule.getSchedule()[2][0][0].empty(),true);
-        BOOST_CHECK_EQUAL(schedule.getSchedule()[3][1][0].empty(),true);
+        BOOST_CHECK_EQUAL(schedule.getSchedule()[firstMonday.day()-1][0][0].empty(),true);
+        BOOST_CHECK_EQUAL(schedule.getSchedule()[firstMonday.day()][1][0].empty(),true);
     }
 
 BOOST_AUTO_TEST_SUITE_END()
