@@ -24,7 +24,7 @@ void FinalSchedule::makeSchedule() {
     unsigned int weekDayIterator = Schedule::getWeekDayIterator(Schedule::getStartDate());
     for (unsigned int day = 1; day <= Schedule::getNumberOfDays() + 1; ++day) {
         teamId = 0;
-        for (TeamQueues d : allQueues) {
+        for (auto &d : allQueues) {
             for (unsigned long it = 0; it < d.getTeam()->getPositions().size(); ++it) {
                 d.queueSort(day - 1, it);
                 shiftPtr newShift(new Shift(d.getTeam()->getShifts()[weekDayIterator]->getStartHour(),

@@ -275,7 +275,7 @@ bool Employee::isBusy(const shiftPtr &shift) const {
 
 bool Employee::isAuthorised(const positionPtr &position) const {
     for (const auto &p : getPositions()) {
-        if (p == position) {
+        if (p -> positionID() == position -> positionID()) {
             return true;
         }
     }
