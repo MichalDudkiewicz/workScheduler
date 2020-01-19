@@ -33,9 +33,9 @@ BOOST_AUTO_TEST_SUITE(TestSuiteCorrect)
         EmployeeRepository::getInstance().add(janusz);
         BOOST_CHECK_EQUAL(EmployeeRepository::getInstance().get(9)->getName(), "Paulina");
         BOOST_CHECK_EQUAL(EmployeeRepository::getInstance().info(), "2. Michal\n"
-                                                                              "3. Mateusz\n"
-                                                                              "5. Janusz\n"
-                                                                              "9. Paulina\n");
+                                                                    "3. Mateusz\n"
+                                                                    "5. Janusz\n"
+                                                                    "9. Paulina\n");
         BOOST_CHECK_EQUAL(EmployeeRepository::getInstance().getAll()[2]->getName(), "Janusz");
         BOOST_CHECK_EQUAL(EmployeeRepository::getInstance().getByPosition(doctor).size(), 2);
         BOOST_CHECK_EQUAL(EmployeeRepository::getInstance().getByPosition(driver).size(), 0);
@@ -56,9 +56,10 @@ BOOST_AUTO_TEST_SUITE(TestSuiteCorrect)
         BOOST_CHECK_EQUAL(EmployeeRepository::getInstance().getAllUnsatisfied().size(), 2);
         EmployeeRepository::getInstance().remove(5);
         BOOST_CHECK_EQUAL(EmployeeRepository::getInstance().info(), "2. Michal\n"
-                                                                              "3. Mateusz\n"
-                                                                              "9. Paulina\n");
+                                                                    "3. Mateusz\n"
+                                                                    "9. Paulina\n");
     }
+
     BOOST_AUTO_TEST_CASE(ExceptionCase) {
         std::shared_ptr<Employee> janusz = std::make_shared<Employee>("Janusz", 77);
         EmployeeRepository::getInstance().add(janusz);
@@ -66,6 +67,6 @@ BOOST_AUTO_TEST_SUITE(TestSuiteCorrect)
         BOOST_REQUIRE_THROW(EmployeeRepository::getInstance().add(janusz1), std::logic_error);
         EmployeeRepository::getInstance().remove(77);
         BOOST_REQUIRE_THROW(EmployeeRepository::getInstance().get(77), std::logic_error);
-}
+    }
 
 BOOST_AUTO_TEST_SUITE_END()

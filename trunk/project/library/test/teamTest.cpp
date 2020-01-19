@@ -1,7 +1,6 @@
 #include <boost/test/unit_test.hpp>
 #include "doctor.h"
 #include "medic.h"
-#include "position.h"
 #include "team.h"
 #include <memory>
 #include <vector>

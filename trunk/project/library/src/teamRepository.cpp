@@ -5,16 +5,16 @@
 #include "shift.h"
 
 teamNotExist::teamNotExist(const std::string &message)
-        : logic_error(message)
-{}
+        : logic_error(message) {}
+
 teamWithThisNameExists::teamWithThisNameExists(const std::string &message)
-        : logic_error(message)
-{}
-void TeamRepository::checkTeamName(std::string name){
+        : logic_error(message) {}
+
+void TeamRepository::checkTeamName(std::string name) {
     int i = 0;
     bool flag = false;
-    while(i<(int)teamsRepository.size() && !flag){
-        if(teamsRepository[i]->getName()==name){
+    while (i < (int) teamsRepository.size() && !flag) {
+        if (teamsRepository[i]->getName() == name) {
             flag = true;
             throw teamWithThisNameExists();
         }
@@ -22,62 +22,50 @@ void TeamRepository::checkTeamName(std::string name){
     }
 }
 
-TeamRepository& TeamRepository::getInstance()
-{
+TeamRepository &TeamRepository::getInstance() {
     static TeamRepository instance;
     return instance;
 }
 
-void TeamRepository::add(const teamPtr &team)
-{
+void TeamRepository::add(const teamPtr &team) {
     checkTeamName(team->getName());
     teamsRepository.push_back(team);
 }
 
-void TeamRepository::add(const std::string &name)
-{
+void TeamRepository::add(const std::string &name) {
     teamPtr team = std::make_shared<Team>(name);
     checkTeamName(name);
     teamsRepository.push_back(team);
 }
 
-void TeamRepository::remove(const std::string &name)
-{
+void TeamRepository::remove(const std::string &name) {
     unsigned int it = 0;
-    for(const auto &t : teamsRepository)
-    {
-        if(t->getName()==name)
-        {
-            teamsRepository.erase(teamsRepository.begin()+it);
+    for (const auto &t : teamsRepository) {
+        if (t->getName() == name) {
+            teamsRepository.erase(teamsRepository.begin() + it);
             return;
         }
         ++it;
     }
 }
 
-const teamPtr& TeamRepository::get(const std::string &name) const
-{
-    for(const auto &t : teamsRepository)
-    {
-        if(t->getName()==name)
-        {
+const teamPtr &TeamRepository::get(const std::string &name) const {
+    for (const auto &t : teamsRepository) {
+        if (t->getName() == name) {
             return t;
         }
     }
     throw teamNotExist();
 }
 
-const teams& TeamRepository::getAll() const
-{
+const teams &TeamRepository::getAll() const {
     return teamsRepository;
 }
 
-std::string TeamRepository::info() const
-{
+std::string TeamRepository::info() const {
     std::ostringstream out;
-    for(const auto &t : teamsRepository)
-    {
-        out<<t->teamInfo()<<std::endl;
+    for (const auto &t : teamsRepository) {
+        out << t->teamInfo() << std::endl;
     }
     return out.str();
 }

@@ -1,20 +1,17 @@
 #include "schedule.h"
 
-unsigned int Schedule::getNumberOfDays()
-{
+unsigned int Schedule::getNumberOfDays() {
     boost::gregorian::date currentDate(boost::gregorian::day_clock::local_day());;
     boost::gregorian::date nextMonthDate(currentDate);
     nextMonthDate += boost::gregorian::months(1);
     return boost::gregorian::gregorian_calendar::end_of_month_day(nextMonthDate.year(), nextMonthDate.month());
 }
 
-boost::gregorian::date Schedule::getCurrentDate()
-{
+boost::gregorian::date Schedule::getCurrentDate() {
     return boost::gregorian::day_clock::local_day();
 }
 
-boost::gregorian::date Schedule::getStartDate()
-{
+boost::gregorian::date Schedule::getStartDate() {
     boost::gregorian::date currentDate(boost::gregorian::day_clock::local_day());;
     boost::gregorian::date nextMonthDate(currentDate);
     nextMonthDate += boost::gregorian::months(1);
@@ -22,8 +19,7 @@ boost::gregorian::date Schedule::getStartDate()
     return startDate;
 }
 
-std::string Schedule::getWeekDay(unsigned int indeks)
-{
+std::string Schedule::getWeekDay(unsigned int indeks) {
     std::vector<std::string> weekDay{7};
     weekDay[0] = "Monday";
     weekDay[1] = "Tuesday";
@@ -35,16 +31,14 @@ std::string Schedule::getWeekDay(unsigned int indeks)
     return weekDay[indeks];
 }
 
-unsigned int Schedule::getWeekDayIterator(const boost::gregorian::date &d)
-{
-    int day = d.day_of_week()-1;
-    if(day == -1) day = 6;
+unsigned int Schedule::getWeekDayIterator(const boost::gregorian::date &d) {
+    int day = d.day_of_week() - 1;
+    if (day == -1) day = 6;
     return day;
 }
 
-std::string Schedule::scheduleDate()
-{
+std::string Schedule::scheduleDate() {
     std::ostringstream out;
-    out<<getStartDate().month().as_long_string()<< " " <<getStartDate().year();
+    out << getStartDate().month().as_long_string() << " " << getStartDate().year();
     return out.str();
 }

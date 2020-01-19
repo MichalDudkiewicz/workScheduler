@@ -6,13 +6,11 @@
 #include <string>
 #include "repository.h"
 
-class teamNotExist: public std::logic_error
-{
+class teamNotExist: public std::logic_error{
 public:
     explicit teamNotExist(const std::string &message = "Team doesn't exist.");
 };
-class teamWithThisNameExists: public std::logic_error
-{
+class teamWithThisNameExists: public std::logic_error{
 public:
     explicit teamWithThisNameExists(const std::string &message = "Team with this name already exists.");
 };

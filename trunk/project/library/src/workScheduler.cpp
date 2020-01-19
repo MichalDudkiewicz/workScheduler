@@ -2,32 +2,27 @@
 #include "employeeRepository.h"
 #include "teamRepository.h"
 
-WorkScheduler& WorkScheduler::getInstance()
-{
+WorkScheduler &WorkScheduler::getInstance() {
     static WorkScheduler instance;
     return instance;
 }
 
-WorkScheduler::WorkScheduler() : schedule(TeamRepository::getInstance().getAll(), EmployeeRepository::getInstance().getAll())
-{}
+WorkScheduler::WorkScheduler() : schedule(TeamRepository::getInstance().getAll(),
+                                          EmployeeRepository::getInstance().getAll()) {}
 
-void WorkScheduler::createSchedule()
-{
+void WorkScheduler::createSchedule() {
     schedule.makeSchedule();
 }
 
-std::string WorkScheduler::scheduleInfo() const
-{
+std::string WorkScheduler::scheduleInfo() const {
     return schedule.scheduleInfo();
 }
 
-void WorkScheduler::updateSchedule()
-{
+void WorkScheduler::updateSchedule() {
     schedule.clear();
     createSchedule();
 }
 
-const calendar& WorkScheduler::getSchedule() const
-{
+const calendar &WorkScheduler::getSchedule() const {
     return schedule.getSchedule();
 }

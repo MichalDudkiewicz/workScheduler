@@ -6,14 +6,12 @@
 #include <vector>
 #include "employeeSchedule.h"
 
-class ValueException: public std::logic_error
-{
+class ValueException: public std::logic_error{
 public:
     explicit ValueException(const std::string &message);
 };
 
-class NotTypeException: public ValueException
-{
+class NotTypeException: public ValueException{
 public:
     explicit NotTypeException(const std::string &message = "It's not a type of employee. ");
 };
