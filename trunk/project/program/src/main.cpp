@@ -5,8 +5,7 @@
 using namespace std;
 
 int main() {
-    //INPUT CSV FILES AND POSITIONS
-    std::vector<positionPtr> allPositions = input::loadPositions();
+    //INPUT CSV FILES
     input::employeeRepository("../../../dataset/input/admin/employeeRepository.csv");
     input::desiredSchedule("../../../dataset/input/employees/desiredSchedules.csv");
     input::teamRepository("../../../dataset/input/admin/teamRepository.csv");
