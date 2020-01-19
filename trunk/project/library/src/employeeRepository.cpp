@@ -35,12 +35,7 @@ void EmployeeRepository::checkIfIdExist(const employeePtr &employee){
 
 void EmployeeRepository::add(const employeePtr &employee)
 {
-    try{
-        checkIfIdExist(employee);
-    }
-    catch (const EmployeeWithThisIdExist){
-        //
-    }
+    checkIfIdExist(employee);
     employeesRepository.push_back(employee);
     std::sort(employeesRepository.begin(),employeesRepository.end(),compareID());
 }

@@ -92,5 +92,13 @@ BOOST_AUTO_TEST_SUITE(TestSuiteCorrect)
         BOOST_CHECK_EQUAL(TeamRepository::getInstance().getAll()[0]->getName(), "S2");
         BOOST_CHECK_EQUAL(TeamRepository::getInstance().getAll().size(), 3);
     }
+    BOOST_AUTO_TEST_CASE(ExceptionTest){
+        std::shared_ptr<Team> teamR3 = std::make_shared<Team>("R3");
+        std::shared_ptr<Team> teamR4 = std::make_shared<Team>("R3");
+        TeamRepository::getInstance().add(teamR3);
+        BOOST_REQUIRE_THROW(TeamRepository::getInstance().add(teamR4), std::logic_error);
+        TeamRepository::getInstance().remove("R3");
+        BOOST_REQUIRE_THROW(TeamRepository::getInstance().get("R3"), std::logic_error);
+}
 
 BOOST_AUTO_TEST_SUITE_END()

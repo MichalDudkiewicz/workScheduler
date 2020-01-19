@@ -6,10 +6,15 @@
 #include <string>
 #include "repository.h"
 
-class TeamNotExist: public std::logic_error
+class teamNotExist: public std::logic_error
 {
 public:
-    explicit TeamNotExist(const std::string &message = "Team doesn't exist.");
+    explicit teamNotExist(const std::string &message = "Team doesn't exist.");
+};
+class teamWithThisNameExists: public std::logic_error
+{
+public:
+    explicit teamWithThisNameExists(const std::string &message = "Team with this name already exists.");
 };
 
 class Team;
@@ -21,6 +26,7 @@ class TeamRepository : Repository<Team,std::string>
 private:
     teams teamsRepository{};
     TeamRepository()=default;
+    void checkTeamName(std::string);
 public:
     static TeamRepository& getInstance();
     TeamRepository(const TeamRepository&)=delete;

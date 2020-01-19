@@ -59,5 +59,13 @@ BOOST_AUTO_TEST_SUITE(TestSuiteCorrect)
                                                                               "3. Mateusz\n"
                                                                               "9. Paulina\n");
     }
+    BOOST_AUTO_TEST_CASE(ExceptionCase) {
+        std::shared_ptr<Employee> janusz = std::make_shared<Employee>("Janusz", 77);
+        EmployeeRepository::getInstance().add(janusz);
+        std::shared_ptr<Employee> janusz1 = std::make_shared<Employee>("Janusz1", 77);
+        BOOST_REQUIRE_THROW(EmployeeRepository::getInstance().add(janusz1), std::logic_error);
+        EmployeeRepository::getInstance().remove(77);
+        BOOST_REQUIRE_THROW(EmployeeRepository::getInstance().get(77), std::logic_error);
+}
 
 BOOST_AUTO_TEST_SUITE_END()
