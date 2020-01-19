@@ -19,8 +19,7 @@ class Team;
 typedef std::shared_ptr<Team> teamPtr;
 typedef std::vector<teamPtr> teams;
 
-class TeamRepository : Repository<Team,std::string>
-{
+class TeamRepository : Repository<Team,std::string>{
 private:
     teams teamsRepository{};
     TeamRepository()=default;

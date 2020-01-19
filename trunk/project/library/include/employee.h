@@ -27,8 +27,7 @@ typedef std::shared_ptr<Position> positionPtr;
 typedef std::vector<positionPtr> positions;
 typedef std::unique_ptr<Shift> shiftPtr;
 
-class Employee : public std::enable_shared_from_this<Employee>
-{
+class Employee : public std::enable_shared_from_this<Employee>{
 private:
     std::string name;
     bool nonresident;
@@ -90,13 +89,11 @@ public:
     std::string currentScheduleInfo() const;
 };
 
-struct sortPointsTypeWorkHours
-{
+struct sortPointsTypeWorkHours{
     bool operator()(const employeePtr&, const employeePtr&) const;
 };
 
-struct compareID
-{
+struct compareID{
     bool operator()(const employeePtr&, const employeePtr&) const;
 };
 

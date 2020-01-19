@@ -4,8 +4,7 @@
 #include <string>
 #include <memory>
 
-class Shift
-{
+class Shift{
 private:
     unsigned int startHour;
     unsigned int endHour;
@@ -31,8 +30,7 @@ public:
 
 typedef std::unique_ptr<Shift> shiftPtr;
 
-struct compareShiftStartHour
-{
+struct compareShiftStartHour{
     bool operator()(const shiftPtr&, const shiftPtr&) const;
 };
 

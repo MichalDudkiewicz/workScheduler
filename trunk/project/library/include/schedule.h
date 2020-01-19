@@ -3,8 +3,7 @@
 
 #include "boost/date_time/gregorian/gregorian.hpp"
 
-namespace Schedule
-{
+namespace Schedule{
     boost::gregorian::date getCurrentDate();
     boost::gregorian::date getStartDate();
     std::string getWeekDay(unsigned int);

@@ -3,8 +3,7 @@
 
 #include "nTeam.h"
 
-class RescuerN : public NTeam
-{
+class RescuerN : public NTeam{
 public:
     RescuerN() = default;
     ~RescuerN() override = default;

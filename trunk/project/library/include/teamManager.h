@@ -8,8 +8,7 @@
 class Team;
 typedef std::shared_ptr<Team> teamPtr;
 
-class TeamManager
-{
+class TeamManager{
 private:
     TeamManager()=default;
 public:

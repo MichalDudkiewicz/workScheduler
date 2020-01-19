@@ -15,8 +15,7 @@ typedef std::vector<employeePtr> employees;
 typedef std::vector<employees> dayQueues;
 typedef std::vector<dayQueues> queues;
 
-class TeamQueues
-{
+class TeamQueues{
 private:
     teamPtr team;
     queues teamQueues{};

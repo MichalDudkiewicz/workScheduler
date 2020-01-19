@@ -12,8 +12,7 @@ typedef std::shared_ptr<Position> positionPtr;
 typedef std::unique_ptr<std::vector<positionPtr>> positionsPtr;
 typedef std::unique_ptr<std::vector<shiftPtr>> shiftsPtr;
 
-class Team
-{
+class Team{
 private:
     std::string name;
     std::vector<positionPtr> positionsRequired{};

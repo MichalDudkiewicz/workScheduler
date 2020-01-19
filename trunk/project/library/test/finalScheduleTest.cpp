@@ -25,36 +25,35 @@ BOOST_AUTO_TEST_SUITE(TestSuiteCorrect)
         EmployeeRepository::getInstance().remove(8);
         EmployeeRepository::getInstance().remove(9);
 
-        TeamRepository::getInstance().get("S2")->addShift(5,10,1);
-        TeamRepository::getInstance().get("1")->addShift(10,15,2);
+        TeamRepository::getInstance().get("S2")->addShift(5, 10, 1);
+        TeamRepository::getInstance().get("1")->addShift(10, 15, 2);
 
         boost::gregorian::date firstMonday(Schedule::getStartDate());
-        while(firstMonday.day_of_week()!=1)
-        {
+        while (firstMonday.day_of_week() != 1) {
             firstMonday += boost::gregorian::days(1);
         }
 
         positionPtr medic = std::make_shared<Medic>();
         positionPtr driver = std::make_shared<DriverN>();
 
-        EmployeeRepository::getInstance().get(2)->addDesiredShift(4,11,firstMonday.day());
-        EmployeeRepository::getInstance().get(2)->addDesiredShift(9,16,firstMonday.day()+1);
-        EmployeeRepository::getInstance().get(3)->addDesiredShift(4,11,firstMonday.day());
-        EmployeeRepository::getInstance().get(3)->addDesiredShift(9,16,firstMonday.day()+1);
+        EmployeeRepository::getInstance().get(2)->addDesiredShift(4, 11, firstMonday.day());
+        EmployeeRepository::getInstance().get(2)->addDesiredShift(9, 16, firstMonday.day() + 1);
+        EmployeeRepository::getInstance().get(3)->addDesiredShift(4, 11, firstMonday.day());
+        EmployeeRepository::getInstance().get(3)->addDesiredShift(9, 16, firstMonday.day() + 1);
 
         EmployeeRepository::getInstance().get(2)->addPosition(medic);
         EmployeeRepository::getInstance().get(3)->addPosition(driver);
 
-        FinalSchedule schedule(TeamRepository::getInstance().getAll(),EmployeeRepository::getInstance().getAll());
+        FinalSchedule schedule(TeamRepository::getInstance().getAll(), EmployeeRepository::getInstance().getAll());
         schedule.makeSchedule();
         BOOST_TEST_MESSAGE(schedule.scheduleInfo());
-        BOOST_CHECK_EQUAL(schedule.getSchedule()[0][0][0].empty(),true);
-        BOOST_CHECK_EQUAL(schedule.getSchedule()[firstMonday.day()-1][0][0].front()->getId(),2);
-        BOOST_CHECK_EQUAL(schedule.getSchedule()[firstMonday.day()][1][0].front()->getId(),3);
+        BOOST_CHECK_EQUAL(schedule.getSchedule()[0][0][0].empty(), true);
+        BOOST_CHECK_EQUAL(schedule.getSchedule()[firstMonday.day() - 1][0][0].front()->getId(), 2);
+        BOOST_CHECK_EQUAL(schedule.getSchedule()[firstMonday.day()][1][0].front()->getId(), 3);
         schedule.clear();
-        BOOST_CHECK_EQUAL(schedule.getSchedule()[0][0][0].empty(),true);
-        BOOST_CHECK_EQUAL(schedule.getSchedule()[firstMonday.day()-1][0][0].empty(),true);
-        BOOST_CHECK_EQUAL(schedule.getSchedule()[firstMonday.day()][1][0].empty(),true);
+        BOOST_CHECK_EQUAL(schedule.getSchedule()[0][0][0].empty(), true);
+        BOOST_CHECK_EQUAL(schedule.getSchedule()[firstMonday.day() - 1][0][0].empty(), true);
+        BOOST_CHECK_EQUAL(schedule.getSchedule()[firstMonday.day()][1][0].empty(), true);
     }
 
 BOOST_AUTO_TEST_SUITE_END()

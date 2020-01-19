@@ -3,8 +3,7 @@
 
 #include "sTeam.h"
 
-class RescuerS : public STeam
-{
+class RescuerS : public STeam{
 public:
     RescuerS() = default;
     ~RescuerS() override = default;

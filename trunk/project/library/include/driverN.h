@@ -3,8 +3,7 @@
 
 #include "nTeam.h"
 
-class DriverN : public NTeam
-{
+class DriverN : public NTeam{
 public:
     DriverN() = default;
     ~DriverN() override = default;

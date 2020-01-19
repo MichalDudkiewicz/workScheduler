@@ -3,8 +3,7 @@
 
 #include <string>
 
-class EmployeeType
-{
+class EmployeeType{
 public:
     virtual ~EmployeeType()=default;
     virtual unsigned int getPriority() const=0;

@@ -3,8 +3,7 @@
 
 #include "position.h"
 
-class MedicalRecorder : public Position
-{
+class MedicalRecorder : public Position{
 public:
     MedicalRecorder() = default;
     ~MedicalRecorder() override = default;
