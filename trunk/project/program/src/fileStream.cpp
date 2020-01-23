@@ -2,6 +2,7 @@
 #include <sstream>
 #include "employeeManager.h"
 #include <fstream>
+#include "teamRepository.h"
 #include "employee.h"
 #include "position.h"
 #include "shift.h"
@@ -18,6 +19,29 @@
 #include "driverN.h"
 #include "doctor.h"
 #include "medic.h"
+
+FileException::FileException(const std::string &message, std::string path) : logic_error(message), path(std::move(path))
+{}
+
+std::string FileException::message() const
+{
+    std::ostringstream out;
+    out << what() << " (path: '" << path << "')" << std::endl;
+    return out.str();
+}
+
+DataException::DataException(const std::string &message, const std::string &path) : FileException(message, path)
+{}
+
+std::string DataException::message() const
+{
+    std::ostringstream out;
+    out << "Data does not match its corresponding repository in file: " << FileException::message();
+    return out.str();
+}
+
+PathException::PathException(const std::string &message, const std::string &path) : FileException(message, path)
+{}
 
 
 std::vector<positionPtr> input::loadPositions()
@@ -46,6 +70,7 @@ std::vector<positionPtr> input::loadPositions()
 void input::employeeRepository(const std::string &path){
     std::ifstream empRepoStream;
     empRepoStream.open(path);
+    if(!empRepoStream.is_open()) throw PathException("File of the path doesn't exist",path);
     std::vector<std::string> row;
     unsigned int columnNumber = 0;
     unsigned int rowNumber = 0;
@@ -94,6 +119,7 @@ void input::teamSchedule(const std::string &path) {
     std::string cell;
     std::ifstream teamScheduleS;
     teamScheduleS.open(path);
+    if(!teamScheduleS.is_open()) throw PathException("File doesn't exist",path);
     columnNumber = 0;
     rowNumber = 0;
     while (teamScheduleS.good()) {
@@ -108,8 +134,12 @@ void input::teamSchedule(const std::string &path) {
                     std::string hoursChain = row[i + 1];
                     std::vector<unsigned int> shiftHours = cellToRawValues<unsigned int>(hoursChain, '-');
                     if (shiftHours.size() > 1)
-                        TeamManager::getInstance().getTeamByName(row.front())->addShift(shiftHours.front(),
-                                                                                        shiftHours.back(), i + 1);
+                        try {
+                            TeamManager::getInstance().getTeamByName(row.front())->addShift(shiftHours.front(),
+                                                                                            shiftHours.back(), i + 1);
+                        }catch(teamNotExist &error){
+                            throw DataException("Team Schedule",path);
+                        }
                 }
             }
             ++rowNumber;
@@ -123,6 +153,7 @@ void input::teamRepository(const std::string &path) {
     std::ifstream teamRepositoryS;
     std::vector<std::string> row;
     teamRepositoryS.open(path);
+    if(!teamRepositoryS.is_open()) throw PathException("File doesn't exist",path);
     unsigned int columnNumber = 0;
     unsigned int rowNumber = 0;
     std::string cell;
@@ -155,6 +186,7 @@ void input::teamRepository(const std::string &path) {
 void input::desiredSchedule(const std::string &path) {
     std::ifstream desSchedStream;
     desSchedStream.open(path);
+    if(!desSchedStream.is_open()) throw PathException("File doesn't exist",path);
     std::vector<std::string> row;
     unsigned int columnNumber = 0;
     unsigned int rowNumber = 0;
@@ -172,9 +204,13 @@ void input::desiredSchedule(const std::string &path) {
                         std::vector<std::string> shifts = cellToRawValues<std::string>(c, ';');
                         for (auto &shift : shifts) {
                             std::vector<unsigned int> shiftHours = cellToRawValues<unsigned int>(shift, '-');
-                            EmployeeManager::getInstance().getEmployeeByID(stoi(row[0]))->addDesiredShift(shiftHours[0],
-                                                                                                          shiftHours[1],
-                                                                                                          day);
+                            try {
+                                EmployeeManager::getInstance().getEmployeeByID(stoi(row[0]))->addDesiredShift(shiftHours[0],
+                                                                                                              shiftHours[1],
+                                                                                                              day);
+                            }catch(std::bad_alloc &error) {
+                                throw DataException("Desired Schedule", path);
+                            }
                         }
                     }
                     ++day;
@@ -190,6 +226,7 @@ void input::desiredSchedule(const std::string &path) {
 void output::employeeRepository(const std::string &path) {
     std::ofstream empRepoS;
     empRepoS.open(path);
+    if(!empRepoS.is_open()) throw PathException("The directory folder doesn't exist or You have no permission",path);
     empRepoS << "ID,name,wage,points,priority,nonresident,positions,enemies," << std::endl;
     for (const auto &employee : EmployeeManager::getInstance().getAll()) {
         empRepoS << employee->getId() << "," << employee->getName() << "," << employee->getHourlyWage() << ","
@@ -212,6 +249,7 @@ void output::employeeRepository(const std::string &path) {
 void output::desiredSchedule(const std::string &path) {
     std::ofstream desiredScheduleStream;
     desiredScheduleStream.open(path);
+    if(!desiredScheduleStream.is_open()) throw PathException("The directory folder doesn't exist or You have no permission",path);
     desiredScheduleStream << "ID\\day" << ",";
     for (unsigned int day = 1; day <= Schedule::getNumberOfDays(); ++day) {
         desiredScheduleStream << day << ",";
@@ -233,6 +271,7 @@ void output::desiredSchedule(const std::string &path) {
 void output::schedule(const std::string &path) {
     std::ofstream scheduleStream;
     scheduleStream.open(path);
+    if(!scheduleStream.is_open()) throw PathException("The directory folder doesn't exist or You have no permission",path);
     unsigned int numberOfColumns = 1;
     for (const auto &team : TeamManager::getInstance().getAll()) {
         numberOfColumns += team->getPositions().size();
@@ -284,6 +323,7 @@ void output::schedule(const std::string &path) {
 void output::teamRepository(const std::string &path) {
     std::ofstream teamRepositoryStream;
     teamRepositoryStream.open(path);
+    if(!teamRepositoryStream.is_open()) throw PathException("The directory folder doesn't exist or You have no permission",path);
     teamRepositoryStream << "team,positions," << std::endl;
     for (const auto &team : TeamManager::getInstance().getAll()) {
         teamRepositoryStream << team->getName() << ",";
@@ -298,6 +338,7 @@ void output::teamRepository(const std::string &path) {
 void output::teamSchedule(const std::string &path) {
     std::ofstream teamScheduleStream;
     teamScheduleStream.open(path);
+    if(!teamScheduleStream.is_open()) throw PathException("The directory folder doesn't exist or You have no permission",path);
     teamScheduleStream << "team\\day,Monday,Tuesday,Wednesday,Thursday,Friday,Saturday,Sunday," << std::endl;
     for (const auto &team : TeamManager::getInstance().getAll()) {
         teamScheduleStream << team->getName() << ",";
