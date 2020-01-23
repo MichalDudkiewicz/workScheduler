@@ -3,6 +3,7 @@
 #include "employeeManager.h"
 #include <fstream>
 #include "teamRepository.h"
+#include "employeeRepository.h"
 #include "employee.h"
 #include "position.h"
 #include "shift.h"
@@ -208,7 +209,7 @@ void input::desiredSchedule(const std::string &path) {
                                 EmployeeManager::getInstance().getEmployeeByID(stoi(row[0]))->addDesiredShift(shiftHours[0],
                                                                                                               shiftHours[1],
                                                                                                               day);
-                            }catch(std::bad_alloc &error) {
+                            }catch(EmployeeNotFound &error) {
                                 throw DataException("Desired Schedule", path);
                             }
                         }

@@ -69,6 +69,7 @@ BOOST_AUTO_TEST_SUITE(TestSuiteCorrect)
         BOOST_REQUIRE_THROW(output::teamRepository("../../../dataset/some_directory/teamRepository.csv"), std::logic_error);
         BOOST_REQUIRE_THROW(output::teamSchedule("../../../dataset/some_directory/teamSchedule.csv"), std::logic_error);
         BOOST_REQUIRE_THROW(output::desiredSchedule("../../../dataset/some_directory/desiredSchedule.csv"), std::logic_error);
+        BOOST_REQUIRE_THROW(output::schedule("../../../dataset/some_directory/schedule.csv"), std::logic_error);
     }
 
 BOOST_AUTO_TEST_SUITE_END()
