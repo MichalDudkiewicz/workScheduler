@@ -4,6 +4,7 @@
 #include <memory>
 #include <string>
 #include <vector>
+#include <fstream>
 
 class Employee;
 typedef std::shared_ptr<Employee> employeePtr;
@@ -21,6 +22,8 @@ public:
     const employeePtr& getEmployeeByID(unsigned int) const;
     std::string getStatisticsByID(unsigned int) const;
     const std::vector<employeePtr>& getAll() const;
+    friend std::ofstream& operator<<(std::ofstream& output, const EmployeeManager& manager);
+    friend std::ofstream& operator<(std::ofstream& output, const EmployeeManager& manager);
 };
 
 #endif

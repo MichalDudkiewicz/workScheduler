@@ -4,6 +4,7 @@
 #include <memory>
 #include <string>
 #include <vector>
+#include <fstream>
 
 class Team;
 typedef std::shared_ptr<Team> teamPtr;
@@ -20,6 +21,8 @@ public:
     const teamPtr& getTeamByName(const std::string&) const;
     std::string repositoryInfo() const;
     const std::vector<teamPtr>& getAll() const;
+    friend std::ofstream& operator<<(std::ofstream& output, const TeamManager& manager);
+    friend std::ofstream& operator<(std::ofstream& output, const TeamManager& manager);
 };
 
 #endif

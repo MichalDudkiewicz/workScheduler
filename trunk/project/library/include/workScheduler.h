@@ -3,6 +3,7 @@
 
 #include <memory>
 #include <string>
+#include <fstream>
 #include "finalSchedule.h"
 
 class EmployeeRepository;
@@ -20,6 +21,7 @@ public:
     void updateSchedule();
     std::string scheduleInfo() const;
     const calendar& getSchedule() const;
+    friend std::ofstream& operator<<(std::ofstream& output, const WorkScheduler& scheduler);
 };
 
 #endif
