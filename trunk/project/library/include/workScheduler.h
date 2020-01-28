@@ -20,7 +20,7 @@ public:
     void createSchedule();
     void updateSchedule();
     std::string scheduleInfo() const;
-    const Calendar<teamsOnDay>& getSchedule() const;
+    const Calendar<teamOnDayQueues>& getSchedule() const;
     friend std::ofstream& operator<<(std::ofstream& output, const WorkScheduler& scheduler);
 };
 

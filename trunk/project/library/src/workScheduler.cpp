@@ -27,7 +27,7 @@ void WorkScheduler::updateSchedule() {
     createSchedule();
 }
 
-const Calendar<teamsOnDay> &WorkScheduler::getSchedule() const {
+const Calendar<teamOnDayQueues> &WorkScheduler::getSchedule() const {
     return schedule.getSchedule();
 }
 

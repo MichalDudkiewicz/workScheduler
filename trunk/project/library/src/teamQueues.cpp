@@ -5,7 +5,7 @@
 #include "position.h"
 
 TeamQueues::TeamQueues(teamPtr t, const employees &authorisedEmployees) : team(std::move(t)) {
-    for(auto &day : teamQueues)
+    for(auto &day : calendarOfQueues)
     {
         for (unsigned long j = 0; j < team->getPositions().size(); ++j) {
             day.emplace_back();
@@ -13,7 +13,7 @@ TeamQueues::TeamQueues(teamPtr t, const employees &authorisedEmployees) : team(s
     }
     unsigned int p;
     unsigned int day = 1;
-    for (auto &dayQueue : teamQueues) {
+    for (auto &dayQueue : calendarOfQueues) {
         if (!team->getShifts()[calendar::whatDayOfWeek(day)]->isDayOff()) {
             team->getShifts()[calendar::whatDayOfWeek(day)]->setDay(day);
             p = 0;
@@ -31,8 +31,8 @@ TeamQueues::TeamQueues(teamPtr t, const employees &authorisedEmployees) : team(s
     }
 }
 
-const Calendar<dayQueues> &TeamQueues::getTeamQueues() const{
-    return teamQueues;
+const Calendar<queuesToPosition> &TeamQueues::getTeamQueues() const{
+    return calendarOfQueues;
 }
 
 const teamPtr &TeamQueues::getTeam() const {
@@ -40,7 +40,7 @@ const teamPtr &TeamQueues::getTeam() const {
 }
 
 void TeamQueues::queueSort(unsigned int d, unsigned int i) {
-    std::sort(teamQueues[d][i].begin(), teamQueues[d][i].end(), sortPointsTypeWorkHours());
+    std::sort(calendarOfQueues[d][i].begin(), calendarOfQueues[d][i].end(), sortPointsTypeWorkHours());
 }
 
 std::string TeamQueues::teamQueuesInfo() const {

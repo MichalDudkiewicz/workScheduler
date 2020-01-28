@@ -49,7 +49,7 @@ void FinalSchedule::makeSchedule() {
     }
 }
 
-const Calendar<teamsOnDay> &FinalSchedule::getSchedule() const {
+const Calendar<teamOnDayQueues> &FinalSchedule::getSchedule() const {
     return schedule;
 }
 
