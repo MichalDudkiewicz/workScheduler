@@ -1,9 +1,6 @@
 #ifndef teamRepositoryClass
 #define teamRepositoryClass
 
-#include <vector>
-#include <memory>
-#include <string>
 #include "repository.h"
 
 class teamNotExist: public std::logic_error{
@@ -23,7 +20,7 @@ class TeamRepository : Repository<Team,std::string>{
 private:
     teams teamsRepository{};
     TeamRepository()=default;
-    void checkTeamName(std::string);
+    void checkTeamName(const std::string&);
 public:
     static TeamRepository& getInstance();
     TeamRepository(const TeamRepository&)=delete;

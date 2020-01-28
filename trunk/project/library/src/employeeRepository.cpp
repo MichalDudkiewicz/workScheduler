@@ -2,9 +2,6 @@
 #include "employee.h"
 #include "team.h"
 #include "employeeType.h"
-#include <sstream>
-#include <algorithm>
-#include <iostream>
 #include "shift.h"
 
 EmployeeNotFound::EmployeeNotFound(const std::string &message)
@@ -20,10 +17,8 @@ EmployeeRepository &EmployeeRepository::getInstance() {
 
 void EmployeeRepository::checkIfIdExist(const employeePtr &employee) {
     int i = 0;
-    bool flag = false;
-    while (i < (int) employeesRepository.size() && !flag) {
+    while (i < (int) employeesRepository.size()) {
         if (employeesRepository[i]->getId() == employee->getId()) {
-            flag = true;
             throw EmployeeWithThisIdExist();
         }
         i++;

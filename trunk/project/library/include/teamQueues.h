@@ -1,8 +1,6 @@
 #ifndef teamQueuesClass
 #define teamQueuesClass
 
-#include <memory>
-#include <string>
 #include "calendar.h"
 
 class Team;

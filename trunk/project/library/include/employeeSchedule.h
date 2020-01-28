@@ -1,8 +1,6 @@
 #ifndef employeeScheduleClass
 #define employeeScheduleClass
 
-#include <memory>
-#include <string>
 #include "calendar.h"
 
 class Shift;

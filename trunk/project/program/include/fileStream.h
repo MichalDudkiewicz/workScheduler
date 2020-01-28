@@ -6,7 +6,6 @@
 #include <algorithm>
 #include <sstream>
 #include <memory>
-#include <stdexcept>
 
 class FileException : public std::logic_error
 {

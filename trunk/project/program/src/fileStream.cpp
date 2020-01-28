@@ -5,8 +5,6 @@
 #include "employee.h"
 #include "position.h"
 #include "shift.h"
-#include "employeeType.h"
-#include "calendar.h"
 #include "teamManager.h"
 #include "workScheduler.h"
 #include "team.h"

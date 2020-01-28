@@ -1,8 +1,6 @@
 #ifndef finalScheduleClass
 #define finalScheduleClass
 
-#include <memory>
-#include <string>
 #include "teamQueues.h"
 
 class Team;

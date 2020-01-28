@@ -1,8 +1,6 @@
 #ifndef workSchedulerClass
 #define workSchedulerClass
 
-#include <memory>
-#include <string>
 #include <fstream>
 #include "finalSchedule.h"
 

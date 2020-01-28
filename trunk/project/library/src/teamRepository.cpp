@@ -1,7 +1,6 @@
 #include "teamRepository.h"
 #include "team.h"
 #include <sstream>
-#include <random>
 #include "shift.h"
 
 teamNotExist::teamNotExist(const std::string &message)
@@ -10,12 +9,10 @@ teamNotExist::teamNotExist(const std::string &message)
 teamWithThisNameExists::teamWithThisNameExists(const std::string &message)
         : logic_error(message) {}
 
-void TeamRepository::checkTeamName(std::string name) {
+void TeamRepository::checkTeamName(const std::string &name) {
     int i = 0;
-    bool flag = false;
-    while (i < (int) teamsRepository.size() && !flag) {
+    while (i < (int) teamsRepository.size()) {
         if (teamsRepository[i]->getName() == name) {
-            flag = true;
             throw teamWithThisNameExists();
         }
         i++;

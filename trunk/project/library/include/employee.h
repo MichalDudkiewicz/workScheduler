@@ -1,8 +1,6 @@
 #ifndef employeeClass
 #define employeeClass
 
-#include <memory>
-#include <string>
 #include "employeeSchedule.h"
 
 class ValueException: public std::logic_error{
