@@ -42,3 +42,16 @@ std::string calendar::currentDateToString() {
     out << getStartDate().month().as_long_string() << " " << getStartDate().year();
     return out.str();
 }
+
+unsigned int calendar::whatDayOfWeek(unsigned int dayOfMonth)
+{
+    unsigned int weekDayIterator = getWeekDayIterator(getStartDate());
+    for(unsigned int day = 1; day < dayOfMonth; ++day)
+    {
+        ++weekDayIterator;
+        if (weekDayIterator == 7) {
+            weekDayIterator = 0;
+        }
+    }
+    return weekDayIterator;
+}

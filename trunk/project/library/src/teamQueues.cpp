@@ -12,25 +12,20 @@ TeamQueues::TeamQueues(teamPtr t, const employees &authorisedEmployees) : team(s
         }
     }
     unsigned int p;
-    unsigned int weekDayIterator = calendar::getWeekDayIterator(calendar::getStartDate());
     unsigned int day = 1;
     for (auto &dayQueue : teamQueues) {
-        if (!team->getShifts()[weekDayIterator]->isDayOff()) {
-            team->getShifts()[weekDayIterator]->setDay(day);
+        if (!team->getShifts()[calendar::whatDayOfWeek(day)]->isDayOff()) {
+            team->getShifts()[calendar::whatDayOfWeek(day)]->setDay(day);
             p = 0;
             for (auto &positionQueue : dayQueue) {
                 for (const auto &employee : authorisedEmployees) {
                     if (employee->isAuthorised(team->getPositions()[p]) and
-                        employee->isAvailable(team->getShifts()[weekDayIterator])) {
+                        employee->isAvailable(team->getShifts()[calendar::whatDayOfWeek(day)])) {
                         positionQueue.push_back(employee);
                     }
                 }
                 p += 1;
             }
-        }
-        ++weekDayIterator;
-        if (weekDayIterator == 7) {
-            weekDayIterator = 0;
         }
         day += 1;
     }

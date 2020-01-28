@@ -11,6 +11,7 @@ namespace calendar{
     unsigned int getWeekDayIterator(const boost::gregorian::date&);
     unsigned int getNumberOfDays();
     std::string currentDateToString();
+    unsigned int whatDayOfWeek(unsigned int dayOfMonth);
 }
 
 template <class T>

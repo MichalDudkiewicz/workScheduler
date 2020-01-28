@@ -20,14 +20,13 @@ FinalSchedule::FinalSchedule(const teams &allTeams, const employees &allEmployee
 void FinalSchedule::makeSchedule() {
     bool enemiesInTeam;
     unsigned int teamId;
-    unsigned int weekDayIterator = calendar::getWeekDayIterator(calendar::getStartDate());
     for (unsigned int day = 1; day <= calendar::getNumberOfDays() + 1; ++day) {
         teamId = 0;
         for (auto &d : allQueues) {
             for (unsigned long it = 0; it < d.getTeam()->getPositions().size(); ++it) {
                 d.queueSort(day - 1, it);
-                shiftPtr newShift(new Shift(d.getTeam()->getShifts()[weekDayIterator]->getStartHour(),
-                                            d.getTeam()->getShifts()[weekDayIterator]->getEndHour(), day));
+                shiftPtr newShift(new Shift(d.getTeam()->getShifts()[calendar::whatDayOfWeek(day)]->getStartHour(),
+                                            d.getTeam()->getShifts()[calendar::whatDayOfWeek(day)]->getEndHour(), day));
                 for (const auto &e : d.getTeamQueues()[day - 1][it]) {
                     enemiesInTeam = false;
                     for (const auto &emp : schedule[day - 1][teamId]) {
@@ -46,10 +45,6 @@ void FinalSchedule::makeSchedule() {
                 }
             }
             ++teamId;
-        }
-        ++weekDayIterator;
-        if (weekDayIterator == 7) {
-            weekDayIterator = 0;
         }
     }
 }
