@@ -113,7 +113,7 @@ const positions &Employee::getPositions() const {
 }
 
 
-bool Employee::isAvailable(const shiftPtr &shift) {
+bool Employee::isAvailable(const shiftPtr &shift) const {
     if (shift->isDayOff()) {
         return false;
     }
@@ -264,7 +264,7 @@ void Employee::removeCurrentShift(unsigned int day, unsigned int shiftNumber) {
     currentSchedule.removeShift(day, shiftNumber);
 }
 
-bool Employee::isBusy(const shiftPtr &shift) {
+bool Employee::isBusy(const shiftPtr &shift) const {
     for (const auto &s : currentSchedule.getSchedule()[shift->getDay() - 1]) {
         if ((*s) == (*shift)) {
             return true;

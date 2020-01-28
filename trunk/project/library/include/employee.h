@@ -57,7 +57,7 @@ public:
     unsigned int getId() const;
     const employeeTypePtr& getType() const;
     const positions& getPositions() const;
-    bool isAvailable(const shiftPtr& shift);
+    bool isAvailable(const shiftPtr& shift) const;
     const Calendar<shifts>& getDesiredSchedule() const;
     const Calendar<shifts>& getCurrentSchedule() const;
     void addPosition(const positionPtr&);
@@ -80,7 +80,7 @@ public:
     void addCurrentShift(shiftPtr&);
     void addCurrentShift(unsigned int, unsigned int, unsigned int);
     void removeCurrentShift(unsigned int, unsigned int);
-    bool isBusy(const shiftPtr&);
+    bool isBusy(const shiftPtr&) const;
     bool isAuthorised(const positionPtr&) const;
     std::string desiredScheduleInfo() const;
     std::string currentScheduleInfo() const;
