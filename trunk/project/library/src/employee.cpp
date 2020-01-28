@@ -92,11 +92,11 @@ const std::string &Employee::getName() const {
     return name;
 }
 
-const schedule &Employee::getDesiredSchedule() const {
+const Calendar<shifts> &Employee::getDesiredSchedule() const {
     return desiredSchedule.getSchedule();
 }
 
-const schedule &Employee::getCurrentSchedule() const {
+const Calendar<shifts> &Employee::getCurrentSchedule() const {
     return currentSchedule.getSchedule();
 }
 
@@ -113,7 +113,7 @@ const positions &Employee::getPositions() const {
 }
 
 
-bool Employee::isAvailable(const shiftPtr &shift) const {
+bool Employee::isAvailable(const shiftPtr &shift) {
     if (shift->isDayOff()) {
         return false;
     }
@@ -264,7 +264,7 @@ void Employee::removeCurrentShift(unsigned int day, unsigned int shiftNumber) {
     currentSchedule.removeShift(day, shiftNumber);
 }
 
-bool Employee::isBusy(const shiftPtr &shift) const {
+bool Employee::isBusy(const shiftPtr &shift) {
     for (const auto &s : currentSchedule.getSchedule()[shift->getDay() - 1]) {
         if ((*s) == (*shift)) {
             return true;

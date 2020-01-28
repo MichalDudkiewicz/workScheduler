@@ -6,7 +6,7 @@
 #include "position.h"
 #include "shift.h"
 #include "employeeType.h"
-#include "schedule.h"
+#include "calendar.h"
 #include "teamManager.h"
 #include "workScheduler.h"
 #include "team.h"
@@ -194,7 +194,7 @@ void input::desiredSchedule(const std::string &path) {
         getline(desSchedStream, cell, ',');
         row.push_back(cell);
         ++columnNumber;
-        if (columnNumber == Schedule::getNumberOfDays() + 2) {
+        if (columnNumber == calendar::getNumberOfDays() + 2) {
             columnNumber = 0;
             if (rowNumber > 0) {
                 unsigned int day = 0;

@@ -9,7 +9,7 @@
 #include "shift.h"
 #include "finalSchedule.h"
 #include "boost/date_time/gregorian/gregorian.hpp"
-#include "schedule.h"
+#include "calendar.h"
 
 
 BOOST_AUTO_TEST_SUITE(TestSuiteCorrect)
@@ -28,7 +28,7 @@ BOOST_AUTO_TEST_SUITE(TestSuiteCorrect)
         TeamRepository::getInstance().get("S2")->addShift(5, 10, 1);
         TeamRepository::getInstance().get("1")->addShift(10, 15, 2);
 
-        boost::gregorian::date firstMonday(Schedule::getStartDate());
+        boost::gregorian::date firstMonday(calendar::getStartDate());
         while (firstMonday.day_of_week() != 1) {
             firstMonday += boost::gregorian::days(1);
         }

@@ -3,7 +3,7 @@
 #include "employee.h"
 #include "position.h"
 #include "employeeType.h"
-#include "schedule.h"
+#include "calendar.h"
 #include "shift.h"
 
 EmployeeManager &EmployeeManager::getInstance() {
@@ -56,7 +56,7 @@ std::ofstream &operator<<(std::ofstream &output, const EmployeeManager &manager)
 
 std::ofstream &operator<(std::ofstream &output, const EmployeeManager &manager) {
     output << "ID\\day" << ",";
-    for (unsigned int day = 1; day <= Schedule::getNumberOfDays(); ++day) {
+    for (unsigned int day = 1; day <= calendar::getNumberOfDays(); ++day) {
         output << day << ",";
     }
     output << "1" << "," << std::endl;

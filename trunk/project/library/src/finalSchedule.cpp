@@ -2,7 +2,6 @@
 #include "employee.h"
 #include "team.h"
 #include "position.h"
-#include "schedule.h"
 #include "shift.h"
 
 
@@ -10,10 +9,10 @@ FinalSchedule::FinalSchedule(const teams &allTeams, const employees &allEmployee
     for (const auto &team : allTeams) {
         allQueues.emplace_back(TeamQueues(team, allEmployees));
     }
-    for (unsigned int i = 0; i < Schedule::getNumberOfDays() + 1; ++i) {
-        schedule.emplace_back();
+    for(auto &day : schedule)
+    {
         for (const auto &team : allTeams) {
-            schedule[i].emplace_back(team->getPositions().size());
+            day.emplace_back(team->getPositions().size());
         }
     }
 }
@@ -21,8 +20,8 @@ FinalSchedule::FinalSchedule(const teams &allTeams, const employees &allEmployee
 void FinalSchedule::makeSchedule() {
     bool enemiesInTeam;
     unsigned int teamId;
-    unsigned int weekDayIterator = Schedule::getWeekDayIterator(Schedule::getStartDate());
-    for (unsigned int day = 1; day <= Schedule::getNumberOfDays() + 1; ++day) {
+    unsigned int weekDayIterator = calendar::getWeekDayIterator(calendar::getStartDate());
+    for (unsigned int day = 1; day <= calendar::getNumberOfDays() + 1; ++day) {
         teamId = 0;
         for (auto &d : allQueues) {
             for (unsigned long it = 0; it < d.getTeam()->getPositions().size(); ++it) {
@@ -55,13 +54,13 @@ void FinalSchedule::makeSchedule() {
     }
 }
 
-const calendar &FinalSchedule::getSchedule() const {
+const Calendar<teamsOnDay> &FinalSchedule::getSchedule() const {
     return schedule;
 }
 
 std::string FinalSchedule::scheduleInfo() const {
     std::ostringstream out;
-    out << std::endl << std::setw(90) << Schedule::scheduleDate() << " work schedule: " << std::endl;
+    out << std::endl << std::setw(90) << calendar::currentDateToString() << " work schedule: " << std::endl;
     out << std::setw(3) << " ";
     for (const auto &team : allQueues) {
         out << std::setw(team.getTeam()->getPositions().size() * 5) << team.getTeam()->getName();
@@ -87,7 +86,7 @@ std::string FinalSchedule::scheduleInfo() const {
             }
         }
         ++day;
-        if (day > Schedule::getNumberOfDays()) {
+        if (day > calendar::getNumberOfDays()) {
             day = 1;
         }
         out << std::endl;

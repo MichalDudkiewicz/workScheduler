@@ -3,7 +3,6 @@
 
 #include <memory>
 #include <string>
-#include <vector>
 #include "employeeSchedule.h"
 
 class ValueException: public std::logic_error{
@@ -60,9 +59,9 @@ public:
     unsigned int getId() const;
     const employeeTypePtr& getType() const;
     const positions& getPositions() const;
-    bool isAvailable(const shiftPtr& shift) const;
-    const schedule& getDesiredSchedule() const;
-    const schedule& getCurrentSchedule() const;
+    bool isAvailable(const shiftPtr& shift);
+    const Calendar<shifts>& getDesiredSchedule() const;
+    const Calendar<shifts>& getCurrentSchedule() const;
     void addPosition(const positionPtr&);
     void removePosition(const positionPtr&);
     void addFriend(const employeePtr&);
@@ -83,7 +82,7 @@ public:
     void addCurrentShift(shiftPtr&);
     void addCurrentShift(unsigned int, unsigned int, unsigned int);
     void removeCurrentShift(unsigned int, unsigned int);
-    bool isBusy(const shiftPtr&) const;
+    bool isBusy(const shiftPtr&);
     bool isAuthorised(const positionPtr&) const;
     std::string desiredScheduleInfo() const;
     std::string currentScheduleInfo() const;

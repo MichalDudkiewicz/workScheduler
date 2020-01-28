@@ -1,19 +1,18 @@
 #include "teamQueues.h"
 #include "employee.h"
 #include "team.h"
-#include "schedule.h"
 #include "shift.h"
 #include "position.h"
 
 TeamQueues::TeamQueues(teamPtr t, const employees &authorisedEmployees) : team(std::move(t)) {
-    for (unsigned int i = 0; i < Schedule::getNumberOfDays() + 1; ++i) {
-        teamQueues.emplace_back();
+    for(auto &day : teamQueues)
+    {
         for (unsigned long j = 0; j < team->getPositions().size(); ++j) {
-            teamQueues[i].emplace_back();
+            day.emplace_back();
         }
     }
     unsigned int p;
-    unsigned int weekDayIterator = Schedule::getWeekDayIterator(Schedule::getStartDate());
+    unsigned int weekDayIterator = calendar::getWeekDayIterator(calendar::getStartDate());
     unsigned int day = 1;
     for (auto &dayQueue : teamQueues) {
         if (!team->getShifts()[weekDayIterator]->isDayOff()) {
@@ -37,7 +36,11 @@ TeamQueues::TeamQueues(teamPtr t, const employees &authorisedEmployees) : team(s
     }
 }
 
-const queues &TeamQueues::getTeamQueues() const {
+Calendar<dayQueues> &TeamQueues::getTeamQueues(){
+    return teamQueues;
+}
+
+const Calendar<dayQueues> &TeamQueues::getTeamQueues() const{
     return teamQueues;
 }
 
@@ -65,7 +68,7 @@ std::string TeamQueues::teamQueuesInfo() const {
             p += 1;
         }
         day += 1;
-        if (day > Schedule::getNumberOfDays())
+        if (day > calendar::getNumberOfDays())
             day = 1;
     }
     return out.str();

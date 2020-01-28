@@ -3,14 +3,14 @@
 #include "employeeRepository.h"
 #include <iostream>
 #include "boost/date_time/gregorian/gregorian.hpp"
-#include "schedule.h"
+#include "calendar.h"
 #include "employee.h"
 #include "shift.h"
 
 BOOST_AUTO_TEST_SUITE(TestSuiteCorrect)
 
     BOOST_AUTO_TEST_CASE(WorkSchedulerConstructionCase) {
-        boost::gregorian::date firstMonday(Schedule::getStartDate());
+        boost::gregorian::date firstMonday(calendar::getStartDate());
         while(firstMonday.day_of_week()!=1)
         {
             firstMonday += boost::gregorian::days(1);

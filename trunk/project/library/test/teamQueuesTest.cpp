@@ -5,7 +5,7 @@
 #include "medic.h"
 #include "teamQueues.h"
 #include <memory>
-#include "schedule.h"
+#include "calendar.h"
 #include "shift.h"
 
 BOOST_AUTO_TEST_SUITE(TestSuiteCorrect)
@@ -137,7 +137,7 @@ BOOST_AUTO_TEST_SUITE(TestSuiteCorrect)
         (*employee2).changeType(2);
         (*employee3).changeType(0);
         (*employee3).changeType(2);
-        boost::gregorian::date d(Schedule::getStartDate());
+        boost::gregorian::date d(calendar::getStartDate());
         while(d.day_of_week()!=1)
         {
             d += boost::gregorian::days(1);

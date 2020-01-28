@@ -1,6 +1,6 @@
 #include "team.h"
 #include "position.h"
-#include "schedule.h"
+#include "calendar.h"
 #include "shift.h"
 
 Team::Team(std::string teamName) : name(std::move(teamName)) {
@@ -54,7 +54,7 @@ std::string Team::shiftsInfo() const {
     out << "Team shifts: " << std::endl;
     unsigned int it = 0;
     for (const auto &shift : shifts) {
-        out << Schedule::getWeekDay(it) << ": " << shift->shiftInfo() << std::endl;
+        out << calendar::getWeekDay(it) << ": " << shift->shiftInfo() << std::endl;
         it++;
     }
     return out.str();

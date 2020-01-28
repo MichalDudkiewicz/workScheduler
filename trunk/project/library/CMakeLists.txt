@@ -14,7 +14,7 @@ set(SOURCE_FILES
         src/driverS.cpp
         src/dispatcher.cpp
         src/teamQueues.cpp
-        src/schedule.cpp
+        src/calendar.cpp
         src/employeeSchedule.cpp
         src/jumperEmployee.cpp
         src/needyEmployee.cpp

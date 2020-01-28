@@ -2,8 +2,8 @@
 #define teamQueuesClass
 
 #include <memory>
-#include <vector>
 #include <string>
+#include "calendar.h"
 
 class Team;
 class Employee;
@@ -13,15 +13,15 @@ typedef std::shared_ptr<Team> teamPtr;
 typedef std::shared_ptr<Employee> employeePtr;
 typedef std::vector<employeePtr> employees;
 typedef std::vector<employees> dayQueues;
-typedef std::vector<dayQueues> queues;
 
 class TeamQueues{
 private:
     teamPtr team;
-    queues teamQueues{};
+    Calendar<dayQueues> teamQueues{};
 public:
     TeamQueues(teamPtr,const employees&);
-    const queues& getTeamQueues() const;
+    Calendar<dayQueues>& getTeamQueues();
+    const Calendar<dayQueues>& getTeamQueues() const;
     const teamPtr& getTeam() const;
     void queueSort(unsigned int, unsigned int);
     std::string teamQueuesInfo() const;

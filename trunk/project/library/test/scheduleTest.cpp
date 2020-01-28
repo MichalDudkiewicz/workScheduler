@@ -1,5 +1,5 @@
 #include <boost/test/unit_test.hpp>
-#include "schedule.h"
+#include "calendar.h"
 #include <memory>
 
 BOOST_AUTO_TEST_SUITE(TestSuiteCorrect)
@@ -16,21 +16,21 @@ BOOST_AUTO_TEST_SUITE(TestSuiteCorrect)
     };
 
     BOOST_FIXTURE_TEST_CASE(ScheduleCaseGetCurrentDate, FixtureScheduleTest) {
-        BOOST_CHECK_EQUAL(Schedule::getCurrentDate(), d);
+        BOOST_CHECK_EQUAL(calendar::getCurrentDate(), d);
     }
 
     BOOST_FIXTURE_TEST_CASE(ScheduleCaseGetNumberOfDays, FixtureScheduleTest) {
         d += boost::gregorian::months(1);
-        BOOST_CHECK_EQUAL(Schedule::getNumberOfDays(),
+        BOOST_CHECK_EQUAL(calendar::getNumberOfDays(),
                           boost::gregorian::gregorian_calendar::end_of_month_day(d.year(), d.month()));
     }
 
     BOOST_FIXTURE_TEST_CASE(ScheduleCaseStartDate, FixtureScheduleTest) {
-        BOOST_CHECK_EQUAL(Schedule::getStartDate(), startDate);
+        BOOST_CHECK_EQUAL(calendar::getStartDate(), startDate);
     }
 
     BOOST_FIXTURE_TEST_CASE(ScheduleCaseGetWeekDayIterator, FixtureScheduleTest) {
-        BOOST_CHECK_EQUAL(Schedule::getWeekDayIterator(startDate), day);
+        BOOST_CHECK_EQUAL(calendar::getWeekDayIterator(startDate), day);
     }
 
 BOOST_AUTO_TEST_SUITE_END()

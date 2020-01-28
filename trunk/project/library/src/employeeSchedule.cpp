@@ -1,12 +1,6 @@
 #include "employeeSchedule.h"
 #include "shift.h"
-#include "schedule.h"
 
-EmployeeSchedule::EmployeeSchedule() {
-    for (unsigned int i = 0; i < Schedule::getNumberOfDays() + 1; ++i) {
-        shiftsInSchedule.emplace_back();
-    }
-}
 
 void EmployeeSchedule::addShift(shiftPtr &shift) {
     unsigned int it = shift->getDay() - 1;
@@ -36,7 +30,7 @@ void EmployeeSchedule::removeShift(unsigned int day, unsigned int shiftNumber) {
     shiftsInSchedule[day - 1].erase(shiftsInSchedule[day - 1].begin() + shiftNumber - 1);
 }
 
-const schedule &EmployeeSchedule::getSchedule() const {
+const Calendar<shifts> &EmployeeSchedule::getSchedule() const {
     return shiftsInSchedule;
 }
 
@@ -49,4 +43,8 @@ std::string EmployeeSchedule::scheduleInfo() const {
         }
     }
     return out.str();
+}
+
+Calendar<shifts> &EmployeeSchedule::getSchedule() {
+    return shiftsInSchedule;
 }

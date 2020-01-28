@@ -1,7 +1,7 @@
 #include <boost/test/unit_test.hpp>
 #include "employeeSchedule.h"
 #include <memory>
-#include "schedule.h"
+#include "calendar.h"
 #include "shift.h"
 
 BOOST_AUTO_TEST_SUITE(TestSuiteCorrect)
@@ -24,7 +24,7 @@ BOOST_AUTO_TEST_SUITE(TestSuiteCorrect)
     };
 
     BOOST_FIXTURE_TEST_CASE(EmployeeScheduleCaseCreateSchedule, FixtureEmployeeScheduleTest) {
-        BOOST_CHECK_EQUAL(schedule.getSchedule().size(), Schedule::getNumberOfDays() + 1);
+        BOOST_CHECK_EQUAL(schedule.getSchedule().size(), calendar::getNumberOfDays() + 1);
     }
 
     BOOST_FIXTURE_TEST_CASE(EmployeeScheduleCaseAddShift, FixtureEmployeeScheduleTest) {

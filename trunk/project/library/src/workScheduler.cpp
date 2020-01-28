@@ -1,7 +1,6 @@
 #include "workScheduler.h"
 #include "employeeRepository.h"
 #include "teamRepository.h"
-#include "schedule.h"
 #include "team.h"
 #include "employee.h"
 #include "position.h"
@@ -28,7 +27,7 @@ void WorkScheduler::updateSchedule() {
     createSchedule();
 }
 
-const calendar &WorkScheduler::getSchedule() const {
+const Calendar<teamsOnDay> &WorkScheduler::getSchedule() const {
     return schedule.getSchedule();
 }
 
@@ -40,7 +39,7 @@ std::ofstream &operator<<(std::ofstream &output, const WorkScheduler &scheduler)
     for (unsigned int i = 0; i < numberOfColumns / 2 - 3; ++i) {
         output << ",";
     }
-    output << Schedule::scheduleDate() << " work schedule";
+    output << calendar::currentDateToString() << " work schedule";
     for (unsigned int i = numberOfColumns / 2 - 3; i < numberOfColumns; ++i) {
         output << ",";
     }
@@ -63,7 +62,7 @@ std::ofstream &operator<<(std::ofstream &output, const WorkScheduler &scheduler)
     output << std::endl;
     unsigned int d = 1;
     for (const auto &day : scheduler.getSchedule()) {
-        if (d > Schedule::getNumberOfDays())
+        if (d > calendar::getNumberOfDays())
             d = 1;
         output << d << ",";
         for (const auto &team : day) {
