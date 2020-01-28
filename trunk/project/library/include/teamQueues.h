@@ -20,7 +20,6 @@ private:
     Calendar<dayQueues> teamQueues{};
 public:
     TeamQueues(teamPtr,const employees&);
-    Calendar<dayQueues>& getTeamQueues();
     const Calendar<dayQueues>& getTeamQueues() const;
     const teamPtr& getTeam() const;
     void queueSort(unsigned int, unsigned int);

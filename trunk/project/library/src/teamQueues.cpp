@@ -31,10 +31,6 @@ TeamQueues::TeamQueues(teamPtr t, const employees &authorisedEmployees) : team(s
     }
 }
 
-Calendar<dayQueues> &TeamQueues::getTeamQueues(){
-    return teamQueues;
-}
-
 const Calendar<dayQueues> &TeamQueues::getTeamQueues() const{
     return teamQueues;
 }

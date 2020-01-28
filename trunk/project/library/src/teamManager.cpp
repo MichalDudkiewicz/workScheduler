@@ -13,15 +13,15 @@ void TeamManager::addTeam(const std::string &name) {
     TeamRepository::getInstance().add(name);
 }
 
-void TeamManager::removeTeam(const std::string &name) {
+void TeamManager::remove(const std::string &name) {
     TeamRepository::getInstance().remove(name);
 }
 
-const teamPtr &TeamManager::getTeamByName(const std::string &name) const {
+const teamPtr &TeamManager::get(const std::string &name) const {
     return TeamRepository::getInstance().get(name);
 }
 
-std::string TeamManager::repositoryInfo() const {
+std::string TeamManager::info() const {
     return TeamRepository::getInstance().info();
 }
 

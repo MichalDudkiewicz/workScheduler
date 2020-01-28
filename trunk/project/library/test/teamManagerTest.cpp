@@ -12,7 +12,7 @@ BOOST_AUTO_TEST_SUITE(TestSuiteCorrect)
         TeamManager::getInstance().addTeam("B2");
         TeamManager::getInstance().addTeam("C3");
         TeamManager::getInstance().addTeam("D4");
-        BOOST_CHECK_EQUAL(TeamManager::getInstance().repositoryInfo(), "Team S2\n"
+        BOOST_CHECK_EQUAL(TeamManager::getInstance().info(), "Team S2\n"
                                                                        "Positions required: medic, \n"
                                                                        "Team shifts: \n"
                                                                        "Monday: day: 1, 0 - 0\n"
@@ -96,8 +96,8 @@ BOOST_AUTO_TEST_SUITE(TestSuiteCorrect)
                                                                        "Sunday: day: 7, 0 - 0\n"
                                                                        "\n"
                                                                        "\n");
-        TeamManager::getInstance().removeTeam("A1");
-        BOOST_CHECK_EQUAL(TeamManager::getInstance().repositoryInfo(), "Team S2\n"
+        TeamManager::getInstance().remove("A1");
+        BOOST_CHECK_EQUAL(TeamManager::getInstance().info(), "Team S2\n"
                                                                        "Positions required: medic, \n"
                                                                        "Team shifts: \n"
                                                                        "Monday: day: 1, 0 - 0\n"

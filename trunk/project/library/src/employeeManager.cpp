@@ -11,19 +11,19 @@ EmployeeManager &EmployeeManager::getInstance() {
     return instance;
 }
 
-void EmployeeManager::addEmployee(unsigned int id, const std::string &name) {
+void EmployeeManager::add(unsigned int id, const std::string &name) {
     EmployeeRepository::getInstance().add(id, name);
 }
 
-void EmployeeManager::removeEmployee(unsigned int id) {
+void EmployeeManager::remove(const unsigned int &id) {
     EmployeeRepository::getInstance().remove(id);
 }
 
-const employeePtr &EmployeeManager::getEmployeeByID(unsigned int id) const {
+const employeePtr &EmployeeManager::get(const unsigned int &id) const {
     return EmployeeRepository::getInstance().get(id);
 }
 
-std::string EmployeeManager::repositoryInfo() const {
+std::string EmployeeManager::info() const {
     return EmployeeRepository::getInstance().info();
 }
 

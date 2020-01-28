@@ -16,7 +16,6 @@ public:
     void addShift(shiftPtr&);
     void removeShift(unsigned int,unsigned int);
     const Calendar<shifts>& getSchedule() const;
-    Calendar<shifts>& getSchedule();
     std::string scheduleInfo() const;
 };
 

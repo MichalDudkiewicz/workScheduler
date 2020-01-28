@@ -1,15 +1,13 @@
 #ifndef teamManagerClass
 #define teamManagerClass
 
-#include <memory>
-#include <string>
-#include <vector>
 #include <fstream>
+#include "manager.h"
 
 class Team;
 typedef std::shared_ptr<Team> teamPtr;
 
-class TeamManager{
+class TeamManager : public Manager<Team, std::string>{
 private:
     TeamManager()=default;
 public:
@@ -17,10 +15,10 @@ public:
     TeamManager(const TeamManager&)=delete;
     void operator=(const TeamManager&)=delete;
     static void addTeam(const std::string&);
-    static void removeTeam(const std::string&);
-    const teamPtr& getTeamByName(const std::string&) const;
-    std::string repositoryInfo() const;
-    const std::vector<teamPtr>& getAll() const;
+    void remove(const std::string&) override;
+    const teamPtr& get(const std::string&) const override;
+    std::string info() const override;
+    const std::vector<teamPtr>& getAll() const override;
     friend std::ofstream& operator<<(std::ofstream& output, const TeamManager& manager);
     friend std::ofstream& operator<(std::ofstream& output, const TeamManager& manager);
 };

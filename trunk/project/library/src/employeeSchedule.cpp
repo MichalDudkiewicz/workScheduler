@@ -44,7 +44,3 @@ std::string EmployeeSchedule::scheduleInfo() const {
     }
     return out.str();
 }
-
-Calendar<shifts> &EmployeeSchedule::getSchedule() {
-    return shiftsInSchedule;
-}

@@ -54,6 +54,10 @@ public:
     {
         return calendar.size();
     }
+    const T & operator[](unsigned int index) const
+    {
+        return calendar[index];
+    }
 };
 
 #endif

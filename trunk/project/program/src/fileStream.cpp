@@ -81,17 +81,17 @@ void input::employeeRepository(const std::string &path){
         if (columnNumber == 8) {
             columnNumber = 0;
             if (rowNumber > 0) {
-                EmployeeManager::getInstance().addEmployee(stoi(row[0]), row[1]);
-                EmployeeManager::getInstance().getEmployeeByID(stoi(row[0]))->setHourlyWage(stoi(row[2]));
-                EmployeeManager::getInstance().getEmployeeByID(stoi(row[0]))->setPoints(stoi(row[3]));
-                EmployeeManager::getInstance().getEmployeeByID(stoi(row[0]))->changeType(stoi(row[4]));
-                EmployeeManager::getInstance().getEmployeeByID(stoi(row[0]))->setNonresident(
+                EmployeeManager::getInstance().add(stoi(row[0]), row[1]);
+                EmployeeManager::getInstance().get(stoi(row[0]))->setHourlyWage(stoi(row[2]));
+                EmployeeManager::getInstance().get(stoi(row[0]))->setPoints(stoi(row[3]));
+                EmployeeManager::getInstance().get(stoi(row[0]))->changeType(stoi(row[4]));
+                EmployeeManager::getInstance().get(stoi(row[0]))->setNonresident(
                         boost::lexical_cast<bool>(row[5]));
                 std::vector<unsigned int> positions = cellToRawValues<unsigned int>(row[6], ';');
                 for (auto &positionID : positions) {
                     for (const auto &position : loadPositions()) {
                         if (position->positionID() == positionID) {
-                            EmployeeManager::getInstance().getEmployeeByID(stoi(row[0]))->addPosition(position);
+                            EmployeeManager::getInstance().get(stoi(row[0]))->addPosition(position);
                             break;
                         }
                     }
@@ -99,8 +99,8 @@ void input::employeeRepository(const std::string &path){
                 std::vector<unsigned int> enemies = cellToRawValues<unsigned int>(row[7], ';');
                 for (const auto &enemyID : enemies) {
                     if (enemyID < stoul(row[0])) {
-                        EmployeeManager::getInstance().getEmployeeByID(stoi(row[0]))->addEnemy(
-                                EmployeeManager::getInstance().getEmployeeByID(enemyID));
+                        EmployeeManager::getInstance().get(stoi(row[0]))->addEnemy(
+                                EmployeeManager::getInstance().get(enemyID));
                     }
                 }
             }
@@ -134,7 +134,7 @@ void input::teamSchedule(const std::string &path) {
                     std::vector<unsigned int> shiftHours = cellToRawValues<unsigned int>(hoursChain, '-');
                     if (shiftHours.size() > 1)
                         try {
-                            TeamManager::getInstance().getTeamByName(row.front())->addShift(shiftHours.front(),
+                            TeamManager::getInstance().get(row.front())->addShift(shiftHours.front(),
                                                                                             shiftHours.back(), i + 1);
                         }catch(teamNotExist &error){
                             throw DataException("Team Schedule",path);
@@ -204,7 +204,7 @@ void input::desiredSchedule(const std::string &path) {
                         for (auto &shift : shifts) {
                             std::vector<unsigned int> shiftHours = cellToRawValues<unsigned int>(shift, '-');
                             try {
-                                EmployeeManager::getInstance().getEmployeeByID(stoi(row[0]))->addDesiredShift(shiftHours[0],
+                                EmployeeManager::getInstance().get(stoi(row[0]))->addDesiredShift(shiftHours[0],
                                                                                                               shiftHours[1],
                                                                                                               day);
                             }catch(EmployeeNotFound &error) {
