@@ -28,12 +28,11 @@ const positionPtr &PositionRepository::get(const unsigned int &id) const {
 
 positions PositionRepository::getAll() const {
     positions allPositions;
-    allPositions.reserve(positionsRepository.size());
     for(const auto &position : positionsRepository)
     {
-        allPositions.push_back(position.second);
+        allPositions.push_front(position.second);
     }
-    std::sort(allPositions.begin(),allPositions.end(),comparePositionID());
+    allPositions.sort(comparePositionID());
     return allPositions;
 }
 

@@ -38,7 +38,7 @@ void FinalSchedule::makeSchedule() {
                         }
                     }
                     if (!e->isBusy(newShift) and !enemiesInTeam and e->getShiftsQuantity() < e->getMaxShifts()) {
-                        schedule[day - 1][teamId][it].push_back(e);
+                        schedule[day - 1][teamId][it].push_front(e);
                         e->addCurrentShift(newShift);
                         break;
                     }

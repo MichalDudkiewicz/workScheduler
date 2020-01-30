@@ -91,7 +91,7 @@ BOOST_AUTO_TEST_SUITE(TestSuiteCorrect)
 
         std::shared_ptr<Team> team = std::make_shared<Team>("S1");
 
-        std::vector<employeePtr> employees;
+        std::list<employeePtr> employees;
 
 
     };
@@ -106,7 +106,7 @@ BOOST_AUTO_TEST_SUITE(TestSuiteCorrect)
         BOOST_REQUIRE_EQUAL(queue.getTeamQueues()[0][0].empty(), true);
         BOOST_REQUIRE_EQUAL(queue.getTeamQueues()[0][1].empty(), true);
         BOOST_REQUIRE_EQUAL(queue.getTeamQueues()[1][0].empty(), true);
-        BOOST_REQUIRE_EQUAL(queue.getTeamQueues()[7][1][0]->getId(), 2);
+        BOOST_REQUIRE_EQUAL(queue.getTeamQueues()[7][1].front()->getId(), 2);
         BOOST_REQUIRE_EQUAL(queue.getTeamQueues()[19][0].size(), 1);
     }
 
@@ -117,7 +117,7 @@ BOOST_AUTO_TEST_SUITE(TestSuiteCorrect)
         std::shared_ptr<Employee> employee3 = std::make_shared<Employee>("Pawel", 3);
         std::shared_ptr<Employee> employee4 = std::make_shared<Employee>("Justyna", 4);
         std::shared_ptr<Employee> employee5 = std::make_shared<Employee>("Jacek", 5);
-        std::vector<employeePtr> employees;
+        std::list<employeePtr> employees;
         (*employee1).addPosition(doctor);
         (*employee2).addPosition(doctor);
         (*employee3).addPosition(doctor);
@@ -152,11 +152,8 @@ BOOST_AUTO_TEST_SUITE(TestSuiteCorrect)
         team->addPosition(doctor);
         TeamQueues queues(team,employees);
         queues.queueSort(d.day()-1,0);
-        BOOST_CHECK_EQUAL(queues.getTeamQueues()[d.day()-1][0][0], employee3);
-        BOOST_CHECK_EQUAL(queues.getTeamQueues()[d.day()-1][0][1], employee1);
-        BOOST_CHECK_EQUAL(queues.getTeamQueues()[d.day()-1][0][2], employee2);
-        BOOST_CHECK_EQUAL(queues.getTeamQueues()[d.day()-1][0][3], employee4);
-        BOOST_CHECK_EQUAL(queues.getTeamQueues()[d.day()-1][0][4], employee5);
+        BOOST_CHECK_EQUAL(queues.getTeamQueues()[d.day()-1][0].front(), employee3);
+        BOOST_CHECK_EQUAL(queues.getTeamQueues()[d.day()-1][0].back(), employee5);
         BOOST_TEST_MESSAGE(queues.teamQueuesInfo());
     }
 

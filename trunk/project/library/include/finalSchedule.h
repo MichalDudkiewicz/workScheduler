@@ -5,11 +5,11 @@
 
 class Team;
 typedef std::vector<TeamQueues> allTeamsQueues;
-typedef std::vector<employeePtr> employees;
+typedef std::list<employeePtr> employees;
 typedef std::vector<employees> employeesOnPositionQueues;
 typedef std::vector<employeesOnPositionQueues> teamOnDayQueues;
 typedef std::shared_ptr<Team> teamPtr;
-typedef std::vector<teamPtr> teams;
+typedef std::list<teamPtr> teams;
 
 class FinalSchedule{
 private:

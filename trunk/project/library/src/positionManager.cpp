@@ -22,6 +22,6 @@ const positionPtr &PositionManager::get(const unsigned int &id) const {
     return PositionRepository::getInstance().get(id);
 }
 
-std::vector<positionPtr> PositionManager::getAll() const {
+std::list<positionPtr> PositionManager::getAll() const {
     return PositionRepository::getInstance().getAll();
 }

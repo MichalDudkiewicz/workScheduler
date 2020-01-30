@@ -11,6 +11,7 @@ BOOST_AUTO_TEST_SUITE(TestSuiteCorrect)
 
 
     BOOST_AUTO_TEST_CASE(InputIncorrectPathCase) {
+        input::loadPositions();
         BOOST_REQUIRE_THROW(input::employeeRepository("../../../dataset/some_directory/employeeRepository.csv"), std::logic_error);
         BOOST_REQUIRE_THROW(input::teamRepository("../../../dataset/some_directory/teamRepository.csv"), std::logic_error);
         input::employeeRepository("../../../dataset/.test/employeeRepository.csv");

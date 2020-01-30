@@ -48,12 +48,11 @@ std::string EmployeeRepository::info() const {
 
 employees EmployeeRepository::getAll() const {
     employees allEmployees;
-    allEmployees.reserve(employeesRepository.size());
     for(const auto &employee : employeesRepository)
     {
-        allEmployees.push_back(employee.second);
+        allEmployees.push_front(employee.second);
     }
-    std::sort(allEmployees.begin(),allEmployees.end(),compareID());
+    allEmployees.sort(compareID());
     return allEmployees;
 }
 
@@ -71,7 +70,7 @@ employees EmployeeRepository::getByPosition(const positionPtr &position) const {
     employees employeesByPosition;
     for (const auto &employee : employeesRepository) {
         if (employee.second->isAuthorised(position)) {
-            employeesByPosition.push_back(employee.second);
+            employeesByPosition.push_front(employee.second);
         }
     }
     return employeesByPosition;
@@ -79,10 +78,8 @@ employees EmployeeRepository::getByPosition(const positionPtr &position) const {
 
 std::vector<employees> EmployeeRepository::getByTeam(const teamPtr &team) const {
     std::vector<employees> employeesByTeam;
-    unsigned int i = 0;
     for (const auto &position : team->getPositions()) {
         employeesByTeam.emplace_back(getByPosition(position));
-        ++i;
     }
     return employeesByTeam;
 }
@@ -91,7 +88,7 @@ employees EmployeeRepository::getByType(unsigned int typeID) const {
     employees employeesByType;
     for (const auto &employee : employeesRepository) {
         if (employee.second->getType()->getPriority() == typeID) {
-            employeesByType.push_back(employee.second);
+            employeesByType.push_front(employee.second);
         }
     }
     return employeesByType;
@@ -107,7 +104,7 @@ employees EmployeeRepository::getAllUnsatisfied() const {
     employees unsatisfied;
     for (const auto &employee : employeesRepository) {
         if (employee.second->getMinShifts() > employee.second->getShiftsQuantity()) {
-            unsatisfied.push_back(employee.second);
+            unsatisfied.push_front(employee.second);
         }
     }
     return unsatisfied;

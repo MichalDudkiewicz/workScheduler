@@ -18,7 +18,7 @@ public:
     void remove(const std::string&) override;
     const teamPtr& get(const std::string&) const override;
     std::string info() const override;
-    std::vector<teamPtr> getAll() const override;
+    std::list<teamPtr> getAll() const override;
     friend std::ofstream& operator<<(std::ofstream& output, const TeamManager& manager);
     friend std::ofstream& operator<(std::ofstream& output, const TeamManager& manager);
 };

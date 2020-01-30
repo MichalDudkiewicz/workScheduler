@@ -2,12 +2,13 @@
 #define teamQueuesClass
 
 #include "calendar.h"
+#include <list>
 
 class Team;
 class Employee;
 typedef std::shared_ptr<Team> teamPtr;
 typedef std::shared_ptr<Employee> employeePtr;
-typedef std::vector<employeePtr> employees;
+typedef std::list<employeePtr> employees;
 typedef std::vector<employees> queuesToPosition;
 
 class TeamQueues{

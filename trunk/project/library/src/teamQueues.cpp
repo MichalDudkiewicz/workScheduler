@@ -21,7 +21,7 @@ TeamQueues::TeamQueues(teamPtr t, const employees &authorisedEmployees) : team(s
                 for (const auto &employee : authorisedEmployees) {
                     if (employee->isAuthorised(team->getPositions()[p]) and
                         employee->isAvailable(team->getShifts()[calendar::whatDayOfWeek(day)])) {
-                        positionQueue.push_back(employee);
+                        positionQueue.push_front(employee);
                     }
                 }
                 p += 1;
@@ -40,7 +40,7 @@ const teamPtr &TeamQueues::getTeam() const {
 }
 
 void TeamQueues::queueSort(unsigned int d, unsigned int i) {
-    std::sort(calendarOfQueues[d][i].begin(), calendarOfQueues[d][i].end(), sortPointsTypeWorkHours());
+    calendarOfQueues[d][i].sort(sortPointsTypeWorkHours());
 }
 
 std::string TeamQueues::teamQueuesInfo() const {

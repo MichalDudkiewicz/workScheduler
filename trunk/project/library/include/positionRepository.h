@@ -6,7 +6,7 @@
 
 class Position;
 typedef std::shared_ptr<Position> positionPtr;
-typedef std::vector<positionPtr> positions;
+typedef std::list<positionPtr> positions;
 
 class PositionRepository : public Repository<Position, unsigned int>{
 private:

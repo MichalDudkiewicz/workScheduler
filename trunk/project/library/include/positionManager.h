@@ -5,7 +5,7 @@
 
 class Position;
 typedef std::shared_ptr<Position> positionPtr;
-typedef std::vector<positionPtr> positions;
+typedef std::list<positionPtr> positions;
 
 class PositionManager : public Manager<Position, unsigned int> {
 private:
@@ -18,7 +18,7 @@ public:
     void remove(const unsigned int&) override;
     std::string info() const override;
     const positionPtr& get(const unsigned int &) const override;
-    std::vector<positionPtr> getAll() const override;
+    std::list<positionPtr> getAll() const override;
 };
 
 

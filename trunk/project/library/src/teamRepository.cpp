@@ -49,10 +49,9 @@ const teamPtr &TeamRepository::get(const std::string &name) const {
 
 teams TeamRepository::getAll() const {
     teams allTeams;
-    allTeams.reserve(teamsRepository.size());
     for(const auto &team : teamsRepository)
     {
-        allTeams.push_back(team.second);
+        allTeams.push_front(team.second);
     }
     return allTeams;
 }

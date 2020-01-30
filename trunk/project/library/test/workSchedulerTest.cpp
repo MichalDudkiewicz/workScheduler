@@ -1,7 +1,6 @@
 #include <boost/test/unit_test.hpp>
 #include "workScheduler.h"
 #include "employeeRepository.h"
-#include <iostream>
 #include "boost/date_time/gregorian/gregorian.hpp"
 #include "calendar.h"
 #include "employee.h"
@@ -18,9 +17,9 @@ BOOST_AUTO_TEST_SUITE(TestSuiteCorrect)
         WorkScheduler::getInstance().createSchedule();
         BOOST_TEST_MESSAGE(WorkScheduler::getInstance().scheduleInfo());
         BOOST_CHECK_EQUAL(WorkScheduler::getInstance().getSchedule()[0][0][0].empty(),true);
-        BOOST_CHECK_EQUAL(WorkScheduler::getInstance().getSchedule()[firstMonday.day()-1][0][0].front()->getId(),3);
+        BOOST_CHECK_EQUAL(WorkScheduler::getInstance().getSchedule()[firstMonday.day()-1][1].front().front()->getId(),2);
         WorkScheduler::getInstance().updateSchedule();
-        BOOST_CHECK_EQUAL(WorkScheduler::getInstance().getSchedule()[firstMonday.day()-1][0][0].empty(),true);
+        BOOST_CHECK_EQUAL(WorkScheduler::getInstance().getSchedule()[firstMonday.day()-1][1][0].empty(),true);
     }
 
 BOOST_AUTO_TEST_SUITE_END()

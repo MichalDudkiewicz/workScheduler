@@ -15,7 +15,7 @@ public:
 
 class Team;
 typedef std::shared_ptr<Team> teamPtr;
-typedef std::vector<teamPtr> teams;
+typedef std::list<teamPtr> teams;
 
 class TeamRepository : Repository<Team,std::string>{
 private:

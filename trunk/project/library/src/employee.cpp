@@ -136,61 +136,43 @@ bool Employee::isAvailable(const shiftPtr &shift) const {
 }
 
 void Employee::addPosition(const positionPtr &position) {
-    myPositions.push_back(position);
-    std::sort(myPositions.begin(), myPositions.end(), comparePositionID());
+    myPositions.push_front(position);
+    myPositions.sort(comparePositionID());
 }
 
 void Employee::removePosition(const positionPtr &position) {
-    unsigned int it = 0;
-    for (auto &p : myPositions) {
-        if (p == position) {
-            myPositions.erase(myPositions.begin() + it);
-        }
-        ++it;
-    }
+    myPositions.remove(position);
 }
 
 void Employee::addFriend(const employeePtr &employee) {
-    friends.push_back(employee);
-    employee->friends.push_back(shared_from_this());
+    friends.push_front(employee);
+    employee->friends.push_front(shared_from_this());
     removeEnemy(employee);
 }
 
 void Employee::removeFriend(const employeePtr &employee) {
-    unsigned int it = 0;
-    for (auto &e : friends) {
-        if (e == employee) {
-            friends.erase(friends.begin() + it);
-        }
-        ++it;
-    }
+    friends.remove(employee);
     if (employee->isFriendWith(shared_from_this())) {
         employee->removeFriend(shared_from_this());
     }
 }
 
 void Employee::addEnemy(const employeePtr &employee) {
-    enemies.push_back(employee);
-    employee->enemies.push_back(shared_from_this());
+    enemies.push_front(employee);
+    employee->enemies.push_front(shared_from_this());
     removeFriend(employee);
 }
 
 void Employee::removeEnemy(const employeePtr &employee) {
-    unsigned int it = 0;
-    for (auto &e : enemies) {
-        if (e == employee) {
-            enemies.erase(enemies.begin() + it);
-        }
-        ++it;
-    }
+    enemies.remove(employee);
     if (employee->isEnemyWith(shared_from_this())) {
         employee->removeEnemy(shared_from_this());
     }
 }
 
 bool Employee::isFriendWith(const employeePtr &employee) const {
-    for (auto &e : friends) {
-        if (e == employee) {
+    for (const auto &e : friends) {
+        if (e -> getId() == employee -> getId()) {
             return true;
         }
     }
@@ -198,8 +180,8 @@ bool Employee::isFriendWith(const employeePtr &employee) const {
 }
 
 bool Employee::isEnemyWith(const employeePtr &employee) const {
-    for (auto &e : enemies) {
-        if (e == employee) {
+    for (const auto &e : enemies) {
+        if (e -> getId() == employee -> getId()) {
             return true;
         }
     }

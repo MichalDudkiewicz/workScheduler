@@ -4,6 +4,7 @@
 #include "shift.h"
 
 Team::Team(std::string teamName) : name(std::move(teamName)) {
+    shifts.reserve(7);
     for (unsigned int i = 0; i < 7; ++i) {
         shifts.emplace_back(new Shift(i + 1));
     }

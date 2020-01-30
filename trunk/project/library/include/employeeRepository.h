@@ -20,7 +20,7 @@ class Employee;
 class Position;
 class Team;
 typedef std::shared_ptr<Employee> employeePtr;
-typedef std::vector<employeePtr> employees;
+typedef std::list<employeePtr> employees;
 typedef std::shared_ptr<Position> positionPtr;
 typedef std::shared_ptr<Team> teamPtr;
 

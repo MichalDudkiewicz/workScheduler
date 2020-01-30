@@ -61,7 +61,7 @@ BOOST_AUTO_TEST_SUITE(TestSuiteCorrect)
         (*employee1).addFriend(employee0);
         (*employee1).addFriend(employee2);
         (*employee1).addEnemy(employee3);
-        BOOST_CHECK_EQUAL((*employee1).getMyFriends()[0]->getId(), 0);
+        BOOST_CHECK_EQUAL((*employee1).getMyFriends().front()->getId(), 2);
         BOOST_CHECK_EQUAL((*employee0).isFriendWith(employee1), true);
         BOOST_CHECK_EQUAL((*employee1).isFriendWith(employee0), true);
         (*employee1).addEnemy(employee0);
@@ -108,14 +108,12 @@ BOOST_AUTO_TEST_SUITE(TestSuiteCorrect)
     BOOST_FIXTURE_TEST_CASE(EmployeeAddRemovePositionCase, FixtureEmployeeTest) {
         std::shared_ptr<Position> doctor = std::make_shared<Doctor>();
         std::shared_ptr<Position> medic = std::make_shared<Medic>();
-        m << medic->positionInfo();
         d1 << doctor->positionInfo();
         (*employee0).addPosition(medic);
         (*employee0).addPosition(doctor);
-        BOOST_CHECK_EQUAL((*employee0).getPositions()[1]->positionInfo(), m.str());
-        BOOST_CHECK_EQUAL((*employee0).getPositions()[0]->positionInfo(), d1.str());
+        BOOST_CHECK_EQUAL((*employee0).getPositions().front()->positionInfo(), d1.str());
         (*employee0).removePosition(medic);
-        BOOST_CHECK_EQUAL((*employee0).getPositions()[0]->positionInfo(), d1.str());
+        BOOST_CHECK_EQUAL((*employee0).getPositions().front()->positionInfo(), d1.str());
         BOOST_CHECK_EQUAL((*employee0).getPositions().size(), 1);
     }
 
