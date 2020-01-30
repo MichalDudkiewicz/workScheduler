@@ -15,65 +15,63 @@ EmployeeRepository &EmployeeRepository::getInstance() {
     return instance;
 }
 
-void EmployeeRepository::checkIfIdExist(const employeePtr &employee) {
-    int i = 0;
-    while (i < (int) employeesRepository.size()) {
-        if (employeesRepository[i]->getId() == employee->getId()) {
-            throw EmployeeWithThisIdExist();
-        }
-        i++;
+void EmployeeRepository::checkIfIdExist(const unsigned int &id) {
+    auto search = employeesRepository.find(id);
+    if (search != employeesRepository.end()) {
+        throw EmployeeWithThisIdExist();
+    } else {
+        return;
     }
 }
 
 void EmployeeRepository::add(const employeePtr &employee) {
-    checkIfIdExist(employee);
-    employeesRepository.push_back(employee);
-    std::sort(employeesRepository.begin(), employeesRepository.end(), compareID());
+    checkIfIdExist(employee->getId());
+    employeesRepository.insert(std::make_pair(employee->getId(), employee));
 }
 
 void EmployeeRepository::add(unsigned int id, const std::string &name) {
     employeePtr employee = std::make_shared<Employee>(name, id);
-    employeesRepository.push_back(employee);
-    std::sort(employeesRepository.begin(), employeesRepository.end(), compareID());
+    employeesRepository.emplace(std::make_pair(id, std::make_shared<Employee>(name,id)));
 }
 
 void EmployeeRepository::remove(const unsigned int &id) {
-    unsigned int it = 0;
-    for (const auto &e : employeesRepository) {
-        if (e->getId() == id) {
-            employeesRepository.erase(employeesRepository.begin() + it);
-            return;
-        }
-        it += 1;
-    }
+    employeesRepository.erase(id);
 }
 
 std::string EmployeeRepository::info() const {
     std::ostringstream out;
-    for (const auto &e : employeesRepository) {
-        out << e->getId() << ". " << e->getName() << std::endl;
+    for (const auto &employee : employeesRepository) {
+        out << employee.second->getId() << ". " << employee.second->getName() << std::endl;
     }
     return out.str();
 }
 
-const employees &EmployeeRepository::getAll() const {
-    return employeesRepository;
+employees EmployeeRepository::getAll() const {
+    employees allEmployees;
+    allEmployees.reserve(employeesRepository.size());
+    for(const auto &employee : employeesRepository)
+    {
+        allEmployees.push_back(employee.second);
+    }
+    std::sort(allEmployees.begin(),allEmployees.end(),compareID());
+    return allEmployees;
 }
 
 const employeePtr &EmployeeRepository::get(const unsigned int &id) const {
-    for (const auto &e : employeesRepository) {
-        if (e->getId() == id) {
-            return e;
-        }
+    try
+    {
+        return employeesRepository.at(id);
+    } catch(std::out_of_range &error)
+    {
+        throw EmployeeNotFound();
     }
-    throw EmployeeNotFound();
 }
 
 employees EmployeeRepository::getByPosition(const positionPtr &position) const {
     employees employeesByPosition;
-    for (const auto &e : employeesRepository) {
-        if (e->isAuthorised(position)) {
-            employeesByPosition.push_back(e);
+    for (const auto &employee : employeesRepository) {
+        if (employee.second->isAuthorised(position)) {
+            employeesByPosition.push_back(employee.second);
         }
     }
     return employeesByPosition;
@@ -91,9 +89,9 @@ std::vector<employees> EmployeeRepository::getByTeam(const teamPtr &team) const 
 
 employees EmployeeRepository::getByType(unsigned int typeID) const {
     employees employeesByType;
-    for (const auto &e : employeesRepository) {
-        if (e->getType()->getPriority() == typeID) {
-            employeesByType.push_back(e);
+    for (const auto &employee : employeesRepository) {
+        if (employee.second->getType()->getPriority() == typeID) {
+            employeesByType.push_back(employee.second);
         }
     }
     return employeesByType;
@@ -107,9 +105,9 @@ std::string EmployeeRepository::getStatisticsByID(unsigned int id) const {
 
 employees EmployeeRepository::getAllUnsatisfied() const {
     employees unsatisfied;
-    for (const auto &e : employeesRepository) {
-        if (e->getMinShifts() > e->getShiftsQuantity()) {
-            unsatisfied.push_back(e);
+    for (const auto &employee : employeesRepository) {
+        if (employee.second->getMinShifts() > employee.second->getShiftsQuantity()) {
+            unsatisfied.push_back(employee.second);
         }
     }
     return unsatisfied;

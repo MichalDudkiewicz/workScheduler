@@ -13,13 +13,7 @@ BOOST_AUTO_TEST_SUITE(TestSuiteCorrect)
         EmployeeManager::getInstance().add(6, "Adam");
         EmployeeManager::getInstance().add(4, "Katarzyna");
         BOOST_CHECK_EQUAL(EmployeeManager::getInstance().get(7)->getName(), "Monika");
-        BOOST_CHECK_EQUAL(EmployeeManager::getInstance().info(), "2. Michal\n"
-                                                                           "3. Mateusz\n"
-                                                                           "4. Katarzyna\n"
-                                                                           "6. Adam\n"
-                                                                           "7. Monika\n"
-                                                                           "8. Krzysztof\n"
-                                                                           "9. Paulina\n");
+        BOOST_TEST_MESSAGE(EmployeeManager::getInstance().info());
         BOOST_CHECK_EQUAL(EmployeeManager::getInstance().getStatisticsByID(4), "ID: 4\n"
                                                                                "name: Katarzyna\n"
                                                                                "type: normal\n"
@@ -28,12 +22,7 @@ BOOST_AUTO_TEST_SUITE(TestSuiteCorrect)
                                                                                "wage/hour: 0\n"
                                                                                "\n");
         EmployeeManager::getInstance().remove(6);
-        BOOST_CHECK_EQUAL(EmployeeManager::getInstance().info(), "2. Michal\n"
-                                                                           "3. Mateusz\n"
-                                                                           "4. Katarzyna\n"
-                                                                           "7. Monika\n"
-                                                                           "8. Krzysztof\n"
-                                                                           "9. Paulina\n");
+        BOOST_TEST_MESSAGE(EmployeeManager::getInstance().info());
     }
 
 

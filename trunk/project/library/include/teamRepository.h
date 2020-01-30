@@ -2,6 +2,7 @@
 #define teamRepositoryClass
 
 #include "repository.h"
+#include <unordered_map>
 
 class teamNotExist: public std::logic_error{
 public:
@@ -18,7 +19,7 @@ typedef std::vector<teamPtr> teams;
 
 class TeamRepository : Repository<Team,std::string>{
 private:
-    teams teamsRepository{};
+    std::unordered_map<std::string, teamPtr> teamsRepository{};
     TeamRepository()=default;
     void checkTeamName(const std::string&);
 public:
@@ -29,7 +30,7 @@ public:
     void add(const std::string&);
     void remove(const std::string&) override;
     const teamPtr& get(const std::string&) const override;
-    const teams& getAll() const override;
+    teams getAll() const override;
     std::string info() const override;
 };
 

@@ -19,7 +19,7 @@ public:
     std::string info() const override;
     const employeePtr& get(const unsigned int &) const override;
     std::string getStatisticsByID(unsigned int) const;
-    const std::vector<employeePtr>& getAll() const override;
+    std::vector<employeePtr> getAll() const override;
     friend std::ofstream& operator<<(std::ofstream& output, const EmployeeManager& manager);
     friend std::ofstream& operator<(std::ofstream& output, const EmployeeManager& manager);
 };

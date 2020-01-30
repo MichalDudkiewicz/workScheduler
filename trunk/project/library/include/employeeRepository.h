@@ -4,6 +4,7 @@
 #include <vector>
 #include <memory>
 #include <string>
+#include <unordered_map>
 #include "repository.h"
 
 class EmployeeNotFound: public std::logic_error{
@@ -25,9 +26,9 @@ typedef std::shared_ptr<Team> teamPtr;
 
 class EmployeeRepository : public Repository<Employee,unsigned int>{
 private:
-    employees employeesRepository{};
+    std::unordered_map<unsigned int, employeePtr> employeesRepository{};
     EmployeeRepository()=default;
-    void checkIfIdExist(const employeePtr &employee);
+    void checkIfIdExist(const unsigned int &id);
 public:
     static EmployeeRepository& getInstance();
     EmployeeRepository(const EmployeeRepository&)=delete;
@@ -36,7 +37,7 @@ public:
     void add(unsigned int, const std::string&);
     void remove(const unsigned int&) override;
     std::string info() const override;
-    const employees& getAll() const override;
+    employees getAll() const override;
     const employeePtr& get(const unsigned int&) const override;
     employees getByPosition(const positionPtr&) const;
     std::vector<employees> getByTeam(const teamPtr&) const;

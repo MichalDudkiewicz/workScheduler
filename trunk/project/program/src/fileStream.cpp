@@ -167,7 +167,7 @@ void input::teamRepository(const std::string &path) {
                 for (auto &positionID : positions) {
                     for (const auto &position : loadPositions()) {
                         if (position->positionID() == positionID) {
-                            TeamManager::getInstance().getAll().back()->addPosition(position);
+                            TeamManager::getInstance().get(row.front())->addPosition(position);
                             break;
                         }
                     }

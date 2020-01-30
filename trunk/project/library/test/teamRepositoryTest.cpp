@@ -37,59 +37,10 @@ BOOST_AUTO_TEST_SUITE(TestSuiteCorrect)
         TeamRepository::getInstance().add(teamS2);
         TeamRepository::getInstance().add(team1);
         TeamRepository::getInstance().add(team2);
-        BOOST_CHECK_EQUAL(TeamRepository::getInstance().info(), "Team S1\n"
-                                                                "Positions required: doctor, driver (normal), medic, \n"
-                                                                "Team shifts: \n"
-                                                                "Monday: day: 1, 0 - 0\n"
-                                                                "Tuesday: day: 2, 0 - 0\n"
-                                                                "Wednesday: day: 3, 0 - 0\n"
-                                                                "Thursday: day: 4, 0 - 0\n"
-                                                                "Friday: day: 5, 0 - 0\n"
-                                                                "Saturday: day: 6, 0 - 0\n"
-                                                                "Sunday: day: 7, 0 - 0\n"
-                                                                "\n"
-                                                                "\n"
-                                                                "Team S2\n"
-                                                                "Positions required: medic, \n"
-                                                                "Team shifts: \n"
-                                                                "Monday: day: 1, 0 - 0\n"
-                                                                "Tuesday: day: 2, 0 - 0\n"
-                                                                "Wednesday: day: 3, 0 - 0\n"
-                                                                "Thursday: day: 4, 0 - 0\n"
-                                                                "Friday: day: 5, 0 - 0\n"
-                                                                "Saturday: day: 6, 0 - 0\n"
-                                                                "Sunday: day: 7, 0 - 0\n"
-                                                                "\n"
-                                                                "\n"
-                                                                "Team 1\n"
-                                                                "Positions required: driver (normal), \n"
-                                                                "Team shifts: \n"
-                                                                "Monday: day: 1, 0 - 0\n"
-                                                                "Tuesday: day: 2, 0 - 0\n"
-                                                                "Wednesday: day: 3, 0 - 0\n"
-                                                                "Thursday: day: 4, 0 - 0\n"
-                                                                "Friday: day: 5, 0 - 0\n"
-                                                                "Saturday: day: 6, 0 - 0\n"
-                                                                "Sunday: day: 7, 0 - 0\n"
-                                                                "\n"
-                                                                "\n"
-                                                                "Team 2\n"
-                                                                "Positions required: medic, \n"
-                                                                "Team shifts: \n"
-                                                                "Monday: day: 1, 0 - 0\n"
-                                                                "Tuesday: day: 2, 0 - 0\n"
-                                                                "Wednesday: day: 3, 0 - 0\n"
-                                                                "Thursday: day: 4, 0 - 0\n"
-                                                                "Friday: day: 5, 0 - 0\n"
-                                                                "Saturday: day: 6, 0 - 0\n"
-                                                                "Sunday: day: 7, 0 - 0\n"
-                                                                "\n"
-                                                                "\n");
+        BOOST_TEST_MESSAGE(TeamRepository::getInstance().info());
         BOOST_CHECK_EQUAL(TeamRepository::getInstance().get("S2")->getName(), "S2");
-        BOOST_CHECK_EQUAL(TeamRepository::getInstance().getAll()[0]->getName(), "S1");
         BOOST_CHECK_EQUAL(TeamRepository::getInstance().getAll().size(), 4);
         TeamRepository::getInstance().remove("S1");
-        BOOST_CHECK_EQUAL(TeamRepository::getInstance().getAll()[0]->getName(), "S2");
         BOOST_CHECK_EQUAL(TeamRepository::getInstance().getAll().size(), 3);
     }
 

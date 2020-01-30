@@ -10,12 +10,11 @@ teamWithThisNameExists::teamWithThisNameExists(const std::string &message)
         : logic_error(message) {}
 
 void TeamRepository::checkTeamName(const std::string &name) {
-    int i = 0;
-    while (i < (int) teamsRepository.size()) {
-        if (teamsRepository[i]->getName() == name) {
-            throw teamWithThisNameExists();
-        }
-        i++;
+    auto search = teamsRepository.find(name);
+    if (search != teamsRepository.end()) {
+        throw teamWithThisNameExists();
+    } else {
+        return;
     }
 }
 
@@ -26,43 +25,42 @@ TeamRepository &TeamRepository::getInstance() {
 
 void TeamRepository::add(const teamPtr &team) {
     checkTeamName(team->getName());
-    teamsRepository.push_back(team);
+    teamsRepository.insert(std::make_pair(team->getName(), team));
 }
 
 void TeamRepository::add(const std::string &name) {
-    teamPtr team = std::make_shared<Team>(name);
     checkTeamName(name);
-    teamsRepository.push_back(team);
+    teamsRepository.emplace(std::make_pair(name, std::make_shared<Team>(name)));
 }
 
 void TeamRepository::remove(const std::string &name) {
-    unsigned int it = 0;
-    for (const auto &t : teamsRepository) {
-        if (t->getName() == name) {
-            teamsRepository.erase(teamsRepository.begin() + it);
-            return;
-        }
-        ++it;
-    }
+    teamsRepository.erase(name);
 }
 
 const teamPtr &TeamRepository::get(const std::string &name) const {
-    for (const auto &t : teamsRepository) {
-        if (t->getName() == name) {
-            return t;
-        }
+    try
+    {
+        return teamsRepository.at(name);
+    } catch(std::out_of_range &error)
+    {
+        throw teamNotExist();
     }
-    throw teamNotExist();
 }
 
-const teams &TeamRepository::getAll() const {
-    return teamsRepository;
+teams TeamRepository::getAll() const {
+    teams allTeams;
+    allTeams.reserve(teamsRepository.size());
+    for(const auto &team : teamsRepository)
+    {
+        allTeams.push_back(team.second);
+    }
+    return allTeams;
 }
 
 std::string TeamRepository::info() const {
     std::ostringstream out;
-    for (const auto &t : teamsRepository) {
-        out << t->teamInfo() << std::endl;
+    for (const auto &team : teamsRepository) {
+        out << team.second->teamInfo() << std::endl;
     }
     return out.str();
 }

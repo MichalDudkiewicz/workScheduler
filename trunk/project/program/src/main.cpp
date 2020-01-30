@@ -1,10 +1,12 @@
 #include <iostream>
 #include "workScheduler.h"
 #include "fileStream.h"
+#include <chrono>
 
 using namespace std;
 
 int main() {
+    auto start = chrono::steady_clock::now();
     try {
         //INPUT CSV FILES
         input::employeeRepository("../../../dataset/input/admin/employeeRepository.csv");
@@ -25,5 +27,22 @@ int main() {
     }catch(FileException &error){
         cout<<error.message();
     }
+    auto end = chrono::steady_clock::now();
+
+    cout << "Elapsed time in nanoseconds : "
+         << chrono::duration_cast<chrono::nanoseconds>(end - start).count()
+         << " ns" << endl;
+
+    cout << "Elapsed time in microseconds : "
+         << chrono::duration_cast<chrono::microseconds>(end - start).count()
+         << " µs" << endl;
+
+    cout << "Elapsed time in milliseconds : "
+         << chrono::duration_cast<chrono::milliseconds>(end - start).count()
+         << " ms" << endl;
+
+    cout << "Elapsed time in seconds : "
+         << chrono::duration_cast<chrono::seconds>(end - start).count()
+         << " sec";
     return 0;
 }
