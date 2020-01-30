@@ -34,7 +34,7 @@ typedef std::shared_ptr<Position> positionPtr;
 
 namespace input
 {
-    std::vector<positionPtr> loadPositions();
+    void loadPositions();
     void employeeRepository(const std::string&) noexcept(false);
     void desiredSchedule(const std::string&) noexcept(false);
     void teamRepository(const std::string&) noexcept(false);

@@ -1,4 +1,5 @@
 #include "fileStream.h"
+#include "positionManager.h"
 #include "employeeManager.h"
 #include "teamRepository.h"
 #include "employeeRepository.h"
@@ -15,7 +16,7 @@
 #include "dispatcher.h"
 #include "driverN.h"
 #include "doctor.h"
-#include "medic.h"
+
 
 FileException::FileException(const std::string &message, std::string path) : logic_error(message), path(std::move(path))
 {}
@@ -41,27 +42,23 @@ PathException::PathException(const std::string &message, const std::string &path
 {}
 
 
-std::vector<positionPtr> input::loadPositions()
+void input::loadPositions()
 {
-    std::vector<positionPtr> allPositions;
     std::shared_ptr<Position> doctor = std::make_shared<Doctor>();
     std::shared_ptr<Position> rescuerS = std::make_shared<RescuerS>();
     std::shared_ptr<Position> driverS = std::make_shared<DriverS>();
     std::shared_ptr<Position> rescuerN = std::make_shared<RescuerN>();
     std::shared_ptr<Position> driverN = std::make_shared<DriverN>();
-    std::shared_ptr<Position> medic = std::make_shared<Medic>();
     std::shared_ptr<Position> medicalRecorder = std::make_shared<MedicalRecorder>();
     std::shared_ptr<Position> dispatcher = std::make_shared<Dispatcher>();
 
-    allPositions.push_back(doctor);
-    allPositions.push_back(rescuerS);
-    allPositions.push_back(driverS);
-    allPositions.push_back(rescuerN);
-    allPositions.push_back(driverN);
-    allPositions.push_back(medic);
-    allPositions.push_back(medicalRecorder);
-    allPositions.push_back(dispatcher);
-    return allPositions;
+    PositionManager::getInstance().add(doctor);
+    PositionManager::getInstance().add(rescuerS);
+    PositionManager::getInstance().add(driverS);
+    PositionManager::getInstance().add(rescuerN);
+    PositionManager::getInstance().add(driverN);
+    PositionManager::getInstance().add(medicalRecorder);
+    PositionManager::getInstance().add(dispatcher);
 }
 
 void input::employeeRepository(const std::string &path){
@@ -86,13 +83,8 @@ void input::employeeRepository(const std::string &path){
                 EmployeeManager::getInstance().get(stoi(row[0]))->setNonresident(
                         boost::lexical_cast<bool>(row[5]));
                 std::vector<unsigned int> positions = cellToRawValues<unsigned int>(row[6], ';');
-                for (auto &positionID : positions) {
-                    for (const auto &position : loadPositions()) {
-                        if (position->positionID() == positionID) {
-                            EmployeeManager::getInstance().get(stoi(row[0]))->addPosition(position);
-                            break;
-                        }
-                    }
+                for (const auto &positionID : positions) {
+                    EmployeeManager::getInstance().get(stoi(row.front()))->addPosition(PositionManager::getInstance().get(positionID));
                 }
                 std::vector<unsigned int> enemies = cellToRawValues<unsigned int>(row[7], ';');
                 for (const auto &enemyID : enemies) {
@@ -165,12 +157,7 @@ void input::teamRepository(const std::string &path) {
                 TeamManager::getInstance().addTeam(row.front());
                 std::vector<unsigned int> positions = cellToRawValues<unsigned int>(row[1], ';');
                 for (auto &positionID : positions) {
-                    for (const auto &position : loadPositions()) {
-                        if (position->positionID() == positionID) {
-                            TeamManager::getInstance().get(row.front())->addPosition(position);
-                            break;
-                        }
-                    }
+                    TeamManager::getInstance().get(row.front())->addPosition(PositionManager::getInstance().get(positionID));
                 }
             }
             ++rowNumber;

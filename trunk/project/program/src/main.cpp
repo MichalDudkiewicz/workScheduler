@@ -7,6 +7,7 @@ using namespace std;
 
 int main() {
     auto start = chrono::steady_clock::now();
+    input::loadPositions();
     try {
         //INPUT CSV FILES
         input::employeeRepository("../../../dataset/input/admin/employeeRepository.csv");
