@@ -7,6 +7,7 @@
 TeamQueues::TeamQueues(teamPtr t, const employees &authorisedEmployees) : team(std::move(t)) {
     for(auto &day : calendarOfQueues)
     {
+        day.reserve(team->getPositions().size());
         for (unsigned long j = 0; j < team->getPositions().size(); ++j) {
             day.emplace_back();
         }

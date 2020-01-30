@@ -12,6 +12,8 @@
 BOOST_AUTO_TEST_SUITE(TestSuiteCorrect)
 
     struct FixtureTeamTest {
+        typedef std::unique_ptr<std::vector<positionPtr>> positionsPtr;
+        typedef std::unique_ptr<std::vector<shiftPtr>> shiftsPtr;
         FixtureTeamTest()
                 : shiftsCopy(), shiftsOriginal(), positionsCopy(), positionsOriginal(),
                   shifts(new std::vector<shiftPtr>), positions(new std::vector<positionPtr>), doctor(new Doctor),

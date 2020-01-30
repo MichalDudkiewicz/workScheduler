@@ -6,11 +6,13 @@
 
 
 FinalSchedule::FinalSchedule(const teams &allTeams, const employees &allEmployees) {
+    allQueues.reserve(allTeams.size());
     for (const auto &team : allTeams) {
         allQueues.emplace_back(TeamQueues(team, allEmployees));
     }
     for(auto &day : schedule)
     {
+        day.reserve(allTeams.size());
         for (const auto &team : allTeams) {
             day.emplace_back(team->getPositions().size());
         }

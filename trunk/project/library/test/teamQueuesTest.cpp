@@ -11,6 +11,8 @@
 BOOST_AUTO_TEST_SUITE(TestSuiteCorrect)
 
     struct FixtureTeamQueuesTest {
+        typedef std::unique_ptr<std::vector<positionPtr>> positionsPtr;
+        typedef std::unique_ptr<std::vector<shiftPtr>> shiftsPtr;
         FixtureTeamQueuesTest() : shift1(new Shift(0, 10, 2)), shift2(new Shift(15, 20, 3)), shift3(new Shift(0, 9, 8)),
                                   shift4(new Shift(1, 3, 20)), shift5(new Shift(21, 24, 7)),
                                   shift6(new Shift(20, 24, 7)), shift7(new Shift(0, 10, 8)),
