@@ -7,25 +7,21 @@
 TeamQueues::TeamQueues(teamPtr t, const employees &authorisedEmployees) : team(std::move(t)) {
     for(auto &day : calendarOfQueues)
     {
-        day.reserve(team->getPositions().size());
-        for (unsigned long j = 0; j < team->getPositions().size(); ++j) {
-            day.emplace_back();
+        for (const auto &position : team->getPositions()) {
+            day.emplace(position, employees{});
         }
     }
-    unsigned int p;
     unsigned int day = 1;
-    for (auto &dayQueue : calendarOfQueues) {
+    for (auto &queuesOnDay : calendarOfQueues) {
         if (!team->getShifts()[calendar::whatDayOfWeek(day)]->isDayOff()) {
             team->getShifts()[calendar::whatDayOfWeek(day)]->setDay(day);
-            p = 0;
-            for (auto &positionQueue : dayQueue) {
+            for (auto &queueToPosition : queuesOnDay) {
                 for (const auto &employee : authorisedEmployees) {
-                    if (employee->isAuthorised(team->getPositions()[p]) and
+                    if (employee->isAuthorised(queueToPosition.first) and
                         employee->isAvailable(team->getShifts()[calendar::whatDayOfWeek(day)])) {
-                        positionQueue.push_front(employee);
+                        queueToPosition.second.push_front(employee);
                     }
                 }
-                p += 1;
             }
         }
         day += 1;
@@ -40,24 +36,21 @@ const teamPtr &TeamQueues::getTeam() const {
     return team;
 }
 
-void TeamQueues::queueSort(unsigned int d, unsigned int i) {
-    calendarOfQueues[d][i].sort(sortPointsTypeWorkHours());
+void TeamQueues::queueSort(unsigned int d, const positionPtr &position) {
+    calendarOfQueues[d].at(position).sort(sortPointsTypeWorkHours());
 }
 
 std::string TeamQueues::teamQueuesInfo() const {
     std::ostringstream out;
     unsigned int day = 1;
-    unsigned int p;
-    for (const auto &dayQueue : getTeamQueues()) {
+    for (const auto &queueOnDay : getTeamQueues()) {
         out << "day " << day << " shifts queue: " << std::endl;
-        p = 0;
-        for (const auto &positionQueue : dayQueue) {
-            out << getTeam()->getPositions()[p]->positionInfo() << ": ";
-            for (const auto &shift : positionQueue) {
-                out << shift->getId() << ", ";
+        for (const auto &queueToPosition : queueOnDay) {
+            out << queueToPosition.first -> positionInfo() << ": ";
+            for (const auto &employee : queueToPosition.second) {
+                out << employee->getId() << ", ";
             }
             out << std::endl;
-            p += 1;
         }
         day += 1;
         if (day > calendar::getNumberOfDays())

@@ -105,11 +105,11 @@ BOOST_AUTO_TEST_SUITE(TestSuiteCorrect)
 
     BOOST_FIXTURE_TEST_CASE(TeamQueuesCaseGetTeamQueues, FixtureTeamQueuesTest) {
         TeamQueues queue(team, employees);
-        BOOST_REQUIRE_EQUAL(queue.getTeamQueues()[0][0].empty(), true);
-        BOOST_REQUIRE_EQUAL(queue.getTeamQueues()[0][1].empty(), true);
-        BOOST_REQUIRE_EQUAL(queue.getTeamQueues()[1][0].empty(), true);
-        BOOST_REQUIRE_EQUAL(queue.getTeamQueues()[7][1].front()->getId(), 2);
-        BOOST_REQUIRE_EQUAL(queue.getTeamQueues()[19][0].size(), 1);
+        BOOST_REQUIRE_EQUAL(queue.getTeamQueues()[0].at(team -> getPositions()[0]).empty(), true);
+        BOOST_REQUIRE_EQUAL(queue.getTeamQueues()[0].at(team -> getPositions()[1]).empty(), true);
+        BOOST_REQUIRE_EQUAL(queue.getTeamQueues()[1].at(team -> getPositions()[0]).empty(), true);
+        BOOST_REQUIRE_EQUAL(queue.getTeamQueues()[7].at(team -> getPositions()[1]).front()->getId(), 2);
+        BOOST_REQUIRE_EQUAL(queue.getTeamQueues()[19].at(team -> getPositions()[0]).size(), 1);
     }
 
     BOOST_AUTO_TEST_CASE(TemaQueueTestSort){
@@ -153,9 +153,9 @@ BOOST_AUTO_TEST_SUITE(TestSuiteCorrect)
         team->addShift(8,12,1);
         team->addPosition(doctor);
         TeamQueues queues(team,employees);
-        queues.queueSort(d.day()-1,0);
-        BOOST_CHECK_EQUAL(queues.getTeamQueues()[d.day()-1][0].front(), employee3);
-        BOOST_CHECK_EQUAL(queues.getTeamQueues()[d.day()-1][0].back(), employee5);
+        queues.queueSort(d.day()-1,team -> getPositions()[0]);
+        BOOST_CHECK_EQUAL(queues.getTeamQueues()[d.day()-1].at(team -> getPositions()[0]).front(), employee3);
+        BOOST_CHECK_EQUAL(queues.getTeamQueues()[d.day()-1].at(team -> getPositions()[0]).back(), employee5);
         BOOST_TEST_MESSAGE(queues.teamQueuesInfo());
     }
 

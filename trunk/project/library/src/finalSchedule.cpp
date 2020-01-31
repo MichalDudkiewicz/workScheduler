@@ -25,11 +25,12 @@ void FinalSchedule::makeSchedule() {
     for (unsigned int day = 1; day <= calendar::getNumberOfDays() + 1; ++day) {
         teamId = 0;
         for (auto &d : allQueues) {
-            for (unsigned long it = 0; it < d.getTeam()->getPositions().size(); ++it) {
-                d.queueSort(day - 1, it);
+            unsigned int it = 0;
+            for (const auto &position : d.getTeam()->getPositions()){
+                d.queueSort(day - 1, position);
                 shiftPtr newShift(new Shift(d.getTeam()->getShifts()[calendar::whatDayOfWeek(day)]->getStartHour(),
                                             d.getTeam()->getShifts()[calendar::whatDayOfWeek(day)]->getEndHour(), day));
-                for (const auto &e : d.getTeamQueues()[day - 1][it]) {
+                for (const auto &e : d.getTeamQueues()[day - 1].at(position)) {
                     enemiesInTeam = false;
                     for (const auto &emp : schedule[day - 1][teamId]) {
                         if (!emp.empty()) {
@@ -45,6 +46,7 @@ void FinalSchedule::makeSchedule() {
                         break;
                     }
                 }
+                ++it;
             }
             ++teamId;
         }
