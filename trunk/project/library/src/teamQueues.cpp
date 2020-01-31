@@ -12,13 +12,15 @@ TeamQueues::TeamQueues(teamPtr t, const employees &authorisedEmployees) : team(s
         }
     }
     unsigned int day = 1;
+    unsigned int dayOfWeek;
     for (auto &queuesOnDay : calendarOfQueues) {
-        if (!team->getShifts()[calendar::whatDayOfWeek(day)]->isDayOff()) {
-            team->getShifts()[calendar::whatDayOfWeek(day)]->setDay(day);
+        dayOfWeek = calendar::whatDayOfWeek(day);
+        if (!team->getShifts()[dayOfWeek]->isDayOff()) {
+            team->getShifts()[dayOfWeek]->setDay(day);
             for (auto &queueToPosition : queuesOnDay) {
                 for (const auto &employee : authorisedEmployees) {
                     if (employee->isAuthorised(queueToPosition.first) and
-                        employee->isAvailable(team->getShifts()[calendar::whatDayOfWeek(day)])) {
+                        employee->isAvailable(team->getShifts()[dayOfWeek])) {
                         queueToPosition.second.push_front(employee);
                     }
                 }
