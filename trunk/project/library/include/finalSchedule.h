@@ -2,24 +2,23 @@
 #define finalScheduleClass
 
 #include "teamQueues.h"
+#include <map>
 
 class Team;
 typedef std::vector<TeamQueues> allTeamsQueues;
-typedef std::list<employeePtr> employees;
-typedef std::vector<employees> employeesOnPositionQueues;
-typedef std::vector<employeesOnPositionQueues> teamOnDayQueues;
 typedef std::shared_ptr<Team> teamPtr;
+typedef std::map<teamPtr, employeesToPosition> employeesToTeam;
 typedef std::list<teamPtr> teams;
 
 class FinalSchedule{
 private:
     allTeamsQueues allQueues{};
-    Calendar<teamOnDayQueues> schedule{};
+    Calendar<employeesToTeam> schedule{};
 public:
     FinalSchedule(const teams&, const employees&);
     void makeSchedule();
     void clear();
-    const Calendar<teamOnDayQueues>& getSchedule() const;
+    const Calendar<employeesToTeam>& getSchedule() const;
     std::string scheduleInfo() const;
 };
 

@@ -12,48 +12,46 @@ FinalSchedule::FinalSchedule(const teams &allTeams, const employees &allEmployee
     }
     for(auto &day : schedule)
     {
-        day.reserve(allTeams.size());
         for (const auto &team : allTeams) {
-            day.emplace_back(team->getPositions().size());
+            day.emplace(team, employeesToPosition{});
+            for(const auto &position : team -> getPositions())
+            {
+                day.at(team).emplace(position, employees{});
+            }
         }
     }
 }
 
 void FinalSchedule::makeSchedule() {
     bool enemiesInTeam;
-    unsigned int teamId;
     for (unsigned int day = 1; day <= calendar::getNumberOfDays() + 1; ++day) {
-        teamId = 0;
-        for (auto &d : allQueues) {
-            unsigned int it = 0;
-            for (const auto &position : d.getTeam()->getPositions()){
-                d.queueSort(day - 1, position);
-                shiftPtr newShift(new Shift(d.getTeam()->getShifts()[calendar::whatDayOfWeek(day)]->getStartHour(),
-                                            d.getTeam()->getShifts()[calendar::whatDayOfWeek(day)]->getEndHour(), day));
-                for (const auto &e : d.getTeamQueues()[day - 1].at(position)) {
+        for (auto &teamQueue : allQueues) {
+            for (const auto &position : teamQueue.getTeam()->getPositions()){
+                teamQueue.queueSort(day - 1, position);
+                shiftPtr newShift(new Shift(teamQueue.getTeam()->getShifts()[calendar::whatDayOfWeek(day)]->getStartHour(),
+                                            teamQueue.getTeam()->getShifts()[calendar::whatDayOfWeek(day)]->getEndHour(), day));
+                for (const auto &e : teamQueue.getTeamQueues()[day - 1].at(position)) {
                     enemiesInTeam = false;
-                    for (const auto &emp : schedule[day - 1][teamId]) {
-                        if (!emp.empty()) {
-                            if (emp.front()->isEnemyWith(e)) {
+                    for (const auto &employeesInTeam : schedule[day - 1].at(teamQueue.getTeam())) {
+                        if (!employeesInTeam.second.empty()) {
+                            if (employeesInTeam.second.front()->isEnemyWith(e)) {
                                 enemiesInTeam = true;
                                 break;
                             }
                         }
                     }
                     if (!e->isBusy(newShift) and !enemiesInTeam and e->getShiftsQuantity() < e->getMaxShifts()) {
-                        schedule[day - 1][teamId][it].push_front(e);
+                        schedule[day - 1].at(teamQueue.getTeam()).at(position).push_front(e);
                         e->addCurrentShift(newShift);
                         break;
                     }
                 }
-                ++it;
             }
-            ++teamId;
         }
     }
 }
 
-const Calendar<teamOnDayQueues> &FinalSchedule::getSchedule() const {
+const Calendar<employeesToTeam> &FinalSchedule::getSchedule() const {
     return schedule;
 }
 
@@ -73,12 +71,12 @@ std::string FinalSchedule::scheduleInfo() const {
     }
     out << std::endl;
     unsigned int day = 1;
-    for (const auto &d : schedule) {
+    for (const auto &queuesOnDay : schedule) {
         out << std::setw(2) << day << "|";
-        for (const auto &t : d) {
-            for (const auto &e : t) {
-                if (!e.empty()) {
-                    out << std::setw(4) << e.front()->getId() << "|";
+        for (const auto &team : queuesOnDay) {
+            for (const auto &employeesInTeam : team.second) {
+                if (!employeesInTeam.second.empty()) {
+                    out << std::setw(4) << employeesInTeam.second.front()->getId() << "|";
                 } else {
                     out << std::setw(4) << " " << "|";
                 }
@@ -96,9 +94,9 @@ std::string FinalSchedule::scheduleInfo() const {
 
 void FinalSchedule::clear() {
     for (auto &day : schedule) {
-        for (auto &teamQueues : day) {
-            for (auto &teamQueue : teamQueues) {
-                teamQueue.clear();
+        for (auto &team : day) {
+            for (auto &queueToPosition : team.second) {
+                queueToPosition.second.clear();
             }
         }
     }

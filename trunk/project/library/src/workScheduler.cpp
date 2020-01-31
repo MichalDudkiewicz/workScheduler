@@ -27,7 +27,7 @@ void WorkScheduler::updateSchedule() {
     createSchedule();
 }
 
-const Calendar<teamOnDayQueues> &WorkScheduler::getSchedule() const {
+const Calendar<employeesToTeam> &WorkScheduler::getSchedule() const {
     return schedule.getSchedule();
 }
 
@@ -66,11 +66,11 @@ std::ofstream &operator<<(std::ofstream &output, const WorkScheduler &scheduler)
             d = 1;
         output << d << ",";
         for (const auto &team : day) {
-            for (const auto &position : team) {
-                if (position.empty())
+            for (const auto &employeesOnPosition : team.second) {
+                if (employeesOnPosition.second.empty())
                     output << ",";
                 else {
-                    output << position.front()->getId() << ",";
+                    output << employeesOnPosition.second.front()->getId() << ",";
                 }
             }
         }

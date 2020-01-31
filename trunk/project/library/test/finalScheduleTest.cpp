@@ -10,7 +10,6 @@
 #include "finalSchedule.h"
 #include "boost/date_time/gregorian/gregorian.hpp"
 #include "calendar.h"
-#include <iostream>
 
 
 BOOST_AUTO_TEST_SUITE(TestSuiteCorrect)
@@ -48,13 +47,13 @@ BOOST_AUTO_TEST_SUITE(TestSuiteCorrect)
         FinalSchedule schedule(TeamRepository::getInstance().getAll(), EmployeeRepository::getInstance().getAll());
         schedule.makeSchedule();
         BOOST_TEST_MESSAGE(schedule.scheduleInfo());
-        BOOST_CHECK_EQUAL(schedule.getSchedule()[0][0][0].empty(), true);
-        BOOST_CHECK_EQUAL(schedule.getSchedule()[firstMonday.day() - 1][1].front().front()->getId(), 3);
-        BOOST_CHECK_EQUAL(schedule.getSchedule()[firstMonday.day()][0].front().front()->getId(), 3);
+        BOOST_CHECK_EQUAL(schedule.getSchedule()[0].at(TeamRepository::getInstance().getAll().front()).at(TeamRepository::getInstance().getAll().front()->getPositions().front()).empty(), true);
+        BOOST_CHECK_EQUAL(schedule.getSchedule()[firstMonday.day() - 1].at(TeamRepository::getInstance().get("S2")).at(TeamRepository::getInstance().get("S2")->getPositions().front()).front()->getId(), 3);
+        BOOST_CHECK_EQUAL(schedule.getSchedule()[firstMonday.day()].at(TeamRepository::getInstance().get("1")).at(TeamRepository::getInstance().get("1")->getPositions().front()).front()->getId(), 3);
         schedule.clear();
-        BOOST_CHECK_EQUAL(schedule.getSchedule()[0][0][0].empty(), true);
-        BOOST_CHECK_EQUAL(schedule.getSchedule()[firstMonday.day() - 1][0][0].empty(), true);
-        BOOST_CHECK_EQUAL(schedule.getSchedule()[firstMonday.day()][1][0].empty(), true);
+        BOOST_CHECK_EQUAL(schedule.getSchedule()[0].at(TeamRepository::getInstance().get("1")).at(TeamRepository::getInstance().get("1")->getPositions().front()).empty(), true);
+        BOOST_CHECK_EQUAL(schedule.getSchedule()[firstMonday.day() - 1].at(TeamRepository::getInstance().get("1")).at(TeamRepository::getInstance().get("1")->getPositions().front()).empty(), true);
+        BOOST_CHECK_EQUAL(schedule.getSchedule()[firstMonday.day()].at(TeamRepository::getInstance().get("S2")).at(TeamRepository::getInstance().get("S2")->getPositions().front()).empty(), true);
     }
 
 BOOST_AUTO_TEST_SUITE_END()

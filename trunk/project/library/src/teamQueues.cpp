@@ -28,7 +28,7 @@ TeamQueues::TeamQueues(teamPtr t, const employees &authorisedEmployees) : team(s
     }
 }
 
-const Calendar<queuesToPosition> &TeamQueues::getTeamQueues() const{
+const Calendar<employeesToPosition> &TeamQueues::getTeamQueues() const{
     return calendarOfQueues;
 }
 

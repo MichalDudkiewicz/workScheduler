@@ -12,15 +12,15 @@ typedef std::shared_ptr<Team> teamPtr;
 typedef std::shared_ptr<Employee> employeePtr;
 typedef std::list<employeePtr> employees;
 typedef std::shared_ptr<Position> positionPtr;
-typedef std::map<positionPtr, employees, comparePositionID> queuesToPosition;
+typedef std::map<positionPtr, employees, comparePositionID> employeesToPosition;
 
 class TeamQueues{
 private:
     teamPtr team;
-    Calendar<queuesToPosition> calendarOfQueues{};
+    Calendar<employeesToPosition> calendarOfQueues{};
 public:
     TeamQueues(teamPtr,const employees&);
-    const Calendar<queuesToPosition>& getTeamQueues() const;
+    const Calendar<employeesToPosition>& getTeamQueues() const;
     const teamPtr& getTeam() const;
     void queueSort(unsigned int, const positionPtr &position);
     std::string teamQueuesInfo() const;

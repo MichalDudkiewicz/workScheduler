@@ -5,6 +5,8 @@
 #include "calendar.h"
 #include "employee.h"
 #include "shift.h"
+#include "teamRepository.h"
+#include "team.h"
 
 BOOST_AUTO_TEST_SUITE(TestSuiteCorrect)
 
@@ -16,10 +18,10 @@ BOOST_AUTO_TEST_SUITE(TestSuiteCorrect)
         }
         WorkScheduler::getInstance().createSchedule();
         BOOST_TEST_MESSAGE(WorkScheduler::getInstance().scheduleInfo());
-        BOOST_CHECK_EQUAL(WorkScheduler::getInstance().getSchedule()[0][0][0].empty(),true);
-        BOOST_CHECK_EQUAL(WorkScheduler::getInstance().getSchedule()[firstMonday.day()-1][1].front().front()->getId(),2);
+        BOOST_CHECK_EQUAL(WorkScheduler::getInstance().getSchedule()[0].at(TeamRepository::getInstance().get("1")).at(TeamRepository::getInstance().get("1")->getPositions().front()).empty(),true);
+        BOOST_CHECK_EQUAL(WorkScheduler::getInstance().getSchedule()[firstMonday.day()-1].at(TeamRepository::getInstance().get("S2")).at(TeamRepository::getInstance().get("S2")->getPositions().front()).front()->getId(),2);
         WorkScheduler::getInstance().updateSchedule();
-        BOOST_CHECK_EQUAL(WorkScheduler::getInstance().getSchedule()[firstMonday.day()-1][1][0].empty(),true);
+        BOOST_CHECK_EQUAL(WorkScheduler::getInstance().getSchedule()[firstMonday.day()-1].at(TeamRepository::getInstance().get("S2")).at(TeamRepository::getInstance().get("S2")->getPositions().front()).empty(),true);
     }
 
 BOOST_AUTO_TEST_SUITE_END()
