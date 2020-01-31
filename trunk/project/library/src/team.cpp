@@ -11,34 +11,26 @@ Team::Team(std::string teamName) : name(std::move(teamName)) {
 }
 
 void Team::addShift(shiftPtr &shift) {
-    shifts.erase(shifts.begin() + shift->getDay() - 1);
-    shifts.insert(shifts.begin() + shift->getDay() - 1, std::move(shift));
+    shifts[shift->getDay() - 1] = std::move(shift);
 }
 
 void Team::addShift(unsigned int startHour, unsigned int endHour, unsigned int day) {
     shiftPtr shift(new Shift(startHour, endHour, day));
-    shifts.erase(shifts.begin() + shift->getDay() - 1);
-    shifts.insert(shifts.begin() + shift->getDay() - 1, std::move(shift));
+    addShift(shift);
 }
 
 void Team::removeShift(unsigned int day) {
-    shifts.erase(shifts.begin() + day - 1);
-    shifts.emplace(shifts.begin() + day - 1, new Shift(day));
+    shiftPtr shift(new Shift(day));
+    addShift(shift);
 }
 
 void Team::addPosition(const positionPtr &position) {
-    positionsRequired.push_back(position);
-    std::sort(positionsRequired.begin(), positionsRequired.end(), comparePositionID());
+    positionsRequired.push_front(position);
+    positionsRequired.sort(comparePositionID());
 }
 
 void Team::removePosition(const positionPtr &position) {
-    unsigned int i = 0;
-    for (auto &p : positionsRequired) {
-        if (p == position) {
-            positionsRequired.erase(positionsRequired.begin() + i);
-        }
-        ++i;
-    }
+    positionsRequired.remove(position);
 }
 
 std::string Team::positionsInfo() const {
@@ -53,10 +45,10 @@ std::string Team::positionsInfo() const {
 std::string Team::shiftsInfo() const {
     std::ostringstream out;
     out << "Team shifts: " << std::endl;
-    unsigned int it = 0;
+    unsigned int weekDay = 0;
     for (const auto &shift : shifts) {
-        out << calendar::getWeekDay(it) << ": " << shift->shiftInfo() << std::endl;
-        it++;
+        out << calendar::getWeekDay(weekDay) << ": " << shift->shiftInfo() << std::endl;
+        weekDay++;
     }
     return out.str();
 }
@@ -71,7 +63,7 @@ const std::string &Team::getName() const {
     return name;
 }
 
-const std::vector<positionPtr> &Team::getPositions() const {
+const positions &Team::getPositions() const {
     return positionsRequired;
 }
 

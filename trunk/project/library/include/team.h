@@ -3,17 +3,19 @@
 
 #include <string>
 #include <memory>
+#include <list>
 #include <vector>
 
 class Position;
 class Shift;
 typedef std::unique_ptr<Shift> shiftPtr;
 typedef std::shared_ptr<Position> positionPtr;
+typedef std::list<positionPtr> positions;
 
 class Team{
 private:
     std::string name;
-    std::vector<positionPtr> positionsRequired{};
+    positions positionsRequired{};
     std::vector<shiftPtr> shifts{};
 public:
     explicit Team(std::string);
@@ -24,7 +26,7 @@ public:
     std::string shiftsInfo() const;
     std::string teamInfo() const;
     const std::string& getName() const;
-    const std::vector<positionPtr>& getPositions() const;
+    const positions& getPositions() const;
     const std::vector<shiftPtr>& getShifts() const;
     void setName(std::string);
     void addShift(shiftPtr&);

@@ -110,8 +110,8 @@ BOOST_AUTO_TEST_SUITE(TestSuiteCorrect)
         (*team).addPosition(doctor);
         (*team).addPosition(medic);
         BOOST_CHECK_EQUAL((*team).getPositions().size(), 2);
-        BOOST_CHECK_EQUAL((*team).getPositions()[0]->positionID(), 1);
-        BOOST_CHECK_EQUAL((*team).getPositions()[1]->positionID(), 6);
+        BOOST_CHECK_EQUAL((*team).getPositions().front()->positionID(), 1);
+        BOOST_CHECK_EQUAL((*team).getPositions().back()->positionID(), 6);
     }
 
     BOOST_FIXTURE_TEST_CASE(TeamEditShiftCase, FixtureTeamTest) {

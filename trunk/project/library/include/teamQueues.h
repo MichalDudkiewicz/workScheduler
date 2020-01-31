@@ -2,17 +2,17 @@
 #define teamQueuesClass
 
 #include "calendar.h"
+#include "position.h"
 #include <list>
 #include <map>
 
 class Team;
 class Employee;
-class Position;
 typedef std::shared_ptr<Team> teamPtr;
 typedef std::shared_ptr<Employee> employeePtr;
 typedef std::list<employeePtr> employees;
 typedef std::shared_ptr<Position> positionPtr;
-typedef std::map<positionPtr, employees> queuesToPosition;
+typedef std::map<positionPtr, employees, comparePositionID> queuesToPosition;
 
 class TeamQueues{
 private:

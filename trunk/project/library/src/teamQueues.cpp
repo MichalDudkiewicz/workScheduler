@@ -36,8 +36,8 @@ const teamPtr &TeamQueues::getTeam() const {
     return team;
 }
 
-void TeamQueues::queueSort(unsigned int d, const positionPtr &position) {
-    calendarOfQueues[d].at(position).sort(sortPointsTypeWorkHours());
+void TeamQueues::queueSort(unsigned int day, const positionPtr &position) {
+    calendarOfQueues[day].at(position).sort(sortPointsTypeWorkHours());
 }
 
 std::string TeamQueues::teamQueuesInfo() const {
