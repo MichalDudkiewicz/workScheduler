@@ -2,10 +2,7 @@
 #define positionManagerClass
 
 #include "manager.h"
-
-class Position;
-typedef std::shared_ptr<Position> positionPtr;
-typedef std::list<positionPtr> positions;
+#include "typeDefinitions.h"
 
 class PositionManager : public Manager<Position, unsigned int> {
 private:

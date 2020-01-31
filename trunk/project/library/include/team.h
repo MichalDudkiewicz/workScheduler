@@ -2,15 +2,7 @@
 #define teamClass
 
 #include <string>
-#include <memory>
-#include <list>
-#include <vector>
-
-class Position;
-class Shift;
-typedef std::unique_ptr<Shift> shiftPtr;
-typedef std::shared_ptr<Position> positionPtr;
-typedef std::list<positionPtr> positions;
+#include "typeDefinitions.h"
 
 class Team{
 private:

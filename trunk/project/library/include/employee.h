@@ -2,7 +2,7 @@
 #define employeeClass
 
 #include "employeeSchedule.h"
-#include <list>
+#include "typeDefinitions.h"
 
 class ValueException: public std::logic_error{
 public:
@@ -15,15 +15,7 @@ public:
 };
 
 class EmployeeType;
-class Position;
-class Employee;
-class  Shift;
-typedef std::shared_ptr<Employee> employeePtr;
-typedef std::list<employeePtr> employees;
 typedef std::shared_ptr<EmployeeType> employeeTypePtr;
-typedef std::shared_ptr<Position> positionPtr;
-typedef std::list<positionPtr> positions;
-typedef std::unique_ptr<Shift> shiftPtr;
 
 class Employee : public std::enable_shared_from_this<Employee>{
 private:

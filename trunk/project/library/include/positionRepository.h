@@ -3,10 +3,7 @@
 
 #include "repository.h"
 #include <unordered_map>
-
-class Position;
-typedef std::shared_ptr<Position> positionPtr;
-typedef std::list<positionPtr> positions;
+#include "typeDefinitions.h"
 
 class PositionRepository : public Repository<Position, unsigned int>{
 private:

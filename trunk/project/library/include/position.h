@@ -2,7 +2,7 @@
 #define positionClass
 
 #include <string>
-#include <memory>
+#include "typeDefinitions.h"
 
 class Position{
 public:
@@ -12,8 +12,6 @@ public:
     virtual unsigned int positionID() const=0;
     virtual std::string shortcut() const=0;
 };
-
-typedef std::shared_ptr<Position> positionPtr;
 
 struct comparePositionID{
     bool operator()(const positionPtr& p1, const positionPtr& p2) const{

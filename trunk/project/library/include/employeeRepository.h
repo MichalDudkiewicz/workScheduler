@@ -1,11 +1,10 @@
 #ifndef employeeRepositoryClass
 #define employeeRepositoryClass
 
-#include <vector>
-#include <memory>
 #include <string>
 #include <unordered_map>
 #include "repository.h"
+#include "typeDefinitions.h"
 
 class EmployeeNotFound: public std::logic_error{
 public:
@@ -15,14 +14,6 @@ class EmployeeWithThisIdExist: public std::logic_error{
 public:
     explicit EmployeeWithThisIdExist(const std::string &message = "Employee with this id exists. ");
 };
-
-class Employee;
-class Position;
-class Team;
-typedef std::shared_ptr<Employee> employeePtr;
-typedef std::list<employeePtr> employees;
-typedef std::shared_ptr<Position> positionPtr;
-typedef std::shared_ptr<Team> teamPtr;
 
 class EmployeeRepository : public Repository<Employee,unsigned int>{
 private:

@@ -3,12 +3,10 @@
 
 #include "teamQueues.h"
 #include <map>
+#include "typeDefinitions.h"
 
-class Team;
 typedef std::vector<TeamQueues> allTeamsQueues;
-typedef std::shared_ptr<Team> teamPtr;
 typedef std::map<teamPtr, employeesToPosition> employeesToTeam;
-typedef std::list<teamPtr> teams;
 
 class FinalSchedule{
 private:

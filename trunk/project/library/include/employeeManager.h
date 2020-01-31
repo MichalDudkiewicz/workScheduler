@@ -3,9 +3,7 @@
 
 #include <fstream>
 #include "manager.h"
-
-class Employee;
-typedef std::shared_ptr<Employee> employeePtr;
+#include "typeDefinitions.h"
 
 class EmployeeManager : public Manager<Employee, unsigned int>{
 private:

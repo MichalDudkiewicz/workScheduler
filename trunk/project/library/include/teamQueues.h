@@ -3,15 +3,9 @@
 
 #include "calendar.h"
 #include "position.h"
-#include <list>
 #include <map>
+#include "typeDefinitions.h"
 
-class Team;
-class Employee;
-typedef std::shared_ptr<Team> teamPtr;
-typedef std::shared_ptr<Employee> employeePtr;
-typedef std::list<employeePtr> employees;
-typedef std::shared_ptr<Position> positionPtr;
 typedef std::map<positionPtr, employees, comparePositionID> employeesToPosition;
 
 class TeamQueues{

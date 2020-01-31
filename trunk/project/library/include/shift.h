@@ -2,7 +2,7 @@
 #define shiftClass
 
 #include <string>
-#include <memory>
+#include "typeDefinitions.h"
 
 class Shift{
 private:
@@ -27,8 +27,6 @@ public:
     void setDay(unsigned int);
     bool isDayOff() const;
 };
-
-typedef std::unique_ptr<Shift> shiftPtr;
 
 struct compareShiftStartHour{
     bool operator()(const shiftPtr&, const shiftPtr&) const;

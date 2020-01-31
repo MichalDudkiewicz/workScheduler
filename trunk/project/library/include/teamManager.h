@@ -3,9 +3,7 @@
 
 #include <fstream>
 #include "manager.h"
-
-class Team;
-typedef std::shared_ptr<Team> teamPtr;
+#include "typeDefinitions.h"
 
 class TeamManager : public Manager<Team, std::string>{
 private:

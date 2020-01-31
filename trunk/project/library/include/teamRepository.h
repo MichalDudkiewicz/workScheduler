@@ -3,6 +3,7 @@
 
 #include "repository.h"
 #include <unordered_map>
+#include "typeDefinitions.h"
 
 class teamNotExist: public std::logic_error{
 public:
@@ -12,10 +13,6 @@ class teamWithThisNameExists: public std::logic_error{
 public:
     explicit teamWithThisNameExists(const std::string &message = "Team with this name already exists.");
 };
-
-class Team;
-typedef std::shared_ptr<Team> teamPtr;
-typedef std::list<teamPtr> teams;
 
 class TeamRepository : Repository<Team,std::string>{
 private:

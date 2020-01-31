@@ -2,10 +2,7 @@
 #define employeeScheduleClass
 
 #include "calendar.h"
-
-class Shift;
-typedef std::unique_ptr<Shift> shiftPtr;
-typedef std::vector<shiftPtr> shifts;
+#include "typeDefinitions.h"
 
 class EmployeeSchedule{
 private:

@@ -25,7 +25,7 @@ set(SOURCE_FILES
         src/workScheduler.cpp
         src/teamManager.cpp
         src/employeeManager.cpp
-        include/manager.h src/positionRepository.cpp include/positionRepository.h src/positionManager.cpp include/positionManager.h)
+        include/manager.h src/positionRepository.cpp include/positionRepository.h src/positionManager.cpp include/positionManager.h include/typeDefinitions.h)
 #utwórz bibliotekę typu STATIC, SHARED albo MODULE ze wskazanych źródeł
 add_library(Library ${SOURCE_FILES})
 
