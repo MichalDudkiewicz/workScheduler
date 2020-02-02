@@ -7,6 +7,7 @@
 #include <memory>
 #include "calendar.h"
 #include "shift.h"
+#include <iostream>
 
 BOOST_AUTO_TEST_SUITE(TestSuiteCorrect)
 
@@ -108,8 +109,8 @@ BOOST_AUTO_TEST_SUITE(TestSuiteCorrect)
         BOOST_REQUIRE_EQUAL(queue.getTeamQueues()[0].at(team -> getPositions().front()).empty(), true);
         BOOST_REQUIRE_EQUAL(queue.getTeamQueues()[0].at(team -> getPositions().back()).empty(), true);
         BOOST_REQUIRE_EQUAL(queue.getTeamQueues()[1].at(team -> getPositions().front()).empty(), true);
-        BOOST_REQUIRE_EQUAL(queue.getTeamQueues()[7].at(team -> getPositions().back()).front()->getId(), 2);
-        BOOST_REQUIRE_EQUAL(queue.getTeamQueues()[19].at(team -> getPositions().front()).size(), 1);
+        BOOST_REQUIRE_EQUAL(queue.getTeamQueues()[11].at(team -> getPositions().back()).front()->getId(), 2);
+        BOOST_REQUIRE_EQUAL(queue.getTeamQueues()[11].at(team -> getPositions().front()).size(), 1);
     }
 
     BOOST_AUTO_TEST_CASE(TemaQueueTestSort){

@@ -16,6 +16,7 @@
 #include "dispatcher.h"
 #include "driverN.h"
 #include "doctor.h"
+#include <iostream>
 
 
 FileException::FileException(const std::string &message, std::string path) : logic_error(message), path(std::move(path))
@@ -180,6 +181,7 @@ void input::desiredSchedule(const std::string &path) {
         row.push_back(cell);
         ++columnNumber;
         if (columnNumber == calendar::getNumberOfDays() + 2) {
+            getline(desSchedStream, cell, '\n');
             columnNumber = 0;
             if (rowNumber > 0) {
                 unsigned int day = 0;
