@@ -88,7 +88,7 @@ std::vector<employees> EmployeeRepository::getByTeam(const teamPtr &team) const 
 employees EmployeeRepository::getByType(unsigned int typeID) const {
     employees employeesByType;
     for (const auto &employee : employeesRepository) {
-        if (employee.second->getType()->getPriority() == typeID) {
+        if (employee.second->getRules().getType()->getPriority() == typeID) {
             employeesByType.push_front(employee.second);
         }
     }
@@ -104,7 +104,7 @@ std::string EmployeeRepository::getStatisticsByID(unsigned int id) const {
 employees EmployeeRepository::getAllUnsatisfied() const {
     employees unsatisfied;
     for (const auto &employee : employeesRepository) {
-        if (employee.second->getMinShifts() > employee.second->getAvailability().getShiftsQuantity()) {
+        if (employee.second->getRules().getMinShifts() > employee.second->getAvailability().getShiftsQuantity()) {
             unsatisfied.push_front(employee.second);
         }
     }

@@ -41,7 +41,7 @@ void FinalSchedule::makeSchedule() {
                         }
                     }
                     if (!e->getAvailability().isBusy(newShift) and !enemiesInTeam and
-                            e->getAvailability().getShiftsQuantity() < e->getMaxShifts()) {
+                            e->getAvailability().getShiftsQuantity() < e->getRules().getMaxShifts()) {
                         schedule[day - 1].at(teamQueue.getTeam()).at(position).push_front(e);
                         e->getAvailability().getCurrentSchedule().addShift(newShift);
                         break;

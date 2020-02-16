@@ -139,14 +139,14 @@ BOOST_AUTO_TEST_SUITE(TestSuiteCorrect)
         employees.push_back(employee3);
         employees.push_back(employee4);
         employees.push_back(employee5);
-        (*employee1).setPoints(10);
-        (*employee2).setPoints(5);
-        (*employee3).setPoints(22);
-        (*employee4).setPoints(5);
-        (*employee5).setPoints(5);
-        (*employee2).changeType(2);
-        (*employee3).changeType(0);
-        (*employee3).changeType(2);
+        (*employee1).getRules().setPoints(10);
+        (*employee2).getRules().setPoints(5);
+        (*employee3).getRules().setPoints(22);
+        (*employee4).getRules().setPoints(5);
+        (*employee5).getRules().setPoints(5);
+        (*employee2).getRules().changeType(2);
+        (*employee3).getRules().changeType(0);
+        (*employee3).getRules().changeType(2);
         boost::gregorian::date d(calendar::getStartDate());
         while(d.day_of_week()!=1)
         {

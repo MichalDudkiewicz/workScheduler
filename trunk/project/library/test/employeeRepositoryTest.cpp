@@ -46,8 +46,8 @@ BOOST_AUTO_TEST_SUITE(TestSuiteCorrect)
                                                                                   "hours worked: 0\n"
                                                                                   "wage/hour: 0\n"
                                                                                   "\n");
-        (*mateush).setMinShifts(1);
-        (*janusz).setMinShifts(20);
+        (*mateush).getRules().setMinShifts(1);
+        (*janusz).getRules().setMinShifts(20);
         BOOST_CHECK_EQUAL(EmployeeRepository::getInstance().getAllUnsatisfied().size(), 2);
         EmployeeRepository::getInstance().remove(5);
         BOOST_TEST_MESSAGE(EmployeeRepository::getInstance().info());

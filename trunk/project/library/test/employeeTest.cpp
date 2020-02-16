@@ -37,15 +37,15 @@ BOOST_AUTO_TEST_SUITE(TestSuiteCorrect)
 
     BOOST_FIXTURE_TEST_CASE(EmployeeConstructorCase, FixtureEmployeeTest) {
         Employee employee11("Paulina", 5);
-        BOOST_CHECK_EQUAL(employee11.getPriority(), 1);
+        BOOST_CHECK_EQUAL(employee11.getRules().getType()->getPriority(), 1);
         BOOST_CHECK_EQUAL(employee11.getName(), "Paulina");
-        BOOST_CHECK_EQUAL(employee11.getPoints(), 0);
-        BOOST_CHECK_EQUAL(employee11.getType()->getType(), "normal");
+        BOOST_CHECK_EQUAL(employee11.getRules().getPoints(), 0);
+        BOOST_CHECK_EQUAL(employee11.getRules().getType()->getType(), "normal");
         BOOST_CHECK_EQUAL(employee11.getId(), 5);
         BOOST_CHECK_EQUAL(employee11.getHourlyWage(), 0);
-        BOOST_CHECK_EQUAL(employee11.getMaxShifts(), 100);
-        BOOST_CHECK_EQUAL(employee11.getMinShifts(), 0);
-        BOOST_CHECK_EQUAL(employee11.isNonresident(), false);
+        BOOST_CHECK_EQUAL(employee11.getRules().getMaxShifts(), 100);
+        BOOST_CHECK_EQUAL(employee11.getRules().getMinShifts(), 0);
+        BOOST_CHECK_EQUAL(employee11.getRules().isNonresident(), false);
         BOOST_CHECK_EQUAL(employee11.getAvailability().getWorkHours(), 0);
         BOOST_CHECK_EQUAL(employee11.getAvailability().getShiftsQuantity(), 0);
         BOOST_CHECK_EQUAL(employee11.getRelationship().getMyEnemies().size(), 0);
@@ -75,15 +75,15 @@ BOOST_AUTO_TEST_SUITE(TestSuiteCorrect)
     }
 
     BOOST_FIXTURE_TEST_CASE(EmployeeChangeResidencyCase, FixtureEmployeeTest) {
-        (*employee0).setNonresident(true);
-        BOOST_CHECK_EQUAL((*employee0).isNonresident(), true);
+        (*employee0).getRules().setNonresident(true);
+        BOOST_CHECK_EQUAL((*employee0).getRules().isNonresident(), true);
     }
 
     BOOST_FIXTURE_TEST_CASE(EmployeeSetShiftsLimitCase, FixtureEmployeeTest) {
-        (*employee0).setMinShifts(5);
-        (*employee0).setMaxShifts(10);
-        BOOST_CHECK_EQUAL((*employee0).getMinShifts(), 5);
-        BOOST_CHECK_EQUAL((*employee0).getMaxShifts(), 10);
+        (*employee0).getRules().setMinShifts(5);
+        (*employee0).getRules().setMaxShifts(10);
+        BOOST_CHECK_EQUAL((*employee0).getRules().getMinShifts(), 5);
+        BOOST_CHECK_EQUAL((*employee0).getRules().getMaxShifts(), 10);
     }
 
     BOOST_FIXTURE_TEST_CASE(EmployeeSetWageCase, FixtureEmployeeTest) {
@@ -92,18 +92,18 @@ BOOST_AUTO_TEST_SUITE(TestSuiteCorrect)
     }
 
     BOOST_FIXTURE_TEST_CASE(EmployeeSetPointsCase, FixtureEmployeeTest) {
-        (*employee0).setPoints(5);
-        BOOST_CHECK_EQUAL((*employee0).getPoints(), 5);
-        (*employee0).changePoints(5);
-        (*employee0).changePoints(-1);
-        BOOST_CHECK_EQUAL((*employee0).getPoints(), 9);
+        (*employee0).getRules().setPoints(5);
+        BOOST_CHECK_EQUAL((*employee0).getRules().getPoints(), 5);
+        (*employee0).getRules().changePoints(5);
+        (*employee0).getRules().changePoints(-1);
+        BOOST_CHECK_EQUAL((*employee0).getRules().getPoints(), 9);
     }
 
     BOOST_FIXTURE_TEST_CASE(EmployeeChangeTypeCase, FixtureEmployeeTest) {
-        (*employee0).changeType(0);
-        BOOST_CHECK_EQUAL((*employee0).getPriority(), 0);
-        (*employee0).changeType(2);
-        BOOST_CHECK_EQUAL((*employee0).getPriority(), 2);
+        (*employee0).getRules().changeType(0);
+        BOOST_CHECK_EQUAL((*employee0).getRules().getType()->getPriority(), 0);
+        (*employee0).getRules().changeType(2);
+        BOOST_CHECK_EQUAL((*employee0).getRules().getType()->getPriority(), 2);
     }
 
     BOOST_FIXTURE_TEST_CASE(EmployeeAddRemovePositionCase, FixtureEmployeeTest) {

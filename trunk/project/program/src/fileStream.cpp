@@ -79,13 +79,13 @@ void input::employeeRepository(const std::string &path){
             if (rowNumber > 0) {
                 EmployeeManager::getInstance().add(stoi(row[0]), row[1]);
                 EmployeeManager::getInstance().get(stoi(row[0]))->setHourlyWage(stoi(row[2]));
-                EmployeeManager::getInstance().get(stoi(row[0]))->setPoints(stoi(row[3]));
-                EmployeeManager::getInstance().get(stoi(row[0]))->changeType(stoi(row[4]));
+                EmployeeManager::getInstance().get(stoi(row[0]))->getRules().setPoints(stoi(row[3]));
+                EmployeeManager::getInstance().get(stoi(row[0]))->getRules().changeType(stoi(row[4]));
                 for(const auto &team : TeamManager::getInstance().getAll())
                 {
                     EmployeeManager::getInstance().get(stoi(row[0]))->getAuthorisation().addTeam(team);
                 }
-                EmployeeManager::getInstance().get(stoi(row[0]))->setNonresident(
+                EmployeeManager::getInstance().get(stoi(row[0]))->getRules().setNonresident(
                         boost::lexical_cast<bool>(row[5]));
                 std::vector<unsigned int> positions = cellToRawValues<unsigned int>(row[6], ';');
                 for (const auto &positionID : positions) {
