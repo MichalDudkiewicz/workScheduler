@@ -17,6 +17,7 @@
 #include "driverN.h"
 #include "doctor.h"
 #include <iostream>
+#include "factor.h"
 
 
 FileException::FileException(const std::string &message, std::string path) : logic_error(message), path(std::move(path))
@@ -79,22 +80,22 @@ void input::employeeRepository(const std::string &path){
             if (rowNumber > 0) {
                 EmployeeManager::getInstance().add(stoi(row[0]), row[1]);
                 EmployeeManager::getInstance().get(stoi(row[0]))->setHourlyWage(stoi(row[2]));
-                EmployeeManager::getInstance().get(stoi(row[0]))->getRules().setPoints(stoi(row[3]));
-                EmployeeManager::getInstance().get(stoi(row[0]))->getRules().changeType(stoi(row[4]));
+                EmployeeManager::getInstance().get(stoi(row[0]))->getFactor()->getRules().setPoints(stoi(row[3]));
+                EmployeeManager::getInstance().get(stoi(row[0]))->getFactor()->getRules().changeType(stoi(row[4]));
                 for(const auto &team : TeamManager::getInstance().getAll())
                 {
-                    EmployeeManager::getInstance().get(stoi(row[0]))->getAuthorisation().addTeam(team);
+                    EmployeeManager::getInstance().get(stoi(row[0]))->getFactor()->getAuthorisation().addTeam(team);
                 }
-                EmployeeManager::getInstance().get(stoi(row[0]))->getRules().setNonresident(
+                EmployeeManager::getInstance().get(stoi(row[0]))->getFactor()->getRules().setNonresident(
                         boost::lexical_cast<bool>(row[5]));
                 std::vector<unsigned int> positions = cellToRawValues<unsigned int>(row[6], ';');
                 for (const auto &positionID : positions) {
-                    EmployeeManager::getInstance().get(stoi(row.front()))->getAuthorisation().addPosition(PositionManager::getInstance().get(positionID));
+                    EmployeeManager::getInstance().get(stoi(row.front()))->getFactor()->getAuthorisation().addPosition(PositionManager::getInstance().get(positionID));
                 }
                 std::vector<unsigned int> enemies = cellToRawValues<unsigned int>(row[7], ';');
                 for (const auto &enemyID : enemies) {
                     if (enemyID < stoul(row[0])) {
-                        EmployeeManager::getInstance().get(stoi(row[0]))->getRelationship().addEnemy(
+                        EmployeeManager::getInstance().get(stoi(row[0]))->getFactor()->getRelationship().addEnemy(
                                 EmployeeManager::getInstance().get(enemyID));
                     }
                 }
@@ -195,7 +196,7 @@ void input::desiredSchedule(const std::string &path) {
                         for (auto &shift : shifts) {
                             std::vector<unsigned int> shiftHours = cellToRawValues<unsigned int>(shift, '-');
                             try {
-                                EmployeeManager::getInstance().get(stoi(row[0]))->getAvailability().getDesiredSchedule().addShift(shiftHours[0],
+                                EmployeeManager::getInstance().get(stoi(row[0]))->getFactor()->getAvailability().getDesiredSchedule().addShift(shiftHours[0],
                                                                                                                                   shiftHours[1],
                                                                                                                                   day);
                             }catch(EmployeeNotFound &error) {

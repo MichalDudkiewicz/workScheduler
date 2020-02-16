@@ -7,7 +7,7 @@
 #include <memory>
 #include "calendar.h"
 #include "shift.h"
-#include <iostream>
+#include "factor.h"
 
 BOOST_AUTO_TEST_SUITE(TestSuiteCorrect)
 
@@ -25,24 +25,24 @@ BOOST_AUTO_TEST_SUITE(TestSuiteCorrect)
                                   monday(new Shift(1, 2, 1)), tuesday(new Shift(22, 6, 2)), wednesday(new Shift(3)),
                                   thursday(new Shift(0, 7, 4)), friday(new Shift(21, 5, 5)),
                                   saturday(new Shift(3, 10, 6)), sunday(new Shift(20, 23, 7)), employees() {
-            (*palinka).getAvailability().getDesiredSchedule().addShift(shift1);
-            (*palinka).getAvailability().getDesiredSchedule().addShift(shift2);
-            (*palinka).getAvailability().getDesiredSchedule().addShift(shift3);
-            (*palinka).getAvailability().getDesiredSchedule().addShift(shift4);
-            (*palinka).getAvailability().getDesiredSchedule().addShift(shift5);
-            (*palinka).getAvailability().getDesiredSchedule().addShift(shift11);
-            (*palinka).getAvailability().getDesiredSchedule().addShift(shift13);
-            (*mateusz).getAvailability().getDesiredSchedule().addShift(shift6);
-            (*mateusz).getAvailability().getDesiredSchedule().addShift(shift7);
-            (*mateusz).getAvailability().getDesiredSchedule().addShift(shift8);
-            (*mateusz).getAvailability().getDesiredSchedule().addShift(shift9);
-            (*mateusz).getAvailability().getDesiredSchedule().addShift(shift10);
-            (*mateusz).getAvailability().getDesiredSchedule().addShift(shift12);
-            (*mateusz).getAvailability().getDesiredSchedule().addShift(shift14);
+            (*palinka).getFactor()->getAvailability().getDesiredSchedule().addShift(shift1);
+            (*palinka).getFactor()->getAvailability().getDesiredSchedule().addShift(shift2);
+            (*palinka).getFactor()->getAvailability().getDesiredSchedule().addShift(shift3);
+            (*palinka).getFactor()->getAvailability().getDesiredSchedule().addShift(shift4);
+            (*palinka).getFactor()->getAvailability().getDesiredSchedule().addShift(shift5);
+            (*palinka).getFactor()->getAvailability().getDesiredSchedule().addShift(shift11);
+            (*palinka).getFactor()->getAvailability().getDesiredSchedule().addShift(shift13);
+            (*mateusz).getFactor()->getAvailability().getDesiredSchedule().addShift(shift6);
+            (*mateusz).getFactor()->getAvailability().getDesiredSchedule().addShift(shift7);
+            (*mateusz).getFactor()->getAvailability().getDesiredSchedule().addShift(shift8);
+            (*mateusz).getFactor()->getAvailability().getDesiredSchedule().addShift(shift9);
+            (*mateusz).getFactor()->getAvailability().getDesiredSchedule().addShift(shift10);
+            (*mateusz).getFactor()->getAvailability().getDesiredSchedule().addShift(shift12);
+            (*mateusz).getFactor()->getAvailability().getDesiredSchedule().addShift(shift14);
 
-            (*mateusz).getAuthorisation().addPosition(doctor);
-            (*mateusz).getAuthorisation().addPosition(medic);
-            (*palinka).getAuthorisation().addPosition(medic);
+            (*mateusz).getFactor()->getAuthorisation().addPosition(doctor);
+            (*mateusz).getFactor()->getAuthorisation().addPosition(medic);
+            (*palinka).getFactor()->getAuthorisation().addPosition(medic);
 
             (*team).addShift(monday);
             (*team).addShift(tuesday);
@@ -110,8 +110,8 @@ BOOST_AUTO_TEST_SUITE(TestSuiteCorrect)
     }
 
     BOOST_FIXTURE_TEST_CASE(TeamQueuesCaseGetTeamQueues, FixtureTeamQueuesTest) {
-        palinka -> getAuthorisation().addTeam(team);
-        mateusz -> getAuthorisation().addTeam(team);
+        palinka -> getFactor()->getAuthorisation().addTeam(team);
+        mateusz -> getFactor()->getAuthorisation().addTeam(team);
         TeamQueues queue(team, employees);
         BOOST_REQUIRE_EQUAL(queue.getTeamQueues()[0].at(team -> getPositions().front()).empty(), true);
         BOOST_REQUIRE_EQUAL(queue.getTeamQueues()[0].at(team -> getPositions().back()).empty(), true);
@@ -128,41 +128,41 @@ BOOST_AUTO_TEST_SUITE(TestSuiteCorrect)
         std::shared_ptr<Employee> employee4 = std::make_shared<Employee>("Justyna", 4);
         std::shared_ptr<Employee> employee5 = std::make_shared<Employee>("Jacek", 5);
         std::list<employeePtr> employees;
-        (*employee1).getAuthorisation().addPosition(doctor);
-        (*employee2).getAuthorisation().addPosition(doctor);
-        (*employee3).getAuthorisation().addPosition(doctor);
-        (*employee4).getAuthorisation().addPosition(doctor);
-        (*employee5).getAuthorisation().addPosition(doctor);
-        (*employee5).getAvailability().getCurrentSchedule().addShift(1, 5, 22);
+        (*employee1).getFactor()->getAuthorisation().addPosition(doctor);
+        (*employee2).getFactor()->getAuthorisation().addPosition(doctor);
+        (*employee3).getFactor()->getAuthorisation().addPosition(doctor);
+        (*employee4).getFactor()->getAuthorisation().addPosition(doctor);
+        (*employee5).getFactor()->getAuthorisation().addPosition(doctor);
+        (*employee5).getFactor()->getAvailability().getCurrentSchedule().addShift(1, 5, 22);
         employees.push_back(employee1);
         employees.push_back(employee2);
         employees.push_back(employee3);
         employees.push_back(employee4);
         employees.push_back(employee5);
-        (*employee1).getRules().setPoints(10);
-        (*employee2).getRules().setPoints(5);
-        (*employee3).getRules().setPoints(22);
-        (*employee4).getRules().setPoints(5);
-        (*employee5).getRules().setPoints(5);
-        (*employee2).getRules().changeType(2);
-        (*employee3).getRules().changeType(0);
-        (*employee3).getRules().changeType(2);
+        (*employee1).getFactor()->getRules().setPoints(10);
+        (*employee2).getFactor()->getRules().setPoints(5);
+        (*employee3).getFactor()->getRules().setPoints(22);
+        (*employee4).getFactor()->getRules().setPoints(5);
+        (*employee5).getFactor()->getRules().setPoints(5);
+        (*employee2).getFactor()->getRules().changeType(2);
+        (*employee3).getFactor()->getRules().changeType(0);
+        (*employee3).getFactor()->getRules().changeType(2);
         boost::gregorian::date d(calendar::getStartDate());
         while(d.day_of_week()!=1)
         {
             d += boost::gregorian::days(1);
         }
-        (*employee1).getAvailability().getDesiredSchedule().addShift(0, 15, d.day());
-        (*employee2).getAvailability().getDesiredSchedule().addShift(2, 12, d.day());
-        (*employee3).getAvailability().getDesiredSchedule().addShift(5, 14, d.day());
-        (*employee4).getAvailability().getDesiredSchedule().addShift(7, 14, d.day());
-        (*employee5).getAvailability().getDesiredSchedule().addShift(7, 14, d.day());
+        (*employee1).getFactor()->getAvailability().getDesiredSchedule().addShift(0, 15, d.day());
+        (*employee2).getFactor()->getAvailability().getDesiredSchedule().addShift(2, 12, d.day());
+        (*employee3).getFactor()->getAvailability().getDesiredSchedule().addShift(5, 14, d.day());
+        (*employee4).getFactor()->getAvailability().getDesiredSchedule().addShift(7, 14, d.day());
+        (*employee5).getFactor()->getAvailability().getDesiredSchedule().addShift(7, 14, d.day());
         std::shared_ptr<Team> team = std::make_shared<Team>("S1");
-        employee1->getAuthorisation().addTeam(team);
-        employee2->getAuthorisation().addTeam(team);
-        employee3->getAuthorisation().addTeam(team);
-        employee4->getAuthorisation().addTeam(team);
-        employee5->getAuthorisation().addTeam(team);
+        employee1->getFactor()->getAuthorisation().addTeam(team);
+        employee2->getFactor()->getAuthorisation().addTeam(team);
+        employee3->getFactor()->getAuthorisation().addTeam(team);
+        employee4->getFactor()->getAuthorisation().addTeam(team);
+        employee5->getFactor()->getAuthorisation().addTeam(team);
         team->addShift(8,12,1);
         team->addPosition(doctor);
         TeamQueues queues(team,employees);

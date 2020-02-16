@@ -8,6 +8,7 @@
 #include "doctor.h"
 #include "driverN.h"
 #include "shift.h"
+#include "factor.h"
 
 BOOST_AUTO_TEST_SUITE(TestSuiteCorrect)
 
@@ -19,10 +20,10 @@ BOOST_AUTO_TEST_SUITE(TestSuiteCorrect)
         std::shared_ptr<Position> doctor = std::make_shared<Doctor>();
         std::shared_ptr<Position> medic = std::make_shared<Medic>();
         std::shared_ptr<Position> driver = std::make_shared<DriverN>();
-        (*mateush).getAuthorisation().addPosition(medic);
-        (*mateush).getAuthorisation().addPosition(doctor);
-        (*paulina).getAuthorisation().addPosition(medic);
-        (*michal).getAuthorisation().addPosition(doctor);
+        (*mateush).getFactor()->getAuthorisation().addPosition(medic);
+        (*mateush).getFactor()->getAuthorisation().addPosition(doctor);
+        (*paulina).getFactor()->getAuthorisation().addPosition(medic);
+        (*michal).getFactor()->getAuthorisation().addPosition(doctor);
         std::shared_ptr<Team> team = std::make_shared<Team>("S1");
         (*team).addPosition(doctor);
         (*team).addPosition(medic);
@@ -46,8 +47,8 @@ BOOST_AUTO_TEST_SUITE(TestSuiteCorrect)
                                                                                   "hours worked: 0\n"
                                                                                   "wage/hour: 0\n"
                                                                                   "\n");
-        (*mateush).getRules().setMinShifts(1);
-        (*janusz).getRules().setMinShifts(20);
+        (*mateush).getFactor()->getRules().setMinShifts(1);
+        (*janusz).getFactor()->getRules().setMinShifts(20);
         BOOST_CHECK_EQUAL(EmployeeRepository::getInstance().getAllUnsatisfied().size(), 2);
         EmployeeRepository::getInstance().remove(5);
         BOOST_TEST_MESSAGE(EmployeeRepository::getInstance().info());

@@ -10,6 +10,7 @@
 #include "finalSchedule.h"
 #include "boost/date_time/gregorian/gregorian.hpp"
 #include "calendar.h"
+#include "factor.h"
 
 
 BOOST_AUTO_TEST_SUITE(TestSuiteCorrect)
@@ -36,18 +37,18 @@ BOOST_AUTO_TEST_SUITE(TestSuiteCorrect)
         positionPtr medic = std::make_shared<Medic>();
         positionPtr driver = std::make_shared<DriverN>();
 
-        EmployeeRepository::getInstance().get(2)->getAvailability().getDesiredSchedule().addShift(4, 11, firstMonday.day());
-        EmployeeRepository::getInstance().get(2)->getAvailability().getDesiredSchedule().addShift(9, 16, firstMonday.day() + 1);
-        EmployeeRepository::getInstance().get(3)->getAvailability().getDesiredSchedule().addShift(4, 11, firstMonday.day());
-        EmployeeRepository::getInstance().get(3)->getAvailability().getDesiredSchedule().addShift(9, 16, firstMonday.day() + 1);
+        EmployeeRepository::getInstance().get(2)->getFactor()->getAvailability().getDesiredSchedule().addShift(4, 11, firstMonday.day());
+        EmployeeRepository::getInstance().get(2)->getFactor()->getAvailability().getDesiredSchedule().addShift(9, 16, firstMonday.day() + 1);
+        EmployeeRepository::getInstance().get(3)->getFactor()->getAvailability().getDesiredSchedule().addShift(4, 11, firstMonday.day());
+        EmployeeRepository::getInstance().get(3)->getFactor()->getAvailability().getDesiredSchedule().addShift(9, 16, firstMonday.day() + 1);
 
-        EmployeeRepository::getInstance().get(2)->getAuthorisation().addPosition(medic);
-        EmployeeRepository::getInstance().get(3)->getAuthorisation().addPosition(driver);
+        EmployeeRepository::getInstance().get(2)->getFactor()->getAuthorisation().addPosition(medic);
+        EmployeeRepository::getInstance().get(3)->getFactor()->getAuthorisation().addPosition(driver);
 
-        EmployeeRepository::getInstance().get(2)->getAuthorisation().addTeam(TeamRepository::getInstance().get("S2"));
-        EmployeeRepository::getInstance().get(2)->getAuthorisation().addTeam(TeamRepository::getInstance().get("1"));
-        EmployeeRepository::getInstance().get(3)->getAuthorisation().addTeam(TeamRepository::getInstance().get("S2"));
-        EmployeeRepository::getInstance().get(3)->getAuthorisation().addTeam(TeamRepository::getInstance().get("1"));
+        EmployeeRepository::getInstance().get(2)->getFactor()->getAuthorisation().addTeam(TeamRepository::getInstance().get("S2"));
+        EmployeeRepository::getInstance().get(2)->getFactor()->getAuthorisation().addTeam(TeamRepository::getInstance().get("1"));
+        EmployeeRepository::getInstance().get(3)->getFactor()->getAuthorisation().addTeam(TeamRepository::getInstance().get("S2"));
+        EmployeeRepository::getInstance().get(3)->getFactor()->getAuthorisation().addTeam(TeamRepository::getInstance().get("1"));
 
         FinalSchedule schedule(TeamRepository::getInstance().getAll(), EmployeeRepository::getInstance().getAll());
         schedule.makeSchedule();

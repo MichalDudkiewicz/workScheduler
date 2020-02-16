@@ -3,6 +3,7 @@
 #include "team.h"
 #include "shift.h"
 #include "position.h"
+#include "factor.h"
 
 TeamQueues::TeamQueues(teamPtr t, const employees &authorisedEmployees) : team(std::move(t)) {
     for(auto &day : calendarOfQueues)
@@ -19,8 +20,8 @@ TeamQueues::TeamQueues(teamPtr t, const employees &authorisedEmployees) : team(s
             team->getShifts()[dayOfWeek]->setDay(day);
             for (auto &queueToPosition : queuesOnDay) {
                 for (const auto &employee : authorisedEmployees) {
-                    if (employee->getAuthorisation().isAuthorised(queueToPosition.first, team) and
-                            employee->getAvailability().isAvailable(team->getShifts()[dayOfWeek])) {
+                    if (employee->getFactor()->getAuthorisation().isAuthorised(queueToPosition.first, team) and
+                            employee->getFactor()->getAvailability().isAvailable(team->getShifts()[dayOfWeek])) {
                         queueToPosition.second.push_front(employee);
                     }
                 }

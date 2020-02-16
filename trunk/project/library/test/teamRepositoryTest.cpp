@@ -8,6 +8,7 @@
 #include "doctor.h"
 #include "driverN.h"
 #include "shift.h"
+#include "factor.h"
 
 BOOST_AUTO_TEST_SUITE(TestSuiteCorrect)
 
@@ -19,10 +20,10 @@ BOOST_AUTO_TEST_SUITE(TestSuiteCorrect)
         std::shared_ptr<Position> doctor = std::make_shared<Doctor>();
         std::shared_ptr<Position> medic = std::make_shared<Medic>();
         std::shared_ptr<Position> driver = std::make_shared<DriverN>();
-        (*mateush).getAuthorisation().addPosition(medic);
-        (*mateush).getAuthorisation().addPosition(doctor);
-        (*palinka).getAuthorisation().addPosition(medic);
-        (*michal).getAuthorisation().addPosition(doctor);
+        (*mateush).getFactor()->getAuthorisation().addPosition(medic);
+        (*mateush).getFactor()->getAuthorisation().addPosition(doctor);
+        (*palinka).getFactor()->getAuthorisation().addPosition(medic);
+        (*michal).getFactor()->getAuthorisation().addPosition(doctor);
         std::shared_ptr<Team> teamS1 = std::make_shared<Team>("S1");
         std::shared_ptr<Team> teamS2 = std::make_shared<Team>("S2");
         std::shared_ptr<Team> team1 = std::make_shared<Team>("1");

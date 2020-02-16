@@ -7,7 +7,7 @@ class Authorisation {
 private:
     positions myPositions{};
     teams myTeams{};
-    friend Employee;
+    friend class Factor;
     explicit Authorisation()= default;
     Authorisation(const Authorisation&)= default;
     Authorisation& operator=(const Authorisation&)= default;

@@ -6,6 +6,7 @@
 #include "team.h"
 #include "shift.h"
 #include "workScheduler.h"
+#include "factor.h"
 
 BOOST_AUTO_TEST_SUITE(TestSuiteCorrect)
 
@@ -38,7 +39,7 @@ BOOST_AUTO_TEST_SUITE(TestSuiteCorrect)
         TeamRepository::getInstance().add("S1");
         input::teamSchedule("../../../dataset/.test/teamSchedule.csv");
         input::desiredSchedule("../../../dataset/.test/desiredSchedules.csv");
-        BOOST_REQUIRE_EQUAL(EmployeeRepository::getInstance().get(2)->getAvailability().getDesiredSchedule().scheduleInfo(), "day: 1, 0 - 24\n"
+        BOOST_REQUIRE_EQUAL(EmployeeRepository::getInstance().get(2)->getFactor()->getAvailability().getDesiredSchedule().scheduleInfo(), "day: 1, 0 - 24\n"
                 "day: 3, 0 - 24\n"
                                                                                             "day: 8, 0 - 24\n"
                                                                                             "day: 9, 0 - 24\n"

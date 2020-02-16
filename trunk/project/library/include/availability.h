@@ -8,7 +8,7 @@ class Availability {
 private:
     EmployeeSchedule desiredSchedule;
     EmployeeSchedule currentSchedule;
-    friend Employee;
+    friend class Factor;
     Availability();
 public:
     unsigned int getWorkHours() const;

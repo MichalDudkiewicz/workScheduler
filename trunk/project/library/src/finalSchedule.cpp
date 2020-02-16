@@ -3,6 +3,7 @@
 #include "team.h"
 #include "position.h"
 #include "shift.h"
+#include "factor.h"
 
 
 FinalSchedule::FinalSchedule(const teams &allTeams, const employees &allEmployees) {
@@ -34,16 +35,16 @@ void FinalSchedule::makeSchedule() {
                     enemiesInTeam = false;
                     for (const auto &employeesInTeam : schedule[day - 1].at(teamQueue.getTeam())) {
                         if (!employeesInTeam.second.empty()) {
-                            if (employeesInTeam.second.front()->getRelationship().isEnemyWith(e)) {
+                            if (employeesInTeam.second.front()->getFactor()->getRelationship().isEnemyWith(e)) {
                                 enemiesInTeam = true;
                                 break;
                             }
                         }
                     }
-                    if (!e->getAvailability().isBusy(newShift) and !enemiesInTeam and
-                            e->getAvailability().getShiftsQuantity() < e->getRules().getMaxShifts()) {
+                    if (!e->getFactor()->getAvailability().isBusy(newShift) and !enemiesInTeam and
+                            e->getFactor()->getAvailability().getShiftsQuantity() < e->getFactor()->getRules().getMaxShifts()) {
                         schedule[day - 1].at(teamQueue.getTeam()).at(position).push_front(e);
-                        e->getAvailability().getCurrentSchedule().addShift(newShift);
+                        e->getFactor()->getAvailability().getCurrentSchedule().addShift(newShift);
                         break;
                     }
                 }

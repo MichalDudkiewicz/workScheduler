@@ -3,7 +3,7 @@
 #include "team.h"
 #include "employeeType.h"
 #include "shift.h"
-#include "authorisation.h"
+#include "factor.h"
 
 EmployeeNotFound::EmployeeNotFound(const std::string &message)
         : logic_error(message) {}
@@ -70,7 +70,7 @@ const employeePtr &EmployeeRepository::get(const unsigned int &id) const {
 employees EmployeeRepository::getByPosition(const positionPtr &position) const {
     employees employeesByPosition;
     for (const auto &employee : employeesRepository) {
-        if (employee.second->getAuthorisation().positionMatch(position)) {
+        if (employee.second->getFactor()->getAuthorisation().positionMatch(position)) {
             employeesByPosition.push_front(employee.second);
         }
     }
@@ -88,7 +88,7 @@ std::vector<employees> EmployeeRepository::getByTeam(const teamPtr &team) const 
 employees EmployeeRepository::getByType(unsigned int typeID) const {
     employees employeesByType;
     for (const auto &employee : employeesRepository) {
-        if (employee.second->getRules().getType()->getPriority() == typeID) {
+        if (employee.second->getFactor()->getRules().getType()->getPriority() == typeID) {
             employeesByType.push_front(employee.second);
         }
     }
@@ -104,7 +104,7 @@ std::string EmployeeRepository::getStatisticsByID(unsigned int id) const {
 employees EmployeeRepository::getAllUnsatisfied() const {
     employees unsatisfied;
     for (const auto &employee : employeesRepository) {
-        if (employee.second->getRules().getMinShifts() > employee.second->getAvailability().getShiftsQuantity()) {
+        if (employee.second->getFactor()->getRules().getMinShifts() > employee.second->getFactor()->getAvailability().getShiftsQuantity()) {
             unsatisfied.push_front(employee.second);
         }
     }

@@ -24,7 +24,7 @@ private:
     int points;
     bool nonresident;
     employeeTypePtr employeeType;
-    friend class Employee;
+    friend class Factor;
     Rules();
 public:
     void setPoints(int);

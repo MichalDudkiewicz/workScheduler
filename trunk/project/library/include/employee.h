@@ -2,22 +2,15 @@
 #define employeeClass
 
 #include "typeDefinitions.h"
-#include "relationship.h"
-#include "authorisation.h"
-#include "availability.h"
-#include "rules.h"
-
+class Factor;
+typedef std::unique_ptr<Factor> factorPtr;
 
 class Employee {
 private:
     std::string name;
     unsigned int id;
     unsigned int hourlyWage;
-    Availability availability;
-    Authorisation authorisation;
-    Relationship relationship;
-    friend Relationship;
-    Rules rules;
+    factorPtr factor;
 public:
     Employee(std::string, unsigned int);
     std::string employeeInfo() const;
@@ -25,10 +18,7 @@ public:
     void setHourlyWage(unsigned int);
     const std::string& getName() const;
     unsigned int getId() const;
-    Authorisation& getAuthorisation();
-    Availability& getAvailability();
-    Relationship& getRelationship();
-    Rules& getRules();
+    const factorPtr& getFactor() const;
 };
 
 struct sortPointsTypeWorkHours{

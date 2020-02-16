@@ -5,6 +5,7 @@
 #include "employeeType.h"
 #include "calendar.h"
 #include "shift.h"
+#include "factor.h"
 
 EmployeeManager &EmployeeManager::getInstance() {
     static EmployeeManager instance;
@@ -39,13 +40,13 @@ std::ofstream &operator<<(std::ofstream &output, const EmployeeManager &manager)
     output << "ID,name,wage,points,priority,nonresident,positions,enemies," << std::endl;
     for (const auto &employee : manager.getAll()) {
         output << employee->getId() << "," << employee->getName() << "," << employee->getHourlyWage() << ","
-                 << employee->getRules().getPoints() << "," << employee->getRules().getType()->getPriority() << ","
-                 << employee->getRules().isNonresident() << ",";
-        for (const auto &position : employee->getAuthorisation().getPositions()) {
+                 << employee->getFactor()->getRules().getPoints() << "," << employee->getFactor()->getRules().getType()->getPriority() << ","
+                 << employee->getFactor()->getRules().isNonresident() << ",";
+        for (const auto &position : employee->getFactor()->getAuthorisation().getPositions()) {
             output << position->positionID() << ";";
         }
         output << ",";
-        for (const auto &enemy : employee->getRelationship().getMyEnemies()) {
+        for (const auto &enemy : employee->getFactor()->getRelationship().getMyEnemies()) {
             output << enemy->getId() << ";";
         }
         output << ",";
@@ -62,7 +63,7 @@ std::ofstream &operator<(std::ofstream &output, const EmployeeManager &manager) 
     output << "1" << "," << std::endl;
     for (const auto &employee : manager.getAll()) {
         output << employee->getId() << ",";
-        for (const auto &shifts : employee->getAvailability().getDesiredSchedule().getSchedule()) {
+        for (const auto &shifts : employee->getFactor()->getAvailability().getDesiredSchedule().getSchedule()) {
             for (const auto &shift : shifts) {
                 output << shift->getStartHour() << "-" << shift->getEndHour() << ";";
             }

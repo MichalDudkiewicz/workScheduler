@@ -1,32 +1,33 @@
 #include "relationship.h"
 #include "employee.h"
 #include "shift.h"
+#include "factor.h"
 
 void Relationship::addFriend(Employee *employee) {
     friends.push_front(employee);
-    if(!employee->relationship.isFriendWith(relationshipOwner))
-        employee->relationship.addFriend(relationshipOwner);
+    if(!employee->getFactor()->getRelationship().isFriendWith(relationshipOwner))
+        employee->getFactor()->getRelationship().addFriend(relationshipOwner);
     removeEnemy(employee);
 }
 
 void Relationship::removeFriend(Employee *employee) {
     friends.remove(employee);
-    if (employee->relationship.isFriendWith(relationshipOwner)) {
-        employee->relationship.removeFriend(relationshipOwner);
+    if (employee->getFactor()->getRelationship().isFriendWith(relationshipOwner)) {
+        employee->getFactor()->getRelationship().removeFriend(relationshipOwner);
     }
 }
 
 void Relationship::addEnemy(Employee *employee) {
     enemies.push_front(employee);
-    if(!employee->relationship.isEnemyWith(relationshipOwner))
-        employee->relationship.enemies.push_front(relationshipOwner);
+    if(!employee->getFactor()->getRelationship().isEnemyWith(relationshipOwner))
+        employee->getFactor()->getRelationship().enemies.push_front(relationshipOwner);
     removeFriend(employee);
 }
 
 void Relationship::removeEnemy(Employee *employee) {
     enemies.remove(employee);
-    if (employee->relationship.isEnemyWith(relationshipOwner)) {
-        employee->relationship.removeEnemy(relationshipOwner);
+    if (employee->getFactor()->getRelationship().isEnemyWith(relationshipOwner)) {
+        employee->getFactor()->getRelationship().removeEnemy(relationshipOwner);
     }
 }
 
