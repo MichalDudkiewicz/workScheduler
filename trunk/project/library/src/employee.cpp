@@ -22,7 +22,7 @@ static const employeeTypePtr needyEmployee = std::make_shared<NeedyEmployee>();
 Employee::Employee(std::string name, unsigned int id) : name(std::move(name)), nonresident(false), points(0), id(id),
                                                         maxShifts(100), minShifts(0), hourlyWage(0),
                                                         employeeType(normalEmployee), desiredSchedule(),
-                                                        currentSchedule() {}
+                                                        currentSchedule() , relationship(this) {}
 
 std::string Employee::employeeInfo() const {
     std::ostringstream out;
@@ -146,55 +146,27 @@ void Employee::removePosition(const positionPtr &position) {
 }
 
 void Employee::addFriend(const employeePtr &employee) {
-    friends.push_front(employee);
-    employee->friends.push_front(shared_from_this());
-    removeEnemy(employee);
+    relationship.addFriend(employee.get());
 }
 
 void Employee::removeFriend(const employeePtr &employee) {
-    friends.remove(employee);
-    if (employee->isFriendWith(shared_from_this())) {
-        employee->removeFriend(shared_from_this());
-    }
+    relationship.removeFriend(employee.get());
 }
 
 void Employee::addEnemy(const employeePtr &employee) {
-    enemies.push_front(employee);
-    employee->enemies.push_front(shared_from_this());
-    removeFriend(employee);
+    relationship.addEnemy(employee.get());
 }
 
 void Employee::removeEnemy(const employeePtr &employee) {
-    enemies.remove(employee);
-    if (employee->isEnemyWith(shared_from_this())) {
-        employee->removeEnemy(shared_from_this());
-    }
+    relationship.removeEnemy(employee.get());
 }
 
 bool Employee::isFriendWith(const employeePtr &employee) const {
-    for (const auto &e : friends) {
-        if (e -> getId() == employee -> getId()) {
-            return true;
-        }
-    }
-    return false;
+    return relationship.isFriendWith(employee.get());
 }
 
 bool Employee::isEnemyWith(const employeePtr &employee) const {
-    for (const auto &e : enemies) {
-        if (e -> getId() == employee -> getId()) {
-            return true;
-        }
-    }
-    return false;
-}
-
-const employees &Employee::getMyFriends() const {
-    return friends;
-}
-
-const employees &Employee::getMyEnemies() const {
-    return enemies;
+    return relationship.isEnemyWith(employee.get());
 }
 
 bool Employee::isNonresident() const {
@@ -297,4 +269,12 @@ void Employee::addTeam(const teamPtr &team) {
 
 void Employee::removeTeam(const teamPtr &team) {
     myTeams.remove(team);
+}
+
+const std::list<Employee*> &Employee::getMyEnemies() const {
+    return relationship.getMyEnemies();
+}
+
+const std::list<Employee*> &Employee::getMyFriends() const {
+    return relationship.getMyFriends();
 }

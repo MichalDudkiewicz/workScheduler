@@ -3,6 +3,7 @@
 
 #include "employeeSchedule.h"
 #include "typeDefinitions.h"
+#include "relationship.h"
 
 class ValueException: public std::logic_error{
 public:
@@ -29,10 +30,10 @@ private:
     employeeTypePtr employeeType;
     positions myPositions{};
     teams myTeams{};
-    employees friends{};
-    employees enemies{};
     EmployeeSchedule desiredSchedule;
     EmployeeSchedule currentSchedule;
+    Relationship relationship;
+    friend Relationship;
 public:
     Employee(std::string, unsigned int);
     std::string employeeInfo() const;
@@ -62,8 +63,8 @@ public:
     void removeEnemy(const employeePtr&);
     bool isFriendWith(const employeePtr&) const;
     bool isEnemyWith(const employeePtr&) const;
-    const employees& getMyEnemies() const;
-    const employees& getMyFriends() const;
+    const std::list<Employee*>& getMyEnemies() const;
+    const std::list<Employee*>& getMyFriends() const;
     bool isNonresident() const;
     void setNonresident(bool);
     void changeType(unsigned int);
