@@ -8,10 +8,11 @@ private:
     std::list<Employee*> friends{};
     std::list<Employee*> enemies{};
     Employee* relationshipOwner;
-public:
+    friend Employee;
     explicit Relationship(Employee *employee);
     Relationship(const Relationship&)= default;
     Relationship& operator=(const Relationship&)= default;
+public:
     void addFriend(Employee *employee);
     void removeFriend(Employee *employee);
     void addEnemy(Employee *employee);

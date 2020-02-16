@@ -9,10 +9,10 @@ private:
     teams myTeams{};
     Employee *authorisationOwner;
     friend Employee;
-public:
     explicit Authorisation(Employee *employee);
     Authorisation(const Authorisation&)= default;
     Authorisation& operator=(const Authorisation&)= default;
+public:
     bool isAuthorised(const positionPtr &position, const teamPtr &team);
     bool positionMatch(const positionPtr &position) const;
     const positions &getPositions() const;

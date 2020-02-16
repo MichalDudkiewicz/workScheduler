@@ -62,7 +62,7 @@ std::ofstream &operator<(std::ofstream &output, const EmployeeManager &manager) 
     output << "1" << "," << std::endl;
     for (const auto &employee : manager.getAll()) {
         output << employee->getId() << ",";
-        for (const auto &shifts : employee->getEmployeeSchedules().getDesiredSchedule()) {
+        for (const auto &shifts : employee->getEmployeeSchedules().getDesiredSchedule().getSchedule()) {
             for (const auto &shift : shifts) {
                 output << shift->getStartHour() << "-" << shift->getEndHour() << ";";
             }

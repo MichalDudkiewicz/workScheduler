@@ -44,3 +44,8 @@ std::string EmployeeSchedule::scheduleInfo() const {
     }
     return out.str();
 }
+
+void EmployeeSchedule::addShift(unsigned int startHour, unsigned int endHour, unsigned int day) {
+    shiftPtr shift(new Shift(startHour, endHour, day));
+    addShift(shift);
+}

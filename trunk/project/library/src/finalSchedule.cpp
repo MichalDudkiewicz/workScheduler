@@ -42,7 +42,7 @@ void FinalSchedule::makeSchedule() {
                     }
                     if (!e->getEmployeeSchedules().isBusy(newShift) and !enemiesInTeam and e->getEmployeeSchedules().getShiftsQuantity() < e->getMaxShifts()) {
                         schedule[day - 1].at(teamQueue.getTeam()).at(position).push_front(e);
-                        e->getEmployeeSchedules().addCurrentShift(newShift);
+                        e->getEmployeeSchedules().getCurrentSchedule().addShift(newShift);
                         break;
                     }
                 }
