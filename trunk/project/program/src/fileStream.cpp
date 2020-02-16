@@ -83,13 +83,13 @@ void input::employeeRepository(const std::string &path){
                 EmployeeManager::getInstance().get(stoi(row[0]))->changeType(stoi(row[4]));
                 for(const auto &team : TeamManager::getInstance().getAll())
                 {
-                    EmployeeManager::getInstance().get(stoi(row[0]))->addTeam(team);
+                    EmployeeManager::getInstance().get(stoi(row[0]))->getAuthorisation().addTeam(team);
                 }
                 EmployeeManager::getInstance().get(stoi(row[0]))->setNonresident(
                         boost::lexical_cast<bool>(row[5]));
                 std::vector<unsigned int> positions = cellToRawValues<unsigned int>(row[6], ';');
                 for (const auto &positionID : positions) {
-                    EmployeeManager::getInstance().get(stoi(row.front()))->addPosition(PositionManager::getInstance().get(positionID));
+                    EmployeeManager::getInstance().get(stoi(row.front()))->getAuthorisation().addPosition(PositionManager::getInstance().get(positionID));
                 }
                 std::vector<unsigned int> enemies = cellToRawValues<unsigned int>(row[7], ';');
                 for (const auto &enemyID : enemies) {

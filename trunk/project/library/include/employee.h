@@ -48,9 +48,6 @@ public:
     const std::string& getName() const;
     unsigned int getId() const;
     const employeeTypePtr& getType() const;
-    const positions& getPositions() const;
-    void addPosition(const positionPtr&);
-    void removePosition(const positionPtr&);
     void addFriend(const employeePtr&);
     void removeFriend(const employeePtr&);
     void addEnemy(const employeePtr&);
@@ -63,11 +60,7 @@ public:
     void setNonresident(bool);
     void changeType(unsigned int);
     unsigned int getPriority() const;
-    bool isAuthorised(const positionPtr&, const teamPtr&);
-    const teams& getTeams() const;
-    void addTeam(const teamPtr&);
-    void removeTeam(const teamPtr&);
-    const Authorisation& getAuthorisation() const;
+    Authorisation& getAuthorisation();
     EmployeeSchedules& getEmployeeSchedules();
 };
 

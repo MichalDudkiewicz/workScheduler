@@ -19,7 +19,7 @@ static const employeeTypePtr needyEmployee = std::make_shared<NeedyEmployee>();
 
 Employee::Employee(std::string name, unsigned int id) : name(std::move(name)), nonresident(false), points(0), id(id),
                                                         maxShifts(100), minShifts(0), hourlyWage(0),
-                                                        employeeType(normalEmployee), employeeSchedules(), authorisation(this), relationship(this) {}
+                                                        employeeType(normalEmployee), employeeSchedules(), authorisation(), relationship(this) {}
 
 std::string Employee::employeeInfo() const {
     std::ostringstream out;
@@ -81,22 +81,6 @@ const employeeTypePtr &Employee::getType() const {
     return employeeType;
 }
 
-const positions &Employee::getPositions() const {
-    return authorisation.getPositions();
-}
-
-
-
-
-void Employee::addPosition(const positionPtr &position) {
-    authorisation.myPositions.push_front(position);
-    authorisation.myPositions.sort(comparePositionID());
-}
-
-void Employee::removePosition(const positionPtr &position) {
-    authorisation.myPositions.remove(position);
-}
-
 void Employee::addFriend(const employeePtr &employee) {
     relationship.addFriend(employee.get());
 }
@@ -145,11 +129,6 @@ unsigned int Employee::getPriority() const {
     return employeeType->getPriority();
 }
 
-
-bool Employee::isAuthorised(const positionPtr &position, const teamPtr &team) {
-    return authorisation.isAuthorised(position, team);
-}
-
 bool compareID::operator()(const employeePtr &e1, const employeePtr &e2) const {
     return e1->getId() < e2->getId();
 }
@@ -169,18 +148,6 @@ bool sortPointsTypeWorkHours::operator()(const employeePtr &e1, const employeePt
     return false;
 }
 
-const teams &Employee::getTeams() const{
-    return authorisation.getTeams();
-}
-
-void Employee::addTeam(const teamPtr &team) {
-    authorisation.myTeams.push_front(team);
-}
-
-void Employee::removeTeam(const teamPtr &team) {
-    authorisation.myTeams.remove(team);
-}
-
 const std::list<Employee*> &Employee::getMyEnemies() const {
     return relationship.getMyEnemies();
 }
@@ -189,7 +156,7 @@ const std::list<Employee*> &Employee::getMyFriends() const {
     return relationship.getMyFriends();
 }
 
-const Authorisation &Employee::getAuthorisation() const {
+Authorisation &Employee::getAuthorisation() {
     return authorisation;
 }
 

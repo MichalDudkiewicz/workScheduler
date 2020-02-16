@@ -19,10 +19,10 @@ BOOST_AUTO_TEST_SUITE(TestSuiteCorrect)
         std::shared_ptr<Position> doctor = std::make_shared<Doctor>();
         std::shared_ptr<Position> medic = std::make_shared<Medic>();
         std::shared_ptr<Position> driver = std::make_shared<DriverN>();
-        (*mateush).addPosition(medic);
-        (*mateush).addPosition(doctor);
-        (*paulina).addPosition(medic);
-        (*michal).addPosition(doctor);
+        (*mateush).getAuthorisation().addPosition(medic);
+        (*mateush).getAuthorisation().addPosition(doctor);
+        (*paulina).getAuthorisation().addPosition(medic);
+        (*michal).getAuthorisation().addPosition(doctor);
         std::shared_ptr<Team> team = std::make_shared<Team>("S1");
         (*team).addPosition(doctor);
         (*team).addPosition(medic);

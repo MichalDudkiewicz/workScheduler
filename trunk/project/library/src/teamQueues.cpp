@@ -19,7 +19,7 @@ TeamQueues::TeamQueues(teamPtr t, const employees &authorisedEmployees) : team(s
             team->getShifts()[dayOfWeek]->setDay(day);
             for (auto &queueToPosition : queuesOnDay) {
                 for (const auto &employee : authorisedEmployees) {
-                    if (employee->isAuthorised(queueToPosition.first, team) and
+                    if (employee->getAuthorisation().isAuthorised(queueToPosition.first, team) and
                         employee->getEmployeeSchedules().isAvailable(team->getShifts()[dayOfWeek])) {
                         queueToPosition.second.push_front(employee);
                     }

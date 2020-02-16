@@ -41,7 +41,7 @@ std::ofstream &operator<<(std::ofstream &output, const EmployeeManager &manager)
         output << employee->getId() << "," << employee->getName() << "," << employee->getHourlyWage() << ","
                  << employee->getPoints() << "," << employee->getType()->getPriority() << ","
                  << employee->isNonresident() << ",";
-        for (const auto &position : employee->getPositions()) {
+        for (const auto &position : employee->getAuthorisation().getPositions()) {
             output << position->positionID() << ";";
         }
         output << ",";

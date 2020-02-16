@@ -41,13 +41,13 @@ BOOST_AUTO_TEST_SUITE(TestSuiteCorrect)
         EmployeeRepository::getInstance().get(3)->getEmployeeSchedules().getDesiredSchedule().addShift(4, 11, firstMonday.day());
         EmployeeRepository::getInstance().get(3)->getEmployeeSchedules().getDesiredSchedule().addShift(9, 16, firstMonday.day() + 1);
 
-        EmployeeRepository::getInstance().get(2)->addPosition(medic);
-        EmployeeRepository::getInstance().get(3)->addPosition(driver);
+        EmployeeRepository::getInstance().get(2)->getAuthorisation().addPosition(medic);
+        EmployeeRepository::getInstance().get(3)->getAuthorisation().addPosition(driver);
 
-        EmployeeRepository::getInstance().get(2)->addTeam(TeamRepository::getInstance().get("S2"));
-        EmployeeRepository::getInstance().get(2)->addTeam(TeamRepository::getInstance().get("1"));
-        EmployeeRepository::getInstance().get(3)->addTeam(TeamRepository::getInstance().get("S2"));
-        EmployeeRepository::getInstance().get(3)->addTeam(TeamRepository::getInstance().get("1"));
+        EmployeeRepository::getInstance().get(2)->getAuthorisation().addTeam(TeamRepository::getInstance().get("S2"));
+        EmployeeRepository::getInstance().get(2)->getAuthorisation().addTeam(TeamRepository::getInstance().get("1"));
+        EmployeeRepository::getInstance().get(3)->getAuthorisation().addTeam(TeamRepository::getInstance().get("S2"));
+        EmployeeRepository::getInstance().get(3)->getAuthorisation().addTeam(TeamRepository::getInstance().get("1"));
 
         FinalSchedule schedule(TeamRepository::getInstance().getAll(), EmployeeRepository::getInstance().getAll());
         schedule.makeSchedule();

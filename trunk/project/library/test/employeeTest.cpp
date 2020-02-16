@@ -55,7 +55,7 @@ BOOST_AUTO_TEST_SUITE(TestSuiteCorrect)
                           boost::gregorian::gregorian_calendar::end_of_month_day(date.year(), date.month()) + 1);
         BOOST_CHECK_EQUAL(employee11.getEmployeeSchedules().getCurrentSchedule().getSchedule().size(),
                           boost::gregorian::gregorian_calendar::end_of_month_day(date.year(), date.month()) + 1);
-        BOOST_CHECK_EQUAL(employee11.getPositions().size(), 0);
+        BOOST_CHECK_EQUAL(employee11.getAuthorisation().getPositions().size(), 0);
     }
 
     BOOST_FIXTURE_TEST_CASE(EmployeeFriendsEnemiesCase, FixtureEmployeeTest) {
@@ -110,12 +110,12 @@ BOOST_AUTO_TEST_SUITE(TestSuiteCorrect)
         std::shared_ptr<Position> doctor = std::make_shared<Doctor>();
         std::shared_ptr<Position> medic = std::make_shared<Medic>();
         d1 << doctor->positionInfo();
-        (*employee0).addPosition(medic);
-        (*employee0).addPosition(doctor);
-        BOOST_CHECK_EQUAL((*employee0).getPositions().front()->positionInfo(), d1.str());
-        (*employee0).removePosition(medic);
-        BOOST_CHECK_EQUAL((*employee0).getPositions().front()->positionInfo(), d1.str());
-        BOOST_CHECK_EQUAL((*employee0).getPositions().size(), 1);
+        (*employee0).getAuthorisation().addPosition(medic);
+        (*employee0).getAuthorisation().addPosition(doctor);
+        BOOST_CHECK_EQUAL((*employee0).getAuthorisation().getPositions().front()->positionInfo(), d1.str());
+        (*employee0).getAuthorisation().removePosition(medic);
+        BOOST_CHECK_EQUAL((*employee0).getAuthorisation().getPositions().front()->positionInfo(), d1.str());
+        BOOST_CHECK_EQUAL((*employee0).getAuthorisation().getPositions().size(), 1);
     }
 
 
@@ -177,8 +177,8 @@ BOOST_AUTO_TEST_SUITE(TestSuiteCorrect)
         std::shared_ptr<Position> doctor = std::make_shared<Doctor>();
         std::shared_ptr<Position> medic = std::make_shared<Medic>();
         std::shared_ptr<Position> driver = std::make_shared<DriverN>();
-        (*employee0).addPosition(doctor);
-        (*employee0).addPosition(medic);
+        (*employee0).getAuthorisation().addPosition(doctor);
+        (*employee0).getAuthorisation().addPosition(medic);
         BOOST_CHECK_EQUAL(employee0->getAuthorisation().positionMatch(doctor), true);
         BOOST_CHECK_EQUAL(employee0->getAuthorisation().positionMatch(driver), false);
     }

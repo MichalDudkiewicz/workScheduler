@@ -7,9 +7,8 @@ class Authorisation {
 private:
     positions myPositions{};
     teams myTeams{};
-    Employee *authorisationOwner;
     friend Employee;
-    explicit Authorisation(Employee *employee);
+    explicit Authorisation()= default;
     Authorisation(const Authorisation&)= default;
     Authorisation& operator=(const Authorisation&)= default;
 public:
@@ -18,5 +17,9 @@ public:
     const positions &getPositions() const;
     bool teamMatch(const teamPtr &team) const;
     const teams &getTeams() const;
+    void addPosition(const positionPtr&);
+    void removePosition(const positionPtr&);
+    void addTeam(const teamPtr&);
+    void removeTeam(const teamPtr&);
 };
 #endif //WORKSCHEDULER_AUTHORISATION_H
