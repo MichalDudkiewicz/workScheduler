@@ -10,10 +10,10 @@ int main() {
     input::loadPositions();
     try {
         //INPUT CSV FILES
-        input::employeeRepository("../../../dataset/input/admin/employeeRepository.csv");
-        input::desiredSchedule("../../../dataset/input/employees/desiredSchedules.csv");
         input::teamRepository("../../../dataset/input/admin/teamRepository.csv");
         input::teamSchedule("../../../dataset/input/admin/teamSchedule.csv");
+        input::employeeRepository("../../../dataset/input/admin/employeeRepository.csv");
+        input::desiredSchedule("../../../dataset/input/employees/desiredSchedules.csv");
 
         //CREATING AND DISPLAYING SCHEDULE
         WorkScheduler::getInstance().createSchedule();

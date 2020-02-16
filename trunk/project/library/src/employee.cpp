@@ -7,6 +7,7 @@
 #include "position.h"
 #include <algorithm>
 #include <sstream>
+#include "authorisation.h"
 
 ValueException::ValueException(const std::string &message)
         : logic_error(message) {}
@@ -255,14 +256,8 @@ bool Employee::isBusy(const shiftPtr &shift) const {
     return false;
 }
 
-bool Employee::isAuthorised(const positionPtr &position) const {
-    for (const auto &p : getPositions()) {
-        if (p->positionID() == position->positionID()) {
-            return true;
-        }
-    }
-    return false;
-
+bool Employee::isAuthorised(const positionPtr &position, const teamPtr &team) {
+    return authorisation::isAuthorised(shared_from_this(), position, team);
 }
 
 bool compareID::operator()(const employeePtr &e1, const employeePtr &e2) const {
@@ -290,4 +285,16 @@ std::string Employee::desiredScheduleInfo() const {
 
 std::string Employee::currentScheduleInfo() const {
     return currentSchedule.scheduleInfo();
+}
+
+const teams &Employee::getTeams() const{
+    return myTeams;
+}
+
+void Employee::addTeam(const teamPtr &team) {
+    myTeams.push_front(team);
+}
+
+void Employee::removeTeam(const teamPtr &team) {
+    myTeams.remove(team);
 }

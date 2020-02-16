@@ -63,6 +63,8 @@ BOOST_AUTO_TEST_SUITE(TestSuiteCorrect)
         std::shared_ptr<Employee> palinka = std::make_shared<Employee>("Palinka", 1);
         std::shared_ptr<Employee> mateusz = std::make_shared<Employee>("Mateusz", 2);
 
+
+
         std::unique_ptr<Shift> shift1;
         std::unique_ptr<Shift> shift2;
         std::unique_ptr<Shift> shift3;
@@ -94,6 +96,9 @@ BOOST_AUTO_TEST_SUITE(TestSuiteCorrect)
 
         std::shared_ptr<Team> team = std::make_shared<Team>("S1");
 
+
+
+
         std::list<employeePtr> employees;
 
 
@@ -105,6 +110,8 @@ BOOST_AUTO_TEST_SUITE(TestSuiteCorrect)
     }
 
     BOOST_FIXTURE_TEST_CASE(TeamQueuesCaseGetTeamQueues, FixtureTeamQueuesTest) {
+        palinka -> addTeam(team);
+        mateusz -> addTeam(team);
         TeamQueues queue(team, employees);
         BOOST_REQUIRE_EQUAL(queue.getTeamQueues()[0].at(team -> getPositions().front()).empty(), true);
         BOOST_REQUIRE_EQUAL(queue.getTeamQueues()[0].at(team -> getPositions().back()).empty(), true);
@@ -151,6 +158,11 @@ BOOST_AUTO_TEST_SUITE(TestSuiteCorrect)
         (*employee4).addDesiredShift(7,14,d.day());
         (*employee5).addDesiredShift(7,14,d.day());
         std::shared_ptr<Team> team = std::make_shared<Team>("S1");
+        employee1->addTeam(team);
+        employee2->addTeam(team);
+        employee3->addTeam(team);
+        employee4->addTeam(team);
+        employee5->addTeam(team);
         team->addShift(8,12,1);
         team->addPosition(doctor);
         TeamQueues queues(team,employees);

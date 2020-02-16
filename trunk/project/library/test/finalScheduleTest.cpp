@@ -44,6 +44,11 @@ BOOST_AUTO_TEST_SUITE(TestSuiteCorrect)
         EmployeeRepository::getInstance().get(2)->addPosition(medic);
         EmployeeRepository::getInstance().get(3)->addPosition(driver);
 
+        EmployeeRepository::getInstance().get(2)->addTeam(TeamRepository::getInstance().get("S2"));
+        EmployeeRepository::getInstance().get(2)->addTeam(TeamRepository::getInstance().get("1"));
+        EmployeeRepository::getInstance().get(3)->addTeam(TeamRepository::getInstance().get("S2"));
+        EmployeeRepository::getInstance().get(3)->addTeam(TeamRepository::getInstance().get("1"));
+
         FinalSchedule schedule(TeamRepository::getInstance().getAll(), EmployeeRepository::getInstance().getAll());
         schedule.makeSchedule();
         BOOST_TEST_MESSAGE(schedule.scheduleInfo());

@@ -28,6 +28,7 @@ private:
     unsigned int hourlyWage;
     employeeTypePtr employeeType;
     positions myPositions{};
+    teams myTeams{};
     employees friends{};
     employees enemies{};
     EmployeeSchedule desiredSchedule;
@@ -74,9 +75,12 @@ public:
     void addCurrentShift(unsigned int, unsigned int, unsigned int);
     void removeCurrentShift(unsigned int, unsigned int);
     bool isBusy(const shiftPtr&) const;
-    bool isAuthorised(const positionPtr&) const;
+    bool isAuthorised(const positionPtr&, const teamPtr&);
     std::string desiredScheduleInfo() const;
     std::string currentScheduleInfo() const;
+    const teams& getTeams() const;
+    void addTeam(const teamPtr&);
+    void removeTeam(const teamPtr&);
 };
 
 struct sortPointsTypeWorkHours{

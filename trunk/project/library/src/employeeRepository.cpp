@@ -3,6 +3,7 @@
 #include "team.h"
 #include "employeeType.h"
 #include "shift.h"
+#include "authorisation.h"
 
 EmployeeNotFound::EmployeeNotFound(const std::string &message)
         : logic_error(message) {}
@@ -69,7 +70,7 @@ const employeePtr &EmployeeRepository::get(const unsigned int &id) const {
 employees EmployeeRepository::getByPosition(const positionPtr &position) const {
     employees employeesByPosition;
     for (const auto &employee : employeesRepository) {
-        if (employee.second->isAuthorised(position)) {
+        if (authorisation::positionMatch(employee.second, position)) {
             employeesByPosition.push_front(employee.second);
         }
     }
