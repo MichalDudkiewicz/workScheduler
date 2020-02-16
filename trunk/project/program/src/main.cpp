@@ -1,6 +1,6 @@
 #include <iostream>
-#include "workScheduler.h"
-#include "fileStream.h"
+#include "managers/workScheduler.h"
+#include "file_stream/fileStream.h"
 #include <chrono>
 
 using namespace std;

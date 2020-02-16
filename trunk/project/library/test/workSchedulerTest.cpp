@@ -1,12 +1,12 @@
 #include <boost/test/unit_test.hpp>
-#include "workScheduler.h"
-#include "employeeRepository.h"
+#include "managers/workScheduler.h"
+#include "repositories/employeeRepository.h"
 #include "boost/date_time/gregorian/gregorian.hpp"
-#include "calendar.h"
-#include "employee.h"
-#include "shift.h"
-#include "teamRepository.h"
-#include "team.h"
+#include "other/calendar.h"
+#include "employee/employee.h"
+#include "shift/shift.h"
+#include "repositories/teamRepository.h"
+#include "team/team.h"
 
 BOOST_AUTO_TEST_SUITE(TestSuiteCorrect)
 

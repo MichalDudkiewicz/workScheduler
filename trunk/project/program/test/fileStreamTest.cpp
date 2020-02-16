@@ -1,12 +1,12 @@
 #include <boost/test/unit_test.hpp>
-#include "fileStream.h"
-#include "teamRepository.h"
-#include "employeeRepository.h"
-#include "employee.h"
-#include "team.h"
-#include "shift.h"
-#include "workScheduler.h"
-#include "factor.h"
+#include "file_stream/fileStream.h"
+#include "repositories/teamRepository.h"
+#include "repositories/employeeRepository.h"
+#include "employee/employee.h"
+#include "team/team.h"
+#include "shift/shift.h"
+#include "managers/workScheduler.h"
+#include "employee/factors/factor.h"
 
 BOOST_AUTO_TEST_SUITE(TestSuiteCorrect)
 

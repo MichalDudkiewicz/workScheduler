@@ -1,16 +1,16 @@
 #include <boost/test/unit_test.hpp>
-#include "medic.h"
-#include "driverN.h"
+#include "positions/medic.h"
+#include "positions/driverN.h"
 #include <memory>
-#include "teamRepository.h"
-#include "employeeRepository.h"
-#include "employee.h"
-#include "team.h"
-#include "shift.h"
-#include "finalSchedule.h"
+#include "repositories/teamRepository.h"
+#include "repositories/employeeRepository.h"
+#include "employee/employee.h"
+#include "team/team.h"
+#include "shift/shift.h"
+#include "schedule/finalSchedule.h"
 #include "boost/date_time/gregorian/gregorian.hpp"
-#include "calendar.h"
-#include "factor.h"
+#include "other/calendar.h"
+#include "employee/factors/factor.h"
 
 
 BOOST_AUTO_TEST_SUITE(TestSuiteCorrect)

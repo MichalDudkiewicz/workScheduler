@@ -1,14 +1,14 @@
 #include <boost/test/unit_test.hpp>
-#include "employeeRepository.h"
-#include "employee.h"
-#include "team.h"
-#include "employeeType.h"
+#include "repositories/employeeRepository.h"
+#include "employee/employee.h"
+#include "team/team.h"
+#include "employee/factors/rules/employeeTypes/employeeType.h"
 #include <memory>
-#include "medic.h"
-#include "doctor.h"
-#include "driverN.h"
-#include "shift.h"
-#include "factor.h"
+#include "positions/medic.h"
+#include "positions/doctor.h"
+#include "positions/driverN.h"
+#include "shift/shift.h"
+#include "employee/factors/factor.h"
 
 BOOST_AUTO_TEST_SUITE(TestSuiteCorrect)
 

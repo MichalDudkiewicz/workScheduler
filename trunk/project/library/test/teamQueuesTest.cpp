@@ -1,13 +1,13 @@
 #include <boost/test/unit_test.hpp>
-#include "employee.h"
-#include "team.h"
-#include "doctor.h"
-#include "medic.h"
-#include "teamQueues.h"
+#include "employee/employee.h"
+#include "team/team.h"
+#include "positions/doctor.h"
+#include "positions/medic.h"
+#include "schedule/teamQueues.h"
 #include <memory>
-#include "calendar.h"
-#include "shift.h"
-#include "factor.h"
+#include "other/calendar.h"
+#include "shift/shift.h"
+#include "employee/factors/factor.h"
 
 BOOST_AUTO_TEST_SUITE(TestSuiteCorrect)
 

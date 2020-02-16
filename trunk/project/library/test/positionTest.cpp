@@ -1,13 +1,13 @@
 #include <boost/test/unit_test.hpp>
-#include "doctor.h"
-#include "rescuerN.h"
-#include "rescuerS.h"
-#include "medic.h"
-#include "medicalRecorder.h"
-#include "dispatcher.h"
-#include "driverN.h"
-#include "driverS.h"
-#include "position.h"
+#include "positions/doctor.h"
+#include "positions/rescuerN.h"
+#include "positions/rescuerS.h"
+#include "positions/medic.h"
+#include "positions/medicalRecorder.h"
+#include "positions/dispatcher.h"
+#include "positions/driverN.h"
+#include "positions/driverS.h"
+#include "positions/position.h"
 #include <memory>
 
 typedef std::shared_ptr<Position> positionPtr;

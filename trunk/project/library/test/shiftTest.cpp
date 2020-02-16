@@ -1,5 +1,5 @@
 #include <boost/test/unit_test.hpp>
-#include "shift.h"
+#include "shift/shift.h"
 #include <memory>
 
 typedef std::unique_ptr<Shift> shiftPtr;

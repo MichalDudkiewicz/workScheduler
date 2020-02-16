@@ -5,7 +5,7 @@ project(Program)
 #ustaw we własnej zmiennej SOURCE_FILES zbiór plików źródłowych projektu
 set(SOURCE_FILES
         src/main.cpp
-        src/fileStream.cpp
+        src/file_stream/fileStream.cpp
         )
 #włącz powyższy zbiór plików do zbudowania programu wykonywalnego Program
 add_executable(Program ${SOURCE_FILES})
@@ -26,7 +26,7 @@ include_directories(${Boost_INCLUDE_DIRS})
 set(SOURCE_TEST_FILES
         test/fileStreamTest.cpp
         test/master.cpp
-        src/fileStream.cpp include/fileStream.h
+        src/file_stream/fileStream.cpp include/file_stream/fileStream.h
         )
 
 add_executable (TestProgram ${SOURCE_TEST_FILES})

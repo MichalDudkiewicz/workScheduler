@@ -2,30 +2,30 @@ cmake_minimum_required(VERSION 3.4)
 project(Library)
 
 set(SOURCE_FILES
-        src/employee.cpp
-        src/team.cpp
-        src/shift.cpp
-        src/medic.cpp
-        src/medicalRecorder.cpp
-        src/doctor.cpp
-        src/rescuerN.cpp
-        src/rescuerS.cpp
-        src/driverN.cpp
-        src/driverS.cpp
-        src/dispatcher.cpp
-        src/teamQueues.cpp
-        src/calendar.cpp
-        src/employeeSchedule.cpp
-        src/jumperEmployee.cpp
-        src/needyEmployee.cpp
-        src/normalEmployee.cpp
-        src/employeeRepository.cpp
-        src/teamRepository.cpp
-        src/finalSchedule.cpp
-        src/workScheduler.cpp
-        src/teamManager.cpp
-        src/employeeManager.cpp
-        include/manager.h src/positionRepository.cpp include/positionRepository.h src/positionManager.cpp include/positionManager.h include/typeDefinitions.h src/authorisation.cpp include/authorisation.h src/relationship.cpp include/relationship.h src/availability.cpp include/availability.h src/rules.cpp include/rules.h src/factor.cpp include/factor.h)
+        src/employee/employee.cpp
+        src/team/team.cpp
+        src/shift/shift.cpp
+        src/positions/medic.cpp
+        src/positions/medicalRecorder.cpp
+        src/positions/doctor.cpp
+        src/positions/rescuerN.cpp
+        src/positions/rescuerS.cpp
+        src/positions/driverN.cpp
+        src/positions/driverS.cpp
+        src/positions/dispatcher.cpp
+        src/schedule/teamQueues.cpp
+        src/other/calendar.cpp
+        src/employee/schedule/employeeSchedule.cpp
+        src/employee/factors/rules/employeeTypes/jumperEmployee.cpp
+        src/employee/factors/rules/employeeTypes/needyEmployee.cpp
+        src/employee/factors/rules/employeeTypes/normalEmployee.cpp
+        src/repositories/employeeRepository.cpp
+        src/repositories/teamRepository.cpp
+        src/schedule/finalSchedule.cpp
+        src/managers/workScheduler.cpp
+        src/managers/teamManager.cpp
+        src/managers/employeeManager.cpp
+        include/managers/manager.h src/repositories/positionRepository.cpp include/repositories/positionRepository.h src/managers/positionManager.cpp include/managers/positionManager.h include/other/typeDefinitions.h src/employee/factors/authorisation/authorisation.cpp include/employee/factors/authorisation/authorisation.h src/employee/factors/relationship/relationship.cpp include/employee/factors/relationship/relationship.h src/employee/factors/availability/availability.cpp include/employee/factors/availability/availability.h src/employee/factors/rules/rules.cpp include/employee/factors/rules/rules.h src/employee/factors/factor.cpp include/employee/factors/factor.h)
 #utwórz bibliotekę typu STATIC, SHARED albo MODULE ze wskazanych źródeł
 add_library(Library ${SOURCE_FILES})
 

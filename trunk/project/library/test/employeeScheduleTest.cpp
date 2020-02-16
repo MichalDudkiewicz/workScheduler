@@ -1,8 +1,8 @@
 #include <boost/test/unit_test.hpp>
-#include "employeeSchedule.h"
+#include "employee/schedule/employeeSchedule.h"
 #include <memory>
-#include "calendar.h"
-#include "shift.h"
+#include "other/calendar.h"
+#include "shift/shift.h"
 
 BOOST_AUTO_TEST_SUITE(TestSuiteCorrect)
 

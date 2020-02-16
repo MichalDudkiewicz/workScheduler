@@ -1,9 +1,9 @@
 #include <boost/test/unit_test.hpp>
-#include "teamManager.h"
-#include "team.h"
-#include "employeeType.h"
-#include "medic.h"
-#include "shift.h"
+#include "managers/teamManager.h"
+#include "team/team.h"
+#include "employee/factors/rules/employeeTypes/employeeType.h"
+#include "positions/medic.h"
+#include "shift/shift.h"
 
 BOOST_AUTO_TEST_SUITE(TestSuiteCorrect)
 

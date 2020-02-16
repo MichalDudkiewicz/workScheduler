@@ -1,14 +1,14 @@
 #include <boost/test/unit_test.hpp>
-#include "employee.h"
+#include "employee/employee.h"
 #include <memory>
-#include "doctor.h"
-#include "medic.h"
-#include "driverN.h"
-#include "employeeType.h"
+#include "positions/doctor.h"
+#include "positions/medic.h"
+#include "positions/driverN.h"
+#include "employee/factors/rules/employeeTypes/employeeType.h"
 #include "boost/date_time/gregorian/gregorian.hpp"
-#include "shift.h"
-#include "authorisation.h"
-#include "factor.h"
+#include "shift/shift.h"
+#include "employee/factors/authorisation/authorisation.h"
+#include "employee/factors/factor.h"
 
 BOOST_AUTO_TEST_SUITE(TestSuiteCorrect)
 

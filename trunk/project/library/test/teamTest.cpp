@@ -1,13 +1,13 @@
 #include <boost/test/unit_test.hpp>
-#include "doctor.h"
-#include "medic.h"
-#include "team.h"
+#include "positions/doctor.h"
+#include "positions/medic.h"
+#include "team/team.h"
 #include <memory>
 #include <vector>
 #include <boost/test/output_test_stream.hpp>
 #include <iostream>
-#include "shift.h"
-#include "employee.h"
+#include "shift/shift.h"
+#include "employee/employee.h"
 
 BOOST_AUTO_TEST_SUITE(TestSuiteCorrect)
 

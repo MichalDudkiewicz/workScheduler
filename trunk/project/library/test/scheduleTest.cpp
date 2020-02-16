@@ -1,5 +1,5 @@
 #include <boost/test/unit_test.hpp>
-#include "calendar.h"
+#include "other/calendar.h"
 #include <memory>
 
 BOOST_AUTO_TEST_SUITE(TestSuiteCorrect)

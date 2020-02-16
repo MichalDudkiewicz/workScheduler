@@ -1,8 +1,8 @@
 #include <boost/test/unit_test.hpp>
-#include "employeeType.h"
-#include "jumperEmployee.h"
-#include "normalEmployee.h"
-#include "needyEmployee.h"
+#include "employee/factors/rules/employeeTypes/employeeType.h"
+#include "employee/factors/rules/employeeTypes/jumperEmployee.h"
+#include "employee/factors/rules/employeeTypes/normalEmployee.h"
+#include "employee/factors/rules/employeeTypes/needyEmployee.h"
 #include <memory>
 
 BOOST_AUTO_TEST_SUITE(TestSuiteCorrect)
