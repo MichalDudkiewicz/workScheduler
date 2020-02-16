@@ -34,15 +34,16 @@ void FinalSchedule::makeSchedule() {
                     enemiesInTeam = false;
                     for (const auto &employeesInTeam : schedule[day - 1].at(teamQueue.getTeam())) {
                         if (!employeesInTeam.second.empty()) {
-                            if (employeesInTeam.second.front()->isEnemyWith(e)) {
+                            if (employeesInTeam.second.front()->getRelationship().isEnemyWith(e)) {
                                 enemiesInTeam = true;
                                 break;
                             }
                         }
                     }
-                    if (!e->getEmployeeSchedules().isBusy(newShift) and !enemiesInTeam and e->getEmployeeSchedules().getShiftsQuantity() < e->getMaxShifts()) {
+                    if (!e->getAvailability().isBusy(newShift) and !enemiesInTeam and
+                            e->getAvailability().getShiftsQuantity() < e->getMaxShifts()) {
                         schedule[day - 1].at(teamQueue.getTeam()).at(position).push_front(e);
-                        e->getEmployeeSchedules().getCurrentSchedule().addShift(newShift);
+                        e->getAvailability().getCurrentSchedule().addShift(newShift);
                         break;
                     }
                 }

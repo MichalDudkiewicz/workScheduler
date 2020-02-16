@@ -17,8 +17,14 @@ public:
     void removeFriend(Employee *employee);
     void addEnemy(Employee *employee);
     void removeEnemy(Employee *employee);
+    void addFriend(const employeePtr&);
+    void removeFriend(const employeePtr&);
+    void addEnemy(const employeePtr&);
+    void removeEnemy(const employeePtr&);
     bool isFriendWith(Employee *employee) const;
     bool isEnemyWith(Employee *employee) const;
+    bool isFriendWith(const employeePtr&) const;
+    bool isEnemyWith(const employeePtr&) const;
     const std::list<Employee*>& getMyEnemies() const;
     const std::list<Employee*>& getMyFriends() const;
 };

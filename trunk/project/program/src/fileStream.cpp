@@ -94,7 +94,7 @@ void input::employeeRepository(const std::string &path){
                 std::vector<unsigned int> enemies = cellToRawValues<unsigned int>(row[7], ';');
                 for (const auto &enemyID : enemies) {
                     if (enemyID < stoul(row[0])) {
-                        EmployeeManager::getInstance().get(stoi(row[0]))->addEnemy(
+                        EmployeeManager::getInstance().get(stoi(row[0]))->getRelationship().addEnemy(
                                 EmployeeManager::getInstance().get(enemyID));
                     }
                 }
@@ -195,9 +195,9 @@ void input::desiredSchedule(const std::string &path) {
                         for (auto &shift : shifts) {
                             std::vector<unsigned int> shiftHours = cellToRawValues<unsigned int>(shift, '-');
                             try {
-                                EmployeeManager::getInstance().get(stoi(row[0]))->getEmployeeSchedules().getDesiredSchedule().addShift(shiftHours[0],
-                                                                                                              shiftHours[1],
-                                                                                                              day);
+                                EmployeeManager::getInstance().get(stoi(row[0]))->getAvailability().getDesiredSchedule().addShift(shiftHours[0],
+                                                                                                                                  shiftHours[1],
+                                                                                                                                  day);
                             }catch(EmployeeNotFound &error) {
                                 throw DataException("Desired Schedule", path);
                             }

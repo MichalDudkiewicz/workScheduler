@@ -25,20 +25,20 @@ BOOST_AUTO_TEST_SUITE(TestSuiteCorrect)
                                   monday(new Shift(1, 2, 1)), tuesday(new Shift(22, 6, 2)), wednesday(new Shift(3)),
                                   thursday(new Shift(0, 7, 4)), friday(new Shift(21, 5, 5)),
                                   saturday(new Shift(3, 10, 6)), sunday(new Shift(20, 23, 7)), employees() {
-            (*palinka).getEmployeeSchedules().getDesiredSchedule().addShift(shift1);
-            (*palinka).getEmployeeSchedules().getDesiredSchedule().addShift(shift2);
-            (*palinka).getEmployeeSchedules().getDesiredSchedule().addShift(shift3);
-            (*palinka).getEmployeeSchedules().getDesiredSchedule().addShift(shift4);
-            (*palinka).getEmployeeSchedules().getDesiredSchedule().addShift(shift5);
-            (*palinka).getEmployeeSchedules().getDesiredSchedule().addShift(shift11);
-            (*palinka).getEmployeeSchedules().getDesiredSchedule().addShift(shift13);
-            (*mateusz).getEmployeeSchedules().getDesiredSchedule().addShift(shift6);
-            (*mateusz).getEmployeeSchedules().getDesiredSchedule().addShift(shift7);
-            (*mateusz).getEmployeeSchedules().getDesiredSchedule().addShift(shift8);
-            (*mateusz).getEmployeeSchedules().getDesiredSchedule().addShift(shift9);
-            (*mateusz).getEmployeeSchedules().getDesiredSchedule().addShift(shift10);
-            (*mateusz).getEmployeeSchedules().getDesiredSchedule().addShift(shift12);
-            (*mateusz).getEmployeeSchedules().getDesiredSchedule().addShift(shift14);
+            (*palinka).getAvailability().getDesiredSchedule().addShift(shift1);
+            (*palinka).getAvailability().getDesiredSchedule().addShift(shift2);
+            (*palinka).getAvailability().getDesiredSchedule().addShift(shift3);
+            (*palinka).getAvailability().getDesiredSchedule().addShift(shift4);
+            (*palinka).getAvailability().getDesiredSchedule().addShift(shift5);
+            (*palinka).getAvailability().getDesiredSchedule().addShift(shift11);
+            (*palinka).getAvailability().getDesiredSchedule().addShift(shift13);
+            (*mateusz).getAvailability().getDesiredSchedule().addShift(shift6);
+            (*mateusz).getAvailability().getDesiredSchedule().addShift(shift7);
+            (*mateusz).getAvailability().getDesiredSchedule().addShift(shift8);
+            (*mateusz).getAvailability().getDesiredSchedule().addShift(shift9);
+            (*mateusz).getAvailability().getDesiredSchedule().addShift(shift10);
+            (*mateusz).getAvailability().getDesiredSchedule().addShift(shift12);
+            (*mateusz).getAvailability().getDesiredSchedule().addShift(shift14);
 
             (*mateusz).getAuthorisation().addPosition(doctor);
             (*mateusz).getAuthorisation().addPosition(medic);
@@ -133,7 +133,7 @@ BOOST_AUTO_TEST_SUITE(TestSuiteCorrect)
         (*employee3).getAuthorisation().addPosition(doctor);
         (*employee4).getAuthorisation().addPosition(doctor);
         (*employee5).getAuthorisation().addPosition(doctor);
-        (*employee5).getEmployeeSchedules().getCurrentSchedule().addShift(1,5,22);
+        (*employee5).getAvailability().getCurrentSchedule().addShift(1, 5, 22);
         employees.push_back(employee1);
         employees.push_back(employee2);
         employees.push_back(employee3);
@@ -152,11 +152,11 @@ BOOST_AUTO_TEST_SUITE(TestSuiteCorrect)
         {
             d += boost::gregorian::days(1);
         }
-        (*employee1).getEmployeeSchedules().getDesiredSchedule().addShift(0,15,d.day());
-        (*employee2).getEmployeeSchedules().getDesiredSchedule().addShift(2,12,d.day());
-        (*employee3).getEmployeeSchedules().getDesiredSchedule().addShift(5,14,d.day());
-        (*employee4).getEmployeeSchedules().getDesiredSchedule().addShift(7,14,d.day());
-        (*employee5).getEmployeeSchedules().getDesiredSchedule().addShift(7,14,d.day());
+        (*employee1).getAvailability().getDesiredSchedule().addShift(0, 15, d.day());
+        (*employee2).getAvailability().getDesiredSchedule().addShift(2, 12, d.day());
+        (*employee3).getAvailability().getDesiredSchedule().addShift(5, 14, d.day());
+        (*employee4).getAvailability().getDesiredSchedule().addShift(7, 14, d.day());
+        (*employee5).getAvailability().getDesiredSchedule().addShift(7, 14, d.day());
         std::shared_ptr<Team> team = std::make_shared<Team>("S1");
         employee1->getAuthorisation().addTeam(team);
         employee2->getAuthorisation().addTeam(team);

@@ -19,7 +19,7 @@ static const employeeTypePtr needyEmployee = std::make_shared<NeedyEmployee>();
 
 Employee::Employee(std::string name, unsigned int id) : name(std::move(name)), nonresident(false), points(0), id(id),
                                                         maxShifts(100), minShifts(0), hourlyWage(0),
-                                                        employeeType(normalEmployee), employeeSchedules(), authorisation(), relationship(this) {}
+                                                        employeeType(normalEmployee), availability(), authorisation(), relationship(this) {}
 
 std::string Employee::employeeInfo() const {
     std::ostringstream out;
@@ -27,7 +27,7 @@ std::string Employee::employeeInfo() const {
     out << "name: " << name << std::endl;
     out << "type: " << employeeType->getType() << std::endl;
     out << "points: " << points << std::endl;
-    out << "hours worked: " << employeeSchedules.getWorkHours() << std::endl;
+    out << "hours worked: " << availability.getWorkHours() << std::endl;
     out << "wage/hour: " << hourlyWage << std::endl;
     return out.str();
 }
@@ -81,30 +81,6 @@ const employeeTypePtr &Employee::getType() const {
     return employeeType;
 }
 
-void Employee::addFriend(const employeePtr &employee) {
-    relationship.addFriend(employee.get());
-}
-
-void Employee::removeFriend(const employeePtr &employee) {
-    relationship.removeFriend(employee.get());
-}
-
-void Employee::addEnemy(const employeePtr &employee) {
-    relationship.addEnemy(employee.get());
-}
-
-void Employee::removeEnemy(const employeePtr &employee) {
-    relationship.removeEnemy(employee.get());
-}
-
-bool Employee::isFriendWith(const employeePtr &employee) const {
-    return relationship.isFriendWith(employee.get());
-}
-
-bool Employee::isEnemyWith(const employeePtr &employee) const {
-    return relationship.isEnemyWith(employee.get());
-}
-
 bool Employee::isNonresident() const {
     return nonresident;
 }
@@ -140,7 +116,7 @@ bool sortPointsTypeWorkHours::operator()(const employeePtr &e1, const employeePt
         if (e1->getPriority() > e2->getPriority())
             return true;
         else if (e1->getPriority() == e2->getPriority()) {
-            return e1->getEmployeeSchedules().getWorkHours() < e2->getEmployeeSchedules().getWorkHours();
+            return e1->getAvailability().getWorkHours() < e2->getAvailability().getWorkHours();
         } else {
             return false;
         }
@@ -148,18 +124,14 @@ bool sortPointsTypeWorkHours::operator()(const employeePtr &e1, const employeePt
     return false;
 }
 
-const std::list<Employee*> &Employee::getMyEnemies() const {
-    return relationship.getMyEnemies();
-}
-
-const std::list<Employee*> &Employee::getMyFriends() const {
-    return relationship.getMyFriends();
-}
-
 Authorisation &Employee::getAuthorisation() {
     return authorisation;
 }
 
-EmployeeSchedules &Employee::getEmployeeSchedules() {
-    return employeeSchedules;
+Availability &Employee::getAvailability() {
+    return availability;
+}
+
+Relationship &Employee::getRelationship() {
+    return relationship;
 }

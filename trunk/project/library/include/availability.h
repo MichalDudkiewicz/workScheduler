@@ -1,15 +1,15 @@
-#ifndef WORKSCHEDULER_EMPLOYEESCHEDULES_H
-#define WORKSCHEDULER_EMPLOYEESCHEDULES_H
+#ifndef WORKSCHEDULER_AVAILABILITY_H
+#define WORKSCHEDULER_AVAILABILITY_H
 
 #include "employeeSchedule.h"
 #include "calendar.h"
 
-class EmployeeSchedules {
+class Availability {
 private:
     EmployeeSchedule desiredSchedule;
     EmployeeSchedule currentSchedule;
     friend Employee;
-    EmployeeSchedules();
+    Availability();
 public:
     unsigned int getWorkHours() const;
     unsigned int getShiftsQuantity() const;
@@ -20,4 +20,4 @@ public:
 };
 
 
-#endif //WORKSCHEDULER_EMPLOYEESCHEDULES_H
+#endif //WORKSCHEDULER_AVAILABILITY_H

@@ -1,10 +1,10 @@
-#include "employeeSchedules.h"
+#include "availability.h"
 #include "shift.h"
 
-EmployeeSchedules::EmployeeSchedules() : desiredSchedule(), currentSchedule()
+Availability::Availability() : desiredSchedule(), currentSchedule()
 {}
 
-unsigned int EmployeeSchedules::getWorkHours() const {
+unsigned int Availability::getWorkHours() const {
     unsigned int workHours = 0;
     for (const auto &shifts : currentSchedule.getSchedule()) {
         for (const auto &shift : shifts) {
@@ -14,7 +14,7 @@ unsigned int EmployeeSchedules::getWorkHours() const {
     return workHours;
 }
 
-unsigned int EmployeeSchedules::getShiftsQuantity() const {
+unsigned int Availability::getShiftsQuantity() const {
     unsigned int shiftsQuantity = 0;
     for (const auto &shifts : currentSchedule.getSchedule()) {
         shiftsQuantity += shifts.size();
@@ -22,7 +22,7 @@ unsigned int EmployeeSchedules::getShiftsQuantity() const {
     return shiftsQuantity;
 }
 
-bool EmployeeSchedules::isAvailable(const shiftPtr &shift) const {
+bool Availability::isAvailable(const shiftPtr &shift) const {
     if (shift->isDayOff()) {
         return false;
     }
@@ -45,7 +45,7 @@ bool EmployeeSchedules::isAvailable(const shiftPtr &shift) const {
 }
 
 
-bool EmployeeSchedules::isBusy(const shiftPtr &shift) const {
+bool Availability::isBusy(const shiftPtr &shift) const {
     for (const auto &s : currentSchedule.getSchedule()[shift->getDay() - 1]) {
         if ((*s) == (*shift)) {
             return true;
@@ -54,11 +54,11 @@ bool EmployeeSchedules::isBusy(const shiftPtr &shift) const {
     return false;
 }
 
-EmployeeSchedule &EmployeeSchedules::getCurrentSchedule() {
+EmployeeSchedule &Availability::getCurrentSchedule() {
     return currentSchedule;
 }
 
-EmployeeSchedule &EmployeeSchedules::getDesiredSchedule() {
+EmployeeSchedule &Availability::getDesiredSchedule() {
     return desiredSchedule;
 }
 

@@ -58,3 +58,27 @@ const std::list<Employee*>& Relationship::getMyEnemies() const {
 
 Relationship::Relationship(Employee *employee) : relationshipOwner(employee)
 {}
+
+void Relationship::addFriend(const employeePtr &employee) {
+    addFriend(employee.get());
+}
+
+void Relationship::removeFriend(const employeePtr &employee) {
+    removeFriend(employee.get());
+}
+
+void Relationship::addEnemy(const employeePtr &employee) {
+    addEnemy(employee.get());
+}
+
+void Relationship::removeEnemy(const employeePtr &employee) {
+    removeEnemy(employee.get());
+}
+
+bool Relationship::isFriendWith(const employeePtr &employee) const {
+    return isFriendWith(employee.get());
+}
+
+bool Relationship::isEnemyWith(const employeePtr &employee) const {
+    return isEnemyWith(employee.get());
+}

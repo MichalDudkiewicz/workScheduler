@@ -36,10 +36,10 @@ BOOST_AUTO_TEST_SUITE(TestSuiteCorrect)
         positionPtr medic = std::make_shared<Medic>();
         positionPtr driver = std::make_shared<DriverN>();
 
-        EmployeeRepository::getInstance().get(2)->getEmployeeSchedules().getDesiredSchedule().addShift(4, 11, firstMonday.day());
-        EmployeeRepository::getInstance().get(2)->getEmployeeSchedules().getDesiredSchedule().addShift(9, 16, firstMonday.day() + 1);
-        EmployeeRepository::getInstance().get(3)->getEmployeeSchedules().getDesiredSchedule().addShift(4, 11, firstMonday.day());
-        EmployeeRepository::getInstance().get(3)->getEmployeeSchedules().getDesiredSchedule().addShift(9, 16, firstMonday.day() + 1);
+        EmployeeRepository::getInstance().get(2)->getAvailability().getDesiredSchedule().addShift(4, 11, firstMonday.day());
+        EmployeeRepository::getInstance().get(2)->getAvailability().getDesiredSchedule().addShift(9, 16, firstMonday.day() + 1);
+        EmployeeRepository::getInstance().get(3)->getAvailability().getDesiredSchedule().addShift(4, 11, firstMonday.day());
+        EmployeeRepository::getInstance().get(3)->getAvailability().getDesiredSchedule().addShift(9, 16, firstMonday.day() + 1);
 
         EmployeeRepository::getInstance().get(2)->getAuthorisation().addPosition(medic);
         EmployeeRepository::getInstance().get(3)->getAuthorisation().addPosition(driver);

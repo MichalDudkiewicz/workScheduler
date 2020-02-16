@@ -4,7 +4,7 @@
 #include "typeDefinitions.h"
 #include "relationship.h"
 #include "authorisation.h"
-#include "employeeSchedules.h"
+#include "availability.h"
 
 class ValueException: public std::logic_error{
 public:
@@ -29,7 +29,7 @@ private:
     unsigned int minShifts;
     unsigned int hourlyWage;
     employeeTypePtr employeeType;
-    EmployeeSchedules employeeSchedules;
+    Availability availability;
     Authorisation authorisation;
     Relationship relationship;
     friend Relationship;
@@ -48,20 +48,13 @@ public:
     const std::string& getName() const;
     unsigned int getId() const;
     const employeeTypePtr& getType() const;
-    void addFriend(const employeePtr&);
-    void removeFriend(const employeePtr&);
-    void addEnemy(const employeePtr&);
-    void removeEnemy(const employeePtr&);
-    bool isFriendWith(const employeePtr&) const;
-    bool isEnemyWith(const employeePtr&) const;
-    const std::list<Employee*>& getMyEnemies() const;
-    const std::list<Employee*>& getMyFriends() const;
     bool isNonresident() const;
     void setNonresident(bool);
     void changeType(unsigned int);
     unsigned int getPriority() const;
     Authorisation& getAuthorisation();
-    EmployeeSchedules& getEmployeeSchedules();
+    Availability& getAvailability();
+    Relationship& getRelationship();
 };
 
 struct sortPointsTypeWorkHours{
