@@ -179,8 +179,8 @@ BOOST_AUTO_TEST_SUITE(TestSuiteCorrect)
         std::shared_ptr<Position> driver = std::make_shared<DriverN>();
         (*employee0).addPosition(doctor);
         (*employee0).addPosition(medic);
-        BOOST_CHECK_EQUAL(authorisation::positionMatch(employee0, doctor), true);
-        BOOST_CHECK_EQUAL(authorisation::positionMatch(employee0, driver), false);
+        BOOST_CHECK_EQUAL(employee0->getAuthorisation().positionMatch(doctor), true);
+        BOOST_CHECK_EQUAL(employee0->getAuthorisation().positionMatch(driver), false);
     }
 
 BOOST_AUTO_TEST_SUITE_END()

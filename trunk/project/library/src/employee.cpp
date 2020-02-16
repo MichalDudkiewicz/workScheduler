@@ -7,7 +7,6 @@
 #include "position.h"
 #include <algorithm>
 #include <sstream>
-#include "authorisation.h"
 
 ValueException::ValueException(const std::string &message)
         : logic_error(message) {}
@@ -22,7 +21,7 @@ static const employeeTypePtr needyEmployee = std::make_shared<NeedyEmployee>();
 Employee::Employee(std::string name, unsigned int id) : name(std::move(name)), nonresident(false), points(0), id(id),
                                                         maxShifts(100), minShifts(0), hourlyWage(0),
                                                         employeeType(normalEmployee), desiredSchedule(),
-                                                        currentSchedule() , relationship(this) {}
+                                                        currentSchedule() , authorisation(this), relationship(this) {}
 
 std::string Employee::employeeInfo() const {
     std::ostringstream out;
@@ -110,7 +109,7 @@ const employeeTypePtr &Employee::getType() const {
 }
 
 const positions &Employee::getPositions() const {
-    return myPositions;
+    return authorisation.getPositions();
 }
 
 
@@ -137,12 +136,12 @@ bool Employee::isAvailable(const shiftPtr &shift) const {
 }
 
 void Employee::addPosition(const positionPtr &position) {
-    myPositions.push_front(position);
-    myPositions.sort(comparePositionID());
+    authorisation.myPositions.push_front(position);
+    authorisation.myPositions.sort(comparePositionID());
 }
 
 void Employee::removePosition(const positionPtr &position) {
-    myPositions.remove(position);
+    authorisation.myPositions.remove(position);
 }
 
 void Employee::addFriend(const employeePtr &employee) {
@@ -229,7 +228,7 @@ bool Employee::isBusy(const shiftPtr &shift) const {
 }
 
 bool Employee::isAuthorised(const positionPtr &position, const teamPtr &team) {
-    return authorisation::isAuthorised(shared_from_this(), position, team);
+    return authorisation.isAuthorised(position, team);
 }
 
 bool compareID::operator()(const employeePtr &e1, const employeePtr &e2) const {
@@ -260,15 +259,15 @@ std::string Employee::currentScheduleInfo() const {
 }
 
 const teams &Employee::getTeams() const{
-    return myTeams;
+    return authorisation.getTeams();
 }
 
 void Employee::addTeam(const teamPtr &team) {
-    myTeams.push_front(team);
+    authorisation.myTeams.push_front(team);
 }
 
 void Employee::removeTeam(const teamPtr &team) {
-    myTeams.remove(team);
+    authorisation.myTeams.remove(team);
 }
 
 const std::list<Employee*> &Employee::getMyEnemies() const {
@@ -277,4 +276,8 @@ const std::list<Employee*> &Employee::getMyEnemies() const {
 
 const std::list<Employee*> &Employee::getMyFriends() const {
     return relationship.getMyFriends();
+}
+
+const Authorisation &Employee::getAuthorisation() const {
+    return authorisation;
 }

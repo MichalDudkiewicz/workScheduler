@@ -4,6 +4,7 @@
 #include "employeeSchedule.h"
 #include "typeDefinitions.h"
 #include "relationship.h"
+#include "authorisation.h"
 
 class ValueException: public std::logic_error{
 public:
@@ -18,7 +19,7 @@ public:
 class EmployeeType;
 typedef std::shared_ptr<EmployeeType> employeeTypePtr;
 
-class Employee : public std::enable_shared_from_this<Employee>{
+class Employee {
 private:
     std::string name;
     bool nonresident;
@@ -28,10 +29,9 @@ private:
     unsigned int minShifts;
     unsigned int hourlyWage;
     employeeTypePtr employeeType;
-    positions myPositions{};
-    teams myTeams{};
     EmployeeSchedule desiredSchedule;
     EmployeeSchedule currentSchedule;
+    Authorisation authorisation;
     Relationship relationship;
     friend Relationship;
 public:
@@ -82,6 +82,7 @@ public:
     const teams& getTeams() const;
     void addTeam(const teamPtr&);
     void removeTeam(const teamPtr&);
+    const Authorisation& getAuthorisation() const;
 };
 
 struct sortPointsTypeWorkHours{

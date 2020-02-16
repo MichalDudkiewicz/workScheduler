@@ -70,7 +70,7 @@ const employeePtr &EmployeeRepository::get(const unsigned int &id) const {
 employees EmployeeRepository::getByPosition(const positionPtr &position) const {
     employees employeesByPosition;
     for (const auto &employee : employeesRepository) {
-        if (authorisation::positionMatch(employee.second, position)) {
+        if (employee.second->getAuthorisation().positionMatch(position)) {
             employeesByPosition.push_front(employee.second);
         }
     }
