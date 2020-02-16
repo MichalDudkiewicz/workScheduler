@@ -195,7 +195,7 @@ void input::desiredSchedule(const std::string &path) {
                         for (auto &shift : shifts) {
                             std::vector<unsigned int> shiftHours = cellToRawValues<unsigned int>(shift, '-');
                             try {
-                                EmployeeManager::getInstance().get(stoi(row[0]))->addDesiredShift(shiftHours[0],
+                                EmployeeManager::getInstance().get(stoi(row[0]))->getEmployeeSchedules().addDesiredShift(shiftHours[0],
                                                                                                               shiftHours[1],
                                                                                                               day);
                             }catch(EmployeeNotFound &error) {

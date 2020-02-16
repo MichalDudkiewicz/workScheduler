@@ -104,7 +104,7 @@ std::string EmployeeRepository::getStatisticsByID(unsigned int id) const {
 employees EmployeeRepository::getAllUnsatisfied() const {
     employees unsatisfied;
     for (const auto &employee : employeesRepository) {
-        if (employee.second->getMinShifts() > employee.second->getShiftsQuantity()) {
+        if (employee.second->getMinShifts() > employee.second->getEmployeeSchedules().getShiftsQuantity()) {
             unsatisfied.push_front(employee.second);
         }
     }

@@ -1,6 +1,5 @@
 #include "employee.h"
 #include "shift.h"
-#include "employeeSchedule.h"
 #include "jumperEmployee.h"
 #include "normalEmployee.h"
 #include "needyEmployee.h"
@@ -20,8 +19,7 @@ static const employeeTypePtr needyEmployee = std::make_shared<NeedyEmployee>();
 
 Employee::Employee(std::string name, unsigned int id) : name(std::move(name)), nonresident(false), points(0), id(id),
                                                         maxShifts(100), minShifts(0), hourlyWage(0),
-                                                        employeeType(normalEmployee), desiredSchedule(),
-                                                        currentSchedule() , authorisation(this), relationship(this) {}
+                                                        employeeType(normalEmployee), employeeSchedules(), authorisation(this), relationship(this) {}
 
 std::string Employee::employeeInfo() const {
     std::ostringstream out;
@@ -29,28 +27,11 @@ std::string Employee::employeeInfo() const {
     out << "name: " << name << std::endl;
     out << "type: " << employeeType->getType() << std::endl;
     out << "points: " << points << std::endl;
-    out << "hours worked: " << getWorkHours() << std::endl;
+    out << "hours worked: " << employeeSchedules.getWorkHours() << std::endl;
     out << "wage/hour: " << hourlyWage << std::endl;
     return out.str();
 }
 
-unsigned int Employee::getWorkHours() const {
-    unsigned int workHours = 0;
-    for (const auto &shifts : currentSchedule.getSchedule()) {
-        for (const auto &shift : shifts) {
-            workHours += shift->getLength();
-        }
-    }
-    return workHours;
-}
-
-unsigned int Employee::getShiftsQuantity() const {
-    unsigned int shiftsQuantity = 0;
-    for (const auto &shifts : currentSchedule.getSchedule()) {
-        shiftsQuantity += shifts.size();
-    }
-    return shiftsQuantity;
-}
 
 unsigned int Employee::getMaxShifts() const {
     return maxShifts;
@@ -92,14 +73,6 @@ const std::string &Employee::getName() const {
     return name;
 }
 
-const Calendar<shifts> &Employee::getDesiredSchedule() const {
-    return desiredSchedule.getSchedule();
-}
-
-const Calendar<shifts> &Employee::getCurrentSchedule() const {
-    return currentSchedule.getSchedule();
-}
-
 unsigned int Employee::getId() const {
     return id;
 }
@@ -113,27 +86,7 @@ const positions &Employee::getPositions() const {
 }
 
 
-bool Employee::isAvailable(const shiftPtr &shift) const {
-    if (shift->isDayOff()) {
-        return false;
-    }
-    if (!shift->isNightShift()) {
-        for (const auto &s : desiredSchedule.getSchedule()[shift->getDay() - 1]) {
-            if ((*s) >= (*shift)) {
-                return true;
-            }
-        }
-        return false;
-    }
-    if (shift->getDay() != desiredSchedule.getSchedule().size()) {
-        if (!desiredSchedule.getSchedule()[shift->getDay() - 1].empty() and
-            !desiredSchedule.getSchedule()[shift->getDay()].empty()) {
-            return ((*desiredSchedule.getSchedule()[shift->getDay() - 1].back()) +
-                    (*desiredSchedule.getSchedule()[shift->getDay()][0])) >= (*shift);
-        }
-    }
-    return false;
-}
+
 
 void Employee::addPosition(const positionPtr &position) {
     authorisation.myPositions.push_front(position);
@@ -192,40 +145,6 @@ unsigned int Employee::getPriority() const {
     return employeeType->getPriority();
 }
 
-void Employee::addDesiredShift(shiftPtr &shift) {
-    desiredSchedule.addShift(shift);
-}
-
-void Employee::addDesiredShift(unsigned int startHour, unsigned int endHour, unsigned int day) {
-    shiftPtr shift(new Shift(startHour, endHour, day));
-    desiredSchedule.addShift(shift);
-}
-
-void Employee::removeDesiredShift(unsigned int day, unsigned int shiftNumber) {
-    desiredSchedule.removeShift(day, shiftNumber);
-}
-
-void Employee::addCurrentShift(shiftPtr &shift) {
-    currentSchedule.addShift(shift);
-}
-
-void Employee::addCurrentShift(unsigned int startHour, unsigned int endHour, unsigned int day) {
-    shiftPtr shift(new Shift(startHour, endHour, day));
-    currentSchedule.addShift(shift);
-}
-
-void Employee::removeCurrentShift(unsigned int day, unsigned int shiftNumber) {
-    currentSchedule.removeShift(day, shiftNumber);
-}
-
-bool Employee::isBusy(const shiftPtr &shift) const {
-    for (const auto &s : currentSchedule.getSchedule()[shift->getDay() - 1]) {
-        if ((*s) == (*shift)) {
-            return true;
-        }
-    }
-    return false;
-}
 
 bool Employee::isAuthorised(const positionPtr &position, const teamPtr &team) {
     return authorisation.isAuthorised(position, team);
@@ -242,20 +161,12 @@ bool sortPointsTypeWorkHours::operator()(const employeePtr &e1, const employeePt
         if (e1->getPriority() > e2->getPriority())
             return true;
         else if (e1->getPriority() == e2->getPriority()) {
-            return e1->getWorkHours() < e2->getWorkHours();
+            return e1->getEmployeeSchedules().getWorkHours() < e2->getEmployeeSchedules().getWorkHours();
         } else {
             return false;
         }
     }
     return false;
-}
-
-std::string Employee::desiredScheduleInfo() const {
-    return desiredSchedule.scheduleInfo();
-}
-
-std::string Employee::currentScheduleInfo() const {
-    return currentSchedule.scheduleInfo();
 }
 
 const teams &Employee::getTeams() const{
@@ -280,4 +191,8 @@ const std::list<Employee*> &Employee::getMyFriends() const {
 
 const Authorisation &Employee::getAuthorisation() const {
     return authorisation;
+}
+
+EmployeeSchedules &Employee::getEmployeeSchedules() {
+    return employeeSchedules;
 }

@@ -46,14 +46,14 @@ BOOST_AUTO_TEST_SUITE(TestSuiteCorrect)
         BOOST_CHECK_EQUAL(employee11.getMaxShifts(), 100);
         BOOST_CHECK_EQUAL(employee11.getMinShifts(), 0);
         BOOST_CHECK_EQUAL(employee11.isNonresident(), false);
-        BOOST_CHECK_EQUAL(employee11.getWorkHours(), 0);
-        BOOST_CHECK_EQUAL(employee11.getShiftsQuantity(), 0);
+        BOOST_CHECK_EQUAL(employee11.getEmployeeSchedules().getWorkHours(), 0);
+        BOOST_CHECK_EQUAL(employee11.getEmployeeSchedules().getShiftsQuantity(), 0);
         BOOST_CHECK_EQUAL(employee11.getMyEnemies().size(), 0);
         BOOST_CHECK_EQUAL(employee11.getMyFriends().size(), 0);
         date += boost::gregorian::months(1);
-        BOOST_CHECK_EQUAL(employee11.getDesiredSchedule().size(),
+        BOOST_CHECK_EQUAL(employee11.getEmployeeSchedules().getDesiredSchedule().size(),
                           boost::gregorian::gregorian_calendar::end_of_month_day(date.year(), date.month()) + 1);
-        BOOST_CHECK_EQUAL(employee11.getCurrentSchedule().size(),
+        BOOST_CHECK_EQUAL(employee11.getEmployeeSchedules().getCurrentSchedule().size(),
                           boost::gregorian::gregorian_calendar::end_of_month_day(date.year(), date.month()) + 1);
         BOOST_CHECK_EQUAL(employee11.getPositions().size(), 0);
     }
@@ -120,30 +120,30 @@ BOOST_AUTO_TEST_SUITE(TestSuiteCorrect)
 
 
     BOOST_FIXTURE_TEST_CASE(EmployeeDesiredScheduleCase, FixtureEmployeeTest) {
-        (*employee0).addDesiredShift(shift1);
-        (*employee0).addDesiredShift(shift2);
-        (*employee0).addDesiredShift(shift3);
-        (*employee0).addDesiredShift(shift6);
-        (*employee0).addDesiredShift(shift4);
-        BOOST_CHECK_EQUAL((*employee0).getDesiredSchedule()[10][0]->getStartHour(), 15);
-        (*employee0).removeDesiredShift(11, 1);
-        BOOST_CHECK_EQUAL((*employee0).getDesiredSchedule()[10][0]->getStartHour(), 20);
+        (*employee0).getEmployeeSchedules().addDesiredShift(shift1);
+        (*employee0).getEmployeeSchedules().addDesiredShift(shift2);
+        (*employee0).getEmployeeSchedules().addDesiredShift(shift3);
+        (*employee0).getEmployeeSchedules().addDesiredShift(shift6);
+        (*employee0).getEmployeeSchedules().addDesiredShift(shift4);
+        BOOST_CHECK_EQUAL((*employee0).getEmployeeSchedules().getDesiredSchedule()[10][0]->getStartHour(), 15);
+        (*employee0).getEmployeeSchedules().removeDesiredShift(11, 1);
+        BOOST_CHECK_EQUAL((*employee0).getEmployeeSchedules().getDesiredSchedule()[10][0]->getStartHour(), 20);
         std::unique_ptr<Shift> shift7(new Shift(20, 24, 1));
         std::unique_ptr<Shift> shift8(new Shift(14, 16, 3));
         std::unique_ptr<Shift> shift9(new Shift(21, 24, 11));
-        BOOST_CHECK_EQUAL((*employee0).isAvailable(shift7), false);
-        BOOST_CHECK_EQUAL((*employee0).isAvailable(shift8), false);
-        BOOST_CHECK_EQUAL((*employee0).isAvailable(shift9), true);
+        BOOST_CHECK_EQUAL((*employee0).getEmployeeSchedules().isAvailable(shift7), false);
+        BOOST_CHECK_EQUAL((*employee0).getEmployeeSchedules().isAvailable(shift8), false);
+        BOOST_CHECK_EQUAL((*employee0).getEmployeeSchedules().isAvailable(shift9), true);
         std::unique_ptr<Shift> shift10(new Shift(20, 24, 20));
         std::unique_ptr<Shift> shift111(new Shift(0, 8, 21));
-        (*employee0).addDesiredShift(shift10);
-        (*employee0).addDesiredShift(shift111);
+        (*employee0).getEmployeeSchedules().addDesiredShift(shift10);
+        (*employee0).getEmployeeSchedules().addDesiredShift(shift111);
         std::unique_ptr<Shift> shift12(new Shift(21, 6, 20));
         std::unique_ptr<Shift> shift13(new Shift(21, 10, 20));
         std::unique_ptr<Shift> shift14(new Shift(20));
-        BOOST_CHECK_EQUAL((*employee0).isAvailable(shift12), true);
-        BOOST_CHECK_EQUAL((*employee0).isAvailable(shift13), false);
-        BOOST_CHECK_EQUAL((*employee0).isAvailable(shift14), false);
+        BOOST_CHECK_EQUAL((*employee0).getEmployeeSchedules().isAvailable(shift12), true);
+        BOOST_CHECK_EQUAL((*employee0).getEmployeeSchedules().isAvailable(shift13), false);
+        BOOST_CHECK_EQUAL((*employee0).getEmployeeSchedules().isAvailable(shift14), false);
     }
 
     BOOST_FIXTURE_TEST_CASE(EmployeeCurrentScheduleCase, FixtureEmployeeTest) {
@@ -157,20 +157,20 @@ BOOST_AUTO_TEST_SUITE(TestSuiteCorrect)
         std::unique_ptr<Shift> shift2(new Shift(15, 20, 3));
         std::unique_ptr<Shift> shift3(new Shift(5, 10, 15));
         std::unique_ptr<Shift> shift4(new Shift(15, 19, 11));
-        (*employee0).addCurrentShift(shift11);
-        (*employee0).addCurrentShift(shift22);
-        (*employee0).addCurrentShift(shift33);
-        (*employee0).addCurrentShift(shift66);
-        (*employee0).addCurrentShift(shift44);
-        BOOST_CHECK_EQUAL((*employee0).getCurrentSchedule()[10][0]->getStartHour(), 15);
-        (*employee0).removeCurrentShift(11, 1);
-        BOOST_CHECK_EQUAL((*employee0).getCurrentSchedule()[10][0]->getStartHour(), 20);
-        BOOST_CHECK_EQUAL((*employee0).getShiftsQuantity(), 4);
-        BOOST_CHECK_EQUAL((*employee0).getWorkHours(), 19);
+        (*employee0).getEmployeeSchedules().addCurrentShift(shift11);
+        (*employee0).getEmployeeSchedules().addCurrentShift(shift22);
+        (*employee0).getEmployeeSchedules().addCurrentShift(shift33);
+        (*employee0).getEmployeeSchedules().addCurrentShift(shift66);
+        (*employee0).getEmployeeSchedules().addCurrentShift(shift44);
+        BOOST_CHECK_EQUAL((*employee0).getEmployeeSchedules().getCurrentSchedule()[10][0]->getStartHour(), 15);
+        (*employee0).getEmployeeSchedules().removeCurrentShift(11, 1);
+        BOOST_CHECK_EQUAL((*employee0).getEmployeeSchedules().getCurrentSchedule()[10][0]->getStartHour(), 20);
+        BOOST_CHECK_EQUAL((*employee0).getEmployeeSchedules().getShiftsQuantity(), 4);
+        BOOST_CHECK_EQUAL((*employee0).getEmployeeSchedules().getWorkHours(), 19);
         std::unique_ptr<Shift> shift7(new Shift(18, 19, 11));
         std::unique_ptr<Shift> shift8(new Shift(9, 20, 3));
-        BOOST_CHECK_EQUAL((*employee0).isBusy(shift7), false);
-        BOOST_CHECK_EQUAL((*employee0).isBusy(shift8), true);
+        BOOST_CHECK_EQUAL((*employee0).getEmployeeSchedules().isBusy(shift7), false);
+        BOOST_CHECK_EQUAL((*employee0).getEmployeeSchedules().isBusy(shift8), true);
     }
 
     BOOST_FIXTURE_TEST_CASE(EmployeeIsAuthorisedCase, FixtureEmployeeTest) {
