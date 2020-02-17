@@ -44,3 +44,10 @@ add_test(TestProgram1 TestProgram
         --log_level=all
         --color_output=yes
         )
+
+#################################################
+#DATABASE CONNECTION
+
+add_library(libmysqlcppconn SHARED IMPORTED)
+set_property(TARGET libmysqlcppconn PROPERTY IMPORTED_LOCATION /usr/lib/x86_64-linux-gnu/libmysqlcppconn.so)
+target_link_libraries(Program libmysqlcppconn)
