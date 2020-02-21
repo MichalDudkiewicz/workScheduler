@@ -61,14 +61,14 @@ std::string FinalSchedule::scheduleInfo() const {
     std::ostringstream out;
     out << std::endl << std::setw(90) << calendar::currentDateToString() << " work schedule: " << std::endl;
     out << std::setw(3) << " ";
-    for (const auto &team : allQueues) {
-        out << std::setw(team.getTeam()->getPositions().size() * 5) << team.getTeam()->getName();
+    for (const auto &team : schedule[0]) {
+        out << std::setw(team.first->getPositions().size() * 5) << team.first->getName();
     }
     out << std::endl;
     out << std::setw(3) << " ";
-    for (const auto &team : allQueues) {
-        for (const auto &p : team.getTeam()->getPositions()) {
-            out << std::setw(4) << p->shortcut() << "|";
+    for (const auto &team : schedule[0]) {
+        for (const auto &position : team.first->getPositions()) {
+            out << std::setw(4) << position->shortcut() << "|";
         }
     }
     out << std::endl;

@@ -36,18 +36,27 @@ namespace input
 {
     void loadPositions();
     void employeeRepository(const std::string&) noexcept(false);
+    /// deprecated method
     void desiredSchedule(const std::string&) noexcept(false);
+    /// deprecated method
     void teamRepository(const std::string&) noexcept(false);
+    /// deprecated method
     void teamSchedule(const std::string&) noexcept(false);
+    /// deprecated method
 }
 
 namespace output
 {
     void employeeRepository(const std::string&) noexcept(false);
+    /// deprecated method
     void desiredSchedule(const std::string&) noexcept(false);
+    /// deprecated method
     void schedule(const std::string&) noexcept(false);
+    /// deprecated method
     void teamRepository(const std::string&) noexcept(false);
+    /// deprecated method
     void teamSchedule(const std::string&) noexcept(false);
+    /// deprecated method
 }
 
 template<typename T>
