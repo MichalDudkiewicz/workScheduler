@@ -16,6 +16,7 @@
 #include "managers/teamManager.h"
 #include "team/team.h"
 #include "positions/position.h"
+#include "repositories/teamRepository.h"
 
 using namespace std;
 
@@ -132,5 +133,6 @@ int main() {
     //CREATING AND DISPLAYING SCHEDULE
     WorkScheduler::getInstance().createSchedule();
     cout << WorkScheduler::getInstance().scheduleInfo();
+    std::cout<<WorkScheduler::getInstance().toJson();
     return 0;
 }

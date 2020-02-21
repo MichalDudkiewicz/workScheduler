@@ -20,6 +20,7 @@ public:
     std::string scheduleInfo() const;
     const Calendar<employeesToTeam>& getSchedule() const;
     friend std::ofstream& operator<<(std::ofstream& output, const WorkScheduler& scheduler);
+    std::string toJson() const;
 };
 
 #endif

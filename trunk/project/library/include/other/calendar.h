@@ -58,6 +58,10 @@ public:
     {
         return calendar[index];
     }
+    const std::vector<T>& getCalendar() const
+    {
+        return calendar;
+    }
 };
 
 #endif

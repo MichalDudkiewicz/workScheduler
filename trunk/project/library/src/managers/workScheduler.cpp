@@ -5,6 +5,10 @@
 #include "employee/employee.h"
 #include "positions/position.h"
 #include "shift/shift.h"
+#include "other/calendar.h"
+#include <nlohmann/json.hpp>
+
+using json = nlohmann::json;
 
 WorkScheduler &WorkScheduler::getInstance() {
     static WorkScheduler instance;
@@ -79,3 +83,32 @@ std::ofstream &operator<<(std::ofstream &output, const WorkScheduler &scheduler)
     }
     return output;
 }
+
+std::string WorkScheduler::toJson() const
+{
+    json scheduleJson;
+    json calendarJson;
+    json teamJson;
+    json positionJson;
+    for(const auto &day : getSchedule())
+    {
+        for(const auto &team : day)
+        {
+            for(const auto &position : team.second)
+            {
+                if(!position.second.empty())
+                    positionJson[std::to_string(position.first->positionID())]=position.second.front()->getId();
+                else
+                    positionJson[std::to_string(position.first->positionID())]=NULL;
+            }
+            teamJson[team.first->getName()]=positionJson;
+            positionJson.clear();
+        }
+        calendarJson.push_back(teamJson);
+        teamJson.clear();
+    }
+    scheduleJson[calendar::currentDateToString()] = calendarJson;
+    return scheduleJson.dump(2);
+}
+
+
