@@ -9,8 +9,9 @@ class EmployeeSchedule
 private:
   Calendar<shifts> shiftsInSchedule{};
 
-public:
   void addShift(shiftPtr&);
+
+public:
   void addShift(unsigned int, unsigned int, unsigned int);
   void removeShift(unsigned int, unsigned int);
   const Calendar<shifts>& getSchedule() const;

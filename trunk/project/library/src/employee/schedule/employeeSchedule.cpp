@@ -60,6 +60,13 @@ EmployeeSchedule::addShift(unsigned int startHour,
                            unsigned int endHour,
                            unsigned int day)
 {
-  shiftPtr shift(new Shift(startHour, endHour, day));
-  addShift(shift);
+  if (startHour >= endHour) {
+    shiftPtr shift1(new Shift(startHour, 24, day));
+    addShift(shift1);
+    shiftPtr shift2(new Shift(0, endHour, day + 1));
+    addShift(shift2);
+  } else {
+    shiftPtr shift(new Shift(startHour, endHour, day));
+    addShift(shift);
+  }
 }

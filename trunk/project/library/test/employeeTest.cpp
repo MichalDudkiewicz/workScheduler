@@ -15,12 +15,7 @@ BOOST_AUTO_TEST_SUITE(TestSuiteCorrect)
 struct FixtureEmployeeTest
 {
   FixtureEmployeeTest()
-    : shift1(new Shift(5, 10, 3))
-    , shift2(new Shift(15, 20, 3))
-    , shift3(new Shift(5, 10, 15))
-    , shift4(new Shift(15, 19, 11))
-    , shift6(new Shift(20, 24, 11))
-    , date((boost::gregorian::day_clock::local_day()))
+    : date((boost::gregorian::day_clock::local_day()))
     , d1()
     , m()
   {}
@@ -32,12 +27,6 @@ struct FixtureEmployeeTest
   std::shared_ptr<Employee> employee1 = std::make_shared<Employee>("Kamila", 1);
   std::shared_ptr<Employee> employee2 = std::make_shared<Employee>("Michal", 2);
   std::shared_ptr<Employee> employee3 = std::make_shared<Employee>("Janusz", 3);
-
-  std::unique_ptr<Shift> shift1;
-  std::unique_ptr<Shift> shift2;
-  std::unique_ptr<Shift> shift3;
-  std::unique_ptr<Shift> shift4;
-  std::unique_ptr<Shift> shift6;
 
   boost::gregorian::date date;
 
@@ -185,27 +174,27 @@ BOOST_FIXTURE_TEST_CASE(EmployeeDesiredScheduleCase, FixtureEmployeeTest)
     .getFactor()
     ->getAvailability()
     .getDesiredSchedule()
-    .addShift(shift1);
+    .addShift(5, 10, 3);
   (*employee0)
     .getFactor()
     ->getAvailability()
     .getDesiredSchedule()
-    .addShift(shift2);
+    .addShift(15, 20, 3);
   (*employee0)
     .getFactor()
     ->getAvailability()
     .getDesiredSchedule()
-    .addShift(shift3);
+    .addShift(5, 10, 15);
   (*employee0)
     .getFactor()
     ->getAvailability()
     .getDesiredSchedule()
-    .addShift(shift6);
+    .addShift(20, 24, 11);
   (*employee0)
     .getFactor()
     ->getAvailability()
     .getDesiredSchedule()
-    .addShift(shift4);
+    .addShift(15, 19, 11);
   BOOST_CHECK_EQUAL((*employee0)
                       .getFactor()
                       ->getAvailability()
@@ -240,12 +229,12 @@ BOOST_FIXTURE_TEST_CASE(EmployeeDesiredScheduleCase, FixtureEmployeeTest)
     .getFactor()
     ->getAvailability()
     .getDesiredSchedule()
-    .addShift(shift10);
+    .addShift(20, 24, 20);
   (*employee0)
     .getFactor()
     ->getAvailability()
     .getDesiredSchedule()
-    .addShift(shift111);
+    .addShift(0, 8, 21);
   std::unique_ptr<Shift> shift12(new Shift(21, 6, 20));
   std::unique_ptr<Shift> shift13(new Shift(21, 10, 20));
   std::unique_ptr<Shift> shift14(new Shift(20));
@@ -273,27 +262,27 @@ BOOST_FIXTURE_TEST_CASE(EmployeeCurrentScheduleCase, FixtureEmployeeTest)
     .getFactor()
     ->getAvailability()
     .getCurrentSchedule()
-    .addShift(shift11);
+    .addShift(5, 10, 3);
   (*employee0)
     .getFactor()
     ->getAvailability()
     .getCurrentSchedule()
-    .addShift(shift22);
+    .addShift(15, 20, 3);
   (*employee0)
     .getFactor()
     ->getAvailability()
     .getCurrentSchedule()
-    .addShift(shift33);
+    .addShift(5, 10, 15);
   (*employee0)
     .getFactor()
     ->getAvailability()
     .getCurrentSchedule()
-    .addShift(shift66);
+    .addShift(20, 24, 11);
   (*employee0)
     .getFactor()
     ->getAvailability()
     .getCurrentSchedule()
-    .addShift(shift44);
+    .addShift(15, 19, 11);
   BOOST_CHECK_EQUAL((*employee0)
                       .getFactor()
                       ->getAvailability()

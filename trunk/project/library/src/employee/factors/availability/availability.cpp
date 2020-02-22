@@ -74,3 +74,12 @@ Availability::getDesiredSchedule()
 {
   return desiredSchedule;
 }
+
+bool
+Availability::isBusy(unsigned int startHour,
+                     unsigned int endHour,
+                     unsigned int day) const
+{
+  shiftPtr shift(new Shift(startHour, endHour, day));
+  return isBusy(shift);
+}

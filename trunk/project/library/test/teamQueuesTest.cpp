@@ -16,21 +16,7 @@ struct FixtureTeamQueuesTest
   typedef std::unique_ptr<std::vector<positionPtr>> positionsPtr;
   typedef std::unique_ptr<std::vector<shiftPtr>> shiftsPtr;
   FixtureTeamQueuesTest()
-    : shift1(new Shift(0, 10, 2))
-    , shift2(new Shift(15, 20, 3))
-    , shift3(new Shift(0, 9, 8))
-    , shift4(new Shift(1, 3, 20))
-    , shift5(new Shift(21, 24, 7))
-    , shift6(new Shift(20, 24, 7))
-    , shift7(new Shift(0, 10, 8))
-    , shift8(new Shift(0, 10, 20))
-    , shift9(new Shift(10, 24, 12))
-    , shift10(new Shift(0, 24, 12))
-    , shift11(new Shift(0, 8, 30))
-    , shift12(new Shift(0, 7, 30))
-    , shift13(new Shift(20, 24, 29))
-    , shift14(new Shift(21, 24, 29))
-    , shifts(new std::vector<shiftPtr>)
+    : shifts(new std::vector<shiftPtr>)
     , positions(new std::vector<positionPtr>)
     , monday(new Shift(1, 2, 1))
     , tuesday(new Shift(22, 6, 2))
@@ -42,34 +28,33 @@ struct FixtureTeamQueuesTest
     , employees()
   {
     (*palinka).getFactor()->getAvailability().getDesiredSchedule().addShift(
-      shift1);
+      0, 10, 2);
     (*palinka).getFactor()->getAvailability().getDesiredSchedule().addShift(
-      shift2);
+      15, 20, 3);
     (*palinka).getFactor()->getAvailability().getDesiredSchedule().addShift(
-      shift3);
+      0, 9, 8);
     (*palinka).getFactor()->getAvailability().getDesiredSchedule().addShift(
-      shift4);
+      1, 3, 20);
     (*palinka).getFactor()->getAvailability().getDesiredSchedule().addShift(
-      shift5);
+      21, 24, 7);
     (*palinka).getFactor()->getAvailability().getDesiredSchedule().addShift(
-      shift11);
+      0, 8, 30);
     (*palinka).getFactor()->getAvailability().getDesiredSchedule().addShift(
-      shift13);
+      20, 24, 29);
     (*mateusz).getFactor()->getAvailability().getDesiredSchedule().addShift(
-      shift6);
+      20, 24, 7);
     (*mateusz).getFactor()->getAvailability().getDesiredSchedule().addShift(
-      shift7);
+      0, 10, 8);
     (*mateusz).getFactor()->getAvailability().getDesiredSchedule().addShift(
-      shift8);
+      0, 10, 20);
     (*mateusz).getFactor()->getAvailability().getDesiredSchedule().addShift(
-      shift9);
+      10, 24, 12);
     (*mateusz).getFactor()->getAvailability().getDesiredSchedule().addShift(
-      shift10);
+      0, 24, 12);
     (*mateusz).getFactor()->getAvailability().getDesiredSchedule().addShift(
-      shift12);
+      0, 7, 30);
     (*mateusz).getFactor()->getAvailability().getDesiredSchedule().addShift(
-      shift14);
-
+      21, 24, 29);
     (*mateusz).getFactor()->getAuthorisation().addPosition(doctor);
     (*mateusz).getFactor()->getAuthorisation().addPosition(medic);
     (*palinka).getFactor()->getAuthorisation().addPosition(medic);
@@ -92,21 +77,6 @@ struct FixtureTeamQueuesTest
 
   std::shared_ptr<Employee> palinka = std::make_shared<Employee>("Palinka", 1);
   std::shared_ptr<Employee> mateusz = std::make_shared<Employee>("Mateusz", 2);
-
-  std::unique_ptr<Shift> shift1;
-  std::unique_ptr<Shift> shift2;
-  std::unique_ptr<Shift> shift3;
-  std::unique_ptr<Shift> shift4;
-  std::unique_ptr<Shift> shift5;
-  std::unique_ptr<Shift> shift6;
-  std::unique_ptr<Shift> shift7;
-  std::unique_ptr<Shift> shift8;
-  std::unique_ptr<Shift> shift9;
-  std::unique_ptr<Shift> shift10;
-  std::unique_ptr<Shift> shift11;
-  std::unique_ptr<Shift> shift12;
-  std::unique_ptr<Shift> shift13;
-  std::unique_ptr<Shift> shift14;
 
   std::shared_ptr<Position> doctor = std::make_shared<Doctor>();
   std::shared_ptr<Position> medic = std::make_shared<Medic>();
