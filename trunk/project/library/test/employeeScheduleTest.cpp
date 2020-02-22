@@ -56,13 +56,19 @@ BOOST_FIXTURE_TEST_CASE(EmployeeScheduleAddNightShiftCase,
 {
   schedule.addShift(18, 10, 5);
   schedule.addShift(0, 0, 22);
+  schedule.addShift(24, 24, 26);
   BOOST_CHECK_EQUAL(schedule.getSchedule()[4].front()->shiftInfo(),
                     "day: 5, 18 - 24");
   BOOST_CHECK_EQUAL(schedule.getSchedule()[5].front()->shiftInfo(),
                     "day: 6, 0 - 10");
+  BOOST_CHECK_EQUAL(schedule.getSchedule()[20].empty(), true);
   BOOST_CHECK_EQUAL(schedule.getSchedule()[21].front()->shiftInfo(),
                     "day: 22, 0 - 24");
   BOOST_CHECK_EQUAL(schedule.getSchedule()[22].empty(), true);
+  BOOST_CHECK_EQUAL(schedule.getSchedule()[24].empty(), true);
+  BOOST_CHECK_EQUAL(schedule.getSchedule()[25].front()->shiftInfo(),
+                    "day: 26, 0 - 24");
+  BOOST_CHECK_EQUAL(schedule.getSchedule()[26].empty(), true);
 }
 
 BOOST_AUTO_TEST_SUITE_END()
