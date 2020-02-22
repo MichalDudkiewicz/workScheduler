@@ -86,29 +86,39 @@ std::ofstream &operator<<(std::ofstream &output, const WorkScheduler &scheduler)
 
 std::string WorkScheduler::toJson() const
 {
-    json scheduleJson;
-    json calendarJson;
-    json teamJson;
-    json positionJson;
+    json scheduleInfo;
+    json dayAssignments;
+    json teamAssignment;
+    json positionAssignment;
+    json null;
+    json teamAssignments;
+    json positionAssignments;
+    scheduleInfo["date"] = calendar::currentDateToString();
     for(const auto &day : getSchedule())
     {
         for(const auto &team : day)
         {
+            teamAssignment["team"]=team.first->getName();
             for(const auto &position : team.second)
             {
+                positionAssignment["position"]=position.first->positionID();
                 if(!position.second.empty())
-                    positionJson[std::to_string(position.first->positionID())]=position.second.front()->getId();
+                    positionAssignment["employee"]=position.second.front()->getId();
                 else
-                    positionJson[std::to_string(position.first->positionID())]=NULL;
+                    positionAssignment["employee"]=null;
+                positionAssignments.push_back(positionAssignment);
+                positionAssignment.clear();
             }
-            teamJson[team.first->getName()]=positionJson;
-            positionJson.clear();
+            teamAssignment["employees_assigned"]=positionAssignments;
+            positionAssignments.clear();
+            teamAssignments.push_back(teamAssignment);
+            teamAssignment.clear();
         }
-        calendarJson.push_back(teamJson);
-        teamJson.clear();
+        dayAssignments.push_back(teamAssignments);
+        teamAssignments.clear();
     }
-    scheduleJson[calendar::currentDateToString()] = calendarJson;
-    return scheduleJson.dump(2);
+    scheduleInfo["schedule"] = dayAssignments;
+    return scheduleInfo.dump(2);
 }
 
 
