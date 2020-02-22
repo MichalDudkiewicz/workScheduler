@@ -8,7 +8,6 @@ class EmployeeSchedule
 {
 private:
   Calendar<shifts> shiftsInSchedule{};
-
   void addShift(shiftPtr&);
 
 public:
