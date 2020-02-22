@@ -1,27 +1,39 @@
 #include "managers/positionManager.h"
 #include "repositories/positionRepository.h"
 
-PositionManager &PositionManager::getInstance() {
-    static PositionManager instance;
-    return instance;
+PositionManager&
+PositionManager::getInstance()
+{
+  static PositionManager instance;
+  return instance;
 }
 
-void PositionManager::add(const positionPtr &position) {
-    PositionRepository::getInstance().add(position);
+void
+PositionManager::add(const positionPtr& position)
+{
+  PositionRepository::getInstance().add(position);
 }
 
-void PositionManager::remove(const unsigned int &id) {
-    PositionManager::getInstance().remove(id);
+void
+PositionManager::remove(const unsigned int& id)
+{
+  PositionManager::getInstance().remove(id);
 }
 
-std::string PositionManager::info() const {
-    return PositionRepository::getInstance().info();
+std::string
+PositionManager::info() const
+{
+  return PositionRepository::getInstance().info();
 }
 
-const positionPtr &PositionManager::get(const unsigned int &id) const {
-    return PositionRepository::getInstance().get(id);
+const positionPtr&
+PositionManager::get(const unsigned int& id) const
+{
+  return PositionRepository::getInstance().get(id);
 }
 
-std::list<positionPtr> PositionManager::getAll() const {
-    return PositionRepository::getInstance().getAll();
+std::list<positionPtr>
+PositionManager::getAll() const
+{
+  return PositionRepository::getInstance().getAll();
 }

@@ -1,8 +1,8 @@
 #ifndef typeDefinitionsHeader
 #define typeDefinitionsHeader
 
-#include <memory>
 #include <list>
+#include <memory>
 #include <vector>
 
 class Position;

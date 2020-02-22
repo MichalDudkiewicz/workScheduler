@@ -3,23 +3,25 @@
 
 #include "other/typeDefinitions.h"
 
-class Authorisation {
+class Authorisation
+{
 private:
-    positions myPositions{};
-    teams myTeams{};
-    friend class Factor;
-    explicit Authorisation()= default;
-    Authorisation(const Authorisation&)= default;
-    Authorisation& operator=(const Authorisation&)= default;
+  positions myPositions{};
+  teams myTeams{};
+  friend class Factor;
+  explicit Authorisation() = default;
+  Authorisation(const Authorisation&) = default;
+  Authorisation& operator=(const Authorisation&) = default;
+
 public:
-    bool isAuthorised(const positionPtr &position, const teamPtr &team);
-    bool positionMatch(const positionPtr &position) const;
-    const positions &getPositions() const;
-    bool teamMatch(const teamPtr &team) const;
-    const teams &getTeams() const;
-    void addPosition(const positionPtr&);
-    void removePosition(const positionPtr&);
-    void addTeam(const teamPtr&);
-    void removeTeam(const teamPtr&);
+  bool isAuthorised(const positionPtr& position, const teamPtr& team);
+  bool positionMatch(const positionPtr& position) const;
+  const positions& getPositions() const;
+  bool teamMatch(const teamPtr& team) const;
+  const teams& getTeams() const;
+  void addPosition(const positionPtr&);
+  void removePosition(const positionPtr&);
+  void addTeam(const teamPtr&);
+  void removeTeam(const teamPtr&);
 };
-#endif //WORKSCHEDULER_AUTHORISATION_H
+#endif // WORKSCHEDULER_AUTHORISATION_H
