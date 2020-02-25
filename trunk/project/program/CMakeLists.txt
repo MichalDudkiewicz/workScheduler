@@ -6,7 +6,7 @@ project(Program)
 set(SOURCE_FILES
         src/main.cpp
         src/file_stream/fileStream.cpp
-        )
+        src/database/databaseManager.cpp include/database/databaseManager.h)
 #włącz powyższy zbiór plików do zbudowania programu wykonywalnego Program
 add_executable(Program ${SOURCE_FILES})
 #Określenie zależności pomiędzy projektami Program i Biblioteka

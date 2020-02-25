@@ -17,8 +17,8 @@
 #include "repositories/teamRepository.h"
 #include "shift/shift.h"
 #include "team/team.h"
-#include <iostream>
 #include <boost/filesystem.hpp>
+#include <iostream>
 
 FileException::FileException(const std::string& message, std::string path)
   : logic_error(message)
@@ -331,40 +331,43 @@ output::teamSchedule(const std::string& path)
   teamScheduleStream.close();
 }
 
-void input::loadDesiredShifts(const std::string &path)
+void
+input::loadDesiredShifts(const std::string& path)
 {
-    std::ifstream file;
-    boost::filesystem::path p = path;
-    std::string line;
-    std::vector<std::string> row;
-    unsigned int numberOfColumns = 7;
-    row.reserve(numberOfColumns);
-    std::string cell;
-    unsigned int employeeID;
-    for (boost::filesystem::directory_iterator it{p}; it != boost::filesystem::directory_iterator{}; it++)
-    {
-        file.open((*it).path().string());
-        employeeID = 0;
-        while (file.good()) {
-            getline(file, line, '\n');
-            std::stringstream s(line);
-            while (getline(s, cell, ',')) {
-                row.push_back(cell);
-            }
-            if(row[1] == "propozycja 1")
-            {
-                employeeID = stoi(row.front());
-            }
-            else if(row[1] != "start")
-            {
-                for(unsigned long i = 1; i < row.size(); i += 2)
-                {
-                    if(!row[i].empty() and !row[i+1].empty())
-                        EmployeeManager::getInstance().get(employeeID)->getFactor()->getAvailability().getDesiredSchedule().addShift(stoi(row[i]),stoi(row[i+1]),stoi(row.front()));
-                }
-            }
-            row.clear();
+  std::ifstream file;
+  boost::filesystem::path p = path;
+  std::string line;
+  std::vector<std::string> row;
+  unsigned int numberOfColumns = 7;
+  row.reserve(numberOfColumns);
+  std::string cell;
+  unsigned int employeeID;
+  for (boost::filesystem::directory_iterator it{ p };
+       it != boost::filesystem::directory_iterator{};
+       it++) {
+    file.open((*it).path().string());
+    employeeID = 0;
+    while (file.good()) {
+      getline(file, line, '\n');
+      std::stringstream s(line);
+      while (getline(s, cell, ',')) {
+        row.push_back(cell);
+      }
+      if (row[1] == "propozycja 1") {
+        employeeID = stoi(row.front());
+      } else if (row[1] != "start") {
+        for (unsigned long i = 1; i < row.size(); i += 2) {
+          if (!row[i].empty() and !row[i + 1].empty())
+            EmployeeManager::getInstance()
+              .get(employeeID)
+              ->getFactor()
+              ->getAvailability()
+              .getDesiredSchedule()
+              .addShift(stoi(row[i]), stoi(row[i + 1]), stoi(row.front()));
         }
-        file.close();
+      }
+      row.clear();
     }
+    file.close();
+  }
 }
