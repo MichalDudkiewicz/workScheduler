@@ -37,6 +37,8 @@ namespace input {
 void
 loadPositions();
 void
+loadDesiredShifts(const std::string& path);
+void
 employeeRepository(const std::string&) noexcept(false);
 /// deprecated method
 void

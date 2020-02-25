@@ -10,7 +10,9 @@ set(SOURCE_FILES
 #włącz powyższy zbiór plików do zbudowania programu wykonywalnego Program
 add_executable(Program ${SOURCE_FILES})
 #Określenie zależności pomiędzy projektami Program i Biblioteka
-target_link_libraries(Program Library)
+#linkowanie z boost::filesystem
+find_package (Boost 1.60.0 COMPONENTS "filesystem" REQUIRED)
+target_link_libraries(Program Library Boost::filesystem)
 #dołącz katalog include podprojektu Program do globalnej listy. Dzięki temu każdy inny podprojekt będzie ten katalog "widział"
 target_include_directories(Program PUBLIC include)
 
@@ -36,6 +38,7 @@ target_include_directories(TestProgram PUBLIC include)
 target_link_libraries (TestProgram
         Library
         ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY}
+        Boost::filesystem
         )
 
 

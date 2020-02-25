@@ -23,6 +23,12 @@ using namespace std;
 int
 main()
 {
+    system("rm -R -f ../../../dataset/converted/* && libreoffice --headless --convert-to csv --outdir ../../../dataset/converted/ ../../../dataset/unconverted/*");
+
+//    input::loadDesiredShifts("../../../dataset/unconverted");
+
+
+
   sql::ResultSet* res;
   sql::Driver* driver;
   sql::Statement* stmt;
