@@ -7,80 +7,68 @@
 #include <sstream>
 
 Employee::Employee(std::string name, unsigned int id)
-  : name(std::move(name))
-  , id(id)
-  , hourlyWage(0)
-  , factor(new Factor(this))
-{}
-
-std::string
-Employee::employeeInfo() const
+    : name(std::move(name))
+    , id(id)
+    , hourlyWage(0)
+    , factor(new Factor(this))
 {
-  std::ostringstream out;
-  out << "ID: " << id << std::endl;
-  out << "name: " << name << std::endl;
-  out << "type: " << factor->rules.getType()->getType() << std::endl;
-  out << "points: " << factor->rules.getPoints() << std::endl;
-  out << "hours worked: " << factor->availability.getWorkHours() << std::endl;
-  out << "wage/hour: " << hourlyWage << std::endl;
-  return out.str();
 }
 
-unsigned int
-Employee::getHourlyWage() const
+std::string Employee::employeeInfo() const
 {
-  return hourlyWage;
+    std::ostringstream out;
+    out << "ID: " << id << std::endl;
+    out << "name: " << name << std::endl;
+    out << "type: " << factor->rules.getType()->getType() << std::endl;
+    out << "points: " << factor->rules.getPoints() << std::endl;
+    out << "hours worked: " << factor->availability.getWorkHours() << std::endl;
+    out << "wage/hour: " << hourlyWage << std::endl;
+    return out.str();
 }
 
-void
-Employee::setHourlyWage(unsigned int w)
+unsigned int Employee::getHourlyWage() const
 {
-  hourlyWage = w;
+    return hourlyWage;
 }
 
-const std::string&
-Employee::getName() const
+void Employee::setHourlyWage(unsigned int w)
 {
-  return name;
+    hourlyWage = w;
 }
 
-unsigned int
-Employee::getId() const
+const std::string& Employee::getName() const
 {
-  return id;
+    return name;
 }
 
-const factorPtr&
-Employee::getFactor() const
+unsigned int Employee::getId() const
 {
-  return factor;
+    return id;
 }
 
-bool
-compareID::operator()(const employeePtr& e1, const employeePtr& e2) const
+const factorPtr& Employee::getFactor() const
 {
-  return e1->getId() < e2->getId();
+    return factor;
 }
 
-bool
-sortPointsTypeWorkHours::operator()(const employeePtr& e1,
-                                    const employeePtr& e2) const
+bool compareID::operator()(const employeePtr& e1, const employeePtr& e2) const
 {
-  if (e1->getFactor()->getRules().getPoints() >
-      e2->getFactor()->getRules().getPoints()) {
-    return true;
-  } else if (e1->getFactor()->getRules().getPoints() ==
-             e2->getFactor()->getRules().getPoints()) {
-    if (e1->getFactor()->getRules().getType()->getPriority() >
-        e2->getFactor()->getRules().getType()->getPriority())
-      return true;
-    else if (e1->getFactor()->getRules().getType()->getPriority() ==
-             e2->getFactor()->getRules().getType()->getPriority()) {
-      return e1->getFactor()->getAvailability().getWorkHours() <
-             e2->getFactor()->getAvailability().getWorkHours();
-    } else {
-      return false;
+    return e1->getId() < e2->getId();
+}
+
+bool sortPointsTypeWorkHours::operator()(const employeePtr& e1,
+    const employeePtr& e2) const
+{
+    if (e1->getFactor()->getRules().getPoints() > e2->getFactor()->getRules().getPoints()) {
+        return true;
+    } else if (e1->getFactor()->getRules().getPoints() == e2->getFactor()->getRules().getPoints()) {
+        if (e1->getFactor()->getRules().getType()->getPriority() > e2->getFactor()->getRules().getType()->getPriority())
+            return true;
+        else if (e1->getFactor()->getRules().getType()->getPriority() == e2->getFactor()->getRules().getType()->getPriority()) {
+            return e1->getFactor()->getAvailability().getWorkHours() < e2->getFactor()->getAvailability().getWorkHours();
+        } else {
+            return false;
+        }
     }
-  }
-  return false;
+    return false;
 }

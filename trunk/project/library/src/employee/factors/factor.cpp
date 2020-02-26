@@ -1,33 +1,30 @@
 #include "employee/factors/factor.h"
 #include "shift/shift.h"
 
-Authorisation&
-Factor::getAuthorisation()
+Authorisation& Factor::getAuthorisation()
 {
-  return authorisation;
+    return authorisation;
 }
 
-Availability&
-Factor::getAvailability()
+Availability& Factor::getAvailability()
 {
-  return availability;
+    return availability;
 }
 
-Relationship&
-Factor::getRelationship()
+Relationship& Factor::getRelationship()
 {
-  return relationship;
+    return relationship;
 }
 
-Rules&
-Factor::getRules()
+Rules& Factor::getRules()
 {
-  return rules;
+    return rules;
 }
 
 Factor::Factor(Employee* employee)
-  : availability()
-  , authorisation()
-  , relationship(employee)
-  , rules()
-{}
+    : availability()
+    , authorisation()
+    , relationship(employee)
+    , rules()
+{
+}

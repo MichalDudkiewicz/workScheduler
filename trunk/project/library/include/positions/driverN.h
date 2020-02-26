@@ -3,14 +3,13 @@
 
 #include "nTeam.h"
 
-class DriverN : public NTeam
-{
+class DriverN : public NTeam {
 public:
-  DriverN() = default;
-  ~DriverN() override = default;
-  std::string positionInfo() const override;
-  unsigned int positionID() const override;
-  std::string shortcut() const override;
+    DriverN() = default;
+    ~DriverN() override = default;
+    std::string positionInfo() const override;
+    unsigned int positionID() const override;
+    std::string shortcut() const override;
 };
 
 #endif

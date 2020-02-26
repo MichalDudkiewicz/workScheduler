@@ -1,19 +1,16 @@
 #include "positions/driverS.h"
 
-std::string
-DriverS::positionInfo() const
+std::string DriverS::positionInfo() const
 {
-  return "driver (special)";
+    return "driver (special)";
 }
 
-unsigned int
-DriverS::positionID() const
+unsigned int DriverS::positionID() const
 {
-  return 2;
+    return 2;
 }
 
-std::string
-DriverS::shortcut() const
+std::string DriverS::shortcut() const
 {
-  return "K";
+    return "K";
 }

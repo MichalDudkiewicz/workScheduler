@@ -8,18 +8,17 @@
 typedef std::vector<TeamQueues> allTeamsQueues;
 typedef std::map<teamPtr, employeesToPosition> employeesToTeam;
 
-class FinalSchedule
-{
+class FinalSchedule {
 private:
-  allTeamsQueues allQueues{};
-  Calendar<employeesToTeam> schedule{};
+    allTeamsQueues allQueues{};
+    Calendar<employeesToTeam> schedule{};
 
 public:
-  FinalSchedule(const teams&, const employees&);
-  void makeSchedule();
-  void clear();
-  const Calendar<employeesToTeam>& getSchedule() const;
-  std::string scheduleInfo() const;
+    FinalSchedule(const teams&, const employees&);
+    void makeSchedule();
+    void clear();
+    const Calendar<employeesToTeam>& getSchedule() const;
+    std::string scheduleInfo() const;
 };
 
 #endif

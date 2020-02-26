@@ -8,21 +8,20 @@
 
 class Employee;
 
-class Factor
-{
+class Factor {
 private:
-  explicit Factor(Employee* employee);
-  friend class Employee;
-  Availability availability;
-  Authorisation authorisation;
-  Relationship relationship;
-  Rules rules;
+    explicit Factor(Employee* employee);
+    friend class Employee;
+    Availability availability;
+    Authorisation authorisation;
+    Relationship relationship;
+    Rules rules;
 
 public:
-  Authorisation& getAuthorisation();
-  Availability& getAvailability();
-  Relationship& getRelationship();
-  Rules& getRules();
+    Authorisation& getAuthorisation();
+    Availability& getAvailability();
+    Relationship& getRelationship();
+    Rules& getRules();
 };
 
 #endif // WORKSCHEDULER_FACTOR_H

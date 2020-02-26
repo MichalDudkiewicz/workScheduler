@@ -2,139 +2,118 @@
 #include <sstream>
 
 Shift::Shift(unsigned int start, unsigned int end, unsigned int d)
-  : startHour(start)
-  , endHour(end)
-  , day(d)
-  , nightShift(startHour > endHour)
-{}
+    : startHour(start)
+    , endHour(end)
+    , day(d)
+    , nightShift(startHour > endHour)
+{
+}
 
 Shift::Shift(unsigned int d)
-  : startHour(0)
-  , endHour(0)
-  , day(d)
-  , nightShift(false)
-{}
-
-unsigned int
-Shift::getLength() const
+    : startHour(0)
+    , endHour(0)
+    , day(d)
+    , nightShift(false)
 {
-  if (isNightShift()) {
-    return 24 - startHour + endHour;
-  }
-  return endHour - startHour;
 }
 
-std::string
-Shift::shiftInfo() const
+unsigned int Shift::getLength() const
 {
-  std::ostringstream out;
-  out << "day: " << day << ", ";
-  out << startHour << " - " << endHour;
-  if (isNightShift()) {
-    out << " (night)";
-  }
-  return out.str();
+    if (isNightShift()) {
+        return 24 - startHour + endHour;
+    }
+    return endHour - startHour;
 }
 
-unsigned int
-Shift::getEndHour() const
+std::string Shift::shiftInfo() const
 {
-  return endHour;
+    std::ostringstream out;
+    out << "day: " << day << ", ";
+    out << startHour << " - " << endHour;
+    if (isNightShift()) {
+        out << " (night)";
+    }
+    return out.str();
 }
 
-unsigned int
-Shift::getStartHour() const
+unsigned int Shift::getEndHour() const
 {
-  return startHour;
+    return endHour;
 }
 
-void
-Shift::setStartHour(unsigned int hour)
+unsigned int Shift::getStartHour() const
 {
-  startHour = hour;
+    return startHour;
 }
 
-void
-Shift::setEndHour(unsigned int hour)
+void Shift::setStartHour(unsigned int hour)
 {
-  endHour = hour;
+    startHour = hour;
 }
 
-bool
-Shift::operator>=(const Shift& shift) const
+void Shift::setEndHour(unsigned int hour)
 {
-  return this->startHour <= shift.startHour and
-         this->endHour >= shift.endHour and this->day == shift.day and
-         shift.isNightShift() == this->isNightShift();
+    endHour = hour;
 }
 
-bool
-Shift::isNightShift() const
+bool Shift::operator>=(const Shift& shift) const
 {
-  return nightShift;
+    return this->startHour <= shift.startHour and this->endHour >= shift.endHour and this->day == shift.day and shift.isNightShift() == this->isNightShift();
 }
 
-Shift
-Shift::operator+(const Shift& shift) const
+bool Shift::isNightShift() const
 {
-  if (this->endHour == 24 and shift.startHour == 0 and
-      this->day + 1 == shift.day) {
-    Shift night(this->startHour, shift.endHour, this->day);
-    night.nightShift = true;
-    return night;
-  } else if (this->startHour == 0 and shift.endHour == 24 and
-             shift.day + 1 == this->day) {
-    Shift night(shift.startHour, this->endHour, shift.day);
-    night.nightShift = true;
-    return night;
-  }
-  return *this;
+    return nightShift;
 }
 
-unsigned int
-Shift::getDay() const
+Shift Shift::operator+(const Shift& shift) const
 {
-  return day;
+    if (this->endHour == 24 and shift.startHour == 0 and this->day + 1 == shift.day) {
+        Shift night(this->startHour, shift.endHour, this->day);
+        night.nightShift = true;
+        return night;
+    } else if (this->startHour == 0 and shift.endHour == 24 and shift.day + 1 == this->day) {
+        Shift night(shift.startHour, this->endHour, shift.day);
+        night.nightShift = true;
+        return night;
+    }
+    return *this;
 }
 
-bool
-Shift::operator==(const Shift& shift) const
+unsigned int Shift::getDay() const
 {
-  if (shift >= *this or *this >= shift) {
-    return true;
-  } else if (!this->isNightShift() and !shift.isNightShift()) {
-    return (this->endHour > shift.startHour and
-            this->startHour < shift.startHour) or
-           (shift.endHour > this->startHour and
-            shift.startHour < this->startHour);
-  } else if (this->isNightShift() and shift.isNightShift()) {
-    return (this->endHour < shift.endHour and
-            shift.startHour > this->startHour) or
-           (shift.endHour < this->endHour and
-            this->startHour > shift.startHour);
-  } else if (this->isNightShift() and !shift.isNightShift()) {
-    return this->startHour < shift.endHour or shift.startHour > this->startHour;
-  } else if (!this->isNightShift() and shift.isNightShift()) {
-    return this->endHour > shift.startHour or this->startHour > shift.startHour;
-  } else {
-    return false;
-  }
+    return day;
 }
 
-void
-Shift::setDay(unsigned int d)
+bool Shift::operator==(const Shift& shift) const
 {
-  day = d;
+    if (shift >= *this or *this >= shift) {
+        return true;
+    } else if (!this->isNightShift() and !shift.isNightShift()) {
+        return (this->endHour > shift.startHour and this->startHour < shift.startHour) or (shift.endHour > this->startHour and shift.startHour < this->startHour);
+    } else if (this->isNightShift() and shift.isNightShift()) {
+        return (this->endHour < shift.endHour and shift.startHour > this->startHour) or (shift.endHour < this->endHour and this->startHour > shift.startHour);
+    } else if (this->isNightShift() and !shift.isNightShift()) {
+        return this->startHour < shift.endHour or shift.startHour > this->startHour;
+    } else if (!this->isNightShift() and shift.isNightShift()) {
+        return this->endHour > shift.startHour or this->startHour > shift.startHour;
+    } else {
+        return false;
+    }
 }
 
-bool
-compareShiftStartHour::operator()(const shiftPtr& s1, const shiftPtr& s2) const
+void Shift::setDay(unsigned int d)
 {
-  return s1->getStartHour() < s2->getStartHour();
+    day = d;
 }
 
-bool
-Shift::isDayOff() const
+bool compareShiftStartHour::operator()(const shiftPtr& s1,
+    const shiftPtr& s2) const
 {
-  return startHour == 0 and endHour == 0;
+    return s1->getStartHour() < s2->getStartHour();
+}
+
+bool Shift::isDayOff() const
+{
+    return startHour == 0 and endHour == 0;
 }

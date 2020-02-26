@@ -5,32 +5,29 @@
 class Factor;
 typedef std::unique_ptr<Factor> factorPtr;
 
-class Employee
-{
+class Employee {
 private:
-  std::string name;
-  unsigned int id;
-  unsigned int hourlyWage;
-  factorPtr factor;
+    std::string name;
+    unsigned int id;
+    unsigned int hourlyWage;
+    factorPtr factor;
 
 public:
-  Employee(std::string, unsigned int);
-  std::string employeeInfo() const;
-  unsigned int getHourlyWage() const;
-  void setHourlyWage(unsigned int);
-  const std::string& getName() const;
-  unsigned int getId() const;
-  const factorPtr& getFactor() const;
+    Employee(std::string, unsigned int);
+    std::string employeeInfo() const;
+    unsigned int getHourlyWage() const;
+    void setHourlyWage(unsigned int);
+    const std::string& getName() const;
+    unsigned int getId() const;
+    const factorPtr& getFactor() const;
 };
 
-struct sortPointsTypeWorkHours
-{
-  bool operator()(const employeePtr&, const employeePtr&) const;
+struct sortPointsTypeWorkHours {
+    bool operator()(const employeePtr&, const employeePtr&) const;
 };
 
-struct compareID
-{
-  bool operator()(const employeePtr&, const employeePtr&) const;
+struct compareID {
+    bool operator()(const employeePtr&, const employeePtr&) const;
 };
 
 #endif

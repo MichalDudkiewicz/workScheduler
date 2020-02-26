@@ -3,114 +3,101 @@
 #include "employee/factors/factor.h"
 #include "shift/shift.h"
 
-void
-Relationship::addFriend(Employee* employee)
+void Relationship::addFriend(Employee* employee)
 {
-  friends.push_front(employee);
-  if (!employee->getFactor()->getRelationship().isFriendWith(relationshipOwner))
-    employee->getFactor()->getRelationship().addFriend(relationshipOwner);
-  removeEnemy(employee);
+    friends.push_front(employee);
+    if (!employee->getFactor()->getRelationship().isFriendWith(relationshipOwner))
+        employee->getFactor()->getRelationship().addFriend(relationshipOwner);
+    removeEnemy(employee);
 }
 
-void
-Relationship::removeFriend(Employee* employee)
+void Relationship::removeFriend(Employee* employee)
 {
-  friends.remove(employee);
-  if (employee->getFactor()->getRelationship().isFriendWith(
-        relationshipOwner)) {
-    employee->getFactor()->getRelationship().removeFriend(relationshipOwner);
-  }
-}
-
-void
-Relationship::addEnemy(Employee* employee)
-{
-  enemies.push_front(employee);
-  if (!employee->getFactor()->getRelationship().isEnemyWith(relationshipOwner))
-    employee->getFactor()->getRelationship().enemies.push_front(
-      relationshipOwner);
-  removeFriend(employee);
-}
-
-void
-Relationship::removeEnemy(Employee* employee)
-{
-  enemies.remove(employee);
-  if (employee->getFactor()->getRelationship().isEnemyWith(relationshipOwner)) {
-    employee->getFactor()->getRelationship().removeEnemy(relationshipOwner);
-  }
-}
-
-bool
-Relationship::isFriendWith(Employee* employee) const
-{
-  for (const auto& e : friends) {
-    if (e->getId() == employee->getId()) {
-      return true;
+    friends.remove(employee);
+    if (employee->getFactor()->getRelationship().isFriendWith(
+            relationshipOwner)) {
+        employee->getFactor()->getRelationship().removeFriend(relationshipOwner);
     }
-  }
-  return false;
 }
 
-bool
-Relationship::isEnemyWith(Employee* employee) const
+void Relationship::addEnemy(Employee* employee)
 {
-  for (const auto& e : enemies) {
-    if (e->getId() == employee->getId()) {
-      return true;
+    enemies.push_front(employee);
+    if (!employee->getFactor()->getRelationship().isEnemyWith(relationshipOwner))
+        employee->getFactor()->getRelationship().enemies.push_front(
+            relationshipOwner);
+    removeFriend(employee);
+}
+
+void Relationship::removeEnemy(Employee* employee)
+{
+    enemies.remove(employee);
+    if (employee->getFactor()->getRelationship().isEnemyWith(relationshipOwner)) {
+        employee->getFactor()->getRelationship().removeEnemy(relationshipOwner);
     }
-  }
-  return false;
 }
 
-const std::list<Employee*>&
-Relationship::getMyFriends() const
+bool Relationship::isFriendWith(Employee* employee) const
 {
-  return friends;
+    for (const auto& e : friends) {
+        if (e->getId() == employee->getId()) {
+            return true;
+        }
+    }
+    return false;
 }
 
-const std::list<Employee*>&
-Relationship::getMyEnemies() const
+bool Relationship::isEnemyWith(Employee* employee) const
 {
-  return enemies;
+    for (const auto& e : enemies) {
+        if (e->getId() == employee->getId()) {
+            return true;
+        }
+    }
+    return false;
+}
+
+const std::list<Employee*>& Relationship::getMyFriends() const
+{
+    return friends;
+}
+
+const std::list<Employee*>& Relationship::getMyEnemies() const
+{
+    return enemies;
 }
 
 Relationship::Relationship(Employee* employee)
-  : relationshipOwner(employee)
-{}
-
-void
-Relationship::addFriend(const employeePtr& employee)
+    : relationshipOwner(employee)
 {
-  addFriend(employee.get());
 }
 
-void
-Relationship::removeFriend(const employeePtr& employee)
+void Relationship::addFriend(const employeePtr& employee)
 {
-  removeFriend(employee.get());
+    addFriend(employee.get());
 }
 
-void
-Relationship::addEnemy(const employeePtr& employee)
+void Relationship::removeFriend(const employeePtr& employee)
 {
-  addEnemy(employee.get());
+    removeFriend(employee.get());
 }
 
-void
-Relationship::removeEnemy(const employeePtr& employee)
+void Relationship::addEnemy(const employeePtr& employee)
 {
-  removeEnemy(employee.get());
+    addEnemy(employee.get());
 }
 
-bool
-Relationship::isFriendWith(const employeePtr& employee) const
+void Relationship::removeEnemy(const employeePtr& employee)
 {
-  return isFriendWith(employee.get());
+    removeEnemy(employee.get());
 }
 
-bool
-Relationship::isEnemyWith(const employeePtr& employee) const
+bool Relationship::isFriendWith(const employeePtr& employee) const
 {
-  return isEnemyWith(employee.get());
+    return isFriendWith(employee.get());
+}
+
+bool Relationship::isEnemyWith(const employeePtr& employee) const
+{
+    return isEnemyWith(employee.get());
 }

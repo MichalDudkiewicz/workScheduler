@@ -1,19 +1,16 @@
 #include "positions/dispatcher.h"
 
-std::string
-Dispatcher::positionInfo() const
+std::string Dispatcher::positionInfo() const
 {
-  return "dispatcher";
+    return "dispatcher";
 }
 
-unsigned int
-Dispatcher::positionID() const
+unsigned int Dispatcher::positionID() const
 {
-  return 8;
+    return 8;
 }
 
-std::string
-Dispatcher::shortcut() const
+std::string Dispatcher::shortcut() const
 {
-  return "D";
+    return "D";
 }

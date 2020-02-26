@@ -4,67 +4,59 @@
 #include "shift/shift.h"
 #include "team/team.h"
 
-bool
-Authorisation::isAuthorised(const positionPtr& position, const teamPtr& team)
+bool Authorisation::isAuthorised(const positionPtr& position,
+    const teamPtr& team)
 {
-  return positionMatch(position) and teamMatch(team);
+    return positionMatch(position) and teamMatch(team);
 }
 
-bool
-Authorisation::positionMatch(const positionPtr& position) const
+bool Authorisation::positionMatch(const positionPtr& position) const
 {
-  for (const auto& p : getPositions()) {
-    if (p->positionID() == position->positionID()) {
-      return true;
+    for (const auto& p : getPositions()) {
+        if (p->positionID() == position->positionID()) {
+            return true;
+        }
     }
-  }
-  return false;
+    return false;
 }
 
-bool
-Authorisation::teamMatch(const teamPtr& team) const
+bool Authorisation::teamMatch(const teamPtr& team) const
 {
-  for (const auto& t : getTeams()) {
-    if (t->getName() == team->getName()) {
-      return true;
+    for (const auto& t : getTeams()) {
+        if (t->getName() == team->getName()) {
+            return true;
+        }
     }
-  }
-  return false;
+    return false;
 }
 
-const positions&
-Authorisation::getPositions() const
+const positions& Authorisation::getPositions() const
 {
-  return myPositions;
+    return myPositions;
 }
 
-const teams&
-Authorisation::getTeams() const
+const teams& Authorisation::getTeams() const
 {
-  return myTeams;
+    return myTeams;
 }
 
-void
-Authorisation::addTeam(const teamPtr& team)
+void Authorisation::addTeam(const teamPtr& team)
 {
-  myTeams.push_front(team);
+    myTeams.push_front(team);
 }
 
-void
-Authorisation::removeTeam(const teamPtr& team)
+void Authorisation::removeTeam(const teamPtr& team)
 {
-  myTeams.remove(team);
+    myTeams.remove(team);
 }
 
-void
-Authorisation::addPosition(const positionPtr& position)
+void Authorisation::addPosition(const positionPtr& position)
 {
-  myPositions.push_front(position);
-  myPositions.sort(comparePositionID());
+    myPositions.push_front(position);
+    myPositions.sort(comparePositionID());
 }
 
-void
-Authorisation::removePosition(const positionPtr& position)
+void Authorisation::removePosition(const positionPtr& position)
 {
-  myPositions.remove(position);
+    myPositions.remove(position);
 }

@@ -4,98 +4,88 @@
 #include "employee/factors/rules/employeeTypes/needyEmployee.h"
 #include "employee/factors/rules/employeeTypes/normalEmployee.h"
 
-static const employeeTypePtr normalEmployee =
-  std::make_shared<NormalEmployee>();
-static const employeeTypePtr jumperEmployee =
-  std::make_shared<JumperEmployee>();
+static const employeeTypePtr normalEmployee = std::make_shared<NormalEmployee>();
+static const employeeTypePtr jumperEmployee = std::make_shared<JumperEmployee>();
 static const employeeTypePtr needyEmployee = std::make_shared<NeedyEmployee>();
 
 ValueException::ValueException(const std::string& message)
-  : logic_error(message)
-{}
+    : logic_error(message)
+{
+}
 
 NotTypeException::NotTypeException(const std::string& message)
-  : ValueException(message)
-{}
+    : ValueException(message)
+{
+}
 
 Rules::Rules()
-  : maxShifts(100)
-  , minShifts(0)
-  , points(0)
-  , nonresident(false)
-  , employeeType(normalEmployee)
-{}
-
-const employeeTypePtr&
-Rules::getType() const
+    : maxShifts(100)
+    , minShifts(0)
+    , points(0)
+    , nonresident(false)
+    , employeeType(normalEmployee)
 {
-  return employeeType;
 }
 
-bool
-Rules::isNonresident() const
+const employeeTypePtr& Rules::getType() const
 {
-  return nonresident;
+    return employeeType;
 }
 
-void
-Rules::setNonresident(bool r)
+bool Rules::isNonresident() const
 {
-  nonresident = r;
+    return nonresident;
 }
 
-void
-Rules::changeType(unsigned int typeNumber)
+void Rules::setNonresident(bool r)
 {
-  if (typeNumber == 1) {
-    employeeType = normalEmployee;
-  } else if (typeNumber == 0) {
-    employeeType = jumperEmployee;
-  } else if (typeNumber == 2) {
-    employeeType = needyEmployee;
-  } else {
-    throw NotTypeException();
-  }
+    nonresident = r;
 }
 
-void
-Rules::setPoints(int p)
+void Rules::changeType(unsigned int typeNumber)
 {
-  points = p;
+    if (typeNumber == 1) {
+        employeeType = normalEmployee;
+    } else if (typeNumber == 0) {
+        employeeType = jumperEmployee;
+    } else if (typeNumber == 2) {
+        employeeType = needyEmployee;
+    } else {
+        throw NotTypeException();
+    }
 }
 
-void
-Rules::changePoints(int p)
+void Rules::setPoints(int p)
 {
-  points += p;
+    points = p;
 }
 
-void
-Rules::setMaxShifts(unsigned int s)
+void Rules::changePoints(int p)
 {
-  maxShifts = s;
+    points += p;
 }
 
-void
-Rules::setMinShifts(unsigned int s)
+void Rules::setMaxShifts(unsigned int s)
 {
-  minShifts = s;
+    maxShifts = s;
 }
 
-unsigned int
-Rules::getMaxShifts() const
+void Rules::setMinShifts(unsigned int s)
 {
-  return maxShifts;
+    minShifts = s;
 }
 
-unsigned int
-Rules::getMinShifts() const
+unsigned int Rules::getMaxShifts() const
 {
-  return minShifts;
+    return maxShifts;
 }
 
-int
-Rules::getPoints() const
+unsigned int Rules::getMinShifts() const
 {
-  return points;
+    return minShifts;
+}
+
+int Rules::getPoints() const
+{
+    return points;
 }

@@ -1,13 +1,11 @@
 #include "employee/factors/rules/employeeTypes/needyEmployee.h"
 
-std::string
-NeedyEmployee::getType() const
+std::string NeedyEmployee::getType() const
 {
-  return "needy";
+    return "needy";
 }
 
-unsigned int
-NeedyEmployee::getPriority() const
+unsigned int NeedyEmployee::getPriority() const
 {
-  return 2;
+    return 2;
 }

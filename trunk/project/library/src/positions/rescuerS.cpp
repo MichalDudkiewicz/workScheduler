@@ -1,19 +1,16 @@
 #include "positions/rescuerS.h"
 
-std::string
-RescuerS::positionInfo() const
+std::string RescuerS::positionInfo() const
 {
-  return "rescuer (special)";
+    return "rescuer (special)";
 }
 
-unsigned int
-RescuerS::positionID() const
+unsigned int RescuerS::positionID() const
 {
-  return 4;
+    return 4;
 }
 
-std::string
-RescuerS::shortcut() const
+std::string RescuerS::shortcut() const
 {
-  return "R";
+    return "R";
 }

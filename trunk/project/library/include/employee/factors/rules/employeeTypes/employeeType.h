@@ -3,12 +3,11 @@
 
 #include <string>
 
-class EmployeeType
-{
+class EmployeeType {
 public:
-  virtual ~EmployeeType() = default;
-  virtual unsigned int getPriority() const = 0;
-  virtual std::string getType() const = 0;
+    virtual ~EmployeeType() = default;
+    virtual unsigned int getPriority() const = 0;
+    virtual std::string getType() const = 0;
 };
 
 #endif

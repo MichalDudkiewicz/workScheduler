@@ -3,11 +3,10 @@
 
 #include "position.h"
 
-class Ambulance : public Position
-{
+class Ambulance : public Position {
 public:
-  Ambulance() = default;
-  ~Ambulance() override = default;
+    Ambulance() = default;
+    ~Ambulance() override = default;
 };
 
 #endif

@@ -2,84 +2,76 @@
 #include "shift/shift.h"
 
 Availability::Availability()
-  : desiredSchedule()
-  , currentSchedule()
-{}
-
-unsigned int
-Availability::getWorkHours() const
+    : desiredSchedule()
+    , currentSchedule()
 {
-  unsigned int workHours = 0;
-  for (const auto& shifts : currentSchedule.getSchedule()) {
-    for (const auto& shift : shifts) {
-      workHours += shift->getLength();
+}
+
+unsigned int Availability::getWorkHours() const
+{
+    unsigned int workHours = 0;
+    for (const auto& shifts : currentSchedule.getSchedule()) {
+        for (const auto& shift : shifts) {
+            workHours += shift->getLength();
+        }
     }
-  }
-  return workHours;
+    return workHours;
 }
 
-unsigned int
-Availability::getShiftsQuantity() const
+unsigned int Availability::getShiftsQuantity() const
 {
-  unsigned int shiftsQuantity = 0;
-  for (const auto& shifts : currentSchedule.getSchedule()) {
-    shiftsQuantity += shifts.size();
-  }
-  return shiftsQuantity;
+    unsigned int shiftsQuantity = 0;
+    for (const auto& shifts : currentSchedule.getSchedule()) {
+        shiftsQuantity += shifts.size();
+    }
+    return shiftsQuantity;
 }
 
-bool
-Availability::isAvailable(const shiftPtr& shift) const
+bool Availability::isAvailable(const shiftPtr& shift) const
 {
-  if (shift->isDayOff()) {
+    if (shift->isDayOff()) {
+        return false;
+    }
+    if (!shift->isNightShift()) {
+        for (const auto& s : desiredSchedule.getSchedule()[shift->getDay() - 1]) {
+            if ((*s) >= (*shift)) {
+                return true;
+            }
+        }
+        return false;
+    }
+    if (shift->getDay() != desiredSchedule.getSchedule().size()) {
+        if (!desiredSchedule.getSchedule()[shift->getDay() - 1].empty() and !desiredSchedule.getSchedule()[shift->getDay()].empty()) {
+            return ((*desiredSchedule.getSchedule()[shift->getDay() - 1].back()) + (*desiredSchedule.getSchedule()[shift->getDay()][0])) >= (*shift);
+        }
+    }
     return false;
-  }
-  if (!shift->isNightShift()) {
-    for (const auto& s : desiredSchedule.getSchedule()[shift->getDay() - 1]) {
-      if ((*s) >= (*shift)) {
-        return true;
-      }
+}
+
+bool Availability::isBusy(const shiftPtr& shift) const
+{
+    for (const auto& s : currentSchedule.getSchedule()[shift->getDay() - 1]) {
+        if ((*s) == (*shift)) {
+            return true;
+        }
     }
     return false;
-  }
-  if (shift->getDay() != desiredSchedule.getSchedule().size()) {
-    if (!desiredSchedule.getSchedule()[shift->getDay() - 1].empty() and
-        !desiredSchedule.getSchedule()[shift->getDay()].empty()) {
-      return ((*desiredSchedule.getSchedule()[shift->getDay() - 1].back()) +
-              (*desiredSchedule.getSchedule()[shift->getDay()][0])) >= (*shift);
-    }
-  }
-  return false;
 }
 
-bool
-Availability::isBusy(const shiftPtr& shift) const
+EmployeeSchedule& Availability::getCurrentSchedule()
 {
-  for (const auto& s : currentSchedule.getSchedule()[shift->getDay() - 1]) {
-    if ((*s) == (*shift)) {
-      return true;
-    }
-  }
-  return false;
+    return currentSchedule;
 }
 
-EmployeeSchedule&
-Availability::getCurrentSchedule()
+EmployeeSchedule& Availability::getDesiredSchedule()
 {
-  return currentSchedule;
+    return desiredSchedule;
 }
 
-EmployeeSchedule&
-Availability::getDesiredSchedule()
+bool Availability::isBusy(unsigned int startHour,
+    unsigned int endHour,
+    unsigned int day) const
 {
-  return desiredSchedule;
-}
-
-bool
-Availability::isBusy(unsigned int startHour,
-                     unsigned int endHour,
-                     unsigned int day) const
-{
-  shiftPtr shift(new Shift(startHour, endHour, day));
-  return isBusy(shift);
+    shiftPtr shift(new Shift(startHour, endHour, day));
+    return isBusy(shift);
 }

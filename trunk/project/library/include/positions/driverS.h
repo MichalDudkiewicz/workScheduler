@@ -3,14 +3,13 @@
 
 #include "sTeam.h"
 
-class DriverS : public STeam
-{
+class DriverS : public STeam {
 public:
-  DriverS() = default;
-  ~DriverS() override = default;
-  std::string positionInfo() const override;
-  unsigned int positionID() const override;
-  std::string shortcut() const override;
+    DriverS() = default;
+    ~DriverS() override = default;
+    std::string positionInfo() const override;
+    unsigned int positionID() const override;
+    std::string shortcut() const override;
 };
 
 #endif

@@ -1,19 +1,16 @@
 #include "positions/medic.h"
 
-std::string
-Medic::positionInfo() const
+std::string Medic::positionInfo() const
 {
-  return "medic";
+    return "medic";
 }
 
-unsigned int
-Medic::positionID() const
+unsigned int Medic::positionID() const
 {
-  return 6;
+    return 6;
 }
 
-std::string
-Medic::shortcut() const
+std::string Medic::shortcut() const
 {
-  return "S";
+    return "S";
 }

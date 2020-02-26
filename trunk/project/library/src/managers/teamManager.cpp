@@ -4,72 +4,64 @@
 #include "shift/shift.h"
 #include "team/team.h"
 
-TeamManager&
-TeamManager::getInstance()
+TeamManager& TeamManager::getInstance()
 {
-  static TeamManager instance;
-  return instance;
+    static TeamManager instance;
+    return instance;
 }
 
-void
-TeamManager::addTeam(const std::string& name)
+void TeamManager::addTeam(const std::string& name)
 {
-  TeamRepository::getInstance().add(name);
+    TeamRepository::getInstance().add(name);
 }
 
-void
-TeamManager::remove(const std::string& name)
+void TeamManager::remove(const std::string& name)
 {
-  TeamRepository::getInstance().remove(name);
+    TeamRepository::getInstance().remove(name);
 }
 
-const teamPtr&
-TeamManager::get(const std::string& name) const
+const teamPtr& TeamManager::get(const std::string& name) const
 {
-  return TeamRepository::getInstance().get(name);
+    return TeamRepository::getInstance().get(name);
 }
 
-std::string
-TeamManager::info() const
+std::string TeamManager::info() const
 {
-  return TeamRepository::getInstance().info();
+    return TeamRepository::getInstance().info();
 }
 
-std::list<teamPtr>
-TeamManager::getAll() const
+std::list<teamPtr> TeamManager::getAll() const
 {
-  return TeamRepository::getInstance().getAll();
+    return TeamRepository::getInstance().getAll();
 }
 
-std::ofstream&
-operator<<(std::ofstream& output, const TeamManager& manager)
+std::ofstream& operator<<(std::ofstream& output, const TeamManager& manager)
 {
-  output << "team,positions," << std::endl;
-  for (const auto& team : manager.getAll()) {
-    output << team->getName() << ",";
-    for (const auto& positon : team->getPositions()) {
-      output << positon->positionID() << ";";
+    output << "team,positions," << std::endl;
+    for (const auto& team : manager.getAll()) {
+        output << team->getName() << ",";
+        for (const auto& positon : team->getPositions()) {
+            output << positon->positionID() << ";";
+        }
+        output << "," << std::endl;
     }
-    output << "," << std::endl;
-  }
-  return output;
+    return output;
 }
 
-std::ofstream&
-operator<(std::ofstream& output, const TeamManager& manager)
+std::ofstream& operator<(std::ofstream& output, const TeamManager& manager)
 {
-  output
-    << "team\\day,Monday,Tuesday,Wednesday,Thursday,Friday,Saturday,Sunday,"
-    << std::endl;
-  for (const auto& team : manager.getAll()) {
-    output << team->getName() << ",";
-    for (const auto& shift : team->getShifts()) {
-      if (shift->isDayOff())
-        output << "X,";
-      else
-        output << shift->getStartHour() << "-" << shift->getEndHour() << ",";
+    output
+        << "team\\day,Monday,Tuesday,Wednesday,Thursday,Friday,Saturday,Sunday,"
+        << std::endl;
+    for (const auto& team : manager.getAll()) {
+        output << team->getName() << ",";
+        for (const auto& shift : team->getShifts()) {
+            if (shift->isDayOff())
+                output << "X,";
+            else
+                output << shift->getStartHour() << "-" << shift->getEndHour() << ",";
+        }
+        output << std::endl;
     }
-    output << std::endl;
-  }
-  return output;
+    return output;
 }

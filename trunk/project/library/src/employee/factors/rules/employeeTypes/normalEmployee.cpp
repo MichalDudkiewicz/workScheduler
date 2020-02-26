@@ -1,13 +1,11 @@
 #include "employee/factors/rules/employeeTypes/normalEmployee.h"
 
-std::string
-NormalEmployee::getType() const
+std::string NormalEmployee::getType() const
 {
-  return "normal";
+    return "normal";
 }
 
-unsigned int
-NormalEmployee::getPriority() const
+unsigned int NormalEmployee::getPriority() const
 {
-  return 1;
+    return 1;
 }

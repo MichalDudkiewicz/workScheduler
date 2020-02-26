@@ -4,77 +4,71 @@
 #include <sstream>
 
 teamNotExist::teamNotExist(const std::string& message)
-  : logic_error(message)
-{}
+    : logic_error(message)
+{
+}
 
 teamWithThisNameExists::teamWithThisNameExists(const std::string& message)
-  : logic_error(message)
-{}
-
-void
-TeamRepository::checkTeamName(const std::string& name)
+    : logic_error(message)
 {
-  auto search = teamsRepository.find(name);
-  if (search != teamsRepository.end()) {
-    throw teamWithThisNameExists();
-  } else {
-    return;
-  }
 }
 
-TeamRepository&
-TeamRepository::getInstance()
+void TeamRepository::checkTeamName(const std::string& name)
 {
-  static TeamRepository instance;
-  return instance;
+    auto search = teamsRepository.find(name);
+    if (search != teamsRepository.end()) {
+        throw teamWithThisNameExists();
+    } else {
+        return;
+    }
 }
 
-void
-TeamRepository::add(const teamPtr& team)
+TeamRepository& TeamRepository::getInstance()
 {
-  checkTeamName(team->getName());
-  teamsRepository.insert(std::make_pair(team->getName(), team));
+    static TeamRepository instance;
+    return instance;
 }
 
-void
-TeamRepository::add(const std::string& name)
+void TeamRepository::add(const teamPtr& team)
 {
-  checkTeamName(name);
-  teamsRepository.emplace(std::make_pair(name, std::make_shared<Team>(name)));
+    checkTeamName(team->getName());
+    teamsRepository.insert(std::make_pair(team->getName(), team));
 }
 
-void
-TeamRepository::remove(const std::string& name)
+void TeamRepository::add(const std::string& name)
 {
-  teamsRepository.erase(name);
+    checkTeamName(name);
+    teamsRepository.emplace(std::make_pair(name, std::make_shared<Team>(name)));
 }
 
-const teamPtr&
-TeamRepository::get(const std::string& name) const
+void TeamRepository::remove(const std::string& name)
 {
-  try {
-    return teamsRepository.at(name);
-  } catch (std::out_of_range& error) {
-    throw teamNotExist();
-  }
+    teamsRepository.erase(name);
 }
 
-teams
-TeamRepository::getAll() const
+const teamPtr& TeamRepository::get(const std::string& name) const
 {
-  teams allTeams;
-  for (const auto& team : teamsRepository) {
-    allTeams.push_front(team.second);
-  }
-  return allTeams;
+    try {
+        return teamsRepository.at(name);
+    } catch (std::out_of_range& error) {
+        throw teamNotExist();
+    }
 }
 
-std::string
-TeamRepository::info() const
+teams TeamRepository::getAll() const
 {
-  std::ostringstream out;
-  for (const auto& team : teamsRepository) {
-    out << team.second->teamInfo() << std::endl;
-  }
-  return out.str();
+    teams allTeams;
+    for (const auto& team : teamsRepository) {
+        allTeams.push_front(team.second);
+    }
+    return allTeams;
+}
+
+std::string TeamRepository::info() const
+{
+    std::ostringstream out;
+    for (const auto& team : teamsRepository) {
+        out << team.second->teamInfo() << std::endl;
+    }
+    return out.str();
 }

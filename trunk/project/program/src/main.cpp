@@ -10,30 +10,30 @@
 
 using namespace std;
 
-int
-main()
+int main()
 {
-  system("rm -R -f ../../../dataset/converted/* && libreoffice --headless "
-         "--convert-to csv --outdir ../../../dataset/converted/ "
-         "../../../dataset/unconverted/*");
+    system(
+        "rm -R -f ../../../dataset/converted/* && libreoffice --headless "
+        "--convert-to csv --outdir ../../../dataset/converted/ "
+        "../../../dataset/unconverted/*");
 
-  //    input::loadDesiredShifts("../../../dataset/unconverted");
+    //    input::loadDesiredShifts("../../../dataset/unconverted");
 
-  input::loadPositions();
+    input::loadPositions();
 
-  DatabaseManager::getInstance().checkConnection();
-  DatabaseManager::getInstance().addTeams();
-  DatabaseManager::getInstance().addPositionsToTeams();
-  DatabaseManager::getInstance().addShiftsToTeams();
-  DatabaseManager::getInstance().addEmployees();
-  DatabaseManager::getInstance().addTeamsToEmployees();
-  DatabaseManager::getInstance().addEnemiesToEmployees();
-  DatabaseManager::getInstance().addPositionToEmployees();
-  DatabaseManager::getInstance().addShiftsToEmployees();
+    DatabaseManager::getInstance().checkConnection();
+    DatabaseManager::getInstance().addTeams();
+    DatabaseManager::getInstance().addPositionsToTeams();
+    DatabaseManager::getInstance().addShiftsToTeams();
+    DatabaseManager::getInstance().addEmployees();
+    DatabaseManager::getInstance().addTeamsToEmployees();
+    DatabaseManager::getInstance().addEnemiesToEmployees();
+    DatabaseManager::getInstance().addPositionToEmployees();
+    DatabaseManager::getInstance().addShiftsToEmployees();
 
-  // CREATING AND DISPLAYING SCHEDULE
-  WorkScheduler::getInstance().createSchedule();
-  cout << WorkScheduler::getInstance().scheduleInfo();
-  cout << WorkScheduler::getInstance().toJson();
-  return 0;
+    // CREATING AND DISPLAYING SCHEDULE
+    WorkScheduler::getInstance().createSchedule();
+    cout << WorkScheduler::getInstance().scheduleInfo();
+    cout << WorkScheduler::getInstance().toJson();
+    return 0;
 }
