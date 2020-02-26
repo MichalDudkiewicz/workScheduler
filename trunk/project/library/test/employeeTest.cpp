@@ -7,6 +7,7 @@
 #include "positions/driverN.h"
 #include "positions/medic.h"
 #include "shift/shift.h"
+#include "team/team.h"
 #include <boost/test/unit_test.hpp>
 #include <memory>
 
@@ -325,6 +326,62 @@ BOOST_FIXTURE_TEST_CASE(EmployeeIsAuthorisedCase, FixtureEmployeeTest)
     employee0->getFactor()->getAuthorisation().positionMatch(doctor), true);
   BOOST_CHECK_EQUAL(
     employee0->getFactor()->getAuthorisation().positionMatch(driver), false);
+}
+
+BOOST_FIXTURE_TEST_CASE(EmployeeAddTeamCase, FixtureEmployeeTest)
+{
+  std::shared_ptr<Team> team = std::make_shared<Team>("S1");
+  BOOST_CHECK_EQUAL(
+    employee0->getFactor()->getAuthorisation().getTeams().size(), 0);
+  BOOST_CHECK_EQUAL(employee0->getFactor()->getAuthorisation().teamMatch(team),
+                    false);
+  employee0->getFactor()->getAuthorisation().addTeam(team);
+  BOOST_CHECK_EQUAL(
+    employee0->getFactor()->getAuthorisation().getTeams().size(), 1);
+  BOOST_CHECK_EQUAL(employee0->getFactor()->getAuthorisation().teamMatch(team),
+                    true);
+}
+
+BOOST_FIXTURE_TEST_CASE(EmployeeAuthorisationCase, FixtureEmployeeTest)
+{
+  std::shared_ptr<Team> team1 = std::make_shared<Team>("S1");
+  std::shared_ptr<Team> team2 = std::make_shared<Team>("S2");
+  std::shared_ptr<Position> doctor = std::make_shared<Doctor>();
+  std::shared_ptr<Position> medic = std::make_shared<Medic>();
+  BOOST_CHECK_EQUAL(
+    employee0->getFactor()->getAuthorisation().isAuthorised(doctor, team1),
+    false);
+  BOOST_CHECK_EQUAL(
+    employee0->getFactor()->getAuthorisation().isAuthorised(medic, team2),
+    false);
+  employee0->getFactor()->getAuthorisation().addTeam(team1);
+  BOOST_CHECK_EQUAL(
+    employee0->getFactor()->getAuthorisation().isAuthorised(doctor, team1),
+    false);
+  BOOST_CHECK_EQUAL(
+    employee0->getFactor()->getAuthorisation().isAuthorised(medic, team2),
+    false);
+  employee0->getFactor()->getAuthorisation().addTeam(team2);
+  BOOST_CHECK_EQUAL(
+    employee0->getFactor()->getAuthorisation().isAuthorised(doctor, team1),
+    false);
+  BOOST_CHECK_EQUAL(
+    employee0->getFactor()->getAuthorisation().isAuthorised(medic, team2),
+    false);
+  employee0->getFactor()->getAuthorisation().addPosition(doctor);
+  BOOST_CHECK_EQUAL(
+    employee0->getFactor()->getAuthorisation().isAuthorised(doctor, team1),
+    true);
+  BOOST_CHECK_EQUAL(
+    employee0->getFactor()->getAuthorisation().isAuthorised(medic, team2),
+    false);
+  employee0->getFactor()->getAuthorisation().addPosition(medic);
+  BOOST_CHECK_EQUAL(
+    employee0->getFactor()->getAuthorisation().isAuthorised(doctor, team1),
+    true);
+  BOOST_CHECK_EQUAL(
+    employee0->getFactor()->getAuthorisation().isAuthorised(medic, team2),
+    true);
 }
 
 BOOST_AUTO_TEST_SUITE_END()
