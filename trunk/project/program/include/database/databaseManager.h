@@ -1,7 +1,7 @@
 #ifndef WORKSCHEDULER_DATABASEMANAGER_H
 #define WORKSCHEDULER_DATABASEMANAGER_H
 
-#include <cppconn/driver.h>
+#include "database/connectionProvider.h"
 #include <cppconn/prepared_statement.h>
 #include <cppconn/resultset.h>
 #include <cppconn/statement.h>
@@ -9,17 +9,17 @@
 class DatabaseManager
 {
 private:
-  sql::Driver* driver;
-  sql::Connection* con;
+  ConnectionProvider connection;
   sql::Statement* stmt;
   sql::ResultSet* res;
-  sql::ResultSetMetaData* res_meta;
-  sql::PreparedStatement* prep_stmt;
-  DatabaseManager(const DatabaseManager&) = default;
-  DatabaseManager& operator=(const DatabaseManager&) = default;
+  sql::ResultSetMetaData* resMeta;
+  sql::PreparedStatement* prepStmt;
+  DatabaseManager();
 
 public:
-  DatabaseManager() noexcept(false);
+  static DatabaseManager& getInstance();
+  DatabaseManager(const DatabaseManager&) = delete;
+  DatabaseManager& operator=(const DatabaseManager&) = delete;
   ~DatabaseManager();
   void checkConnection();
   void addTeams();

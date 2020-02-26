@@ -21,16 +21,15 @@ main()
 
   input::loadPositions();
 
-  DatabaseManager workScheduleDb;
-  workScheduleDb.checkConnection();
-  workScheduleDb.addTeams();
-  workScheduleDb.addPositionsToTeams();
-  workScheduleDb.addShiftsToTeams();
-  workScheduleDb.addEmployees();
-  workScheduleDb.addTeamsToEmployees();
-  workScheduleDb.addEnemiesToEmployees();
-  workScheduleDb.addPositionToEmployees();
-  workScheduleDb.addShiftsToEmployees();
+  DatabaseManager::getInstance().checkConnection();
+  DatabaseManager::getInstance().addTeams();
+  DatabaseManager::getInstance().addPositionsToTeams();
+  DatabaseManager::getInstance().addShiftsToTeams();
+  DatabaseManager::getInstance().addEmployees();
+  DatabaseManager::getInstance().addTeamsToEmployees();
+  DatabaseManager::getInstance().addEnemiesToEmployees();
+  DatabaseManager::getInstance().addPositionToEmployees();
+  DatabaseManager::getInstance().addShiftsToEmployees();
 
   // CREATING AND DISPLAYING SCHEDULE
   WorkScheduler::getInstance().createSchedule();

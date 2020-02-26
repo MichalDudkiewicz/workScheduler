@@ -6,24 +6,14 @@
 #include "managers/teamManager.h"
 #include "shift/shift.h"
 #include "team/team.h"
-#include <cppconn/exception.h>
 
-DatabaseManager::DatabaseManager() noexcept(false) try
-  : driver(get_driver_instance())
-  , con(driver->connect("tcp://127.0.0.1:3306", "Michal", "1234"))
-  , stmt(con->createStatement())
+DatabaseManager::DatabaseManager()
+  : connection("tcp://127.0.0.1:3306", "Michal", "1234", "work_scheduler")
+  , stmt(connection.getConnection()->createStatement())
   , res(nullptr)
-  , res_meta(nullptr)
-  , prep_stmt(nullptr) {
-  /* Connect to the MySQL database */
-  con->setSchema("work_scheduler");
-} catch (sql::SQLException& e) {
-  std::cout << "# ERR: SQLException in " << __FILE__;
-  std::cout << "(" << __FUNCTION__ << ") on line " << __LINE__ << std::endl;
-  std::cout << "# ERR: " << e.what();
-  std::cout << " (MySQL error code: " << e.getErrorCode();
-  std::cout << ", SQLState: " << e.getSQLState() << " )" << std::endl;
-}
+  , resMeta(nullptr)
+  , prepStmt(nullptr)
+{}
 
 void
 DatabaseManager::checkConnection()
@@ -65,9 +55,8 @@ DatabaseManager::addPositionsToTeams()
 DatabaseManager::~DatabaseManager()
 {
   delete res;
-  delete prep_stmt;
+  delete prepStmt;
   delete stmt;
-  delete con;
 }
 
 void
@@ -160,8 +149,8 @@ void
 DatabaseManager::addShiftsToEmployees()
 {
   res = stmt->executeQuery("SELECT * FROM employee_shifts");
-  res_meta = res->getMetaData();
-  unsigned int number_of_columns = res_meta->getColumnCount();
+  resMeta = res->getMetaData();
+  unsigned int number_of_columns = resMeta->getColumnCount();
   while (res->next()) {
     for (unsigned int i = 3; i < number_of_columns; i += 2) {
       if (!(res->isNull(i) or res->isNull(i + 1)))
@@ -173,4 +162,11 @@ DatabaseManager::addShiftsToEmployees()
           .addShift(res->getInt(i), res->getInt(i + 1), res->getInt(2));
     }
   }
+}
+
+DatabaseManager&
+DatabaseManager::getInstance()
+{
+  static DatabaseManager instance;
+  return instance;
 }
