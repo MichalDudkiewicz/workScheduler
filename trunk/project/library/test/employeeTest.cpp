@@ -268,50 +268,99 @@ BOOST_FIXTURE_TEST_CASE(EmployeeCurrentScheduleCase, FixtureEmployeeTest)
     std::unique_ptr<Shift> shift2(new Shift(15, 20, 3));
     std::unique_ptr<Shift> shift3(new Shift(5, 10, 15));
     std::unique_ptr<Shift> shift4(new Shift(15, 19, 11));
+
+    positionPtr doctor = std::make_shared<Doctor>();
+    teamPtr team = std::make_shared<Team>("S1");
+
     (*employee0)
         .getFactor()
         ->getAvailability()
         .getCurrentSchedule()
-        .addShift(5, 10, 3);
+        .assign(team, doctor, std::move(shift11));
     (*employee0)
         .getFactor()
         ->getAvailability()
         .getCurrentSchedule()
-        .addShift(15, 20, 3);
+        .assign(team, doctor, std::move(shift22));
     (*employee0)
         .getFactor()
         ->getAvailability()
         .getCurrentSchedule()
-        .addShift(5, 10, 15);
+        .assign(team, doctor, std::move(shift33));
     (*employee0)
         .getFactor()
         ->getAvailability()
         .getCurrentSchedule()
-        .addShift(20, 24, 11);
+        .assign(team, doctor, std::move(shift66));
+    BOOST_CHECK_EQUAL((*employee0)
+                              .getFactor()
+                              ->getAvailability()
+                              .getCurrentSchedule()
+                              .getSchedule()[10].front().position
+                              ->positionInfo(),
+                      "doctor");
+    BOOST_CHECK_EQUAL((*employee0)
+                              .getFactor()
+                              ->getAvailability()
+                              .getCurrentSchedule()
+                              .getSchedule()[10].front().team
+                              ->getName(),
+                      "S1");
+
+    teamPtr team2 = std::make_shared<Team>("S2");
     (*employee0)
         .getFactor()
         ->getAvailability()
         .getCurrentSchedule()
-        .addShift(15, 19, 11);
+        .assign(team2, doctor, std::move(shift4));
+
+    BOOST_CHECK_EQUAL((*employee0)
+                              .getFactor()
+                              ->getAvailability()
+                              .getCurrentSchedule()
+                              .getSchedule()[10].front().team
+                              ->getName(),
+                      "S2");
+
     BOOST_CHECK_EQUAL((*employee0)
                           .getFactor()
                           ->getAvailability()
                           .getCurrentSchedule()
-                          .getSchedule()[10][0]
+                          .getSchedule()[10].front().shift
                           ->getStartHour(),
         15);
+    BOOST_CHECK_EQUAL((*employee0)
+                              .getFactor()
+                              ->getAvailability()
+                              .getCurrentSchedule()
+                              .getSchedule()[10].size(),
+                      2);
     (*employee0)
         .getFactor()
         ->getAvailability()
         .getCurrentSchedule()
-        .removeShift(11, 1);
+        .removeAssignment(team2, 11);
+
+    BOOST_CHECK_EQUAL((*employee0)
+                              .getFactor()
+                              ->getAvailability()
+                              .getCurrentSchedule()
+                              .getSchedule()[10].front().team
+                              ->getName(),
+                      "S1");
     BOOST_CHECK_EQUAL((*employee0)
                           .getFactor()
                           ->getAvailability()
                           .getCurrentSchedule()
-                          .getSchedule()[10][0]
+                          .getSchedule()[10].front().shift
                           ->getStartHour(),
         20);
+    BOOST_CHECK_EQUAL((*employee0)
+                              .getFactor()
+                              ->getAvailability()
+                              .getCurrentSchedule()
+                              .getSchedule()[10].size(),
+                      1);
     BOOST_CHECK_EQUAL(
         (*employee0).getFactor()->getAvailability().getShiftsQuantity(), 4);
     BOOST_CHECK_EQUAL((*employee0).getFactor()->getAvailability().getWorkHours(),

@@ -3,17 +3,20 @@
 
 #include "other/calendar.h"
 #include "other/typeDefinitions.h"
+#include <string>
 
+template <typename T>
 class EmployeeSchedule {
-private:
-    Calendar<shifts> shiftsInSchedule{};
-    void addShift(shiftPtr&);
+protected:
+    Calendar<T> schedule{};
 
 public:
-    void addShift(unsigned int, unsigned int, unsigned int);
-    void removeShift(unsigned int, unsigned int);
-    const Calendar<shifts>& getSchedule() const;
-    std::string scheduleInfo() const;
+    virtual ~EmployeeSchedule() = default;
+    const Calendar<T>& getSchedule() const
+    {
+        return schedule;
+    }
+    virtual std::string scheduleInfo() const = 0;
 };
 
 #endif

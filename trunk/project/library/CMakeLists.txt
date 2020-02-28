@@ -15,7 +15,6 @@ set(SOURCE_FILES
         src/positions/dispatcher.cpp
         src/schedule/teamQueues.cpp
         src/other/calendar.cpp
-        src/employee/schedule/employeeSchedule.cpp
         src/employee/factors/rules/employeeTypes/jumperEmployee.cpp
         src/employee/factors/rules/employeeTypes/needyEmployee.cpp
         src/employee/factors/rules/employeeTypes/normalEmployee.cpp
@@ -25,7 +24,7 @@ set(SOURCE_FILES
         src/managers/workScheduler.cpp
         src/managers/teamManager.cpp
         src/managers/employeeManager.cpp
-        include/managers/manager.h src/repositories/positionRepository.cpp include/repositories/positionRepository.h src/managers/positionManager.cpp include/managers/positionManager.h include/other/typeDefinitions.h src/employee/factors/authorisation/authorisation.cpp include/employee/factors/authorisation/authorisation.h src/employee/factors/relationship/relationship.cpp include/employee/factors/relationship/relationship.h src/employee/factors/availability/availability.cpp include/employee/factors/availability/availability.h src/employee/factors/rules/rules.cpp include/employee/factors/rules/rules.h src/employee/factors/factor.cpp include/employee/factors/factor.h)
+        include/managers/manager.h src/repositories/positionRepository.cpp include/repositories/positionRepository.h src/managers/positionManager.cpp include/managers/positionManager.h include/other/typeDefinitions.h src/employee/factors/authorisation/authorisation.cpp include/employee/factors/authorisation/authorisation.h src/employee/factors/relationship/relationship.cpp include/employee/factors/relationship/relationship.h src/employee/factors/availability/availability.cpp include/employee/factors/availability/availability.h src/employee/factors/rules/rules.cpp include/employee/factors/rules/rules.h src/employee/factors/factor.cpp include/employee/factors/factor.h src/employee/schedule/currentEmployeeSchedule.cpp include/employee/schedule/currentEmployeeSchedule.h src/employee/schedule/desiredEmployeeSchedule.cpp include/employee/schedule/desiredEmployeeSchedule.h)
 #utwórz bibliotekę typu STATIC, SHARED albo MODULE ze wskazanych źródeł
 add_library(Library ${SOURCE_FILES})
 

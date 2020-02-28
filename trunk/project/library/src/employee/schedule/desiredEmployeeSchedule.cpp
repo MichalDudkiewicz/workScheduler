@@ -1,11 +1,11 @@
-#include "employee/schedule/employeeSchedule.h"
+#include "employee/schedule/desiredEmployeeSchedule.h"
 #include "shift/shift.h"
 
-void EmployeeSchedule::addShift(shiftPtr& shift)
+void DesiredEmployeeSchedule::addShift(shiftPtr& shift)
 {
     unsigned int it = shift->getDay() - 1;
     unsigned int i = 0;
-    for (auto& s : shiftsInSchedule[it]) {
+    for (auto& s : schedule[it]) {
         if ((*shift) == (*s)) {
             if ((*s) >= (*shift)) {
                 shift.reset();
@@ -16,31 +16,26 @@ void EmployeeSchedule::addShift(shiftPtr& shift)
             } else {
                 (*shift).setStartHour((*s).getStartHour());
             }
-            shiftsInSchedule[it].erase(shiftsInSchedule[it].begin() + i);
+            schedule[it].erase(schedule[it].begin() + i);
             addShift(shift);
             return;
         }
         i += 1;
     }
-    shiftsInSchedule[it].push_back(std::move(shift));
-    std::sort(shiftsInSchedule[it].begin(), shiftsInSchedule[it].end(),
-        compareShiftStartHour());
+    schedule[it].push_back(std::move(shift));
+    std::sort(schedule[it].begin(), schedule[it].end(),
+              compareShiftStartHour());
 }
 
-void EmployeeSchedule::removeShift(unsigned int day, unsigned int shiftNumber)
+void DesiredEmployeeSchedule::removeShift(unsigned int day, unsigned int shiftNumber)
 {
-    shiftsInSchedule[day - 1].erase(shiftsInSchedule[day - 1].begin() + shiftNumber - 1);
+    schedule[day - 1].erase(schedule[day - 1].begin() + shiftNumber - 1);
 }
 
-const Calendar<shifts>& EmployeeSchedule::getSchedule() const
-{
-    return shiftsInSchedule;
-}
-
-std::string EmployeeSchedule::scheduleInfo() const
+std::string DesiredEmployeeSchedule::scheduleInfo() const
 {
     std::ostringstream out;
-    for (const auto& shiftsInDay : shiftsInSchedule) {
+    for (const auto& shiftsInDay : schedule) {
         for (const auto& shift : shiftsInDay) {
             out << shift->shiftInfo();
             out << std::endl;
@@ -49,9 +44,9 @@ std::string EmployeeSchedule::scheduleInfo() const
     return out.str();
 }
 
-void EmployeeSchedule::addShift(unsigned int startHour,
-    unsigned int endHour,
-    unsigned int day)
+void DesiredEmployeeSchedule::addShift(unsigned int startHour,
+                                unsigned int endHour,
+                                unsigned int day)
 {
     if (startHour >= endHour) {
         if (startHour == endHour and (startHour == 0 or startHour == 24)) {

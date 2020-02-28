@@ -1,4 +1,4 @@
-#include "employee/schedule/employeeSchedule.h"
+#include "employee/schedule/desiredEmployeeSchedule.h"
 #include "other/calendar.h"
 #include "shift/shift.h"
 #include <boost/test/unit_test.hpp>
@@ -11,7 +11,7 @@ struct FixtureEmployeeScheduleTest {
         : schedule(){};
 
     ~FixtureEmployeeScheduleTest(){};
-    EmployeeSchedule schedule;
+    DesiredEmployeeSchedule schedule;
 };
 
 BOOST_FIXTURE_TEST_CASE(EmployeeScheduleCaseCreateSchedule,

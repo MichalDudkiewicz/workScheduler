@@ -10,9 +10,9 @@ Availability::Availability()
 unsigned int Availability::getWorkHours() const
 {
     unsigned int workHours = 0;
-    for (const auto& shifts : currentSchedule.getSchedule()) {
-        for (const auto& shift : shifts) {
-            workHours += shift->getLength();
+    for (const auto& day : currentSchedule.getSchedule()) {
+        for (const auto& assignment : day) {
+            workHours += assignment.shift->getLength();
         }
     }
     return workHours;
@@ -50,20 +50,20 @@ bool Availability::isAvailable(const shiftPtr& shift) const
 
 bool Availability::isBusy(const shiftPtr& shift) const
 {
-    for (const auto& s : currentSchedule.getSchedule()[shift->getDay() - 1]) {
-        if ((*s) == (*shift)) {
+    for (const auto& assignment : currentSchedule.getSchedule()[shift->getDay() - 1]) {
+        if ((*assignment.shift) == (*shift)) {
             return true;
         }
     }
     return false;
 }
 
-EmployeeSchedule& Availability::getCurrentSchedule()
+CurrentEmployeeSchedule& Availability::getCurrentSchedule()
 {
     return currentSchedule;
 }
 
-EmployeeSchedule& Availability::getDesiredSchedule()
+DesiredEmployeeSchedule& Availability::getDesiredSchedule()
 {
     return desiredSchedule;
 }

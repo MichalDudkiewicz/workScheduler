@@ -125,6 +125,7 @@ BOOST_FIXTURE_TEST_CASE(TeamQueuesCaseGetTeamQueues, FixtureTeamQueuesTest)
 BOOST_AUTO_TEST_CASE(TemaQueueTestSort)
 {
     positionPtr doctor = std::make_shared<Doctor>();
+    std::shared_ptr<Team> team = std::make_shared<Team>("S1");
     std::shared_ptr<Employee> employee1 = std::make_shared<Employee>("Paulina", 1);
     std::shared_ptr<Employee> employee2 = std::make_shared<Employee>("Michal", 2);
     std::shared_ptr<Employee> employee3 = std::make_shared<Employee>("Pawel", 3);
@@ -140,7 +141,7 @@ BOOST_AUTO_TEST_CASE(TemaQueueTestSort)
         .getFactor()
         ->getAvailability()
         .getCurrentSchedule()
-        .addShift(1, 5, 22);
+        .assign(team, doctor, std::unique_ptr<Shift>(new Shift(1, 5, 22)));
     employees.push_back(employee1);
     employees.push_back(employee2);
     employees.push_back(employee3);
@@ -183,7 +184,6 @@ BOOST_AUTO_TEST_CASE(TemaQueueTestSort)
         ->getAvailability()
         .getDesiredSchedule()
         .addShift(7, 14, d.day());
-    std::shared_ptr<Team> team = std::make_shared<Team>("S1");
     employee1->getFactor()->getAuthorisation().addTeam(team);
     employee2->getFactor()->getAuthorisation().addTeam(team);
     employee3->getFactor()->getAuthorisation().addTeam(team);

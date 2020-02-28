@@ -58,8 +58,9 @@ void FinalSchedule::makeSchedule()
                             .at(teamQueue.getTeam())
                             .at(position)
                             .push_front(e);
-                        e->getFactor()->getAvailability().getCurrentSchedule().addShift(
-                            startHour, endHour, day);
+                        e->getFactor()->getAvailability().getCurrentSchedule().assign(
+                                teamQueue.getTeam(), position, shiftPtr(new Shift(startHour, endHour,
+                                                                                  day)));
                         break;
                     }
                 }

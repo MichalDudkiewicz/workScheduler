@@ -1,13 +1,14 @@
 #ifndef WORKSCHEDULER_AVAILABILITY_H
 #define WORKSCHEDULER_AVAILABILITY_H
 
-#include "employee/schedule/employeeSchedule.h"
+#include "employee/schedule/currentEmployeeSchedule.h"
+#include "employee/schedule/desiredEmployeeSchedule.h"
 #include "other/calendar.h"
 
 class Availability {
 private:
-    EmployeeSchedule desiredSchedule;
-    EmployeeSchedule currentSchedule;
+    DesiredEmployeeSchedule desiredSchedule;
+    CurrentEmployeeSchedule currentSchedule;
     friend class Factor;
     Availability();
 
@@ -19,8 +20,8 @@ public:
     bool isBusy(unsigned int startHour,
         unsigned int endHour,
         unsigned int day) const;
-    EmployeeSchedule& getCurrentSchedule();
-    EmployeeSchedule& getDesiredSchedule();
+    CurrentEmployeeSchedule& getCurrentSchedule();
+    DesiredEmployeeSchedule& getDesiredSchedule();
 };
 
 #endif // WORKSCHEDULER_AVAILABILITY_H
