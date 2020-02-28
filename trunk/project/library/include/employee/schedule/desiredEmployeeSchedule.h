@@ -5,14 +5,13 @@
 #include "other/typeDefinitions.h"
 #include <string>
 
-class DesiredEmployeeSchedule : public EmployeeSchedule<shifts>{
+class DesiredEmployeeSchedule : public EmployeeSchedule<shifts> {
     void addShift(shiftPtr&);
+
 public:
     void addShift(unsigned int, unsigned int, unsigned int);
     void removeShift(unsigned int, unsigned int);
     std::string scheduleInfo() const override;
 };
-
-
 
 #endif //WORKSCHEDULER_DESIREDEMPLOYEESCHEDULE_H

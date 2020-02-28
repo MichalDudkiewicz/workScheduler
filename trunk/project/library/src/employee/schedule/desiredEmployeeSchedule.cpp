@@ -24,7 +24,7 @@ void DesiredEmployeeSchedule::addShift(shiftPtr& shift)
     }
     schedule[it].push_back(std::move(shift));
     std::sort(schedule[it].begin(), schedule[it].end(),
-              compareShiftStartHour());
+        compareShiftStartHour());
 }
 
 void DesiredEmployeeSchedule::removeShift(unsigned int day, unsigned int shiftNumber)
@@ -45,8 +45,8 @@ std::string DesiredEmployeeSchedule::scheduleInfo() const
 }
 
 void DesiredEmployeeSchedule::addShift(unsigned int startHour,
-                                unsigned int endHour,
-                                unsigned int day)
+    unsigned int endHour,
+    unsigned int day)
 {
     if (startHour >= endHour) {
         if (startHour == endHour and (startHour == 0 or startHour == 24)) {

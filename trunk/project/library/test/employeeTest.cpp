@@ -293,19 +293,23 @@ BOOST_FIXTURE_TEST_CASE(EmployeeCurrentScheduleCase, FixtureEmployeeTest)
         .getCurrentSchedule()
         .assign(team, doctor, std::move(shift66));
     BOOST_CHECK_EQUAL((*employee0)
-                              .getFactor()
-                              ->getAvailability()
-                              .getCurrentSchedule()
-                              .getSchedule()[10].front().position
-                              ->positionInfo(),
-                      "doctor");
+                          .getFactor()
+                          ->getAvailability()
+                          .getCurrentSchedule()
+                          .getSchedule()[10]
+                          .front()
+                          .position
+                          ->positionInfo(),
+        "doctor");
     BOOST_CHECK_EQUAL((*employee0)
-                              .getFactor()
-                              ->getAvailability()
-                              .getCurrentSchedule()
-                              .getSchedule()[10].front().team
-                              ->getName(),
-                      "S1");
+                          .getFactor()
+                          ->getAvailability()
+                          .getCurrentSchedule()
+                          .getSchedule()[10]
+                          .front()
+                          .team
+                          ->getName(),
+        "S1");
 
     teamPtr team2 = std::make_shared<Team>("S2");
     (*employee0)
@@ -315,26 +319,31 @@ BOOST_FIXTURE_TEST_CASE(EmployeeCurrentScheduleCase, FixtureEmployeeTest)
         .assign(team2, doctor, std::move(shift4));
 
     BOOST_CHECK_EQUAL((*employee0)
-                              .getFactor()
-                              ->getAvailability()
-                              .getCurrentSchedule()
-                              .getSchedule()[10].front().team
-                              ->getName(),
-                      "S2");
+                          .getFactor()
+                          ->getAvailability()
+                          .getCurrentSchedule()
+                          .getSchedule()[10]
+                          .front()
+                          .team
+                          ->getName(),
+        "S2");
 
     BOOST_CHECK_EQUAL((*employee0)
                           .getFactor()
                           ->getAvailability()
                           .getCurrentSchedule()
-                          .getSchedule()[10].front().shift
+                          .getSchedule()[10]
+                          .front()
+                          .shift
                           ->getStartHour(),
         15);
     BOOST_CHECK_EQUAL((*employee0)
-                              .getFactor()
-                              ->getAvailability()
-                              .getCurrentSchedule()
-                              .getSchedule()[10].size(),
-                      2);
+                          .getFactor()
+                          ->getAvailability()
+                          .getCurrentSchedule()
+                          .getSchedule()[10]
+                          .size(),
+        2);
 
     (*employee0)
         .getFactor()
@@ -343,25 +352,30 @@ BOOST_FIXTURE_TEST_CASE(EmployeeCurrentScheduleCase, FixtureEmployeeTest)
         .removeAssignment(team2, 11);
 
     BOOST_CHECK_EQUAL((*employee0)
-                              .getFactor()
-                              ->getAvailability()
-                              .getCurrentSchedule()
-                              .getSchedule()[10].front().team
-                              ->getName(),
-                      "S1");
+                          .getFactor()
+                          ->getAvailability()
+                          .getCurrentSchedule()
+                          .getSchedule()[10]
+                          .front()
+                          .team
+                          ->getName(),
+        "S1");
     BOOST_CHECK_EQUAL((*employee0)
                           .getFactor()
                           ->getAvailability()
                           .getCurrentSchedule()
-                          .getSchedule()[10].front().shift
+                          .getSchedule()[10]
+                          .front()
+                          .shift
                           ->getStartHour(),
         20);
     BOOST_CHECK_EQUAL((*employee0)
-                              .getFactor()
-                              ->getAvailability()
-                              .getCurrentSchedule()
-                              .getSchedule()[10].size(),
-                      1);
+                          .getFactor()
+                          ->getAvailability()
+                          .getCurrentSchedule()
+                          .getSchedule()[10]
+                          .size(),
+        1);
     BOOST_CHECK_EQUAL(
         (*employee0).getFactor()->getAvailability().getShiftsQuantity(), 4);
     BOOST_CHECK_EQUAL((*employee0).getFactor()->getAvailability().getWorkHours(),
@@ -374,9 +388,10 @@ BOOST_FIXTURE_TEST_CASE(EmployeeCurrentScheduleCase, FixtureEmployeeTest)
         true);
 
     BOOST_TEST_MESSAGE((*employee0)
-            .getFactor()
-            ->getAvailability()
-            .getCurrentSchedule().scheduleInfo());
+                           .getFactor()
+                           ->getAvailability()
+                           .getCurrentSchedule()
+                           .scheduleInfo());
 }
 
 BOOST_FIXTURE_TEST_CASE(EmployeeIsAuthorisedCase, FixtureEmployeeTest)

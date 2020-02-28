@@ -3,28 +3,26 @@
 
 #include "employee/schedule/employeeSchedule.h"
 #include "other/typeDefinitions.h"
-#include <string>
 #include <list>
+#include <string>
 
-struct assignment
-{
+struct assignment {
     teamPtr team{};
     positionPtr position{};
     shiftPtr shift{};
-    bool operator==(const assignment &other)
+    bool operator==(const assignment& other)
     {
-        return this->team == other.team and this-> position == other.position and this->shift==other.shift;
+        return this->team == other.team and this->position == other.position and this->shift == other.shift;
     }
 };
 
 typedef std::list<assignment> assignments;
 
-class CurrentEmployeeSchedule : public EmployeeSchedule<assignments>{
-    public:
+class CurrentEmployeeSchedule : public EmployeeSchedule<assignments> {
+public:
     void assign(teamPtr team, positionPtr position, shiftPtr shift);
     void removeAssignment(const teamPtr& team, unsigned int day);
     std::string scheduleInfo() const override;
 };
-
 
 #endif //WORKSCHEDULER_CURRENTEMPLOYEESCHEDULE_H
