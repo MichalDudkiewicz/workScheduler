@@ -2,7 +2,7 @@
 #define teamManagerClass
 
 #include "manager.h"
-#include "other/typeDefinitions.h"
+#include "utils/typeDefinitions.h"
 #include <fstream>
 
 class TeamManager : public Manager<Team, std::string> {

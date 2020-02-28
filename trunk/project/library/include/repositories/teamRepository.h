@@ -1,8 +1,8 @@
 #ifndef teamRepositoryClass
 #define teamRepositoryClass
 
-#include "other/typeDefinitions.h"
 #include "repositories/repository.h"
+#include "utils/typeDefinitions.h"
 #include <unordered_map>
 
 class teamNotExist : public std::logic_error {

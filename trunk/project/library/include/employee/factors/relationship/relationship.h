@@ -1,7 +1,7 @@
 #ifndef WORKSCHEDULER_RELATIONSHIP_H
 #define WORKSCHEDULER_RELATIONSHIP_H
 
-#include "other/typeDefinitions.h"
+#include "utils/typeDefinitions.h"
 
 class Relationship {
 private:

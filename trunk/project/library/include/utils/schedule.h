@@ -1,17 +1,17 @@
 #ifndef employeeScheduleClass
 #define employeeScheduleClass
 
-#include "other/calendar.h"
-#include "other/typeDefinitions.h"
+#include "utils/calendar.h"
+#include "utils/typeDefinitions.h"
 #include <string>
 
 template <typename T>
-class EmployeeSchedule {
+class Schedule {
 protected:
     Calendar<T> schedule{};
 
 public:
-    virtual ~EmployeeSchedule() = default;
+    virtual ~Schedule() = default;
     const Calendar<T>& getSchedule() const
     {
         return schedule;

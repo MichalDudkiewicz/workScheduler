@@ -1,7 +1,7 @@
 #ifndef WORKSCHEDULER_AUTHORISATION_H
 #define WORKSCHEDULER_AUTHORISATION_H
 
-#include "other/typeDefinitions.h"
+#include "utils/typeDefinitions.h"
 
 class Authorisation {
 private:

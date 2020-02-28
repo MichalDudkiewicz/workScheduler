@@ -2,7 +2,7 @@
 #define employeeManagerClass
 
 #include "manager.h"
-#include "other/typeDefinitions.h"
+#include "utils/typeDefinitions.h"
 #include <fstream>
 
 class EmployeeManager : public Manager<Employee, unsigned int> {

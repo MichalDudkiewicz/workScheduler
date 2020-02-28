@@ -1,11 +1,11 @@
 #include "schedule/teamQueues.h"
 #include "employee/employee.h"
 #include "employee/factors/factor.h"
-#include "other/calendar.h"
 #include "positions/doctor.h"
 #include "positions/medic.h"
 #include "shift/shift.h"
 #include "team/team.h"
+#include "utils/calendar.h"
 #include <boost/test/unit_test.hpp>
 #include <memory>
 
@@ -102,24 +102,24 @@ BOOST_FIXTURE_TEST_CASE(TeamQueuesCaseGetTeam, FixtureTeamQueuesTest)
     BOOST_REQUIRE_EQUAL(queue.getTeam()->getName(), "S1");
 }
 
-BOOST_FIXTURE_TEST_CASE(TeamQueuesCaseGetTeamQueues, FixtureTeamQueuesTest)
+BOOST_FIXTURE_TEST_CASE(TeamQueuesCasegetSchedule, FixtureTeamQueuesTest)
 {
     palinka->getFactor()->getAuthorisation().addTeam(team);
     mateusz->getFactor()->getAuthorisation().addTeam(team);
     TeamQueues queue(team, employees);
     BOOST_REQUIRE_EQUAL(
-        queue.getTeamQueues()[0].at(team->getPositions().front()).empty(), true);
+        queue.getSchedule()[0].at(team->getPositions().front()).empty(), true);
     BOOST_REQUIRE_EQUAL(
-        queue.getTeamQueues()[0].at(team->getPositions().back()).empty(), true);
+        queue.getSchedule()[0].at(team->getPositions().back()).empty(), true);
     BOOST_REQUIRE_EQUAL(
-        queue.getTeamQueues()[1].at(team->getPositions().front()).empty(), true);
-    BOOST_REQUIRE_EQUAL(queue.getTeamQueues()[11]
+        queue.getSchedule()[1].at(team->getPositions().front()).empty(), true);
+    BOOST_REQUIRE_EQUAL(queue.getSchedule()[11]
                             .at(team->getPositions().back())
                             .front()
                             ->getId(),
         2);
     BOOST_REQUIRE_EQUAL(
-        queue.getTeamQueues()[11].at(team->getPositions().front()).size(), 1);
+        queue.getSchedule()[11].at(team->getPositions().front()).size(), 1);
 }
 
 BOOST_AUTO_TEST_CASE(TemaQueueTestSort)
@@ -193,15 +193,15 @@ BOOST_AUTO_TEST_CASE(TemaQueueTestSort)
     team->addPosition(doctor);
     TeamQueues queues(team, employees);
     queues.queueSort(d.day() - 1, team->getPositions().front());
-    BOOST_CHECK_EQUAL(queues.getTeamQueues()[d.day() - 1]
+    BOOST_CHECK_EQUAL(queues.getSchedule()[d.day() - 1]
                           .at(team->getPositions().front())
                           .front(),
         employee3);
-    BOOST_CHECK_EQUAL(queues.getTeamQueues()[d.day() - 1]
+    BOOST_CHECK_EQUAL(queues.getSchedule()[d.day() - 1]
                           .at(team->getPositions().front())
                           .back(),
         employee5);
-    BOOST_TEST_MESSAGE(queues.teamQueuesInfo());
+    BOOST_TEST_MESSAGE(queues.scheduleInfo());
 }
 
 BOOST_AUTO_TEST_SUITE_END()

@@ -1,7 +1,7 @@
 #include "team/team.h"
-#include "other/calendar.h"
 #include "positions/position.h"
 #include "shift/shift.h"
+#include "utils/calendar.h"
 
 Team::Team(std::string teamName)
     : name(std::move(teamName))

@@ -37,7 +37,7 @@ void FinalSchedule::makeSchedule()
                 endHour = teamQueue.getTeam()
                               ->getShifts()[calendar::whatDayOfWeek(day)]
                               ->getEndHour();
-                for (const auto& e : teamQueue.getTeamQueues()[day - 1].at(position)) {
+                for (const auto& e : teamQueue.getSchedule()[day - 1].at(position)) {
                     enemiesInTeam = false;
                     for (const auto& employeesInTeam :
                         schedule[day - 1].at(teamQueue.getTeam())) {
@@ -66,11 +66,6 @@ void FinalSchedule::makeSchedule()
             }
         }
     }
-}
-
-const Calendar<employeesToTeam>& FinalSchedule::getSchedule() const
-{
-    return schedule;
 }
 
 std::string FinalSchedule::scheduleInfo() const

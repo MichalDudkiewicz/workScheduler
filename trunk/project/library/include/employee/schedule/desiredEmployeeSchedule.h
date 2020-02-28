@@ -1,11 +1,11 @@
 #ifndef WORKSCHEDULER_DESIREDEMPLOYEESCHEDULE_H
 #define WORKSCHEDULER_DESIREDEMPLOYEESCHEDULE_H
 
-#include "employee/schedule/employeeSchedule.h"
-#include "other/typeDefinitions.h"
+#include "utils/schedule.h"
+#include "utils/typeDefinitions.h"
 #include <string>
 
-class DesiredEmployeeSchedule : public EmployeeSchedule<shifts> {
+class DesiredEmployeeSchedule : public Schedule<shifts> {
     void addShift(shiftPtr&);
 
 public:

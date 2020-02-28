@@ -1,8 +1,8 @@
 #ifndef WORKSCHEDULER_CURRENTEMPLOYEESCHEDULE_H
 #define WORKSCHEDULER_CURRENTEMPLOYEESCHEDULE_H
 
-#include "employee/schedule/employeeSchedule.h"
-#include "other/typeDefinitions.h"
+#include "utils/schedule.h"
+#include "utils/typeDefinitions.h"
 #include <list>
 #include <string>
 
@@ -18,7 +18,7 @@ struct assignment {
 
 typedef std::list<assignment> assignments;
 
-class CurrentEmployeeSchedule : public EmployeeSchedule<assignments> {
+class CurrentEmployeeSchedule : public Schedule<assignments> {
 public:
     void assign(teamPtr team, positionPtr position, shiftPtr shift);
     void removeAssignment(const teamPtr& team, unsigned int day);

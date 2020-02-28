@@ -1,7 +1,7 @@
 #ifndef shiftClass
 #define shiftClass
 
-#include "other/typeDefinitions.h"
+#include "utils/typeDefinitions.h"
 #include <string>
 
 class Shift {

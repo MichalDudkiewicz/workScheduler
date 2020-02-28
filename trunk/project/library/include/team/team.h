@@ -1,7 +1,7 @@
 #ifndef teamClass
 #define teamClass
 
-#include "other/typeDefinitions.h"
+#include "utils/typeDefinitions.h"
 #include <string>
 
 class Team {

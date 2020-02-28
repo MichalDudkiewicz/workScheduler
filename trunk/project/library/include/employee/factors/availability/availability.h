@@ -3,7 +3,7 @@
 
 #include "employee/schedule/currentEmployeeSchedule.h"
 #include "employee/schedule/desiredEmployeeSchedule.h"
-#include "other/calendar.h"
+#include "utils/calendar.h"
 
 class Availability {
 private:

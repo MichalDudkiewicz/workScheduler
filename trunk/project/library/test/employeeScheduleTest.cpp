@@ -1,6 +1,6 @@
 #include "employee/schedule/desiredEmployeeSchedule.h"
-#include "other/calendar.h"
 #include "shift/shift.h"
+#include "utils/calendar.h"
 #include <boost/test/unit_test.hpp>
 #include <memory>
 

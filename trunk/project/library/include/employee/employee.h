@@ -1,7 +1,7 @@
 #ifndef employeeClass
 #define employeeClass
 
-#include "other/typeDefinitions.h"
+#include "utils/typeDefinitions.h"
 class Factor;
 typedef std::unique_ptr<Factor> factorPtr;
 

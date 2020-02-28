@@ -1,8 +1,8 @@
 #include "employee/schedule/currentEmployeeSchedule.h"
-#include "other/calendar.h"
 #include "positions/position.h"
 #include "shift/shift.h"
 #include "team/team.h"
+#include "utils/calendar.h"
 #include <sstream>
 
 void CurrentEmployeeSchedule::assign(teamPtr team, positionPtr position, shiftPtr shift)

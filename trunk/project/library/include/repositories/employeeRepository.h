@@ -1,8 +1,8 @@
 #ifndef employeeRepositoryClass
 #define employeeRepositoryClass
 
-#include "other/typeDefinitions.h"
 #include "repositories/repository.h"
+#include "utils/typeDefinitions.h"
 #include <string>
 #include <unordered_map>
 

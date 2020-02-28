@@ -1,7 +1,7 @@
 #ifndef positionClass
 #define positionClass
 
-#include "other/typeDefinitions.h"
+#include "utils/typeDefinitions.h"
 #include <string>
 
 class Position {

@@ -2,10 +2,10 @@
 #include "employee/employee.h"
 #include "employee/factors/factor.h"
 #include "employee/factors/rules/employeeTypes/employeeType.h"
-#include "other/calendar.h"
 #include "positions/position.h"
 #include "repositories/employeeRepository.h"
 #include "shift/shift.h"
+#include "utils/calendar.h"
 
 EmployeeManager& EmployeeManager::getInstance()
 {

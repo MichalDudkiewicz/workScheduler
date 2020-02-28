@@ -2,7 +2,7 @@
 #define positionManagerClass
 
 #include "manager.h"
-#include "other/typeDefinitions.h"
+#include "utils/typeDefinitions.h"
 
 class PositionManager : public Manager<Position, unsigned int> {
 private:

@@ -1,8 +1,8 @@
 #ifndef positionRepositoryClass
 #define positionRepositoryClass
 
-#include "other/typeDefinitions.h"
 #include "repositories/repository.h"
+#include "utils/typeDefinitions.h"
 #include <unordered_map>
 
 class PositionRepository : public Repository<Position, unsigned int> {
