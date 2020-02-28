@@ -335,6 +335,7 @@ BOOST_FIXTURE_TEST_CASE(EmployeeCurrentScheduleCase, FixtureEmployeeTest)
                               .getCurrentSchedule()
                               .getSchedule()[10].size(),
                       2);
+
     (*employee0)
         .getFactor()
         ->getAvailability()
@@ -371,6 +372,11 @@ BOOST_FIXTURE_TEST_CASE(EmployeeCurrentScheduleCase, FixtureEmployeeTest)
         false);
     BOOST_CHECK_EQUAL((*employee0).getFactor()->getAvailability().isBusy(shift8),
         true);
+
+    BOOST_TEST_MESSAGE((*employee0)
+            .getFactor()
+            ->getAvailability()
+            .getCurrentSchedule().scheduleInfo());
 }
 
 BOOST_FIXTURE_TEST_CASE(EmployeeIsAuthorisedCase, FixtureEmployeeTest)

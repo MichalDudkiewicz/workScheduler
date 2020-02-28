@@ -1,5 +1,8 @@
 #include "employee/schedule/currentEmployeeSchedule.h"
 #include "shift/shift.h"
+#include <sstream>
+#include "other/calendar.h"
+#include "positions/position.h"
 #include "team/team.h"
 
 void CurrentEmployeeSchedule::assign(teamPtr team, positionPtr position, shiftPtr shift){
@@ -22,5 +25,22 @@ void CurrentEmployeeSchedule::removeAssignment(const teamPtr& team, unsigned int
 }
 
 std::string CurrentEmployeeSchedule::scheduleInfo() const{
-return "";
+    std::ostringstream info;
+    info << "My current schedule: " << std::endl;
+    unsigned int dayNumber = 1;
+    for (const auto &day : schedule)
+    {
+        info << dayNumber << ": " << std::endl;
+        for (const auto & assignment : day)
+        {
+            info << "team: " << assignment.team->getName()<<std::endl;
+            info << "position: "<<assignment.position->positionInfo()<<std::endl;
+            info << "shift: " << assignment.shift->shiftInfo()<<std::endl;
+        }
+        info <<std::endl;
+        dayNumber++;
+        if(dayNumber==calendar::getNumberOfDays()+1)
+            dayNumber=1;
+    }
+    return info.str();
 }
