@@ -39,4 +39,21 @@ public:
     const std::vector<T>& getCalendar() const { return calendar; }
 };
 
+class Day {
+private:
+    unsigned int index;
+
+public:
+    Day();
+    Day& operator=(const Day& rhs) = default;
+    Day& operator++();
+    Day& operator--();
+    Day& operator+=(unsigned int numberOfDays);
+    Day& operator-=(unsigned int numberOfDays);
+    Day operator+(unsigned int numberOfDays) const;
+    Day operator-(unsigned int numberOfDays) const;
+    std::string toString() const;
+    unsigned int getIndex() const;
+};
+
 #endif

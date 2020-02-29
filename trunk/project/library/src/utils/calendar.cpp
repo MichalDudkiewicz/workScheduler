@@ -66,3 +66,65 @@ unsigned int calendar::whatDayOfWeek(unsigned int dayOfMonth)
     }
     return weekDayIterator;
 }
+
+Day::Day()
+    : index(0)
+{
+}
+
+unsigned int Day::getIndex() const
+{
+    return index;
+}
+
+std::string Day::toString() const
+{
+    std::ostringstream out;
+    unsigned int daysInMonth = calendar::getNumberOfDays();
+    if (index + 1 > daysInMonth)
+        out << index + 1 - daysInMonth;
+    else
+        out << index + 1;
+    return out.str();
+}
+
+Day& Day::operator++()
+{
+    index++;
+    return *this;
+}
+
+Day& Day::operator--()
+{
+    if (index == 0)
+        return *this;
+    index--;
+    return *this;
+}
+
+Day Day::operator+(unsigned int numberOfDays) const
+{
+    Day temp;
+    temp.index = this->index + numberOfDays;
+    return temp;
+}
+
+Day Day::operator-(unsigned int numberOfDays) const
+{
+    Day temp;
+    if (index <= numberOfDays)
+        return temp;
+    temp.index = this->index - numberOfDays;
+    return temp;
+}
+
+Day& Day::operator+=(unsigned int numberOfDays)
+{
+    *this = *this + numberOfDays;
+    return *this;
+}
+Day& Day::operator-=(unsigned int numberOfDays)
+{
+    *this = *this - numberOfDays;
+    return *this;
+}
