@@ -12,6 +12,9 @@ FinalSchedule::FinalSchedule(const teams& allTeams,
     for (const auto& team : allTeams) {
         allQueues.emplace_back(TeamQueues(team, allEmployees));
     }
+    for (auto& teamQueues : allQueues) {
+        teamQueues.createQueues();
+    }
     for (auto& day : schedule) {
         for (const auto& team : allTeams) {
             day.emplace(team, employeesToPosition{});
@@ -22,7 +25,7 @@ FinalSchedule::FinalSchedule(const teams& allTeams,
     }
 }
 
-void FinalSchedule::makeSchedule()
+void FinalSchedule::createSchedule()
 {
     bool enemiesInTeam;
     unsigned int startHour;

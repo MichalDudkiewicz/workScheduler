@@ -24,7 +24,7 @@ WorkScheduler::WorkScheduler()
 
 void WorkScheduler::createSchedule()
 {
-    schedule.makeSchedule();
+    schedule.createSchedule();
 }
 
 std::string WorkScheduler::scheduleInfo() const

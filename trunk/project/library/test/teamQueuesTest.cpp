@@ -107,6 +107,7 @@ BOOST_FIXTURE_TEST_CASE(TeamQueuesCasegetSchedule, FixtureTeamQueuesTest)
     palinka->getFactor()->getAuthorisation().addTeam(team);
     mateusz->getFactor()->getAuthorisation().addTeam(team);
     TeamQueues queue(team, employees);
+    queue.createQueues();
     BOOST_REQUIRE_EQUAL(
         queue.getSchedule()[0].at(team->getPositions().front()).empty(), true);
     BOOST_REQUIRE_EQUAL(
@@ -192,6 +193,7 @@ BOOST_AUTO_TEST_CASE(TemaQueueTestSort)
     team->addShift(8, 12, 1);
     team->addPosition(doctor);
     TeamQueues queues(team, employees);
+    queues.createQueues();
     queues.queueSort(d.day() - 1, team->getPositions().front());
     BOOST_CHECK_EQUAL(queues.getSchedule()[d.day() - 1]
                           .at(team->getPositions().front())

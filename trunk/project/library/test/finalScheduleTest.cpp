@@ -95,7 +95,7 @@ BOOST_AUTO_TEST_CASE(FinalScheduleCase)
 
     FinalSchedule schedule(TeamRepository::getInstance().getAll(),
         EmployeeRepository::getInstance().getAll());
-    schedule.makeSchedule();
+    schedule.createSchedule();
     BOOST_TEST_MESSAGE(schedule.scheduleInfo());
     BOOST_CHECK_EQUAL(schedule.getSchedule()[0]
                           .at(TeamRepository::getInstance().getAll().front())

@@ -15,7 +15,7 @@ private:
 
 public:
     FinalSchedule(const teams&, const employees&);
-    void makeSchedule();
+    void createSchedule();
     void clear();
     std::string scheduleInfo() const override;
 };
