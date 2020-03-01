@@ -1,4 +1,5 @@
 #include "shift/shift.h"
+#include "utils/calendar.h"
 #include <boost/test/unit_test.hpp>
 #include <memory>
 
@@ -114,6 +115,31 @@ BOOST_FIXTURE_TEST_CASE(ShiftEqualOperatorCase, FixtureShiftTest)
     BOOST_REQUIRE_EQUAL(shift4 == shift1, false);
     BOOST_REQUIRE_EQUAL((shift5 + shift7) == shift1, false);
     BOOST_REQUIRE_EQUAL(shift1 == (shift5 + shift7), false);
+}
+
+BOOST_AUTO_TEST_CASE(ShiftExpandCase)
+{
+    Shift shiftFirst(3, 12, 1);
+    Shift shiftLast(18, 22, calendar::getNumberOfDays() + 1);
+    Shift shift1(3, 12, 10);
+    Shift shift2(18, 23, 12);
+
+    Shift shiftFirstExpanded(shiftFirst + 6);
+    Shift shiftLastExpanded(shiftLast + 6);
+    Shift shift1Expanded(shift1 + 6);
+    Shift shift2Expanded(shift2 + 6);
+    BOOST_REQUIRE_EQUAL(shiftFirstExpanded.getDay(), 1);
+    BOOST_REQUIRE_EQUAL(shiftFirstExpanded.getStartHour(), 0);
+    BOOST_REQUIRE_EQUAL(shiftFirstExpanded.getEndHour(), 18);
+    BOOST_REQUIRE_EQUAL(shiftLastExpanded.getDay(), calendar::getNumberOfDays() + 1);
+    BOOST_REQUIRE_EQUAL(shiftLastExpanded.getStartHour(), 12);
+    BOOST_REQUIRE_EQUAL(shiftLastExpanded.getEndHour(), 24);
+    BOOST_REQUIRE_EQUAL(shift1Expanded.getDay(), 9);
+    BOOST_REQUIRE_EQUAL(shift1Expanded.getStartHour(), 21);
+    BOOST_REQUIRE_EQUAL(shift1Expanded.getEndHour(), 18);
+    BOOST_REQUIRE_EQUAL(shift2Expanded.getDay(), 12);
+    BOOST_REQUIRE_EQUAL(shift2Expanded.getStartHour(), 12);
+    BOOST_REQUIRE_EQUAL(shift2Expanded.getEndHour(), 5);
 }
 
 BOOST_AUTO_TEST_SUITE_END()

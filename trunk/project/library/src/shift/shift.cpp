@@ -1,4 +1,5 @@
 #include "shift/shift.h"
+#include "utils/calendar.h"
 #include <sstream>
 
 Shift::Shift(unsigned int start, unsigned int end, unsigned int d)
@@ -116,4 +117,24 @@ bool compareShiftStartHour::operator()(const shiftPtr& s1,
 bool Shift::isDayOff() const
 {
     return startHour == 0 and endHour == 0;
+}
+
+Shift Shift::operator+(unsigned int hours)
+{
+    Shift temp(this->startHour - hours, this->endHour + hours, this->day);
+    if (this->startHour < hours)
+        temp.setStartHour(24 - (hours - this->startHour));
+    if (temp.endHour > 24)
+        temp.setEndHour(this->endHour + hours - 24);
+    if (temp.startHour > this->startHour) {
+        if (this->day > 1) {
+            temp.setDay(this->day - 1);
+        } else {
+            temp.setStartHour(0);
+        }
+    }
+    if (temp.endHour < this->endHour and this->day == calendar::getNumberOfDays() + 1) {
+        temp.setEndHour(24);
+    }
+    return temp;
 }

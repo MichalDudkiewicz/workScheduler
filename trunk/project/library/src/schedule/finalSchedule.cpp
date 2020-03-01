@@ -4,6 +4,7 @@
 #include "positions/position.h"
 #include "shift/shift.h"
 #include "team/team.h"
+#include <set>
 
 FinalSchedule::FinalSchedule(const teams& allTeams,
     const employees& allEmployees)
@@ -42,9 +43,10 @@ void FinalSchedule::createSchedule()
 
                     bool enemiesInTeam = checkEnemiesInTeam(e, day, teamQueue.getTeam());
                     bool isBusy = e->getFactor()->getAvailability().isBusy(shift);
-                    bool shiftsLimitExceeded = e->getFactor()->getAvailability().getShiftsQuantity() + shift->getLength() > e->getFactor()->getRules().getMaxShifts();
+                    bool shiftsLimitExceeded = e->getFactor()->getAvailability().getShiftsQuantity() >= e->getFactor()->getRules().getMaxShifts();
+                    bool needBreak = isBreakNeeded(e, position, day, shift);
 
-                    if (!isBusy and !enemiesInTeam and !shiftsLimitExceeded) {
+                    if (!isBusy and !enemiesInTeam and !shiftsLimitExceeded and !needBreak) {
                         schedule[day - 1]
                             .at(teamQueue.getTeam())
                             .at(position)
@@ -122,6 +124,28 @@ bool FinalSchedule::checkEnemiesInTeam(const employeePtr& employee, unsigned int
                     ->getRelationship()
                     .isEnemyWith(employee)) {
                 return true;
+            }
+        }
+    }
+    return false;
+}
+
+bool FinalSchedule::isBreakNeeded(const employeePtr& employee, const positionPtr& position, unsigned int day, const shiftPtr& shift) const
+{
+    if (position->positionID() == 2 or position->positionID() == 3) {
+        unsigned int dayAfter = day;
+        if (day < calendar::getNumberOfDays() + 1)
+            ++dayAfter;
+        unsigned int dayBefore = day;
+        if (day > 1)
+            --dayBefore;
+        std::set<unsigned int> daysToCheck{ dayBefore, day, dayAfter };
+        for (const auto& dayToCheck : daysToCheck) {
+            for (const auto& assignment : employee->getFactor()->getAvailability().getCurrentSchedule().getSchedule()[dayToCheck - 1]) {
+                if (assignment.position->positionID() == 2 or assignment.position->positionID() == 3) {
+                    if ((*assignment.shift) + 6 == (*shift))
+                        return true;
+                }
             }
         }
     }

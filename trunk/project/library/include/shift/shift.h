@@ -13,6 +13,7 @@ private:
 
 public:
     Shift(unsigned int, unsigned int, unsigned int);
+    Shift(const Shift& shift) = default;
     explicit Shift(unsigned int);
     unsigned int getLength() const;
     std::string shiftInfo() const;
@@ -23,6 +24,7 @@ public:
     bool operator>=(const Shift&) const;
     bool isNightShift() const;
     Shift operator+(const Shift&) const;
+    Shift operator+(unsigned int hours);
     unsigned int getDay() const;
     bool operator==(const Shift& shift) const;
     void setDay(unsigned int);
