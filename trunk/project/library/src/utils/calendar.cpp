@@ -1,5 +1,7 @@
 #include "utils/calendar.h"
 
+static const unsigned int scheduleSize = calendar::getNumberOfDays() + 1;
+
 unsigned int calendar::getNumberOfDays()
 {
     boost::gregorian::date currentDate(boost::gregorian::day_clock::local_day());
@@ -67,6 +69,18 @@ unsigned int calendar::whatDayOfWeek(unsigned int dayOfMonth)
     return weekDayIterator;
 }
 
+DayException::DayException(const std::string& message)
+    : logic_error(message)
+{
+}
+
+std::string DayException::message() const
+{
+    std::ostringstream out;
+    out << what() << std::endl;
+    return out.str();
+}
+
 Day::Day()
     : index(0)
 {
@@ -77,19 +91,10 @@ unsigned int Day::getIndex() const
     return index;
 }
 
-std::string Day::toString() const
-{
-    std::ostringstream out;
-    unsigned int daysInMonth = calendar::getNumberOfDays();
-    if (index + 1 > daysInMonth)
-        out << index + 1 - daysInMonth;
-    else
-        out << index + 1;
-    return out.str();
-}
-
 Day& Day::operator++()
 {
+    if (index == scheduleSize - 1)
+        throw DayException("Day out of range- schedule size exceeded");
     index++;
     return *this;
 }
@@ -97,13 +102,15 @@ Day& Day::operator++()
 Day& Day::operator--()
 {
     if (index == 0)
-        return *this;
+        throw DayException("Day out of range- negative value");
     index--;
     return *this;
 }
 
 Day Day::operator+(unsigned int numberOfDays) const
 {
+    if (index + numberOfDays >= scheduleSize)
+        throw DayException("Day out of range- schedule size exceeded");
     Day temp;
     temp.index = this->index + numberOfDays;
     return temp;
@@ -113,7 +120,7 @@ Day Day::operator-(unsigned int numberOfDays) const
 {
     Day temp;
     if (index <= numberOfDays)
-        return temp;
+        throw DayException("Day out of range- negative value");
     temp.index = this->index - numberOfDays;
     return temp;
 }
@@ -123,8 +130,24 @@ Day& Day::operator+=(unsigned int numberOfDays)
     *this = *this + numberOfDays;
     return *this;
 }
+
 Day& Day::operator-=(unsigned int numberOfDays)
 {
     *this = *this - numberOfDays;
     return *this;
+}
+
+unsigned int Day::dayOfWeek() const
+{
+    return calendar::whatDayOfWeek(index + 1);
+}
+
+std::ostream& operator<<(std::ostream& out, const Day& day)
+{
+    unsigned int daysInMonth = calendar::getNumberOfDays();
+    if (day.getIndex() + 1 > daysInMonth)
+        out << day.getIndex() + 1 - daysInMonth << " day (next month):";
+    else
+        out << day.getIndex() + 1 << " day:";
+    return out;
 }

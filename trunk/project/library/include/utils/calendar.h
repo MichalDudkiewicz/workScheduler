@@ -1,7 +1,8 @@
 #ifndef calendarNamespace
 #define calendarNamespace
 
-#include "boost/date_time/gregorian/gregorian.hpp"
+#include <boost/date_time/gregorian/gregorian.hpp>
+#include <exception>
 #include <vector>
 
 namespace calendar {
@@ -22,10 +23,10 @@ private:
 public:
     using iterator = typename std::vector<T>::iterator;
     using const_iterator = typename std::vector<T>::const_iterator;
-    Calendar()
+    explicit Calendar(unsigned int sizeOfSchedule)
     {
-        calendar.reserve(calendar::getNumberOfDays() + 1);
-        for (unsigned int day = 1; day <= calendar::getNumberOfDays() + 1; ++day) {
+        calendar.reserve(sizeOfSchedule);
+        for (unsigned int day = 1; day <= sizeOfSchedule; ++day) {
             calendar.emplace_back();
         }
     }
@@ -39,6 +40,12 @@ public:
     const std::vector<T>& getCalendar() const { return calendar; }
 };
 
+class DayException : public std::logic_error {
+public:
+    explicit DayException(const std::string& message);
+    std::string message() const;
+};
+
 class Day {
 private:
     unsigned int index;
@@ -46,14 +53,16 @@ private:
 public:
     Day();
     Day& operator=(const Day& rhs) = default;
-    Day& operator++();
-    Day& operator--();
+    Day& operator++() noexcept(false);
+    Day& operator--() noexcept(false);
     Day& operator+=(unsigned int numberOfDays);
     Day& operator-=(unsigned int numberOfDays);
-    Day operator+(unsigned int numberOfDays) const;
-    Day operator-(unsigned int numberOfDays) const;
-    std::string toString() const;
+    Day operator+(unsigned int numberOfDays) const noexcept(false);
+    Day operator-(unsigned int numberOfDays) const noexcept(false);
+    unsigned int dayOfWeek() const;
     unsigned int getIndex() const;
 };
+
+std::ostream& operator<<(std::ostream& os, const Day& day);
 
 #endif
