@@ -12,6 +12,7 @@ typedef std::map<teamPtr, employeesToPosition> employeesToTeam;
 class FinalSchedule : public Schedule<employeesToTeam> {
 private:
     allTeamsQueues allQueues{};
+    bool checkEnemiesInTeam(const employeePtr& employee, unsigned int day, const teamPtr& team) const;
 
 public:
     FinalSchedule(const teams&, const employees&);

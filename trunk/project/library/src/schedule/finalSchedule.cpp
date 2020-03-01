@@ -27,42 +27,30 @@ FinalSchedule::FinalSchedule(const teams& allTeams,
 
 void FinalSchedule::createSchedule()
 {
-    bool enemiesInTeam;
-    unsigned int startHour;
-    unsigned int endHour;
     for (unsigned int day = 1; day <= calendar::getNumberOfDays() + 1; ++day) {
         for (auto& teamQueue : allQueues) {
             for (const auto& position : teamQueue.getTeam()->getPositions()) {
                 teamQueue.queueSort(day - 1, position);
-                startHour = teamQueue.getTeam()
-                                ->getShifts()[calendar::whatDayOfWeek(day)]
-                                ->getStartHour();
-                endHour = teamQueue.getTeam()
-                              ->getShifts()[calendar::whatDayOfWeek(day)]
-                              ->getEndHour();
+                shiftPtr shift(new Shift(teamQueue.getTeam()
+                                             ->getShifts()[calendar::whatDayOfWeek(day)]
+                                             ->getStartHour(),
+                    teamQueue.getTeam()
+                        ->getShifts()[calendar::whatDayOfWeek(day)]
+                        ->getEndHour(),
+                    day));
                 for (const auto& e : teamQueue.getSchedule()[day - 1].at(position)) {
-                    enemiesInTeam = false;
-                    for (const auto& employeesInTeam :
-                        schedule[day - 1].at(teamQueue.getTeam())) {
-                        if (!employeesInTeam.second.empty()) {
-                            if (employeesInTeam.second.front()
-                                    ->getFactor()
-                                    ->getRelationship()
-                                    .isEnemyWith(e)) {
-                                enemiesInTeam = true;
-                                break;
-                            }
-                        }
-                    }
-                    if (!e->getFactor()->getAvailability().isBusy(startHour, endHour,
-                            day)
-                        and !enemiesInTeam and e->getFactor()->getAvailability().getShiftsQuantity() < e->getFactor()->getRules().getMaxShifts()) {
+
+                    bool enemiesInTeam = checkEnemiesInTeam(e, day, teamQueue.getTeam());
+                    bool isBusy = e->getFactor()->getAvailability().isBusy(shift);
+                    bool shiftsLimitExceeded = e->getFactor()->getAvailability().getShiftsQuantity() + shift->getLength() > e->getFactor()->getRules().getMaxShifts();
+
+                    if (!isBusy and !enemiesInTeam and !shiftsLimitExceeded) {
                         schedule[day - 1]
                             .at(teamQueue.getTeam())
                             .at(position)
                             .push_front(e);
                         e->getFactor()->getAvailability().getCurrentSchedule().assign(
-                            teamQueue.getTeam(), position, shiftPtr(new Shift(startHour, endHour, day)));
+                            teamQueue.getTeam(), position, std::move(shift));
                         break;
                     }
                 }
@@ -122,4 +110,20 @@ void FinalSchedule::clear()
             }
         }
     }
+}
+
+bool FinalSchedule::checkEnemiesInTeam(const employeePtr& employee, unsigned int day, const teamPtr& team) const
+{
+    for (const auto& employeesInTeam :
+        schedule[day - 1].at(team)) {
+        if (!employeesInTeam.second.empty()) {
+            if (employeesInTeam.second.front()
+                    ->getFactor()
+                    ->getRelationship()
+                    .isEnemyWith(employee)) {
+                return true;
+            }
+        }
+    }
+    return false;
 }

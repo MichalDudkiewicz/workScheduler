@@ -17,9 +17,6 @@ public:
     unsigned int getShiftsQuantity() const;
     bool isAvailable(const shiftPtr& shift) const;
     bool isBusy(const shiftPtr&) const;
-    bool isBusy(unsigned int startHour,
-        unsigned int endHour,
-        unsigned int day) const;
     CurrentEmployeeSchedule& getCurrentSchedule();
     DesiredEmployeeSchedule& getDesiredSchedule();
 };
