@@ -162,7 +162,7 @@ bool FinalSchedule::isBreakNeeded(const employeePtr& employee, const positionPtr
             return true;
         for (auto& shiftColliding : shiftsToCheck) {
             for (auto& shiftPotentiallyColliding : allDriverShifts) {
-                if (((shiftColliding + 3) == (shiftPotentiallyColliding + 3)) and ((shiftColliding.getLength() + shiftPotentiallyColliding.getLength() + (*shift).getLength()) > 14)) {
+                if (((shiftColliding + 3) == (shiftPotentiallyColliding + 3)) and ((collidingShiftsLength + shiftPotentiallyColliding.getLength() + (*shift).getLength()) > 14)) {
                     return true;
                 }
             }
