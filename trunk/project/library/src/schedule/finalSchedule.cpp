@@ -132,6 +132,8 @@ bool FinalSchedule::checkEnemiesInTeam(const employeePtr& employee, unsigned int
 
 bool FinalSchedule::isBreakNeeded(const employeePtr& employee, const positionPtr& position, unsigned int day, const shiftPtr& shift) const
 {
+    std::list<Shift> shiftsToCheck;
+    std::list<Shift> allDriverShifts;
     if (position->positionID() == 2 or position->positionID() == 3) {
         unsigned int dayAfter = day;
         if (day < calendar::getNumberOfDays() + 1)
@@ -143,8 +145,25 @@ bool FinalSchedule::isBreakNeeded(const employeePtr& employee, const positionPtr
         for (const auto& dayToCheck : daysToCheck) {
             for (const auto& assignment : employee->getFactor()->getAvailability().getCurrentSchedule().getSchedule()[dayToCheck - 1]) {
                 if (assignment.position->positionID() == 2 or assignment.position->positionID() == 3) {
-                    if ((*assignment.shift) + 6 == (*shift))
-                        return true;
+                    allDriverShifts.push_front(*assignment.shift);
+                    if ((*assignment.shift) + 3 == (*shift) + 3) {
+                        if ((*assignment.shift).getLength() + (*shift).getLength() > 14)
+                            return true;
+                        shiftsToCheck.push_front(*assignment.shift);
+                    }
+                }
+            }
+        }
+        unsigned int collidingShiftsLength = 0;
+        for (const auto& shiftToCheck : shiftsToCheck) {
+            collidingShiftsLength += shiftToCheck.getLength();
+        }
+        if (collidingShiftsLength + (*shift).getLength() > 14)
+            return true;
+        for (auto& shiftColliding : shiftsToCheck) {
+            for (auto& shiftPotentiallyColliding : allDriverShifts) {
+                if (((shiftColliding + 3) == (shiftPotentiallyColliding + 3)) and ((shiftColliding.getLength() + shiftPotentiallyColliding.getLength() + (*shift).getLength()) > 14)) {
+                    return true;
                 }
             }
         }
