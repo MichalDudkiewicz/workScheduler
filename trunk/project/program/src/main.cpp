@@ -13,11 +13,10 @@ using namespace std;
 int main()
 {
     system(
-        "rm -R -f ../../../dataset/converted/* && libreoffice --headless "
+        "rm -R -f ../../../dataset/converted/* && libreoffice p --headless "
         "--convert-to csv --outdir ../../../dataset/converted/ "
         "../../../dataset/unconverted/*");
 
-    //    input::loadDesiredShifts("../../../dataset/unconverted");
 
     input::loadPositions();
 
@@ -29,11 +28,11 @@ int main()
     DatabaseManager::getInstance().addTeamsToEmployees();
     DatabaseManager::getInstance().addEnemiesToEmployees();
     DatabaseManager::getInstance().addPositionToEmployees();
-    DatabaseManager::getInstance().addShiftsToEmployees();
+//    DatabaseManager::getInstance().addShiftsToEmployees();
+    input::loadDesiredShifts("../../../dataset/converted");
 
     // CREATING AND DISPLAYING SCHEDULE
     WorkScheduler::getInstance().createSchedule();
     cout << WorkScheduler::getInstance().scheduleInfo();
-    cout << WorkScheduler::getInstance().toJson();
     return 0;
 }

@@ -2,3 +2,4 @@ target
 cmake-build-debug
 .idea
 .git_old
+dataset
