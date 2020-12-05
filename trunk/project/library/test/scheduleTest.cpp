@@ -7,7 +7,7 @@ BOOST_AUTO_TEST_SUITE(TestSuiteCorrect)
 struct FixtureScheduleTest {
     FixtureScheduleTest()
         : d(boost::gregorian::day_clock::local_day())
-        , startDate(d.year(), d.month() + 1, 1)
+        , startDate((d + boost::gregorian::months(1)).year(), (d + boost::gregorian::months(1)).month(), 1)
         , day(startDate.day_of_week() - 1)
     {
         if (day == -1)
