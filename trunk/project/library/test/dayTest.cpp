@@ -97,8 +97,8 @@ BOOST_AUTO_TEST_CASE(DayExceededRangeCase)
 
 BOOST_AUTO_TEST_CASE(DayDayOfWeekCase)
 {
-    Day day;
-    BOOST_CHECK_EQUAL(day.dayOfWeek(), 2);
+    Day day(boost::gregorian::day_clock::local_day().day());
+    BOOST_CHECK_EQUAL(day.dayOfWeek(), calendar::whatDayOfWeek(boost::gregorian::day_clock::local_day().day()));
 }
 
 BOOST_AUTO_TEST_SUITE_END()

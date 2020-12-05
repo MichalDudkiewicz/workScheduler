@@ -25,6 +25,7 @@ struct FixtureTeamQueuesTest {
         , saturday(new Shift(3, 10, 6))
         , sunday(new Shift(20, 23, 7))
         , employees()
+        , now(boost::gregorian::day_clock::local_day())
     {
         (*palinka).getFactor()->getAvailability().getDesiredSchedule().addShift(
             0, 10, 2);
@@ -47,9 +48,9 @@ struct FixtureTeamQueuesTest {
         (*mateusz).getFactor()->getAvailability().getDesiredSchedule().addShift(
             0, 10, 20);
         (*mateusz).getFactor()->getAvailability().getDesiredSchedule().addShift(
-            10, 24, 12);
+            22, 24, now.day());
         (*mateusz).getFactor()->getAvailability().getDesiredSchedule().addShift(
-            0, 24, 12);
+            0, 6, now.day()+1);
         (*mateusz).getFactor()->getAvailability().getDesiredSchedule().addShift(
             0, 7, 30);
         (*mateusz).getFactor()->getAvailability().getDesiredSchedule().addShift(
@@ -58,6 +59,10 @@ struct FixtureTeamQueuesTest {
         (*mateusz).getFactor()->getAuthorisation().addPosition(medic);
         (*palinka).getFactor()->getAuthorisation().addPosition(medic);
 
+
+
+        auto newShift = std::make_unique<Shift>(22, 5, now.day());
+
         (*team).addShift(monday);
         (*team).addShift(tuesday);
         (*team).addShift(wednesday);
@@ -65,6 +70,9 @@ struct FixtureTeamQueuesTest {
         (*team).addShift(friday);
         (*team).addShift(saturday);
         (*team).addShift(sunday);
+
+        (*team).addShift(newShift);
+
         (*team).addPosition(medic);
         (*team).addPosition(doctor);
 
@@ -94,6 +102,7 @@ struct FixtureTeamQueuesTest {
     std::shared_ptr<Team> team = std::make_shared<Team>("S1");
 
     std::list<employeePtr> employees;
+    boost::gregorian::date now;
 };
 
 BOOST_FIXTURE_TEST_CASE(TeamQueuesCaseGetTeam, FixtureTeamQueuesTest)
@@ -114,13 +123,13 @@ BOOST_FIXTURE_TEST_CASE(TeamQueuesCasegetSchedule, FixtureTeamQueuesTest)
         queue.getSchedule()[0].at(team->getPositions().back()).empty(), true);
     BOOST_REQUIRE_EQUAL(
         queue.getSchedule()[1].at(team->getPositions().front()).empty(), true);
-    BOOST_REQUIRE_EQUAL(queue.getSchedule()[11]
+    BOOST_REQUIRE_EQUAL(queue.getSchedule()[now.day() - 1]
                             .at(team->getPositions().back())
                             .front()
                             ->getId(),
         2);
     BOOST_REQUIRE_EQUAL(
-        queue.getSchedule()[11].at(team->getPositions().front()).size(), 1);
+        queue.getSchedule()[now.day() - 1].at(team->getPositions().front()).size(), 1);
 }
 
 BOOST_AUTO_TEST_CASE(TemaQueueTestSort)

@@ -52,6 +52,7 @@ private:
 
 public:
     Day();
+    explicit Day(int dayNumber);
     Day& operator=(const Day& rhs) = default;
     Day& operator++() noexcept(false);
     Day& operator--() noexcept(false);

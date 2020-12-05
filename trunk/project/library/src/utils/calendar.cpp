@@ -142,6 +142,12 @@ unsigned int Day::dayOfWeek() const
     return calendar::whatDayOfWeek(index + 1);
 }
 
+Day::Day(int dayNumber) : index(dayNumber - 1)
+{
+    if (index >= scheduleSize)
+        throw DayException("wrong index");
+}
+
 std::ostream& operator<<(std::ostream& out, const Day& day)
 {
     unsigned int daysInMonth = calendar::getNumberOfDays();

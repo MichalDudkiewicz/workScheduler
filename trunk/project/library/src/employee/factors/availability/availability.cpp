@@ -42,7 +42,8 @@ bool Availability::isAvailable(const shiftPtr& shift) const
     }
     if (shift->getDay() != desiredSchedule.getSchedule().size()) {
         if (!desiredSchedule.getSchedule()[shift->getDay() - 1].empty() and !desiredSchedule.getSchedule()[shift->getDay()].empty()) {
-            return ((*desiredSchedule.getSchedule()[shift->getDay() - 1].back()) + (*desiredSchedule.getSchedule()[shift->getDay()][0])) >= (*shift);
+            auto nightShift = ((*desiredSchedule.getSchedule()[shift->getDay() - 1].back()) + (*desiredSchedule.getSchedule()[shift->getDay()][0]));
+            return nightShift >= (*shift);
         }
     }
     return false;
